@@ -1,0 +1,17 @@
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+
+# Common
+.*
+!.gitkeep
+!.gitignore
+
+# Directories
+build
+gradle
+
+# File-types
+*.lock
+*.bin
+*.properties
