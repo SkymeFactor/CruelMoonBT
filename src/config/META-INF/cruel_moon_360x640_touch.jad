@@ -1,0 +1,17 @@
+MIDlet-Jar-Size: 1008605
+MIDlet-Jar-URL: cruel_moon_360x640_touch.jar
+Manifest-Version: 1.0
+Nokia-MIDlet-On-Screen-Keypad: no
+MicroEdition-Configuration: CLDC-1.0
+MIDlet-Name: Moon BT
+MIDlet-Icon: /icons/ico.png
+MIDlet-Vendor: NET Lizard
+MIDlet-1: Moon BT, /icons/ico.png, NET_Lizard
+Nokia-MIDlet-App-Orientation: portrait
+MIDlet-Version: 2.0
+MicroEdition-Profile: MIDP-2.0
+MIDlet-Install-Notify: http://www.glowingmobile.com/pub/notify.php?a=cruel_moon&c=134
+ReverseSoftkeys: true
+UseNativeCommands: false
+LGE-MIDlet-TargetLCD-Height: 640
+LGE-MIDlet-TargetLCD-Width: 360
