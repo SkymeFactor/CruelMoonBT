@@ -9,10 +9,10 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 public class a extends Canvas {
-    static int[] a;
-    private static boolean b = true;
-    private static boolean c = false;
-    private static boolean d = false;
+    static int[] a5;
+    private static boolean b5 = true;
+    private static boolean c5 = false;
+    private static boolean d5 = false;
 
     public a() {
         this.setFullScreenMode(true);
@@ -25,8 +25,8 @@ public class a extends Canvas {
         var1 += var7;
         var2 += var8;
         int var10 = 2880;
-        if (a != null && 2880 < a.length) {
-            var10 = a.length;
+        if (a5 != null && 2880 < a5.length) {
+            var10 = a5.length;
         }
 
         boolean var11 = true;
@@ -34,18 +34,18 @@ public class a extends Canvas {
         int var12;
         try {
             var12 = var5 + (var6 << 24);
-            if (Display.getDisplay(NET_Lizard.a).numAlphaLevels() > 2) {
+            if (Display.getDisplay(NET_Lizard.app).numAlphaLevels() > 2) {
                 int var14;
-                if (a == null || a.length != var10 || a[0] != var12) {
-                    if (a == null || a.length != var10) {
-                        if (a != null) {
-                            a = null;
+                if (a5 == null || a5.length != var10 || a5[0] != var12) {
+                    if (a5 == null || a5.length != var10) {
+                        if (a5 != null) {
+                            a5 = null;
                         }
 
-                        a = new int[var10];
+                        a5 = new int[var10];
                     }
 
-                    int[] var13 = a;
+                    int[] var13 = a5;
 
                     for(var14 = 0; var14 < var13.length; ++var14) {
                         var13[var14] = var12;
@@ -81,7 +81,7 @@ public class a extends Canvas {
                         var0.setClip(var17, var18, var3, var4);
 
                         for(int var19 = var18; var19 < var18 + var4; var19 += 8) {
-                            var0.drawRGB(a, 0, 360, 0, var19, 360, 8, true);
+                            var0.drawRGB(a5, 0, 360, 0, var19, 360, 8, true);
                         }
                     }
 
@@ -133,29 +133,29 @@ public class a extends Canvas {
                 var0 = -6;
         }
 
-        if (b) {
-            b = false;
+        if (b5) {
+            b5 = false;
 
             try {
                 Class.forName("com.siemens.mp.media.control.VolumeControl");
-                d = true;
+                d5 = true;
             } catch (Exception var5) {
             }
 
             try {
                 Class.forName("com.nokia.mid.ui.FullCanvas");
-                c = true;
+                c5 = true;
             } catch (Exception var4) {
             }
 
             try {
                 Class.forName("com.samsung.util.AudioClip");
-                c = true;
+                c5 = true;
             } catch (Exception var3) {
             }
         }
 
-        if (d) {
+        if (d5) {
             if (var0 == -1) {
                 return -6;
             }
@@ -165,7 +165,7 @@ public class a extends Canvas {
             }
         }
 
-        if (c) {
+        if (c5) {
             if (var0 == -6) {
                 return -6;
             }
@@ -179,26 +179,31 @@ public class a extends Canvas {
             }
         }
 
+        // Additional Game Actions:
+        // 42 - KEY_STAR
+        // 35 - KEY_POUND
+        // 48 - KEY_NUM0
+        // 57 - KEY_NUM9
         try {
             if (var0 != 42 & var0 != 35 && (var0 < 48 || var0 > 57)) {
-                switch(NET_Lizard.c.getGameAction(var1)) {
-                    case 1:
+                switch(NET_Lizard.c_nl.getGameAction(var1)) {
+                    case 1: // UP
                         var0 = -1;
                         break;
-                    case 2:
+                    case 2: // LEFT
                         var0 = -3;
                     case 3:
                     case 4:
                     case 7:
                     default:
                         break;
-                    case 5:
+                    case 5: // RIGHT
                         var0 = -4;
                         break;
-                    case 6:
+                    case 6: // DOWN
                         var0 = -2;
                         break;
-                    case 8:
+                    case 8: // FIRE
                         var0 = -5;
                 }
             }

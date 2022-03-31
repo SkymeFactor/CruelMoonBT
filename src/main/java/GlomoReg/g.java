@@ -364,16 +364,16 @@ public final class g extends a {
     private static int a(int var0, int var1, String var2, String var3) {
         int var4 = c.size();
         c.setSize(var4 + 1);
-        c.setElementAt(new f(var0, var2, var3), var4);
-        d.put(new Integer(GlomoReg.e.e() ? var1 : var0), new Integer(var4));
+        c.setElementAt(new fGlomo(var0, var2, var3), var4);
+        d.put(Integer.valueOf(GlomoReg.e.e() ? var1 : var0), Integer.valueOf(var4));
         return var4;
     }
 
     private static int g(int var0) {
         if (var0 >= 0 && var0 < c.size()) {
-            f var1 = (f)c.elementAt(var0);
-            e.put(var1.a(), new Integer(var1.c()));
-            f.put(var1.b(), new Integer(var1.c()));
+            fGlomo var1 = (fGlomo)c.elementAt(var0);
+            e.put(var1.a(), Integer.valueOf(var1.c()));
+            f.put(var1.b(), Integer.valueOf(var1.c()));
             return var0;
         } else {
             return -1;
@@ -406,7 +406,7 @@ public final class g extends a {
             }
 
             System.out.println("name = " + var3 + " code = " + var2);
-            ((f)c.elementAt(a(var4, var6, var3, var2))).a(var6);
+            ((fGlomo)c.elementAt(a(var4, var6, var3, var2))).a(var6);
         }
 
         return c.size();
@@ -443,8 +443,8 @@ public final class g extends a {
         return var4 >= 0 ? this.b(var1, var4) : null;
     }
 
-    private static f h(int var0) {
-        return (f)c.elementAt((Integer)d.get(new Integer(var0)));
+    private static fGlomo h(int var0) {
+        return (fGlomo)c.elementAt((Integer)d.get(Integer.valueOf(var0)));
     }
 
     private g b(String[] var1, int var2) {
@@ -471,7 +471,7 @@ public final class g extends a {
 
                 for(int var6 = 0; var6 < var4.length; ++var6) {
                     String var7;
-                    if ((var7 = var8.c("c_" + String.valueOf((Integer)d.get(new Integer(var3))) + "_" + var4[var6])).compareTo("") != 0) {
+                    if ((var7 = var8.c("c_" + String.valueOf((Integer)d.get(Integer.valueOf(var3))) + "_" + var4[var6])).compareTo("") != 0) {
                         var10.a(var5[var6], var7);
                     }
                 }
@@ -485,7 +485,7 @@ public final class g extends a {
 
     public static final int e(int var0) {
         if (var0 >= 0 && var0 < c.size()) {
-            return GlomoReg.e.e() ? ((f)c.elementAt(var0)).d() : ((f)c.elementAt(var0)).c();
+            return GlomoReg.e.e() ? ((fGlomo)c.elementAt(var0)).d() : ((fGlomo)c.elementAt(var0)).c();
         } else {
             return -1;
         }
@@ -493,7 +493,7 @@ public final class g extends a {
 
     public static final int f(int var0) {
         Integer var1;
-        return (var1 = (Integer)d.get(new Integer(var0))) == null ? -1 : var1;
+        return (var1 = (Integer)d.get(Integer.valueOf(var0))) == null ? -1 : var1;
     }
 
     private static void g() {

@@ -7,21 +7,22 @@ import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
+// Text manager
 public final class j {
-    static int a = 208;
-    static int b;
-    boolean c;
-    String d;
-    static int e = 176;
-    static int f;
-    byte[] g;
-    int h;
-    static k i;
-    int j = -1;
-    int k;
-    boolean l;
-    Image m;
-    boolean n;
+    static int a9 = 208;
+    static int b9;
+    boolean c9;
+    String d9;
+    static int e9 = 176;
+    static int f9;
+    byte[] g9;
+    int h9;
+    static k i9;
+    int j9 = -1;
+    int k9;
+    boolean l9;
+    Image m9;
+    boolean n9;
     int o;
     static boolean p = false;
     int q;
@@ -155,8 +156,8 @@ public final class j {
     int bN;
 
     static {
-        f = e >> 1;
-        b = a >> 1;
+        f9 = e9 >> 1;
+        b9 = a9 >> 1;
         bD = false;
         B = false;
         w = false;
@@ -165,7 +166,7 @@ public final class j {
     }
 
     public j(k var1) {
-        this.D = a;
+        this.D = a9;
         this.bG = 3;
         this.bu = 4;
         this.bs = 1;
@@ -182,18 +183,18 @@ public final class j {
         this.av = new byte[100];
         this.bo = 12;
         this.bn = 0;
-        this.d = null;
+        this.d9 = null;
         this.at = 0;
         this.aK = 3;
         this.P = false;
         this.bF = 0;
-        this.l = true;
+        this.l9 = true;
         this.aC = new byte[][]{{47, 108, 112, 46, 112, 110, 103}, {47, 108, 112, 50, 46, 112, 110, 103}, {47, 112, 46, 112, 110, 103}, {47, 109, 105, 46, 112, 110, 103}, {47, 109, 105, 49, 46, 112, 110, 103}, {47, 109, 105}, {46, 112, 110, 103}, {47, 107, 110, 112, 46, 112, 110, 103}, {47, 110, 108, 46, 112, 110, 103}, {108, 122}, {108, 100, 46, 112, 110, 103}, {47, 111, 114, 46, 112, 110, 103}, {47, 111, 114, 95, 102, 46, 112, 110, 103}, {47, 105, 108, 48, 46, 112, 110, 103}, {111, 114, 49}, {111, 114, 50}, {47, 108, 105, 48, 46, 112, 110, 103}};
         this.am = false;
         this.bh = 7L;
         this.bi = 70L;
         this.bj = 20L;
-        this.n = false;
+        this.n9 = false;
         this.q = 110;
         this.r = 5;
         this.o = 1;
@@ -206,17 +207,17 @@ public final class j {
         this.v = false;
         this.ax = false;
         this.bk = false;
-        this.g = new byte[]{31, 22, 33, 32, 35, 42, 35, 35, 47, 38, 41, 40, 35, 44, 36};
+        this.g9 = new byte[]{31, 22, 33, 32, 35, 42, 35, 35, 47, 38, 41, 40, 35, 44, 36};
         this.T = false;
         this.U = false;
         this.V = false;
-        this.h = 15;
+        this.h9 = 15;
         this.aQ = 11;
         this.bC = -1;
         this.bA = false;
         this.by = false;
         this.bz = new int[10];
-        i = var1;
+        i9 = var1;
         g();
         k.cP = false;
     }
@@ -229,8 +230,8 @@ public final class j {
             try {
                 this.ao = f.a(var1);
             } catch (Exception var11) {
-                this.n = false;
-                i.S = false;
+                this.n9 = false;
+                i9.S = false;
                 return;
             }
 
@@ -239,8 +240,8 @@ public final class j {
             } catch (Exception var10) {
             }
 
-            if (this.ao.getWidth() > e || this.ao.getWidth() <= e * 3 >> 2) {
-                int var2 = e;
+            if (this.ao.getWidth() > e9 || this.ao.getWidth() <= e9 * 3 >> 2) {
+                int var2 = e9;
 
                 try {
                     this.ao = f.a(this.ao, 0, 0, this.ao.getWidth(), this.ao.getHeight(), var2, this.ao.getHeight() * var2 / this.ao.getWidth(), 0, false, true);
@@ -248,15 +249,15 @@ public final class j {
                 }
             }
 
-            this.j = 0;
+            this.j9 = 0;
             long var13 = System.currentTimeMillis();
             this.ar = -1;
             this.t();
             this.ar = 2;
             long var4 = var13;
-            int var6 = 3000 / ((e >> 2) - this.ar);
+            int var6 = 3000 / ((e9 >> 2) - this.ar);
 
-            while(this.ar < e >> 2) {
+            while(this.ar < e9 >> 2) {
                 this.x();
                 ++this.ar;
                 if ((var13 = System.currentTimeMillis()) - var4 < (long)var6) {
@@ -267,7 +268,7 @@ public final class j {
                 }
             }
 
-            this.ar = (short)e;
+            this.ar = (short) e9;
             this.H = null;
         } catch (Exception var12) {
         }
@@ -276,11 +277,11 @@ public final class j {
     }
 
     private final void a(boolean var1) {
-        boolean var2 = i.aO;
+        boolean var2 = i9.aO;
         boolean var3 = k.cq;
-        i.aO = false;
+        i9.aO = false;
         k.cq = true;
-        this.j = 0;
+        this.j9 = 0;
         this.bF = 0;
 
         try {
@@ -297,8 +298,8 @@ public final class j {
             }
 
             try {
-                if (this.bd != null && (this.bd.getWidth() != e || this.bd.getHeight() != a)) {
-                    this.bd = f.a(this.bd, 0, 0, this.bd.getWidth(), this.bd.getHeight(), e, a, 0, false, true);
+                if (this.bd != null && (this.bd.getWidth() != e9 || this.bd.getHeight() != a9)) {
+                    this.bd = f.a(this.bd, 0, 0, this.bd.getWidth(), this.bd.getHeight(), e9, a9, 0, false, true);
                 }
             } catch (OutOfMemoryError var13) {
             }
@@ -306,7 +307,7 @@ public final class j {
             try {
                 try {
                     this.be = f.a(k.a(this.aC[12]));
-                    this.bf = e >> 1;
+                    this.bf = e9 >> 1;
                     int var4 = this.bf / 6;
 
                     while(this.bf >= 0) {
@@ -319,7 +320,7 @@ public final class j {
             } catch (OutOfMemoryError var12) {
             }
 
-            this.j = 0;
+            this.j9 = 0;
             this.bf = 0;
             if (this.bd != null || this.be != null) {
                 this.t();
@@ -347,13 +348,13 @@ public final class j {
                     k.l();
                     if (var15 == 2) {
                         if (this.N == -7 || this.N == 35) {
-                            f.l = false;
+                            f.l1 = false;
                             k.t();
                             this.r();
                         }
 
                         if (this.N == 53 || this.N == -6 || this.N == -5) {
-                            f.l = true;
+                            f.l1 = true;
                             s();
                             this.r();
                         }
@@ -392,34 +393,35 @@ public final class j {
         } catch (Exception var14) {
         }
 
-        i.aO = var2;
+        i9.aO = var2;
         k.cq = var3;
         this.be = null;
         this.bd = null;
         this.N = 0;
         this.U = false;
         this.T = true;
-        this.j = -1;
+        this.j9 = -1;
         this.ao = null;
         al = false;
     }
 
     private final void i() {
-        if (k.cy && !n.g) {
+        if (k.cy && !n.g12) {
             this.N = 0;
             this.T = true;
             this.U = false;
             this.bp = true;
 
-            while(this.c && !n.g) {
+            while(this.c9 && !n.g12) {
                 if (!n.s) {
-                    i.d();
-                    i.u();
+                    i9.d();
+                    i9.u();
                 }
 
                 if (this.N == -7 || this.N == 35) {
-                    i.d();
-                    i.c(-1);
+                    /// NOTE: might be coupled with class i instead of k (little chance)
+                    i9.d();
+                    i9.c(-1);
                     break;
                 }
 
@@ -432,11 +434,11 @@ public final class j {
             }
 
             this.bp = false;
-            if (!n.g) {
+            if (!n.g12) {
                 this.N = 0;
                 this.T = true;
                 this.U = false;
-                if (this.c && this.aJ == 5) {
+                if (this.c9 && this.aJ == 5) {
                     return;
                 }
 
@@ -445,11 +447,11 @@ public final class j {
             }
         }
 
-        if (k.cy && n.g) {
-            i.c(7);
+        if (k.cy && n.g12) {
+            i9.c(7);
         }
 
-        this.n = false;
+        this.n9 = false;
         if (!k.cy) {
             f.a();
         }
@@ -476,8 +478,8 @@ public final class j {
             }
 
             try {
-                if (var3.getWidth() != e || var3.getHeight() != a) {
-                    var3 = f.a(var3, 0, 0, var3.getWidth(), var3.getHeight(), e, a, 0, false, true);
+                if (var3.getWidth() != e9 || var3.getHeight() != a9) {
+                    var3 = f.a(var3, 0, 0, var3.getWidth(), var3.getHeight(), e9, a9, 0, false, true);
                 }
             } catch (OutOfMemoryError var7) {
             }
@@ -508,7 +510,7 @@ public final class j {
         }
 
         if (this.G == null) {
-            this.j = 0;
+            this.j9 = 0;
         }
 
     }
@@ -641,8 +643,8 @@ public final class j {
 
             if (this.J[1] != null && this.J[2] != null) {
                 this.K = new int[this.J.length][2];
-                this.K[1][1] = a - this.J[1].getHeight();
-                this.K[2][0] = e + (this.J[2].getWidth() >> 1);
+                this.K[1][1] = a9 - this.J[1].getHeight();
+                this.K[2][0] = e9 + (this.J[2].getWidth() >> 1);
                 this.K[2][1] = this.J[2].getHeight() / 4;
                 boolean var2 = false;
                 this.aU = 4;
@@ -654,7 +656,7 @@ public final class j {
                     }
 
                     int var3;
-                    if ((var3 = e / 64) < 1) {
+                    if ((var3 = e9 / 64) < 1) {
                         var3 = 1;
                     }
 
@@ -670,7 +672,7 @@ public final class j {
                     boolean var8 = false;
 
                     while(true) {
-                        if (var7 && (this.K[2][0] < e - this.J[2].getWidth() || System.currentTimeMillis() >= var5 + 1500L)) {
+                        if (var7 && (this.K[2][0] < e9 - this.J[2].getWidth() || System.currentTimeMillis() >= var5 + 1500L)) {
                             this.ak = true;
                             var7 = false;
                         }
@@ -685,7 +687,7 @@ public final class j {
                             }
                         }
 
-                        if (this.bl && this.bL >= b) {
+                        if (this.bl && this.bL >= b9) {
                             this.bl = false;
                             this.N = 53;
                             this.U = true;
@@ -717,7 +719,7 @@ public final class j {
 
                         var8 = !var8;
                         if (this.K[2][0] < -this.J[2].getWidth() - 1) {
-                            this.K[2][0] = e + 1;
+                            this.K[2][0] = e9 + 1;
                         }
 
                         if (this.N != 0 && !this.ak && var7) {
@@ -730,7 +732,7 @@ public final class j {
         } catch (OutOfMemoryError var20) {
         }
 
-        this.m = null;
+        this.m9 = null;
         this.ay = null;
         this.J = null;
         this.K = null;
@@ -749,7 +751,7 @@ public final class j {
 
     private final void b(int var1) {
         byte[] var2;
-        if ((var2 = this.g)[0] != 1) {
+        if ((var2 = this.g9)[0] != 1) {
             var2 = f.a(var2, 30);
         }
 
@@ -757,10 +759,10 @@ public final class j {
         if (this.O < var2.length && var3 == var2[this.O]) {
             ++this.O;
             if (this.O >= var2.length) {
-                if (f.a[12] == 0) {
-                    f.a[12] = 7;
+                if (f.a1[12] == 0) {
+                    f.a1[12] = 7;
                 } else {
-                    f.a[12] = 0;
+                    f.a1[12] = 0;
                 }
 
                 p = false;
@@ -787,10 +789,10 @@ public final class j {
         if (this.ak) {
             this.p();
         } else if (this.aA != null) {
-            if ((this.s || this.t) && k.b != null) {
+            if ((this.s || this.t) && k.b10 != null) {
                 if (this.N == -7 || this.N == 35) {
-                    i.d();
-                    i.c(-1);
+                    i9.d();
+                    i9.c(-1);
                     this.s = false;
                     this.t = false;
                 }
@@ -850,7 +852,7 @@ public final class j {
                                 k.dS = (byte)this.as;
                                 f.b();
                             case 4:
-                                i.i(1);
+                                i9.i(1);
                                 this.aU = 5;
                                 this.d();
                                 u();
@@ -874,7 +876,7 @@ public final class j {
                                 }
 
                                 if (this.as == 1 && aO) {
-                                    n.c = null;
+                                    n.c12 = null;
                                     this.c(15);
                                     return;
                                 }
@@ -885,20 +887,20 @@ public final class j {
                                         return;
                                     }
 
-                                    this.n = false;
-                                    i.aO = true;
-                                    i.dB = false;
-                                    f.e = -1;
+                                    this.n9 = false;
+                                    i9.aO = true;
+                                    i9.dB = false;
+                                    f.e1 = -1;
                                     k.cq = false;
                                     h.d();
                                     return;
                                 }
 
-                                if (this.as == this.aA.length - 5 - 1 && this.d != null) {
+                                if (this.as == this.aA.length - 5 - 1 && this.d9 != null) {
                                     try {
-                                        NET_Lizard.a.platformRequest(this.d);
-                                        this.n = false;
-                                        i.S = false;
+                                        NET_Lizard.app.platformRequest(this.d9);
+                                        this.n9 = false;
+                                        i9.S = false;
                                         return;
                                     } catch (Exception var7) {
                                         this.aU = 3;
@@ -938,9 +940,9 @@ public final class j {
                             case 2:
                                 switch(this.as) {
                                     case 0:
-                                        f.l = !f.l;
+                                        f.l1 = !f.l1;
                                         z();
-                                        if (f.l) {
+                                        if (f.l1) {
                                             s();
                                         } else {
                                             k.t();
@@ -994,12 +996,12 @@ public final class j {
                             case 3:
                                 switch(this.as) {
                                     case 0:
-                                        f.l = true;
+                                        f.l1 = true;
                                         s();
                                         this.r();
                                         return;
                                     case 1:
-                                        f.l = false;
+                                        f.l1 = false;
                                         k.t();
                                         this.r();
                                         return;
@@ -1007,12 +1009,12 @@ public final class j {
                                         return;
                                 }
                             case 5:
-                                f.e = this.as + 1;
-                                if (f.e > 1 && p) {
-                                    this.n = false;
-                                    i.aO = true;
-                                    i.dB = false;
-                                    f.e = -1;
+                                f.e1 = this.as + 1;
+                                if (f.e1 > 1 && p) {
+                                    this.n9 = false;
+                                    i9.aO = true;
+                                    i9.dB = false;
+                                    f.e1 = -1;
                                     k.cq = false;
                                     h.d();
                                     return;
@@ -1026,18 +1028,18 @@ public final class j {
                                         k.cl |= 2;
                                     }
 
-                                    k.cz = (byte)f.e;
+                                    k.cz = (byte) f.e1;
                                 }
 
                                 if (!k.cy) {
-                                    int var4 = f.e;
-                                    if (f.e > 0) {
-                                        i.i(f.e);
+                                    int var4 = f.e1;
+                                    if (f.e1 > 0) {
+                                        i9.i(f.e1);
                                         this.aU = 5;
                                         this.d();
                                     }
 
-                                    f.e = var4;
+                                    f.e1 = var4;
                                 }
 
                                 boolean var8 = bD;
@@ -1052,8 +1054,8 @@ public final class j {
                                 return;
                             case 7:
                                 if (this.as == 0) {
-                                    this.n = false;
-                                    i.S = false;
+                                    this.n9 = false;
+                                    i9.S = false;
                                     return;
                                 }
 
@@ -1106,37 +1108,37 @@ public final class j {
                             case 15:
                                 k.cy = true;
                                 if (k.cS[2]) {
-                                    f.h = false;
+                                    f.h1 = false;
                                 } else {
                                     for(var1 = 32; var1 < 64; ++var1) {
-                                        f.a[var1] = 0;
+                                        f.a1[var1] = 0;
                                     }
                                 }
 
                                 k.dS = 1;
-                                f.h = false;
+                                f.h1 = false;
                                 if (this.as == 0) {
-                                    i.cx = false;
-                                    i.d();
-                                    this.c = true;
+                                    i9.cx = false;
+                                    i9.d();
+                                    this.c9 = true;
                                     this.c(16);
                                     return;
                                 }
 
                                 if (this.as == 1) {
-                                    i.cx = false;
-                                    this.c = false;
-                                    if (n.c == null) {
+                                    i9.cx = false;
+                                    this.c9 = false;
+                                    if (n.c12 == null) {
                                         this.t = true;
                                         return;
                                     }
                                 } else if (this.as == 2) {
-                                    i.cx = true;
-                                    i.d();
-                                    this.c = true;
+                                    i9.cx = true;
+                                    i9.d();
+                                    this.c9 = true;
                                     k.k();
-                                    k.cz = (byte)f.e;
-                                    i.u();
+                                    k.cz = (byte) f.e1;
+                                    i9.u();
                                     this.i();
                                     return;
                                 }
@@ -1159,7 +1161,7 @@ public final class j {
                                 }
 
                                 if (this.as == 2) {
-                                    this.c = true;
+                                    this.c9 = true;
                                     this.c(5);
                                     return;
                                 }
@@ -1178,8 +1180,8 @@ public final class j {
                             this.bv = 0;
                         }
 
-                        if (this.aJ == 4 && f.e < k.bP) {
-                            ++f.e;
+                        if (this.aJ == 4 && f.e1 < k.bP) {
+                            ++f.e1;
                         }
 
                         this.Q = true;
@@ -1197,8 +1199,8 @@ public final class j {
                             this.bv = this.as - (this.Y - 1);
                         }
 
-                        if (this.aJ == 4 && f.e > 1) {
-                            --f.e;
+                        if (this.aJ == 4 && f.e1 > 1) {
+                            --f.e1;
                         }
 
                         this.R = true;
@@ -1234,7 +1236,7 @@ public final class j {
             this.U = false;
             this.bh = 0L;
             this.bk = false;
-            k.h = false;
+            k.h10 = false;
         }
 
     }
@@ -1385,7 +1387,7 @@ public final class j {
 
     private final void q() {
         if (this.ak && this.aU == 1) {
-            this.a(e, a);
+            this.a(e9, a9);
         }
 
         try {
@@ -1438,18 +1440,18 @@ public final class j {
                 }
 
                 (new StringBuffer()).append("").append(k.fF).append(" ").append(k.fZ).toString();
-                if ((this.ak || !this.ax) && k.c(0, var2, e, a - var1 - var2)) {
-                    i.fc = true;
+                if ((this.ak || !this.ax) && k.c(0, var2, e9, a9 - var1 - var2)) {
+                    i9.fc = true;
                     this.a(this.N = 53);
                 }
 
-                if (k.d(0, a - var1, e / 3, var1)) {
-                    i.fc = true;
+                if (k.d(0, a9 - var1, e9 / 3, var1)) {
+                    i9.fc = true;
                     this.a(this.N = 53);
                 }
 
-                if (k.d(e - e / 3, a - var1, e / 3, var1)) {
-                    i.fc = true;
+                if (k.d(e9 - e9 / 3, a9 - var1, e9 / 3, var1)) {
+                    i9.fc = true;
                     this.a(this.N = 35);
                 }
             }
@@ -1485,7 +1487,7 @@ public final class j {
         }
 
         if (var1 == 0 || var1 == 15) {
-            i.d();
+            i9.d();
         }
 
         if (this.aJ == 0) {
@@ -1501,7 +1503,7 @@ public final class j {
         }
 
         if (var1 == 15 || var1 == 7) {
-            i.c(-1);
+            i9.c(-1);
         }
 
         this.aK = this.aJ;
@@ -1513,11 +1515,11 @@ public final class j {
         try {
             this.bn = 0;
             if (var1 == 0) {
-                if (this.d == null) {
-                    this.d = h.c();
+                if (this.d9 == null) {
+                    this.d9 = h.c();
                 }
 
-                if (this.d != null) {
+                if (this.d9 != null) {
                     this.bn += this.bo;
                 }
 
@@ -1549,7 +1551,7 @@ public final class j {
                                 this.aY = A;
                             }
 
-                            this.aX = f.n.a(var4, this.aY, e - this.aY.a(" "), true);
+                            this.aX = f.instanceHandler.a(var4, this.aY, e9 - this.aY.a(" "), true);
                             break;
                         }
 
@@ -1578,10 +1580,10 @@ public final class j {
                 int var8;
                 if (var1 == 0) {
                     if (this.B()) {
-                        if (k.b == null) {
+                        if (k.b10 == null) {
                             e.a(3);
-                            i.f();
-                            k.b = new n(k.dz);
+                            i9.f();
+                            k.b10 = new n(k.dz);
                         }
                     } else {
                         aO = false;
@@ -1601,7 +1603,7 @@ public final class j {
 
                 if (var1 == 14) {
                     this.aL = D();
-                    this.aM = this.aL || bD || f.f > 1;
+                    this.aM = this.aL || bD || f.f1 > 1;
                     this.aL = this.aM;
                     var13 = var3;
                     if (p) {
@@ -1687,18 +1689,18 @@ public final class j {
 
             if (var1 == 5) {
                 int var15;
-                if ((var15 = f.e) < 1) {
-                    var14 = f.e;
+                if ((var15 = f.e1) < 1) {
+                    var14 = f.e1;
                     f.a();
-                    var15 = f.e;
-                    f.e = var14;
+                    var15 = f.e1;
+                    f.e1 = var14;
                 }
 
                 if (var15 < 1) {
                     var15 = 1;
                 }
 
-                var14 = f.f;
+                var14 = f.f1;
                 if (bD || k.cy) {
                     var14 = k.bP;
                 }
@@ -1764,21 +1766,21 @@ public final class j {
     }
 
     public static final void a(Graphics var0, String var1, boolean var2) {
-        var0.setClip(0, 0, e, a);
+        var0.setClip(0, 0, e9, a9);
         var0.setColor(0);
-        var0.fillRect(0, 0, e, a);
+        var0.fillRect(0, 0, e9, a9);
         boolean var3 = false;
         boolean var4 = false;
         int var6 = x.b() + 3;
         int var23 = 2;
         if (var2) {
             boolean var7 = true;
-            if (a > 100 && var2) {
+            if (a9 > 100 && var2) {
                 try {
                     try {
                         try {
                             if (ad == null) {
-                                ad = f.b(k.a(NET_Lizard.c.cr.aC[16]));
+                                ad = f.b(k.a(NET_Lizard.c_nl.cr.aC[16]));
                                 if (ad != null) {
                                     try {
                                         ad = f.a(ad);
@@ -1786,9 +1788,9 @@ public final class j {
                                     }
                                 }
 
-                                if (ad != null && (ad.getWidth() != e || ad.getHeight() != a)) {
+                                if (ad != null && (ad.getWidth() != e9 || ad.getHeight() != a9)) {
                                     try {
-                                        ad = f.a(ad, 0, 0, ad.getWidth(), ad.getHeight(), e, a, 0, false, true);
+                                        ad = f.a(ad, 0, 0, ad.getWidth(), ad.getHeight(), e9, a9, 0, false, true);
                                     } catch (OutOfMemoryError var16) {
                                     }
                                 }
@@ -1798,7 +1800,7 @@ public final class j {
 
                         try {
                             if (ad == null && !u) {
-                                ad = f.b(k.a(NET_Lizard.c.cr.aC[16]));
+                                ad = f.b(k.a(NET_Lizard.c_nl.cr.aC[16]));
                                 if (ad != null) {
                                     try {
                                         ad = f.a(ad);
@@ -1806,9 +1808,9 @@ public final class j {
                                     }
                                 }
 
-                                if (ad != null && (ad.getWidth() != e || ad.getHeight() != a)) {
+                                if (ad != null && (ad.getWidth() != e9 || ad.getHeight() != a9)) {
                                     try {
-                                        ad = f.a(ad, 0, 0, ad.getWidth(), ad.getHeight(), e, a, 0, false, true);
+                                        ad = f.a(ad, 0, 0, ad.getWidth(), ad.getHeight(), e9, a9, 0, false, true);
                                     } catch (OutOfMemoryError var14) {
                                     }
                                 }
@@ -1817,14 +1819,14 @@ public final class j {
                         }
 
                         if (ad != null) {
-                            var0.drawImage(ad, f, b, 3);
+                            var0.drawImage(ad, f9, b9, 3);
                             int var8 = ad.getWidth() / 18;
-                            i.ab = f.e * 10;
+                            i9.ab = f.e1 * 10;
                             int var9 = ad.getWidth() * 2 / 3;
-                            int var10 = i.c() * (var9 - var8) / 100;
-                            int var11 = i.c() * (var9 - var8) / 100;
-                            var10 = var10 - (var9 >> 1) + (e >> 1);
-                            var11 = var11 - (var9 >> 1) + (a >> 1);
+                            int var10 = i9.c() * (var9 - var8) / 100;
+                            int var11 = i9.c() * (var9 - var8) / 100;
+                            var10 = var10 - (var9 >> 1) + (e9 >> 1);
+                            var11 = var11 - (var9 >> 1) + (a9 >> 1);
                             var0.setColor(16711680);
                             var0.drawRect(var10, var11, var8, var8);
                             var10 += var8 * 2;
@@ -1849,13 +1851,13 @@ public final class j {
             if (var7) {
                 try {
                     if (ac == null) {
-                        ac = f.b(k.a(NET_Lizard.c.cr.aC[12]));
+                        ac = f.b(k.a(NET_Lizard.c_nl.cr.aC[12]));
                     }
 
-                    var23 = a - ac.getHeight() >> 1;
-                    var0.drawImage(ac, f, var23, 17);
-                    if ((var23 += ac.getHeight() + 3) < b - var6) {
-                        var23 = b - var6;
+                    var23 = a9 - ac.getHeight() >> 1;
+                    var0.drawImage(ac, f9, var23, 17);
+                    if ((var23 += ac.getHeight() + 3) < b9 - var6) {
+                        var23 = b9 - var6;
                     }
 
                     ac = null;
@@ -1864,7 +1866,7 @@ public final class j {
                 }
             }
         } else {
-            var23 = b + var6;
+            var23 = b9 + var6;
         }
 
         var0.setColor(z);
@@ -1873,13 +1875,13 @@ public final class j {
         for(int var24 = 0; var24 < 1; ++var24) {
             if (var24 == 1) {
                 var23 += var6;
-                var1 = k.r[1][1] + String.valueOf(f.e);
-                if (f.e < 1 || k.cq) {
+                var1 = k.r[1][1] + String.valueOf(f.e1);
+                if (f.e1 < 1 || k.cq) {
                     var1 = "";
                 }
             }
 
-            int var22 = e - x.a(var1) >> 1;
+            int var22 = e9 - x.a(var1) >> 1;
             if (var2 || var24 < 1) {
                 x.a(var0, var1, var22, var23, 20);
             }
@@ -1891,7 +1893,7 @@ public final class j {
             } catch (Exception var12) {
             }
 
-            var0.setClip(0, 0, e, a);
+            var0.setClip(0, 0, e9, a9);
         }
 
         if (!k.C) {
@@ -1906,13 +1908,13 @@ public final class j {
 
     public static final void a(Graphics var0, d var1, int var2) {
         try {
-            if (f.e > 0) {
+            if (f.e1 > 0) {
                 if (k.bQ != null) {
-                    var1.a(var0, k.bQ[f.e][0], f, var2, 17);
+                    var1.a(var0, k.bQ[f.e1][0], f9, var2, 17);
                     return;
                 }
 
-                var1.a(var0, k.r[1][1] + f.e, f, var2, 3);
+                var1.a(var0, k.r[1][1] + f.e1, f9, var2, 3);
             }
 
         } catch (Exception var4) {
@@ -1920,7 +1922,7 @@ public final class j {
     }
 
     private static void s() {
-        if (f.l) {
+        if (f.l1) {
             k.b(k.bI, true);
         }
 
@@ -1983,23 +1985,23 @@ public final class j {
     }
 
     private static void v() {
-        int var0 = f.e;
+        int var0 = f.e1;
         f.a();
-        f.e = var0;
-        if (!bD || f.e < 1) {
-            f.e = 1;
+        f.e1 = var0;
+        if (!bD || f.e1 < 1) {
+            f.e1 = 1;
         }
 
         if (!bD) {
-            f.f = 1;
+            f.f1 = 1;
             k.ax = false;
         }
 
-        f.c = 0;
-        f.g = 0;
+        f.c1 = 0;
+        f.g1 = 0;
         if (!bD) {
-            for(int var1 = 32; var1 < f.d; ++var1) {
-                f.a[var1] = 0;
+            for(int var1 = 32; var1 < f.d1; ++var1) {
+                f.a1[var1] = 0;
             }
         }
 
@@ -2009,7 +2011,7 @@ public final class j {
 
         if (k.cy) {
             try {
-                i.u();
+                i9.u();
                 return;
             } catch (Exception var2) {
             }
@@ -2020,10 +2022,10 @@ public final class j {
     public final void b(Graphics var1) {
         try {
             if (var1 != null) {
-                var1.setClip(0, 0, e, a);
-                if (this.j >= 0) {
-                    var1.setColor(this.j);
-                    var1.fillRect(0, 0, e, a);
+                var1.setClip(0, 0, e9, a9);
+                if (this.j9 >= 0) {
+                    var1.setColor(this.j9);
+                    var1.fillRect(0, 0, e9, a9);
                 }
             }
 
@@ -2038,15 +2040,15 @@ public final class j {
             } else {
                 if (var1 != null) {
                     if (this.bd != null) {
-                        var1.drawImage(this.bd, f + this.bf, 0, 17);
+                        var1.drawImage(this.bd, f9 + this.bf, 0, 17);
                     }
 
                     if (this.be != null) {
-                        var1.drawImage(this.be, f - this.bf, a - this.be.getHeight(), 17);
+                        var1.drawImage(this.be, f9 - this.bf, a9 - this.be.getHeight(), 17);
                     }
 
                     if ((this.bd != null || this.be != null) && this.ap > 0) {
-                        k.a(var1, 0, 0, e, a, this.aq, this.ap);
+                        k.a(var1, 0, 0, e9, a9, this.aq, this.ap);
                         return;
                     }
 
@@ -2054,8 +2056,8 @@ public final class j {
                         this.f(var1);
                     }
 
-                    if (this.bd != null && i.v != null && this.bm) {
-                        var1.drawImage(i.v, -(i.v.getWidth() >> 1), a - i.v.getHeight(), 20);
+                    if (this.bd != null && i9.v != null && this.bm) {
+                        var1.drawImage(i9.v, -(i9.v.getWidth() >> 1), a9 - i9.v.getHeight(), 20);
                     }
 
                     if (this.bd != null) {
@@ -2082,31 +2084,31 @@ public final class j {
                         }
 
                         if (this.aA != null) {
-                            if (i.cs == null && this.n) {
+                            if (i9.cs == null && this.n9) {
                                 int var3 = 2;
-                                if (e >= 240) {
+                                if (e9 >= 240) {
                                     ++var3;
                                 }
 
                                 int var4 = 3;
-                                if (a > 320) {
+                                if (a9 > 320) {
                                     ++var3;
                                 }
 
-                                int var5 = var2.b() - var2.f + 2 * var3;
+                                int var5 = var2.b() - var2.f3 + 2 * var3;
                                 int var6 = 4;
-                                if (i.v()) {
-                                    var6 = 4 + var2.b() - var2.f + 2;
+                                if (i9.v()) {
+                                    var6 = 4 + var2.b() - var2.f3 + 2;
                                 }
 
-                                if (a > 320) {
+                                if (a9 > 320) {
                                     var6 += 2;
                                 }
 
                                 int var8;
                                 if (this.aF != null) {
                                     var5 = this.aF.getHeight();
-                                    var8 = var2.f;
+                                    var8 = var2.f3;
                                     boolean var9 = false;
                                     var3 = var5 - (var2.b() - var8) >> 1;
                                     var4 = 1 + (5 * var5 >> 3);
@@ -2119,7 +2121,7 @@ public final class j {
                                 boolean var11 = false;
                                 boolean var12 = false;
                                 int var39;
-                                if ((var39 = (a * 5 >> 3) / (var5 + var6)) < 1) {
+                                if ((var39 = (a9 * 5 >> 3) / (var5 + var6)) < 1) {
                                     var39 = 1;
                                 }
 
@@ -2127,7 +2129,7 @@ public final class j {
                                     var39 = this.aA.length;
                                 }
 
-                                int var38 = a - (var5 + var6) * var39 >> 1;
+                                int var38 = a9 - (var5 + var6) * var39 >> 1;
                                 var38 -= 10;
                                 if (var38 < 0) {
                                     var38 = 0;
@@ -2135,10 +2137,10 @@ public final class j {
 
                                 if (var1 != null) {
                                     if (this.G != null) {
-                                        var1.drawImage(this.G, f, b, 3);
-                                    } else if (!i.aO) {
+                                        var1.drawImage(this.G, f9, b9, 3);
+                                    } else if (!i9.aO) {
                                         var1.setColor(8355711);
-                                        var1.fillRect(0, 0, e, a);
+                                        var1.fillRect(0, 0, e9, a9);
                                     }
                                 }
 
@@ -2151,15 +2153,15 @@ public final class j {
                                         if (var1 != null) {
                                             var1.setColor(0);
                                             if (this.f()) {
-                                                k.a(var1, 0, 0, e, var16, 0, 128);
+                                                k.a(var1, 0, 0, e9, var16, 0, 128);
                                             } else {
-                                                a(var1, 0, 0, e, var16, 0, 128);
+                                                a(var1, 0, 0, e9, var16, 0, 128);
                                             }
 
                                             if (this.f()) {
-                                                k.a(var1, 0, a - var16, e, var16, 0, 128);
+                                                k.a(var1, 0, a9 - var16, e9, var16, 0, 128);
                                             } else {
-                                                a(var1, 0, a - var16, e, var16, 0, 128);
+                                                a(var1, 0, a9 - var16, e9, var16, 0, 128);
                                             }
                                         }
                                     } else {
@@ -2170,7 +2172,7 @@ public final class j {
 
                                     for(int var17 = 0; var17 < this.aX.length; ++var17) {
                                         if (var1 != null) {
-                                            this.aY.a(var1, this.aX[var17], f, var40, 17);
+                                            this.aY.a(var1, this.aX[var17], f9, var40, 17);
                                         }
 
                                         var40 += this.aY.b();
@@ -2183,8 +2185,8 @@ public final class j {
 
                                 var40 = 5;
                                 if (this.aJ != 3) {
-                                    if (i.x[2] != null) {
-                                        var40 = i.x[2].getHeight() >> 1;
+                                    if (i9.x[2] != null) {
+                                        var40 = i9.x[2].getHeight() >> 1;
                                     }
                                 } else {
                                     var40 = 0;
@@ -2200,7 +2202,7 @@ public final class j {
                                     boolean var22 = false;
                                     var21 = new String[4];
                                     byte var23 = 1;
-                                    if (f.l) {
+                                    if (f.l1) {
                                         var23 = 0;
                                     }
 
@@ -2260,7 +2262,7 @@ public final class j {
                                         }
 
                                         if (this.aJ == 4) {
-                                            var20 = var20 + f.e;
+                                            var20 = var20 + f.e1;
                                         }
 
                                         var16 = var2.a(var20) + 2 * var4;
@@ -2289,7 +2291,7 @@ public final class j {
                                     }
                                 }
 
-                                int var26 = var2.e;
+                                int var26 = var2.e3;
                                 this.Y = 0;
                                 boolean var27 = true;
 
@@ -2305,20 +2307,20 @@ public final class j {
                                     }
 
                                     if (this.aJ == 4) {
-                                        var20 = var20 + f.e;
+                                        var20 = var20 + f.e1;
                                     }
 
                                     boolean var29 = var8 < var39;
-                                    if (var37 >= var38 && var37 < a - var5 - var2.b() - 3 && var29 && var37 < a - var5 - 0 - 3 - var40 - 1) {
+                                    if (var37 >= var38 && var37 < a9 - var5 - var2.b() - 3 && var29 && var37 < a9 - var5 - 0 - 3 - var40 - 1) {
                                         ++this.Y;
                                         var41 = var37;
                                         ++var8;
                                         var30 = var6 >> 1;
                                         if (this.f()) {
                                             if (var1 != null) {
-                                                k.a(var1, 0, var37 - var30, e, var5 + var6, 0, 128);
+                                                k.a(var1, 0, var37 - var30, e9, var5 + var6, 0, 128);
                                             } else {
-                                                a(var1, 0, var37 - var30, e, var5 + var6, 0, 128);
+                                                a(var1, 0, var37 - var30, e9, var5 + var6, 0, 128);
                                             }
                                         }
 
@@ -2331,7 +2333,7 @@ public final class j {
                                                 var27 = false;
                                             }
 
-                                            var15 = -var15 + (e - this.aF.getWidth() >> 1);
+                                            var15 = -var15 + (e9 - this.aF.getWidth() >> 1);
                                             if (var28 == this.as) {
                                                 this.aW = var24;
                                                 if (var1 != null) {
@@ -2353,22 +2355,22 @@ public final class j {
                                                 var1.setColor(0);
                                                 if (var1 != null && !this.s && !this.t && !this.bp) {
                                                     var30 = var6 >> 1;
-                                                    if (k.d(0, var37 - var30, e, var5 + var6)) {
+                                                    if (k.d(0, var37 - var30, e9, var5 + var6)) {
                                                         if (var28 != this.as) {
                                                             this.as = var28;
                                                         }
 
-                                                        i.fc = true;
+                                                        i9.fc = true;
                                                     }
 
-                                                    if (k.c(0, var37 - var30, e, var5 + var6)) {
+                                                    if (k.c(0, var37 - var30, e9, var5 + var6)) {
                                                         if (var28 != this.as) {
                                                             this.as = var28;
                                                         }
 
-                                                        i.fa = true;
+                                                        i9.fa = true;
                                                         this.N = 53;
-                                                        if (k.fF < e >> 1) {
+                                                        if (k.fF < e9 >> 1) {
                                                             this.N = 52;
                                                         }
 
@@ -2384,14 +2386,14 @@ public final class j {
 
                                             if (var1 != null && var28 == this.as) {
                                                 var1.setColor(16777215);
-                                                var1.fillRect(0, var37 - 1, e, var5 + 2);
+                                                var1.fillRect(0, var37 - 1, e9, var5 + 2);
                                                 var1.setColor(0);
-                                                var1.fillRect(0, var37, e, var5);
+                                                var1.fillRect(0, var37, e9, var5);
                                             }
 
-                                            var15 = e - var2.a(var20) >> 1;
+                                            var15 = e9 - var2.a(var20) >> 1;
                                             if (this.aJ == 5) {
-                                                var15 = e - this.aE >> 1;
+                                                var15 = e9 - this.aE >> 1;
                                             }
 
                                             if (var15 < 1) {
@@ -2423,22 +2425,22 @@ public final class j {
                                     var37 += var5 + var6;
                                 }
 
-                                var2.e = var26;
+                                var2.e3 = var26;
                                 int var43;
                                 if ((var19 && var27 || this.Y > 1) && var1 != null) {
                                     this.a(var1, var10 - 3, var18, var10 > var37, false);
                                     this.a(var1, var41 + var5 + 3, var18, var37 - var5 - var6 > var41, true);
-                                    var43 = e / 3;
-                                    var30 = e * 2 >> 2;
+                                    var43 = e9 / 3;
+                                    var30 = e9 * 2 >> 2;
                                     int var31;
-                                    if ((var31 = e - var30 >> 1) < var43) {
+                                    if ((var31 = e9 - var30 >> 1) < var43) {
                                         var31 = var43;
-                                        var30 = e - var43 - var43;
+                                        var30 = e9 - var43 - var43;
                                     }
 
                                     int var32 = var41 + var5 + 3;
                                     if (var1 != null) {
-                                        if (k.c(var31, var32, var30, a - var32)) {
+                                        if (k.c(var31, var32, var30, a9 - var32)) {
                                             this.N = 56;
                                             this.T = false;
                                             this.bh = 0L;
@@ -2446,7 +2448,7 @@ public final class j {
                                             this.U = true;
                                             this.bh = 0L;
                                             this.V = false;
-                                            i.fc = true;
+                                            i9.fc = true;
                                         }
 
                                         var32 = var10 - 3;
@@ -2458,13 +2460,13 @@ public final class j {
                                             this.U = true;
                                             this.bh = 0L;
                                             this.V = false;
-                                            i.fc = true;
+                                            i9.fc = true;
                                         }
                                     }
                                 }
 
-                                var43 = (var30 = var2.b() - var2.f + 2 + 3 + 1) - (var2.b() - var2.f) >> 1;
-                                var43 += a - var30;
+                                var43 = (var30 = var2.b() - var2.f3 + 2 + 3 + 1) - (var2.b() - var2.f3) >> 1;
+                                var43 += a9 - var30;
                                 var1.setColor(0);
                                 boolean var44 = this.aJ != 3 & this.aJ != 0;
                                 String var45 = k.r[11][1];
@@ -2474,42 +2476,42 @@ public final class j {
 
                                 if (this.S == null) {
                                     boolean var33 = false;
-                                    var1.fillRect(0, a - var30 - 0, var2.a(k.r[11][0]) + 4, var30 + 0);
+                                    var1.fillRect(0, a9 - var30 - 0, var2.a(k.r[11][0]) + 4, var30 + 0);
                                     int var34 = var2.a(var45) + 3;
                                     if (var44) {
-                                        var1.fillRect(e - var34, a - var30 - 0, var34, var30 + 0);
+                                        var1.fillRect(e9 - var34, a9 - var30 - 0, var34, var30 + 0);
                                     }
 
                                     var1.setColor(100, 100, 100);
                                     int var35 = var2.a(k.r[11][0]) + 4;
-                                    var1.drawRect(0, a - var30 - 0, var35 - 1, var30 - 1 + 0);
+                                    var1.drawRect(0, a9 - var30 - 0, var35 - 1, var30 - 1 + 0);
                                     if (var44) {
-                                        var1.drawRect(e - var34, a - var30 - 0, var34 - 1, var30 - 1 + 0);
+                                        var1.drawRect(e9 - var34, a9 - var30 - 0, var34 - 1, var30 - 1 + 0);
                                     }
 
                                     var1.setColor(0);
                                 } else {
-                                    var43 = a - this.S.getHeight() + (this.S.getHeight() - var2.b() >> 1);
+                                    var43 = a9 - this.S.getHeight() + (this.S.getHeight() - var2.b() >> 1);
                                 }
 
                                 this.b(var1, var2, k.r[11][0], 2, var43);
                                 if (var44) {
-                                    this.b(var1, var2, var45, e - 1, var43);
+                                    this.b(var1, var2, var45, e9 - 1, var43);
                                 }
 
                                 var1.setColor(z);
                                 var2.a(var1, k.r[11][0], 2, var43, 20);
                                 if (var44) {
-                                    var2.a(var1, var45, e - 1, var43, 24);
+                                    var2.a(var1, var45, e9 - 1, var43, 24);
                                 }
 
                                 if (this.aZ != null) {
                                     int var46 = 0;
-                                    if (e <= 132) {
+                                    if (e9 <= 132) {
                                         var46 = var30 + 2;
                                     }
 
-                                    var1.drawImage(this.aZ, f, a - (var30 >> 1) - var46, 3);
+                                    var1.drawImage(this.aZ, f9, a9 - (var30 >> 1) - var46, 3);
                                 }
 
                             }
@@ -2525,10 +2527,10 @@ public final class j {
         if (this.J != null) {
             try {
                 var1.setColor(0);
-                var1.fillRect(0, 0, e, a);
-                i.ab = 0;
-                int var2 = a - this.J[1].getHeight();
-                int var3 = e * var2 / 40;
+                var1.fillRect(0, 0, e9, a9);
+                i9.ab = 0;
+                int var2 = a9 - this.J[1].getHeight();
+                int var3 = e9 * var2 / 40;
                 boolean var4 = false;
                 if (this.ay == null) {
                     this.ay = new int[var3][4];
@@ -2538,13 +2540,13 @@ public final class j {
                 Graphics var5 = var1;
                 int var6;
                 int var7;
-                if (this.m != null) {
-                    var1.drawImage(this.m, 0, 0, 20);
+                if (this.m9 != null) {
+                    var1.drawImage(this.m9, 0, 0, 20);
                 } else {
-                    if (this.l) {
-                        this.m = Image.createImage(e, var2);
-                        (var5 = this.m.getGraphics()).setColor(0);
-                        var5.fillRect(0, 0, e, var2);
+                    if (this.l9) {
+                        this.m9 = Image.createImage(e9, var2);
+                        (var5 = this.m9.getGraphics()).setColor(0);
+                        var5.fillRect(0, 0, e9, var2);
                     }
 
                     for(var6 = 0; var6 < var3; ++var6) {
@@ -2552,9 +2554,9 @@ public final class j {
                         int var9;
                         int var10;
                         if (var4) {
-                            var7 = i.q() * e / 100;
-                            var8 = i.q() * var2 / 100;
-                            if ((var9 = i.q() * 255 / 100) < 32) {
+                            var7 = i9.q() * e9 / 100;
+                            var8 = i9.q() * var2 / 100;
+                            if ((var9 = i9.q() * 255 / 100) < 32) {
                                 var9 = 32;
                             }
 
@@ -2587,8 +2589,8 @@ public final class j {
                         }
                     }
 
-                    if (this.m != null) {
-                        var1.drawImage(this.m, 0, 0, 20);
+                    if (this.m9 != null) {
+                        var1.drawImage(this.m9, 0, 0, 20);
                     }
                 }
 
@@ -2611,7 +2613,7 @@ public final class j {
                             if (var7 > -this.J[var6].getWidth()) {
                                 var1.drawImage(this.J[var6], var7, this.K[var6][1], 20);
                             }
-                        } while((var7 += this.J[var6].getWidth()) < e);
+                        } while((var7 += this.J[var6].getWidth()) < e9);
                     } else if (this.J[var6] != null && this.K[var6][0] > -this.J[var6].getWidth()) {
                         var1.drawImage(this.J[var6], this.K[var6][0], this.K[var6][1], 20);
                     }
@@ -2626,17 +2628,17 @@ public final class j {
         if (this.I != null) {
             this.bq = this.I.getHeight();
             if (this.aa) {
-                if (this.I.getWidth() < e) {
+                if (this.I.getWidth() < e9) {
                     var1.setColor(0);
-                    var1.fillRect(0, 0, e, this.bq);
+                    var1.fillRect(0, 0, e9, this.bq);
                 }
 
-                var1.drawImage(this.I, f, 0, 17);
+                var1.drawImage(this.I, f9, 0, 17);
                 this.aa = false;
             }
         }
 
-        var1.setClip(0, 0, e, a);
+        var1.setClip(0, 0, e9, a9);
         var1.translate(-var1.getTranslateX(), this.bq - var1.getTranslateY());
         d var2 = A;
         boolean var3 = false;
@@ -2645,14 +2647,14 @@ public final class j {
 
         try {
             int var6;
-            if ((var6 = a - this.bq) > this.D) {
+            if ((var6 = a9 - this.bq) > this.D) {
                 var6 = this.D;
             }
 
-            int var8 = e - this.bG - this.bK - 1;
+            int var8 = e9 - this.bG - this.bK - 1;
             boolean var9 = false;
             int var10 = var2.b() + 1;
-            if (e >= 240) {
+            if (e9 >= 240) {
                 ++var10;
             }
 
@@ -2660,7 +2662,7 @@ public final class j {
                 ++var10;
             }
 
-            int var11 = var2.b() - var2.f + 2 + 3;
+            int var11 = var2.b() - var2.f3 + 2 + 3;
             if (this.S != null) {
                 var11 = this.S.getHeight();
             }
@@ -2695,13 +2697,13 @@ public final class j {
             int var20;
             int var21;
             if (var1 != null) {
-                if ((this.G == null || this.G.getWidth() < e || this.G.getHeight() < var6) && this.J == null) {
+                if ((this.G == null || this.G.getWidth() < e9 || this.G.getHeight() < var6) && this.J == null) {
                     var1.setColor(0);
-                    var1.fillRect(0, 0, e, var6);
+                    var1.fillRect(0, 0, e9, var6);
                 }
 
                 if (this.G != null && this.J == null) {
-                    var1.drawImage(this.G, f, b, 3);
+                    var1.drawImage(this.G, f9, b9, 3);
                 }
 
                 if (this.ae != null) {
@@ -2741,9 +2743,9 @@ public final class j {
 
                     var20 = var18 - this.bL;
                     if (this.f()) {
-                        k.a(var1, 0, var6 - var20 >> 1, e, var20, 0, 128);
+                        k.a(var1, 0, var6 - var20 >> 1, e9, var20, 0, 128);
                     } else {
-                        a(var1, 0, var6 - var20 >> 1, e, var20, 0, 128);
+                        a(var1, 0, var6 - var20 >> 1, e9, var20, 0, 128);
                     }
 
                     if (this.bL > 0) {
@@ -2773,15 +2775,15 @@ public final class j {
                 if (this.ae == null) {
                     if (this.S == null) {
                         var1.setColor(6, 41, 0);
-                        k.b(var1, 0, 0, e, var11, 128, 96);
+                        k.b(var1, 0, 0, e9, var11, 128, 96);
                         if (this.bg != null) {
                             var1.drawImage(this.bg, 1, var11 - this.bg.getHeight() >> 1, 20);
                         }
 
-                        k.b(var1, 0, var6 - var11, e, var11, 128, 96);
+                        k.b(var1, 0, var6 - var11, e9, var11, 128, 96);
                         var1.setColor(126, 255, 0);
-                        var1.drawRect(0, 0, e - 1, var11 - 1);
-                        var1.drawRect(0, var6 - var11, e - 1, var11 - 1);
+                        var1.drawRect(0, 0, e9 - 1, var11 - 1);
+                        var1.drawRect(0, var6 - var11, e9 - 1, var11 - 1);
                     }
 
                     var1.setColor(0);
@@ -2789,7 +2791,7 @@ public final class j {
 
                 if (this.ae == null) {
                     var1.setColor(z);
-                    var20 = var11 - (var2.b() - var2.f) >> 1;
+                    var20 = var11 - (var2.b() - var2.f3) >> 1;
                     this.b(var1, var2, this.az[0], 1, var20);
                     var2.a(var1, this.az[0], 1, var20, 20);
                     var21 = 3;
@@ -2800,12 +2802,12 @@ public final class j {
                     var20 += var6 - var11;
                     this.b(var1, var2, k.r[11][2], 1, var20);
                     var2.a(var1, k.r[11][2], 1, var20, 20);
-                    this.b(var1, var2, k.r[11][var21], e - 1, var20);
-                    var2.a(var1, k.r[11][var21], e - 1, var20, 24);
+                    this.b(var1, var2, k.r[11][var21], e9 - 1, var20);
+                    var2.a(var1, k.r[11][var21], e9 - 1, var20, 24);
                 }
             }
 
-            var1.setClip(0, var12, e, var18);
+            var1.setClip(0, var12, e9, var18);
             var20 = this.bt - var18;
             this.bs = 1;
             if (var20 >= var10) {
@@ -2861,7 +2863,7 @@ public final class j {
                 }
             }
 
-            var1.setClip(0, 0, e, var6);
+            var1.setClip(0, 0, e9, var6);
             var35 = this.bt;
             var11 = var6 - this.E >> 1;
             int var38 = var15 * var10;
@@ -2907,29 +2909,29 @@ public final class j {
 
             if (this.aU != 2 && this.J == null) {
                 var1.setColor(168, 169, 151);
-                var1.fillRect(e - this.bG - this.bK, var11, this.bG - 1, this.E - 1);
+                var1.fillRect(e9 - this.bG - this.bK, var11, this.bG - 1, this.E - 1);
                 var1.setColor(0);
-                var1.drawRect(e - this.bG - this.bK, var11, this.bG - 1, this.E - 1);
+                var1.drawRect(e9 - this.bG - this.bK, var11, this.bG - 1, this.E - 1);
                 var1.setColor(153, 253, 240);
-                var1.fillRect(e - this.bG - this.bK, var11 + var28 + 1, this.bG, var25 - 2);
+                var1.fillRect(e9 - this.bG - this.bK, var11 + var28 + 1, this.bG, var25 - 2);
                 var1.setColor(0);
-                var1.fillRect(e - this.bG - this.bK + 1, var11 + var28 + 1 + 1, this.bG - 1 - 1, var25 - 2 - 2);
+                var1.fillRect(e9 - this.bG - this.bK + 1, var11 + var28 + 1 + 1, this.bG - 1 - 1, var25 - 2 - 2);
                 if (this.ae[2] != null) {
-                    int var29 = e - this.bG - this.bK + (this.bG >> 1) - (this.ae[2].getWidth() >> 1);
+                    int var29 = e9 - this.bG - this.bK + (this.bG >> 1) - (this.ae[2].getWidth() >> 1);
                     if (this.aj) {
                         var4 -= 2;
                     }
 
-                    var1.setClip(0, var4, e, this.ae[2].getHeight() >> 1);
+                    var1.setClip(0, var4, e9, this.ae[2].getHeight() >> 1);
                     var1.drawImage(this.ae[2], var29, var4, 20);
                     if (this.ai) {
                         var5 += 2;
                     }
 
                     ++var5;
-                    var1.setClip(0, var5, e, this.ae[2].getHeight() >> 1);
+                    var1.setClip(0, var5, e9, this.ae[2].getHeight() >> 1);
                     var1.drawImage(this.ae[2], var29, var5 - (this.ae[2].getHeight() >> 1), 20);
-                    var1.setClip(0, 0, e, var6);
+                    var1.setClip(0, 0, e9, var6);
                 }
             }
         } catch (Exception var32) {
@@ -2940,15 +2942,15 @@ public final class j {
 
     private final void e(Graphics var1) {
         try {
-            var1.setClip(0, 0, e, a);
+            var1.setClip(0, 0, e9, a9);
             var1.setColor(65280);
             int var2;
-            if ((var2 = (a >> 1) / this.aT.length) < x.b()) {
+            if ((var2 = (a9 >> 1) / this.aT.length) < x.b()) {
                 var2 = x.b();
             }
 
-            int var3 = a / 3;
-            int var4 = a - (this.aT.length + 4) * var2 >> 1;
+            int var3 = a9 / 3;
+            int var4 = a9 - (this.aT.length + 4) * var2 >> 1;
             if (var3 > var4) {
                 var3 = var4;
             }
@@ -2956,22 +2958,22 @@ public final class j {
             int var5 = var3;
 
             for(int var6 = 0; var6 < this.aT.length; ++var6) {
-                x.a(var1, this.aT[var6], e >> 1, var5, 17);
+                x.a(var1, this.aT[var6], e9 >> 1, var5, 17);
                 var5 += var2;
             }
 
             if (this.aR != null) {
-                x.a(var1, this.aR, e >> 1, var5, 17);
+                x.a(var1, this.aR, e9 >> 1, var5, 17);
             }
 
             if (this.aS != null && this.aS.length > 0) {
-                var5 = a - var2;
+                var5 = a9 - var2;
                 if (this.aS[0] != null && this.aS[0].length() > 1 && this.aR != null && this.aR.length() >= this.aQ) {
                     x.a(var1, this.aS[0], 2, var5, 20);
                 }
 
                 if (this.aS.length > 1 && this.aS[1] != null && this.aS[1].length() > 1) {
-                    x.a(var1, this.aS[1], e - 2, var5, 24);
+                    x.a(var1, this.aS[1], e9 - 2, var5, 24);
                 }
             }
 
@@ -2983,13 +2985,13 @@ public final class j {
         if (this.bF > 0) {
             d var2;
             int var3;
-            int var4 = (var3 = (var2 = x).b() - var2.f + 5) - (var2.b() - var2.f) >> 1;
+            int var4 = (var3 = (var2 = x).b() - var2.f3 + 5) - (var2.b() - var2.f3) >> 1;
             String var5 = "";
             if (this.bF == 1) {
                 var5 = k.r[1][8];
 
                 try {
-                    if (i.v()) {
+                    if (i9.v()) {
                         var5 = k.r[1][11];
                     }
                 } catch (Exception var8) {
@@ -2999,26 +3001,26 @@ public final class j {
             int var6;
             if (this.bF == 2) {
                 var5 = k.r[1][2] + k.r[1][5];
-                k.a(var1, 0, a - var3, e, var3, 0, 190);
-                var6 = a - var3;
+                k.a(var1, 0, a9 - var3, e9, var3, 0, 190);
+                var6 = a9 - var3;
                 var2.a(var1, k.r[1][3], 2, var6 + var4, 20);
-                var2.a(var1, k.r[1][4], e - 1 - 2, var6 + var4, 24);
+                var2.a(var1, k.r[1][4], e9 - 1 - 2, var6 + var4, 24);
             }
 
-            var6 = a - var3 >> 1;
-            k.a(var1, 0, var6, e, var3, 0, 190);
-            var2.a(var1, var5, f, var6 + var4, 17);
+            var6 = a9 - var3 >> 1;
+            k.a(var1, 0, var6, e9, var3, 0, 190);
+            var2.a(var1, var5, f9, var6 + var4, 17);
         }
 
     }
 
     private final void a(Graphics var1, d var2, String var3, int var4, int var5) {
         int var6 = var4;
-        int var7 = var5 + var2.b() - var2.f;
+        int var7 = var5 + var2.b() - var2.f3;
         int var10 = var3.length();
         int var11 = 0;
         boolean[] var12 = new boolean[]{true};
-        int[] var13 = new int[]{var2.a("28. "), e >> 1};
+        int[] var13 = new int[]{var2.a("28. "), e9 >> 1};
         char[] var14 = new char[]{' ', '*'};
         int var15 = 0;
 
@@ -3032,7 +3034,7 @@ public final class j {
             var15 = var2.a('-');
         }
 
-        int var17 = e - this.bu - this.bG - this.bK - 1 - var15 * 5 - 2;
+        int var17 = e9 - this.bu - this.bG - this.bK - 1 - var15 * 5 - 2;
         boolean var18 = false;
 
         for(int var19 = 0; var19 < 0 + var10; ++var19) {
@@ -3078,11 +3080,11 @@ public final class j {
                 br = null;
             } else if (this.aU == 3) {
                 boolean var4 = false;
-                var3 = k.r[23][0] + '\r' + k.r[23][1] + this.d;
+                var3 = k.r[23][0] + '\r' + k.r[23][1] + this.d9;
             } else if (this.aU == 8) {
                 var3 = k();
             } else {
-                var3 = f.n.f(k.a(this.bO[this.aU]) + var1);
+                var3 = f.instanceHandler.f(k.a(this.bO[this.aU]) + var1);
             }
 
             if (var3 == null) {
@@ -3099,24 +3101,24 @@ public final class j {
                 this.av[this.aJ] = (byte)this.as;
             }
 
-            i.c(-1);
+            i9.c(-1);
             this.W = 3;
             this.G = null;
             this.l();
             this.aa = true;
-            this.az = f.n.a(var3, A, e - 2 * this.bu - this.bG - this.bK - 1, true);
+            this.az = f.instanceHandler.a(var3, A, e9 - 2 * this.bu - this.bG - this.bK - 1, true);
             this.bs = 1;
             this.bt = 0;
             this.ak = true;
             this.N = 0;
             this.T = false;
             this.U = false;
-            this.C = i.aO;
-            this.k = this.j;
-            i.aO = false;
-            this.j = -1;
+            this.C = i9.aO;
+            this.k9 = this.j9;
+            i9.aO = false;
+            this.j9 = -1;
             this.bq = 0;
-            this.D = a;
+            this.D = a9;
             this.I = null;
             if (this.aU == 5) {
                 this.i();
@@ -3145,21 +3147,21 @@ public final class j {
                     } catch (OutOfMemoryError var7) {
                     }
 
-                    if (this.ae[0] != null && this.ae[0].getHeight() != a) {
+                    if (this.ae[0] != null && this.ae[0].getHeight() != a9) {
                         try {
-                            this.ae[0] = f.a(this.ae[0], 0, 0, this.ae[0].getWidth(), this.ae[0].getHeight(), this.ae[0].getWidth() * a / this.ae[0].getHeight(), a, 0, false, true);
+                            this.ae[0] = f.a(this.ae[0], 0, 0, this.ae[0].getWidth(), this.ae[0].getHeight(), this.ae[0].getWidth() * a9 / this.ae[0].getHeight(), a9, 0, false, true);
                         } catch (OutOfMemoryError var6) {
                         }
                     }
 
                     this.af[0][0] = -this.ae[0].getWidth();
-                    this.af[0][1] = a - this.ae[0].getHeight() >> 1;
+                    this.af[0][1] = a9 - this.ae[0].getHeight() >> 1;
                 }
             } catch (OutOfMemoryError var10) {
                 this.ae = null;
             }
 
-            this.bL = b;
+            this.bL = b9;
         }
     }
 
@@ -3176,10 +3178,10 @@ public final class j {
         this.N = 0;
         this.T = false;
         this.U = false;
-        i.aO = this.C;
-        this.j = this.k;
-        if (i.aO && k.cq) {
-            this.j = -1;
+        i9.aO = this.C;
+        this.j9 = this.k9;
+        if (i9.aO && k.cq) {
+            this.j9 = -1;
             this.G = null;
         } else {
             if (this.G == null) {
@@ -3195,7 +3197,7 @@ public final class j {
             }
 
             if (this.G != null) {
-                this.j = this.k;
+                this.j9 = this.k9;
             }
 
             this.bv = 0;
@@ -3204,32 +3206,32 @@ public final class j {
     }
 
     private final void a(Graphics var1, int var2, int var3, boolean var4, boolean var5) {
-        if (i.x[2] != null) {
-            int var6 = i.x[2].getWidth();
-            int var7 = i.x[2].getHeight() >> 1;
-            int var8 = f - (var6 >> 1);
+        if (i9.x[2] != null) {
+            int var6 = i9.x[2].getWidth();
+            int var7 = i9.x[2].getHeight() >> 1;
+            int var8 = f9 - (var6 >> 1);
             if (this.aF != null) {
                 var8 = this.aF.getWidth() * 10 / 166 - (var6 >> 1);
             }
 
             int var9 = 0;
-            Image var10 = i.x[2];
+            Image var10 = i9.x[2];
             if (var5) {
                 var9 = var7;
                 var2 += this.bw;
-                if (this.Q && i.x[3] != null) {
-                    var10 = i.x[3];
+                if (this.Q && i9.x[3] != null) {
+                    var10 = i9.x[3];
                 }
             } else {
                 var2 = var2 - var7 - this.bw;
-                if (this.R && i.x[3] != null) {
-                    var10 = i.x[3];
+                if (this.R && i9.x[3] != null) {
+                    var10 = i9.x[3];
                 }
             }
 
             var1.setClip(var8, var2, var6, var7);
             var1.drawImage(var10, var8, var2 - var9, 20);
-            var1.setClip(0, 0, e, a);
+            var1.setClip(0, 0, e9, a9);
         } else {
             if (var4) {
                 var1.setColor(10223442);
@@ -3241,7 +3243,7 @@ public final class j {
                 var2 -= var3;
             }
 
-            a(var1, f, var2, var3 << 1, var3, var5);
+            a(var1, f9, var2, var3 << 1, var3, var5);
         }
     }
 
@@ -3279,36 +3281,36 @@ public final class j {
 
     private final void x() {
         this.q();
-        i.z();
-        if (this.t && k.b != null) {
-            if (i.h()) {
-                i.c(1);
+        i9.z();
+        if (this.t && k.b10 != null) {
+            if (i9.h()) {
+                i9.c(1);
                 this.bb = System.currentTimeMillis();
                 this.an = 0;
                 this.s = true;
                 this.t = false;
             } else {
-                i.c(5);
+                i9.c(5);
             }
         }
 
-        if (this.s && k.b != null && !n.s && System.currentTimeMillis() - this.bb > 177L) {
-            if (n.c != null && this.an >= 2) {
-                if (i.e()) {
+        if (this.s && k.b10 != null && !n.s && System.currentTimeMillis() - this.bb > 177L) {
+            if (n.c12 != null && this.an >= 2) {
+                if (i9.e()) {
                     this.A();
                     this.s = false;
                     return;
                 }
 
-                i.c(2);
-                i.d();
+                i9.c(2);
+                i9.d();
                 this.s = false;
             }
 
-            if (n.c != null) {
+            if (n.c12 != null) {
                 ++this.an;
             } else {
-                i.c(4);
+                i9.c(4);
                 this.s = false;
             }
         }
@@ -3362,18 +3364,18 @@ public final class j {
             }
         }
 
-        if (i != null) {
+        if (i9 != null) {
             try {
                 long var3 = System.currentTimeMillis();
-                if (!i.aO) {
-                    i.repaint();
-                    i.serviceRepaints();
+                if (!i9.aO) {
+                    i9.repaint();
+                    i9.serviceRepaints();
                 } else {
-                    i.a();
+                    i9.a();
                 }
 
                 long var5 = System.currentTimeMillis();
-                if (!i.aO) {
+                if (!i9.aO) {
                     this.c();
                 }
 
@@ -3391,7 +3393,7 @@ public final class j {
                     var7 = System.currentTimeMillis() - var3;
                     this.ah = (int)(var7 * (long)A.b() / 50L);
                     short var11 = 350;
-                    if (e >= 240) {
+                    if (e9 >= 240) {
                         var11 = 280;
                     }
 
@@ -3492,19 +3494,19 @@ public final class j {
         this.bd = null;
         this.be = null;
         this.ao = null;
-        this.j = -1;
-        this.n = true;
+        this.j9 = -1;
+        this.n9 = true;
         w = false;
         this.bE = false;
         this.am = al;
         u = false;
         if (al) {
             this.N = 0;
-            i.aO = false;
+            i9.aO = false;
 
             try {
-                this.ar = e;
-                this.j = 0;
+                this.ar = e9;
+                this.j9 = 0;
                 this.ao = f.b(k.a(this.aC[0]));
                 this.t();
                 this.ao = null;
@@ -3513,7 +3515,7 @@ public final class j {
             }
 
             this.h();
-            if (!this.n) {
+            if (!this.n9) {
                 return;
             }
 
@@ -3530,8 +3532,8 @@ public final class j {
                 Thread.sleep(33L);
                 this.ao = f.b(k.a(this.aC[1]));
                 if (this.ao != null) {
-                    this.ar = e;
-                    this.j = 0;
+                    this.ar = e9;
+                    this.j9 = 0;
                     this.t();
                     this.ao = null;
                     Thread.sleep(330L);
@@ -3540,8 +3542,8 @@ public final class j {
             }
 
             this.a(true);
-            i.aO = false;
-            f.e = 0;
+            i9.aO = false;
+            f.e1 = 0;
             this.m();
         } else {
             s();
@@ -3552,7 +3554,7 @@ public final class j {
         this.N = 0;
         this.U = false;
         this.T = true;
-        this.j = -1;
+        this.j9 = -1;
         this.ao = null;
         al = false;
 
@@ -3561,8 +3563,8 @@ public final class j {
         } catch (Exception var13) {
         }
 
-        this.C = i.aO;
-        this.k = this.j;
+        this.C = i9.aO;
+        this.k9 = this.j9;
         if (!this.ak) {
             this.w();
         }
@@ -3577,8 +3579,8 @@ public final class j {
         if (this.aF == null) {
             try {
                 this.aF = f.a(k.a(this.aC[3]));
-                this.bJ = e;
-                this.bI = e - this.aF.getWidth() >> 1;
+                this.bJ = e9;
+                this.bI = e9 - this.aF.getWidth() >> 1;
                 this.bH = this.bJ;
                 this.aG = f.a(k.a(this.aC[4]));
                 this.aH = new Image[5];
@@ -3615,7 +3617,7 @@ public final class j {
         this.c(var18);
         this.aK = var18;
         this.N = 0;
-        this.n = true;
+        this.n9 = true;
         this.bE = true;
         if (B) {
             this.aU = 1;
@@ -3639,7 +3641,7 @@ public final class j {
         this.ax = true;
         long var2 = 0L;
 
-        while(this.n || this.ak || i.cs != null) {
+        while(this.n9 || this.ak || i9.cs != null) {
             if (w) {
                 return;
             }
@@ -3683,7 +3685,7 @@ public final class j {
                     var2 = System.currentTimeMillis();
                 }
 
-                if (this.n || this.ak || i.cs != null) {
+                if (this.n9 || this.ak || i9.cs != null) {
                     this.x();
                 }
 
@@ -3692,21 +3694,21 @@ public final class j {
             }
         }
 
-        if (i.S && h.G != 1L) {
+        if (i9.S && h.G != 1L) {
             if (ad == null) {
                 ad = j();
             }
 
-            i.g();
-            i.bJ = 0;
-            i.dE = true;
-            i.ev = true;
-            i.p();
+            i9.g();
+            i9.bJ = 0;
+            i9.dE = true;
+            i9.ev = true;
+            i9.p();
         }
 
         this.ae = null;
         k.l();
-        k.a = null;
+        k.a5 = null;
         this.az = null;
         this.aA = null;
         this.ao = null;
@@ -3715,7 +3717,7 @@ public final class j {
         this.aG = null;
         this.aH = null;
         this.S = null;
-        i.i();
+        i9.i();
     }
 
     private final void y() {
@@ -3723,33 +3725,33 @@ public final class j {
     }
 
     private static void z() {
-        boolean var0 = f.l;
+        boolean var0 = f.l1;
         boolean var1 = f.o;
-        boolean var2 = f.h;
+        boolean var2 = f.h1;
         boolean var3 = k.du;
         int var4 = m.K;
-        int var5 = f.e;
+        int var5 = f.e1;
         f.a();
-        f.l = var0;
+        f.l1 = var0;
         f.o = var1;
-        f.h = var2;
+        f.h1 = var2;
         k.du = var3;
         m.K = var4;
         f.b();
-        f.e = var5;
+        f.e1 = var5;
     }
 
     private final void b(Graphics var1, d var2, String var3, int var4, int var5) {
         if (var1 != null && var3 != null && var3.length() > 1 && this.S != null) {
             boolean var6 = false;
             int var7 = 0;
-            if (var5 >= b) {
-                var7 = a - this.S.getHeight();
+            if (var5 >= b9) {
+                var7 = a9 - this.S.getHeight();
             }
 
             int var8;
-            if (var4 >= f) {
-                var8 = e - var2.a(var3 + " ");
+            if (var4 >= f9) {
+                var8 = e9 - var2.a(var3 + " ");
             } else {
                 var8 = -(this.S.getWidth() - var2.a(var3 + " "));
             }
@@ -3759,9 +3761,9 @@ public final class j {
     }
 
     private final void A() {
-        f.e = k.cz;
-        if (f.e < 1) {
-            f.e = 1;
+        f.e1 = k.cz;
+        if (f.e1 < 1) {
+            f.e1 = 1;
         }
 
         k.ax = (k.cl & 2) != 0;
@@ -3813,7 +3815,7 @@ public final class j {
 
                 var1[var2] = -1;
                 f.a(k.cI, var1);
-                i.m();
+                i9.m();
 
                 try {
                     Class.forName("javax.microedition.io.Connector");
@@ -3836,7 +3838,7 @@ public final class j {
     }
 
     private boolean B() {
-        return this.a(f.a, 31);
+        return this.a(f.a1, 31);
     }
 
     private void a(int var1, int var2) {
@@ -3852,7 +3854,7 @@ public final class j {
                     if (k.b(var10, var11, var3, var5)) {
                         try {
                             if (k.ds) {
-                                i.fc = true;
+                                i9.fc = true;
                             }
 
                             label178:
@@ -4001,35 +4003,35 @@ public final class j {
     }
 
     static final void g() {
-        e = i.getWidth();
-        a = i.getHeight();
-        f = e >> 1;
-        b = a >> 1;
+        e9 = i9.getWidth();
+        a9 = i9.getHeight();
+        f9 = e9 >> 1;
+        b9 = a9 >> 1;
     }
 
     private static boolean D() {
-        return f.e > 1 || f.c != 0 || f.f > 1;
+        return f.e1 > 1 || f.c1 != 0 || f.f1 > 1;
     }
 
     private void g(Graphics var1) {
         try {
-            var1.setClip(0, 0, e, a);
+            var1.setClip(0, 0, e9, a9);
             var1.setColor(0);
-            var1.fillRect(0, 0, e, a);
-            if (this.ar < e) {
-                int var2 = (a >> 3) * 3 - (this.ao.getHeight() >> 1);
+            var1.fillRect(0, 0, e9, a9);
+            if (this.ar < e9) {
+                int var2 = (a9 >> 3) * 3 - (this.ao.getHeight() >> 1);
                 if (this.H == null && this.ar < 0) {
-                    var2 = a - this.ao.getHeight() >> 1;
+                    var2 = a9 - this.ao.getHeight() >> 1;
                 }
 
-                var1.drawImage(this.ao, (e >> 1) - (this.ao.getWidth() >> 1), var2, 20);
+                var1.drawImage(this.ao, (e9 >> 1) - (this.ao.getWidth() >> 1), var2, 20);
                 if (this.ar >= 0) {
                     if (this.H != null) {
-                        var1.drawImage(this.H, (e >> 1) - (this.H.getWidth() >> 1), a - (a >> 3) - (this.H.getHeight() >> 1), 20);
+                        var1.drawImage(this.H, (e9 >> 1) - (this.H.getWidth() >> 1), a9 - (a9 >> 3) - (this.H.getHeight() >> 1), 20);
                     }
 
                     var1.setColor(185, 185, 185);
-                    var1.fillRect((e >> 1) - (this.ar >> 1) - (this.ar >> 2), a - (a >> 4), this.ar + (this.ar >> 1), 1);
+                    var1.fillRect((e9 >> 1) - (this.ar >> 1) - (this.ar >> 2), a9 - (a9 >> 4), this.ar + (this.ar >> 1), 1);
                     int var9 = 640 / this.ar;
                     int var10 = 640 / this.ar;
                     int var11 = 640 / this.ar;
@@ -4042,16 +4044,16 @@ public final class j {
                         var13 -= var10;
                         var14 -= var11;
                         var1.setColor(var12 >> 2, var13 >> 2, var14 >> 2);
-                        var1.fillRect((e >> 1) - (this.ar >> 1) - var15 - 1, a - (a >> 4), 1, 1);
-                        var1.fillRect((e >> 1) + (this.ar >> 1) + var15, a - (a >> 4), 1, 1);
+                        var1.fillRect((e9 >> 1) - (this.ar >> 1) - var15 - 1, a9 - (a9 >> 4), 1, 1);
+                        var1.fillRect((e9 >> 1) + (this.ar >> 1) + var15, a9 - (a9 >> 4), 1, 1);
                     }
                 }
             } else {
-                var1.drawImage(this.ao, (e >> 1) - (this.ao.getWidth() >> 1), (a >> 1) - (this.ao.getHeight() >> 1), 20);
+                var1.drawImage(this.ao, (e9 >> 1) - (this.ao.getWidth() >> 1), (a9 >> 1) - (this.ao.getHeight() >> 1), 20);
             }
 
             if (this.ap > 0) {
-                k.a(var1, 0, 0, e, a, this.aq, this.ap);
+                k.a(var1, 0, 0, e9, a9, this.aq, this.ap);
             }
 
         } catch (Exception var16) {

@@ -6,18 +6,19 @@
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 
+// Text renderer
 public final class i {
-    int a;
-    int b = -1;
-    Font c;
-    int d = 2708892;
-    int e = 1;
-    int f = 1;
-    String g = "";
+    int a8;
+    int b8 = -1;
+    Font c8;
+    int d8 = 2708892;
+    int e8 = 1;
+    int f8 = 1;
+    String g8 = "";
 
     public i() {
         this.c();
-        if (this.c == null) {
+        if (this.c8 == null) {
             this.d();
         }
 
@@ -25,7 +26,7 @@ public final class i {
 
     private final int[] a(String var1, int var2, int var3, int var4) {
         int[] var5 = new int[2];
-        int var6 = this.a + this.f;
+        int var6 = this.a8 + this.f8;
         int var7 = this.a(var1, var3, var4);
         if ((var2 & 32) > 0) {
             var5[1] -= var6;
@@ -47,36 +48,36 @@ public final class i {
     }
 
     public final int a(char var1) {
-        return var1 != '\n' && var1 != '\r' ? this.c.charWidth(var1) + this.e : 0;
+        return var1 != '\n' && var1 != '\r' ? this.c8.charWidth(var1) + this.e8 : 0;
     }
 
     private final void c() {
-        if (this.c == null) {
+        if (this.c8 == null) {
             this.d();
         }
 
-        this.a = this.c.getHeight() - this.f;
+        this.a8 = this.c8.getHeight() - this.f8;
     }
 
     private final void d() {
-        this.c = Font.getFont(0, 0, 8);
-        if (this.g.length() > 0 && this.g.charAt(0) == '2') {
-            this.d = 16777215;
+        this.c8 = Font.getFont(0, 0, 8);
+        if (this.g8.length() > 0 && this.g8.charAt(0) == '2') {
+            this.d8 = 16777215;
         }
 
     }
 
     private int a(Graphics var1, char var2, int var3, int var4) {
         try {
-            var1.setFont(this.c);
+            var1.setFont(this.c8);
             int var5 = var1.getColor();
-            var4 -= this.c.getHeight();
-            if (this.b >= 0) {
-                var1.setColor(this.b);
+            var4 -= this.c8.getHeight();
+            if (this.b8 >= 0) {
+                var1.setColor(this.b8);
                 var1.drawChar(var2, var3 + 1, var4 + 1, 20);
             }
 
-            var1.setColor(this.d);
+            var1.setColor(this.d8);
             var1.drawChar(var2, var3, var4, 20);
             var1.setColor(var5);
         } catch (Exception var6) {
@@ -87,7 +88,7 @@ public final class i {
 
     public final int a(Graphics var1, char var2, int var3, int var4, int var5) {
         int var6 = var3;
-        int var7 = var4 + this.a;
+        int var7 = var4 + this.a8;
         String var9 = "" + var2;
         if (var5 != 0 && var5 != 20) {
             int[] var10 = this.a((String)var9, (int)var5, 0, 1);
@@ -104,7 +105,7 @@ public final class i {
 
     private void a(Graphics var1, String var2, int var3, int var4, int var5, int var6, int var7) {
         int var8 = var5;
-        int var9 = var6 + this.a;
+        int var9 = var6 + this.a8;
         if (var7 != 0 && var7 != 20) {
             int[] var10 = this.a(var2, var7, var3, var4);
             var8 = var5 + var10[0];
@@ -122,7 +123,7 @@ public final class i {
     }
 
     public final int b() {
-        return this.f + this.a;
+        return this.f8 + this.a8;
     }
 
     public final int a(String var1) {

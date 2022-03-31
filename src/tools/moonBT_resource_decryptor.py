@@ -43,6 +43,7 @@ def main() -> None:
         os.mkdir(folder)
     
     data = read_data(filename)
+    #data = decode_data_method_a(data, salt) # Is used when it's twice decrypted
     save_data(decode_data_method_a(data, salt), os.path.join(folder, os.path.basename(filename)))
 
 

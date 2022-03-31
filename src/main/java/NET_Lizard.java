@@ -6,37 +6,37 @@
 import javax.microedition.midlet.MIDlet;
 
 public final class NET_Lizard extends MIDlet {
-    static NET_Lizard a;
-    static int b = 0;
-    static k c;
-    static boolean d = true;
+    static NET_Lizard app;
+    static int b_nl = 0;
+    static k c_nl;
+    static boolean d_nl = true;
 
     public NET_Lizard() {
-        a = this;
-        if (f.n == null) {
+        app = this;
+        if (f.instanceHandler == null) {
             f.d();
         }
 
-        if (c == null) {
-            c = new k();
+        if (c_nl == null) {
+            c_nl = new k();
         }
 
     }
 
-    public final void destroyApp(boolean var1) {
-        if (d) {
+    public final void destroyApp(boolean unconditional) {
+        if (d_nl) {
             try {
-                c.S = false;
+                c_nl.S = false;
             } catch (Exception var8) {
             }
 
             try {
-                c.cr.n = false;
+                c_nl.cr.n9 = false;
             } catch (Exception var7) {
             }
 
             try {
-                c.e = false;
+                c.e2 = false;
             } catch (Exception var6) {
             }
 
@@ -46,8 +46,8 @@ public final class NET_Lizard extends MIDlet {
             }
 
             try {
-                if (k.b != null && n.g) {
-                    c.d();
+                if (k.b10 != null && n.g12) {
+                    c_nl.d();
                 }
             } catch (Exception var4) {
             }
@@ -56,34 +56,34 @@ public final class NET_Lizard extends MIDlet {
         f.c();
 
         try {
-            c.ez = null;
+            c_nl.ez = null;
         } catch (Exception var3) {
         }
 
-        c = null;
-        b = 0;
+        c_nl = null;
+        b_nl = 0;
         this.notifyDestroyed();
     }
 
     public final void pauseApp() {
-        b = 2;
+        b_nl = 2;
         this.notifyPaused();
     }
 
     public static void a() {
-        d = false;
-        a.destroyApp(true);
-        a.notifyDestroyed();
-        a = null;
+        d_nl = false;
+        app.destroyApp(true);
+        app.notifyDestroyed();
+        app = null;
     }
 
     public final void startApp() {
-        if (b == 0) {
+        if (b_nl == 0) {
             k.cq = true;
-            c.j();
+            c_nl.j();
         }
 
-        b = 1;
-        d = true;
+        b_nl = 1;
+        d_nl = true;
     }
 }

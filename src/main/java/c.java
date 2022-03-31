@@ -8,21 +8,21 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 public final class c implements Runnable {
-    int a = 170;
-    static int b = -1;
+    int a2 = 170;
+    static int b2 = -1;
     private k Q;
-    int c;
-    int d;
-    static boolean e = false;
-    boolean f;
-    static int g;
-    boolean h = false;
-    int i = 0;
-    int j = 0;
-    int k = 0;
-    int l = 0;
-    int m = 0;
-    static int[] n;
+    int c2;
+    int d2;
+    static boolean e2 = false;
+    boolean f2;
+    static int g2;
+    boolean h2 = false;
+    int i2 = 0;
+    int j2 = 0;
+    int k2 = 0;
+    int l2 = 0;
+    int m2 = 0;
+    static int[] n2;
     int o = 0;
     static int p;
     int q = 2;
@@ -56,7 +56,7 @@ public final class c implements Runnable {
     public c(k var1) {
         this.Q = var1;
         this.M = new Thread(this);
-        e = true;
+        e2 = true;
         this.M.start();
         if (this.M.getPriority() != 1) {
             this.M.setPriority(1);
@@ -72,7 +72,7 @@ public final class c implements Runnable {
     }
 
     private final void e() {
-        for(int var1 = 0; this.m > 0 && this.k > 0 && var1 < this.Q.cU; ++var1) {
+        for(int var1 = 0; this.m2 > 0 && this.k2 > 0 && var1 < this.Q.cU; ++var1) {
             int var2 = -1;
             int var3 = 1000000;
 
@@ -261,8 +261,8 @@ public final class c implements Runnable {
         this.A = this.Q.getHeight() - this.x >> 1;
         int var1 = this.Q.fC;
         int var2 = this.Q.fV;
-        this.d = var1 * this.B;
-        this.c = var2 * this.B;
+        this.d2 = var1 * this.B;
+        this.c2 = var2 * this.B;
     }
 
     final void b() {
@@ -383,10 +383,10 @@ public final class c implements Runnable {
 
     static final void a(Image var0, int var1, int var2, int var3, int var4) {
         try {
-            if (Display.getDisplay(NET_Lizard.a).numAlphaLevels() > 1) {
+            if (Display.getDisplay(NET_Lizard.app).numAlphaLevels() > 1) {
                 int[] var5 = a(var0, var1, var2, var3, var4, 0);
                 int var6;
-                if (Display.getDisplay(NET_Lizard.a).numAlphaLevels() > 2) {
+                if (Display.getDisplay(NET_Lizard.app).numAlphaLevels() > 2) {
                     for(var6 = 0; var6 < var5.length; ++var6) {
                         if ((var5[var6] & -16777216) != 0) {
                             var5[var6] = var5[var6] & 16777215 | 2130706432;
@@ -414,7 +414,7 @@ public final class c implements Runnable {
 
                 P = var3;
                 p = var4;
-                n = var5;
+                n2 = var5;
             }
 
         } catch (Exception var11) {
@@ -422,7 +422,7 @@ public final class c implements Runnable {
     }
 
     private void f() {
-        byte var1 = (byte)k.em;
+        byte var1 = (byte) k.em;
         if (k.em > 0) {
             try {
                 for(int var2 = 0; var2 <= this.Q.fX; ++var2) {
@@ -650,7 +650,7 @@ public final class c implements Runnable {
                 int[] var4;
                 int var5 = (var4 = this.a(this.Q.bZ[1][var1], this.Q.bZ[2][var1]))[0] * var3 - var4[2];
                 int var6 = var4[1] * var3 - var4[3];
-                if (var5 < this.m && var6 < this.k || var2 > 0) {
+                if (var5 < this.m2 && var6 < this.k2 || var2 > 0) {
                     int var8 = 0;
 
                     for(int var9 = 0; var8 < this.Q.cU && (var8 <= var5 || var9 <= var6); ++var8) {
@@ -672,7 +672,7 @@ public final class c implements Runnable {
                 int[] var3;
                 int var4 = (var3 = this.a(this.Q.ch[1][var1], this.Q.ch[2][var1]))[0] - var3[2];
                 int var5 = var3[1] - var3[3];
-                if (var4 < this.m && var5 < this.k) {
+                if (var4 < this.m2 && var5 < this.k2) {
                     int var7 = 0;
 
                     int var6;
@@ -753,7 +753,7 @@ public final class c implements Runnable {
                 this.O = 5 + (k.ee - 1) * 10;
                 boolean var5 = var1 > N;
                 if (var1 < 9000L) {
-                    this.h = false;
+                    this.h2 = false;
                 }
 
                 long var6;
@@ -773,10 +773,10 @@ public final class c implements Runnable {
                 }
 
                 if (var1 > var6) {
-                    this.h = true;
+                    this.h2 = true;
                 }
 
-                var5 &= this.h;
+                var5 &= this.h2;
                 switch(this.o) {
                     case 0:
                         int[] var12 = this.i();
@@ -784,23 +784,23 @@ public final class c implements Runnable {
                         this.s = var12[1];
                         this.t = var12[2];
                         var12 = this.e(1);
-                        this.l = var12[0];
+                        this.l2 = var12[0];
                         var12 = this.e(2);
-                        this.m = var12[0];
-                        this.k = var12[1];
-                        this.i = 0;
-                        this.j = 0;
+                        this.m2 = var12[0];
+                        this.k2 = var12[1];
+                        this.i2 = 0;
+                        this.j2 = 0;
                         int var13 = 0;
                         int var14 = 0;
 
                         for(int var15 = 0; var15 < this.Q.cU; ++var15) {
                             if (this.Q.ch[0][var15] > 0) {
                                 if (this.Q.ch[8][var15] == 1) {
-                                    ++this.i;
+                                    ++this.i2;
                                 }
 
                                 if (this.Q.ch[8][var15] == 2) {
-                                    ++this.j;
+                                    ++this.j2;
                                 }
                             }
 
@@ -815,19 +815,19 @@ public final class c implements Runnable {
                             }
                         }
 
-                        if (this.j > this.i && var14 > var13 * 6 >> 2) {
-                            this.h = true;
+                        if (this.j2 > this.i2 && var14 > var13 * 6 >> 2) {
+                            this.h2 = true;
                         }
 
                         if (var14 < var13 * 3 >> 2) {
-                            this.h = false;
+                            this.h2 = false;
                         }
                         break;
                     case 1:
                         this.h(2);
                         break;
                     case 2:
-                        if (this.s > 0 && this.m > 0 && this.k > 0) {
+                        if (this.s > 0 && this.m2 > 0 && this.k2 > 0) {
                             this.d(2, 1);
                         }
                         break;
@@ -835,12 +835,12 @@ public final class c implements Runnable {
                         this.o();
                         break;
                     case 4:
-                        if (this.s > 0 && this.m > 0 && this.k > 0 && var5) {
+                        if (this.s > 0 && this.m2 > 0 && this.k2 > 0 && var5) {
                             this.d(1, 0);
                         }
                         break;
                     case 5:
-                        if (this.m > 0 && this.k > 0 && var5) {
+                        if (this.m2 > 0 && this.k2 > 0 && var5) {
                             this.e();
                         }
                     case 6:
@@ -849,7 +849,7 @@ public final class c implements Runnable {
                     default:
                         break;
                     case 7:
-                        if (this.j > this.l + 1 && this.t > this.s + this.r && var5 && this.m > 0 && this.k > 0) {
+                        if (this.j2 > this.l2 + 1 && this.t > this.s + this.r && var5 && this.m2 > 0 && this.k2 > 0) {
                             for(int var16 = 0; var16 < this.Q.cU; ++var16) {
                                 if (this.Q.ch[0][var16] > 0 && this.Q.ch[8][var16] == 2 && this.Q.ch[17][var16] <= 0 && this.d(var16)) {
                                     int var17 = 10000;
@@ -989,12 +989,12 @@ public final class c implements Runnable {
                         var6 = var7;
                     }
 
-                    var10 = 100 * f.e / k.bP;
+                    var10 = 100 * f.e1 / k.bP;
                     if (this.Q.ch[0][var4] < this.Q.bb) {
                         var6 *= 2;
                     }
 
-                    int var8 = 7 + (f.e >> 1);
+                    int var8 = 7 + (f.e1 >> 1);
                     if (this.Q.bZ[0][var5] == 1) {
                         var8 *= 2;
                         var10 *= 2;
@@ -1018,7 +1018,7 @@ public final class c implements Runnable {
             if (this.Q.bZ[0][var6] > 0 && this.Q.bZ[5][var6] == var1 && this.Q.bZ[18][var6] > 0 && this.Q.bZ[0][var6] == 1) {
                 this.b(var6, 4);
                 this.Q.bZ[18][var6] = 0;
-                var10 = 200 * f.e / k.bP;
+                var10 = 200 * f.e1 / k.bP;
                 if (var2 < var10) {
                     var2 = var10;
                 }
@@ -1030,7 +1030,7 @@ public final class c implements Runnable {
                 this.b(var7, 3);
                 this.Q.bZ[18][var7] = 0;
                 if (var2 <= 0) {
-                    var2 = 100 * f.e / k.bP;
+                    var2 = 100 * f.e1 / k.bP;
                 }
             }
         }
@@ -1100,26 +1100,26 @@ public final class c implements Runnable {
                         this.Q.ch[14][var1] = this.Q.bZ[2][var4];
                         this.Q.ch[12][var1] = -10;
                         this.Q.ch[17][var1] = 1 + var3;
-                        --this.m;
+                        --this.m2;
                         int var5 = this.c(var1);
                         if (this.Q.ch[0][var1] == this.Q.bb) {
                             var5 = 0;
                         }
 
-                        this.k -= var5;
+                        this.k2 -= var5;
                     }
 
                 } else {
                     if (var2 < this.Q.cU) {
                         this.Q.ch[7][var1] = var2 + 1;
                         this.Q.ch[17][var1] = 1;
-                        --this.m;
+                        --this.m2;
                         var4 = this.c(var1);
                         if (this.Q.ch[0][var1] == this.Q.bb) {
                             var4 = 0;
                         }
 
-                        this.k -= var4;
+                        this.k2 -= var4;
                     }
 
                 }
@@ -1157,7 +1157,7 @@ public final class c implements Runnable {
         int var5 = 0;
 
         while(true) {
-            while(e) {
+            while(e2) {
                 if (k.cq) {
                     this.Q.aO = false;
                 }
@@ -1212,9 +1212,9 @@ public final class c implements Runnable {
                                     this.Q.eY = false;
                                 }
 
-                                if (this.f) {
+                                if (this.f2) {
                                     this.f();
-                                    this.f = false;
+                                    this.f2 = false;
                                 }
 
                                 if (this.L) {
@@ -1227,29 +1227,29 @@ public final class c implements Runnable {
                                 this.k();
                             }
 
-                            if (!e || this.Q.ae) {
+                            if (!e2 || this.Q.ae) {
                                 break;
                             }
 
                             if (!this.Q.aB && !this.Q.aC) {
-                                if (!k.cy && b < 0 && b != -100) {
+                                if (!k.cy && b2 < 0 && b2 != -100) {
                                     this.h();
                                     this.m();
                                 }
 
                                 if (k.cy) {
-                                    if (b != -1) {
-                                        b = -1;
+                                    if (b2 != -1) {
+                                        b2 = -1;
                                     }
                                 } else {
-                                    if (b == -100) {
-                                        b = 0;
+                                    if (b2 == -100) {
+                                        b2 = 0;
                                         var18 = 2;
                                     }
 
-                                    if (b >= 0) {
-                                        var1 = b;
-                                        b = -1;
+                                    if (b2 >= 0) {
+                                        var1 = b2;
+                                        b2 = -1;
                                     }
                                 }
 
@@ -1412,7 +1412,7 @@ public final class c implements Runnable {
                 int var3 = this.Q.fX;
                 byte[][] var4 = this.Q.ci;
                 int[] var5 = this.R;
-                int var6 = 9474192 + (this.a << 24);
+                int var6 = 9474192 + (this.a2 << 24);
                 int var7 = 0;
                 boolean var8 = false;
                 int var9 = var1 * (var2 + 1);
@@ -1453,9 +1453,9 @@ public final class c implements Runnable {
 
     final void c() {
         try {
-            int var1 = 3158064 + (this.a << 24);
+            int var1 = 3158064 + (this.a2 << 24);
             if (!k.s() || this.Q.ci == null) {
-                var1 = 9474192 + (this.a << 24);
+                var1 = 9474192 + (this.a2 << 24);
             }
 
             int[] var2;
@@ -1496,7 +1496,7 @@ public final class c implements Runnable {
         }
 
         if (k.em > 0) {
-            byte var9 = (byte)k.em;
+            byte var9 = (byte) k.em;
 
             try {
                 int var2;
@@ -1691,7 +1691,7 @@ public final class c implements Runnable {
                     }
 
                     for(var14 = var37; var14 <= var39; ++var14) {
-                        if ((b >= 0 || b == -100) && var24 > 0L) {
+                        if ((b2 >= 0 || b2 == -100) && var24 > 0L) {
                             return;
                         }
 
@@ -1793,7 +1793,7 @@ public final class c implements Runnable {
     }
 
     static final void a(Graphics var0, int var1, int var2) {
-        if (n != null) {
+        if (n2 != null) {
             int var3 = var0.getClipX();
             int var4 = var0.getClipY();
             int var5 = var0.getClipWidth();
@@ -1807,8 +1807,8 @@ public final class c implements Runnable {
             var2 -= p >> 1;
 
             try {
-                if (Display.getDisplay(NET_Lizard.a).numAlphaLevels() > 1) {
-                    var0.drawRGB(n, 0, P, var1, var2, P, p, true);
+                if (Display.getDisplay(NET_Lizard.app).numAlphaLevels() > 1) {
+                    var0.drawRGB(n2, 0, P, var1, var2, P, p, true);
                 }
             } catch (Exception var10) {
             }
@@ -1820,7 +1820,7 @@ public final class c implements Runnable {
 
     final void a(Graphics var1) {
         try {
-            boolean var2 = this.a >= this.K >> 1;
+            boolean var2 = this.a2 >= this.K >> 1;
             byte[][] var3 = this.Q.ci;
             int[][] var4 = this.Q.ch;
             int[][] var5 = this.Q.bZ;
@@ -1909,8 +1909,8 @@ public final class c implements Runnable {
 
             var8 = this.z + this.Q.fJ * this.B;
             var9 = this.A + this.Q.gd * this.B;
-            var10 = this.d - 1;
-            var11 = this.c - 1;
+            var10 = this.d2 - 1;
+            var11 = this.c2 - 1;
             var1.setColor(16776960);
             if (var2) {
                 var1.drawRect(var8, var9, var10, var11);
@@ -1918,7 +1918,7 @@ public final class c implements Runnable {
         } catch (Exception var16) {
         }
 
-        var1.setClip(0, 0, this.Q.e, this.Q.bx);
+        var1.setClip(0, 0, this.Q.e10, this.Q.bx);
     }
 
     private static void n() {
@@ -1940,7 +1940,7 @@ public final class c implements Runnable {
     }
 
     private final void d(int var1, int var2) {
-        for(int var3 = 0; this.m > 0 && this.k > 0 && var3 < this.Q.bg; ++var3) {
+        for(int var3 = 0; this.m2 > 0 && this.k2 > 0 && var3 < this.Q.bg; ++var3) {
             int var4;
             if ((var4 = this.g()) < 0) {
                 return;

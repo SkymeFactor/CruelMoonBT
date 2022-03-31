@@ -1,4 +1,4 @@
 package javax.microedition.pim;
 
-public class UnsupportedFieldException {
+public class UnsupportedFieldException extends PIMException {
 }

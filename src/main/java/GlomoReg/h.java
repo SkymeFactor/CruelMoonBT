@@ -22,27 +22,27 @@ public final class h {
     }
 
     public static final int a() {
-        return (Integer)b("generalInfo", 1, new Integer(-1));
+        return (Integer)b("generalInfo", 1, Integer.valueOf(-1));
     }
 
     public static final int a(int var0) {
-        return (Integer)a((String)"generalInfo", 1, new Integer(var0));
+        return (Integer)a((String)"generalInfo", 1, Integer.valueOf(var0));
     }
 
     public static final long b() {
-        return (Long)b("generalInfo", 7, new Long(0L));
+        return (Long)b("generalInfo", 7, Long.valueOf(0L));
     }
 
     public static final long a(long var0) {
-        return (Long)a((String)"generalInfo", 7, new Long(var0));
+        return (Long)a((String)"generalInfo", 7, Long.valueOf(var0));
     }
 
     public static final long c() {
-        return (Long)b("generalInfo", 2, new Long(0L));
+        return (Long)b("generalInfo", 2, Long.valueOf(0L));
     }
 
     public static final long b(long var0) {
-        return (Long)a("generalInfo", 2, new Long(var0), false);
+        return (Long)a("generalInfo", 2, Long.valueOf(var0), false);
     }
 
     private static long n() {
@@ -50,11 +50,11 @@ public final class h {
     }
 
     public static final long d() {
-        return (Long)a((String)"generalInfo", 3, new Long(e() + 1L));
+        return (Long)a((String)"generalInfo", 3, Long.valueOf(e() + 1L));
     }
 
     public static final long e() {
-        return (Long)b("generalInfo", 3, new Long(0L));
+        return (Long)b("generalInfo", 3, 0L);
     }
 
     public static final String f() {
@@ -66,11 +66,11 @@ public final class h {
     }
 
     public static final long h() {
-        return (Long)b("generalInfo", 12, new Long(0L));
+        return (Long)b("generalInfo", 12, Long.valueOf(0L));
     }
 
     public static final long c(long var0) {
-        return (Long)a((String)"generalInfo", 12, new Long(var0));
+        return (Long)a((String)"generalInfo", 12, Long.valueOf(var0));
     }
 
     public static final String a(String var0) {
@@ -82,27 +82,27 @@ public final class h {
     }
 
     public static final int j() {
-        return (Integer)b("generalInfo", 13, new Integer(0));
+        return (Integer)b("generalInfo", 13, Integer.valueOf(0));
     }
 
     public static final int b(int var0) {
-        return (Integer)a((String)"generalInfo", 13, new Integer(var0));
+        return (Integer)a((String)"generalInfo", 13, Integer.valueOf(var0));
     }
 
     public static final long k() {
-        return (Long)b("generalInfo", 9, new Long(0L));
+        return (Long)b("generalInfo", 9, Long.valueOf(0L));
     }
 
     public static final long d(long var0) {
-        return (Long)a((String)"generalInfo", 9, new Long(var0));
+        return (Long)a((String)"generalInfo", 9, Long.valueOf(var0));
     }
 
     public static final int c(int var0) {
-        return (Integer)a((String)"generalInfo", 10, new Integer(var0));
+        return (Integer)a((String)"generalInfo", 10, Integer.valueOf(var0));
     }
 
     public static final int l() {
-        return (Integer)b("generalInfo", 10, new Integer(-1));
+        return (Integer)b("generalInfo", 10, Integer.valueOf(-1));
     }
 
     private static RecordStore b(String var0) {
@@ -206,7 +206,7 @@ public final class h {
             }
 
             if (var5 <= -10L && var2.getClass().getName().compareTo("java.lang.Long") == 0) {
-                var2 = new Long((var5 * 1000L - var7) * 1000L - var9);
+                var2 = Long.valueOf((var5 * 1000L - var7) * 1000L - var9);
             }
         } finally {
             a(var4);
@@ -234,20 +234,21 @@ public final class h {
         return var4;
     }
 
-    private static Object a(RecordStore var0, int var1, Object var2) {
+    private static Object a(RecordStore var0, int var1, Object var2) throws RuntimeException {
         try {
             byte[] var4;
             if ((var4 = var0.getRecord(var1)) != null && var2 != null) {
                 ByteArrayInputStream var5 = new ByteArrayInputStream(var4);
                 DataInputStream var6 = new DataInputStream(var5);
+
                 if (var2.getClass().getName().compareTo("java.lang.Integer") == 0) {
-                    return new Integer(var6.readInt());
+                    return Integer.valueOf(var6.readInt());
                 } else if (var2.getClass().getName().compareTo("java.lang.Long") == 0) {
-                    return new Long(var6.readLong());
+                    return Long.valueOf(var6.readLong());
                 } else if (var2.getClass().getName().compareTo("java.lang.Byte") == 0) {
-                    return new Byte(var6.readByte());
+                    return Byte.valueOf(var6.readByte());
                 } else if (var2.getClass().getName().compareTo("java.lang.Boolean") == 0) {
-                    return new Boolean(var6.readBoolean());
+                    return Boolean.valueOf(var6.readBoolean());
                 } else if (var2.getClass().getName().compareTo("java.lang.String") == 0) {
                     return new String(var6.readUTF());
                 } else {
@@ -259,7 +260,7 @@ public final class h {
                 return var2;
             }
         } catch (Exception var3) {
-            throw new Exception(var3.getMessage());
+            throw new RuntimeException(var3.getMessage());
         }
     }
 

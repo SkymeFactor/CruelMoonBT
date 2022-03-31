@@ -1,4 +1,4 @@
 package javax.microedition.rms;
 
-public class RecordStoreNotOpenException {
+public class RecordStoreNotOpenException extends RecordStoreException {
 }

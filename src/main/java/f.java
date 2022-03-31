@@ -11,58 +11,58 @@ import javax.microedition.lcdui.Image;
 import javax.microedition.rms.RecordStore;
 
 public final class f {
-    static byte[] a;
-    static int[] b;
-    static int c;
-    static int d;
-    static int e;
-    static int f;
-    static int g;
-    static boolean h;
-    static int[] i;
-    static boolean j;
-    static boolean k;
-    private static String q;
-    static boolean l;
-    static int m;
-    public static f n;
+    static byte[] a1;
+    static int[] b1;
+    static int c1;
+    static int d1;
+    static int e1;
+    static int f1;
+    static int g1;
+    static boolean h1;
+    static int[] i1;
+    static boolean j1;
+    static boolean k1;
+    private static String q1;
+    static boolean l1;
+    static int m1;
+    public static f instanceHandler;
     static boolean o;
     static int p = 100;
 
     static {
-        d = k.bO;
-        q = k.cI;
-        f = 1;
-        l = false;
+        d1 = k.bO;
+        q1 = k.cI;
+        f1 = 1;
+        l1 = false;
         o = true;
-        h = true;
-        e = 1;
-        g = 0;
-        c = 0;
-        a = new byte[d];
-        k = false;
-        j = true;
-        b = new int[]{1668246830, 1852795753, 1630432617, 1680766313, 776369516, 1816355182, 1986097920};
-        i = new int[]{779120231};
-        m = 0;
+        h1 = true;
+        e1 = 1;
+        g1 = 0;
+        c1 = 0;
+        a1 = new byte[d1];
+        k1 = false;
+        j1 = true;
+        b1 = new int[]{1668246830, 1852795753, 1630432617, 1680766313, 776369516, 1816355182, 1986097920};
+        i1 = new int[]{779120231};
+        m1 = 0;
     }
 
     public f() {
     }
 
     private static final void e() {
-        f = 1;
+        f1 = 1;
         o = true;
-        e = 1;
+        e1 = 1;
         k.av = k.aw;
         k.dS = 1;
-        c = 0;
-        g = 0;
+        c1 = 0;
+        g1 = 0;
         k.ep = false;
     }
 
     static final Image a(String var0) {
-        byte[] var1 = n.a((String)var0, (int)-1);
+        byte[] var1 = instanceHandler.a((String)var0, (int)-1);
 
         try {
             return Image.createImage(var1, 0, var1.length);
@@ -157,9 +157,9 @@ public final class f {
     static final Image b(String var0) {
         var0 = c(var0);
         byte[] var1;
-        if (((var1 = n.a((String)var0, (int)-1)) == null || var1.length <= 0) && var0.endsWith(".png")) {
+        if (((var1 = instanceHandler.a((String)var0, (int)-1)) == null || var1.length <= 0) && var0.endsWith(".png")) {
             var0 = var0.substring(0, var0.length() - 4) + ".jpg";
-            var1 = n.a((String)var0, (int)-1);
+            var1 = instanceHandler.a((String)var0, (int)-1);
         }
 
         try {
@@ -285,7 +285,7 @@ public final class f {
             }
 
             if (var3) {
-                var0 = var0 + a(i);
+                var0 = var0 + a(i1);
             }
         } catch (Exception var5) {
         }
@@ -294,21 +294,21 @@ public final class f {
     }
 
     static final void a() {
-        if (j) {
-            a = b(q, a);
+        if (j1) {
+            a1 = b(q1, a1);
         }
 
-        j = false;
-        a = a(a);
+        j1 = false;
+        a1 = a(a1);
     }
 
     static final void b() {
-        a = c(a);
-        if (k) {
-            a(q, a);
+        a1 = c(a1);
+        if (k1) {
+            a(q1, a1);
         }
 
-        k = false;
+        k1 = false;
     }
 
     protected final int d(String var1) {
@@ -417,7 +417,7 @@ public final class f {
             return null;
         } else {
             try {
-                Class.forName(a(b));
+                Class.forName(a(b1));
                 return this.c(var1, var2);
             } catch (Exception var6) {
                 byte[] var3 = new byte[var2];
@@ -563,10 +563,10 @@ public final class f {
 
     private static final byte[] a(byte[] var0) {
         if (!k.cy) {
-            f = var0[0];
-            e = var0[4];
-            c = var0[8];
-            g = var0[9];
+            f1 = var0[0];
+            e1 = var0[4];
+            c1 = var0[8];
+            g1 = var0[9];
             k.ec = var0[3];
             k.dS = var0[11];
         }
@@ -582,7 +582,7 @@ public final class f {
         }
 
         if (!k.cy) {
-            h = var0[6] > 0;
+            h1 = var0[6] > 0;
         }
 
         k.ep = var0[10] > 0;
@@ -1055,7 +1055,7 @@ public final class f {
     }
 
     private static boolean f() {
-        if (m == 0) {
+        if (m1 == 0) {
             int[] var2 = new int[4];
 
             for(int var3 = 0; var3 < var2.length; ++var3) {
@@ -1073,17 +1073,17 @@ public final class f {
             var5.getRGB(var7, 0, 2, 0, 0, 2, 2);
 
             try {
-                if ((var7[0] & 255) > 16 && (var7[0] & 255) < 224 && Display.getDisplay(NET_Lizard.a).numAlphaLevels() > 2) {
-                    m = 1;
+                if ((var7[0] & 255) > 16 && (var7[0] & 255) < 224 && Display.getDisplay(NET_Lizard.app).numAlphaLevels() > 2) {
+                    m1 = 1;
                 } else {
-                    m = -1;
+                    m1 = -1;
                 }
             } catch (Exception var9) {
-                m = -1;
+                m1 = -1;
             }
         }
 
-        return m > 0;
+        return m1 > 0;
     }
 
     private static String b(byte[] var0) {
@@ -1126,11 +1126,11 @@ public final class f {
     }
 
     public static final void c() {
-        n = null;
+        instanceHandler = null;
     }
 
     public static final void d() {
-        n = new f();
+        instanceHandler = new f();
     }
 
     private static int a(int var0, int var1, int var2, boolean var3, boolean var4) {
@@ -1247,13 +1247,13 @@ public final class f {
 
     private static final byte[] c(byte[] var0) {
         if (!k.cy) {
-            var0[0] = (byte)f;
-            if (e > 0) {
-                var0[4] = (byte)e;
+            var0[0] = (byte) f1;
+            if (e1 > 0) {
+                var0[4] = (byte) e1;
             }
 
-            var0[8] = (byte)c;
-            var0[9] = (byte)g;
+            var0[8] = (byte) c1;
+            var0[9] = (byte) g1;
             var0[11] = k.dS;
         }
 
@@ -1268,7 +1268,7 @@ public final class f {
             var0[6] = 0;
         }
 
-        if (h) {
+        if (h1) {
             var0[6] = 1;
         }
 
@@ -1277,7 +1277,7 @@ public final class f {
             var0[10] = 1;
         }
 
-        var0[13] = (byte)m.K;
+        var0[13] = (byte) m.K;
         var0[14] = 0;
         if (k.du) {
             var0[14] = 1;

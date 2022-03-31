@@ -10,21 +10,22 @@ import javax.microedition.media.Manager;
 import javax.microedition.media.Player;
 import javax.microedition.media.control.VolumeControl;
 
+// Audio manager
 public final class m implements Runnable {
-    static int a = -1;
-    static int b = -1;
-    static boolean c = false;
-    static boolean d = true;
-    static int e = -1;
-    static String f = "v";
-    static int[] g;
-    static int h = 8;
-    static boolean i = false;
-    static boolean j = false;
-    static int k = 6;
-    static Random l = new Random();
-    static String[] m = null;
-    static String[] n;
+    static int a11 = -1;
+    static int b11 = -1;
+    static boolean c11 = false;
+    static boolean d11 = true;
+    static int e11 = -1;
+    static String f11 = "v";
+    static int[] g11;
+    static int h11 = 8;
+    static boolean i11 = false;
+    static boolean j11 = false;
+    static int k11 = 6;
+    static Random l11 = new Random();
+    static String[] m11 = null;
+    static String[] n11;
     static String o = "/mm";
     static int p = 1;
     static int q = 3;
@@ -51,15 +52,15 @@ public final class m implements Runnable {
     static boolean L = false;
 
     public m() {
-        if (i) {
-            k.bI = k;
+        if (i11) {
+            k.bI = k11;
         }
 
     }
 
     private m(k var1) {
-        if (i) {
-            k.bI = k;
+        if (i11) {
+            k.bI = k11;
         }
 
     }
@@ -168,9 +169,9 @@ public final class m implements Runnable {
                     }
 
                     u[var1] = var6;
-                    n[var1] = var0;
+                    n11[var1] = var0;
                     u[var1].realize();
-                    if (!j) {
+                    if (!j11) {
                         u[var1].prefetch();
                     }
 
@@ -189,8 +190,8 @@ public final class m implements Runnable {
             a();
         }
 
-        if (i) {
-            k.bI = k;
+        if (i11) {
+            k.bI = k11;
         }
 
         if (u == null) {
@@ -203,17 +204,17 @@ public final class m implements Runnable {
                 var2 = "/mm.mid";
             }
 
-            if (m != null && var0 < m.length) {
-                var2 = new String(m[var0]);
+            if (m11 != null && var0 < m11.length) {
+                var2 = new String(m11[var0]);
             }
 
             int var3;
-            if (H && (var3 = b(b(var2) + f, var0)) > 0) {
+            if (H && (var3 = b(b(var2) + f11, var0)) > 0) {
                 while(var1 >= var3) {
                     var1 -= var3;
                 }
 
-                var2 = a(b(var2) + f + var1);
+                var2 = a(b(var2) + f11 + var1);
             }
 
             a(var2, var0);
@@ -221,14 +222,14 @@ public final class m implements Runnable {
     }
 
     private static void d(int var0) {
-        int var1 = Math.abs(l.nextInt() % h);
+        int var1 = Math.abs(l11.nextInt() % h11);
         a(var0, var1);
     }
 
     public static void a() {
         z = true;
         if (y == null) {
-            a(NET_Lizard.c);
+            a(NET_Lizard.c_nl);
         }
 
         if (y == null) {
@@ -241,7 +242,7 @@ public final class m implements Runnable {
         }
 
         if (x) {
-            d = true;
+            d11 = true;
             if (I == null) {
                 I = new Thread(y);
                 I.start();
@@ -259,12 +260,12 @@ public final class m implements Runnable {
             u = new Player[k.bI + 1];
         }
 
-        if (n == null) {
-            n = new String[k.bI + 1];
+        if (n11 == null) {
+            n11 = new String[k.bI + 1];
         }
 
         for(int var0 = 0; var0 < u.length; ++var0) {
-            if ((m == null || var0 < m.length || var0 >= k.bI) && u[var0] == null) {
+            if ((m11 == null || var0 < m11.length || var0 >= k.bI) && u[var0] == null) {
                 d(var0);
             }
         }
@@ -274,15 +275,15 @@ public final class m implements Runnable {
 
     private static int b(String var0, int var1) {
         var0 = b(var0);
-        if (g == null) {
-            g = new int[k.bI + 1];
+        if (g11 == null) {
+            g11 = new int[k.bI + 1];
 
-            for(int var2 = 0; var2 < g.length; ++var2) {
-                g[var2] = -1;
+            for(int var2 = 0; var2 < g11.length; ++var2) {
+                g11[var2] = -1;
             }
         }
 
-        return g[var1] = c(var0, g[var1]);
+        return g11[var1] = c(var0, g11[var1]);
     }
 
     private static String a(String var0) {
@@ -389,14 +390,17 @@ public final class m implements Runnable {
     }
 
     private static final int g() {
-        e = c(o, e);
-        return e;
+        e11 = c(o, e11);
+        return e11;
     }
 
     private static int c(String var0, int var1) {
         var0 = b(var0);
         if (var1 < 0) {
-            for(var1 = 0; f.n.d(var0 + var1 + ".mid") > 0 || f.n.d(var0 + var1 + ".amr") > 0 || f.n.d(var0 + var1 + ".mp3") > 0 || f.n.d(var0 + var1 + ".wav") > 0; ++var1) {
+            for(var1 = 0; f.instanceHandler.d(var0 + var1 + ".mid") > 0
+                    || f.instanceHandler.d(var0 + var1 + ".amr") > 0
+                    || f.instanceHandler.d(var0 + var1 + ".mp3") > 0
+                    || f.instanceHandler.d(var0 + var1 + ".wav") > 0; ++var1) {
             }
         }
 
@@ -415,9 +419,9 @@ public final class m implements Runnable {
 
         d();
         int var1 = k.bI;
-        if (e > 0) {
-            while(var0 >= e) {
-                var0 -= e;
+        if (e11 > 0) {
+            while(var0 >= e11) {
+                var0 -= e11;
             }
 
             f(var1);
@@ -426,7 +430,7 @@ public final class m implements Runnable {
         }
 
         e(k.bI);
-        return n[var1];
+        return n11[var1];
     }
 
     public final void run() {
@@ -436,13 +440,13 @@ public final class m implements Runnable {
 
         int var1 = -1;
 
-        while(d) {
+        while(d11) {
             if (B >= 0 && var1 >= 0 && var1 != B && !i()) {
                 a(B, false);
                 D = var1 = B;
             }
 
-            if (j && c && B < 0 && var1 >= 0 && !i()) {
+            if (j11 && c11 && B < 0 && var1 >= 0 && !i()) {
                 g(var1);
                 var1 = -1;
             }
@@ -498,7 +502,7 @@ public final class m implements Runnable {
             e(var0);
         }
 
-        return n[var0];
+        return n11[var0];
     }
 
     private static final void e(int var0) {
@@ -530,7 +534,7 @@ public final class m implements Runnable {
         A = -1;
         B = -1;
         if (x) {
-            d = false;
+            d11 = false;
 
             try {
                 Thread.sleep(33L);
@@ -624,7 +628,7 @@ public final class m implements Runnable {
             }
 
             d();
-            if (j && var0 != D) {
+            if (j11 && var0 != D) {
                 g(D);
             }
 
@@ -642,13 +646,13 @@ public final class m implements Runnable {
                         var2 = q;
                     }
 
-                    if (var0 == a || var0 == v) {
+                    if (var0 == a11 || var0 == v) {
                         var2 = r;
                     }
 
-                    if (var0 == b) {
+                    if (var0 == b11) {
                         var2 = p;
-                        b = -1;
+                        b11 = -1;
                     }
 
                     u[var0].setLoopCount(var2);
@@ -673,16 +677,16 @@ public final class m implements Runnable {
     }
 
     private static void h() {
-        if (i) {
-            k.bI = k;
+        if (i11) {
+            k.bI = k11;
         }
 
     }
 
     public static final void a(k var0) {
         y = new m(var0);
-        if (i) {
-            k.bI = k;
+        if (i11) {
+            k.bI = k11;
         }
 
     }
@@ -746,7 +750,7 @@ public final class m implements Runnable {
         long var1;
         if ((var1 = System.currentTimeMillis()) >= J) {
             try {
-                Display.getDisplay(NET_Lizard.a).vibrate(var0);
+                Display.getDisplay(NET_Lizard.app).vibrate(var0);
             } catch (Exception var4) {
             }
 
