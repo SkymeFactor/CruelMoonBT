@@ -216,10 +216,10 @@ public class a extends Canvas {
     static final Image a(Image var0, int var1) {
         try {
             Image var2;
-            if ((var2 = f.a("/z" + var1 + ".png")) != null) {
+            if ((var2 = AssetManager.readImageFromFilePNG("/z" + var1 + ".png")) != null) {
                 return var2;
             }
-        } catch (Exception var3) {
+        } catch (Exception ignore) {
         }
 
         return Image.createImage(var0, 0, 0, var0.getWidth(), var0.getHeight(), 2);

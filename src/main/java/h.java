@@ -1695,7 +1695,7 @@ public final class h {
     private static boolean d(boolean var0) {
         try {
             byte[] var1;
-            if ((var1 = f.instanceHandler.a(a(b7), -1))[0] != 0 && var1[0] != 32) {
+            if ((var1 = AssetManager.instanceHandler.readDataChunkFromFile(a(b7), -1))[0] != 0 && var1[0] != 32) {
                 B = false;
             } else {
                 B = true;
@@ -1761,7 +1761,7 @@ public final class h {
             return true;
         } else {
             try {
-                A = f.instanceHandler.e(a(a7));
+                A = AssetManager.instanceHandler.e(a(a7));
                 if (A == null || A[0] == null || A[0].length <= 0) {
                     g7 = false;
                     var0 = true;
@@ -1772,7 +1772,7 @@ public final class h {
             }
 
             try {
-                z = f.instanceHandler.e("dem3");
+                z = AssetManager.instanceHandler.e("dem3");
                 if (z == null || z[0] == null || z[0].length <= 0) {
                     g7 = false;
                     var0 = true;

@@ -603,7 +603,7 @@ public final class k extends a implements Runnable {
         this.ef = new boolean[2];
         this.az = new boolean[2];
         eu = true;
-        j.a();
+        j.init();
         j.e9 = this.e10;
         j.a9 = this.c10;
     }
@@ -1546,7 +1546,7 @@ public final class k extends a implements Runnable {
 
         var24 += 0;
         int var29 = this.fT + (var3 - var24) / 2;
-        var1.setFont(j.y);
+        var1.setFont(j.defaultFont);
         var1.setClip(0, this.fT, var2, var3);
         int var30 = var1.getColor();
         int var33 = 5;
@@ -1650,11 +1650,11 @@ public final class k extends a implements Runnable {
                 ++var39;
                 var8 = var7;
                 String var44 = "";
-                if (var7 == 1 && !f.l1) {
+                if (var7 == 1 && !AssetManager.l1) {
                     var8 = var13 - 1 - 4;
                 }
 
-                if (var7 == 2 && !f.h1) {
+                if (var7 == 2 && !AssetManager.h1) {
                     var8 = var13 - 2 - 4;
                 }
 
@@ -2079,7 +2079,7 @@ public final class k extends a implements Runnable {
 
             for(int var1 = 0; var1 < this.w.length; ++var1) {
                 try {
-                    this.w[var1] = f.a("/ar0" + var1 + ".png");
+                    this.w[var1] = AssetManager.readImageFromFilePNG("/ar0" + var1 + ".png");
                 } catch (Exception var3) {
                 }
             }
@@ -2094,7 +2094,7 @@ public final class k extends a implements Runnable {
 
             for(var2 = 0; var2 < this.I.length; ++var2) {
                 try {
-                    this.I[var2] = f.a("/bt" + var2 + ".png");
+                    this.I[var2] = AssetManager.readImageFromFilePNG("/bt" + var2 + ".png");
                 } catch (Exception var5) {
                 }
             }
@@ -2112,7 +2112,7 @@ public final class k extends a implements Runnable {
                     var3 -= this.I[0].getWidth();
                 }
 
-                this.G = f.instanceHandler.a(r[var2][0], j.x, var3 - 4, true);
+                this.G = AssetManager.instanceHandler.a(r[var2][0], j.x, var3 - 4, true);
             } catch (Exception var4) {
                 this.G = null;
             }
@@ -2122,7 +2122,7 @@ public final class k extends a implements Runnable {
     private final void L() {
         if (this.R == null) {
             int var4 = 110;
-            byte[] var5 = f.instanceHandler.a("cc", -1);
+            byte[] var5 = AssetManager.instanceHandler.readDataChunkFromFile("cc", -1);
             if (110 < var5.length / 8) {
                 var4 = var5.length / 8;
             }
@@ -2183,7 +2183,7 @@ public final class k extends a implements Runnable {
         if (this.am == null) {
             int var1 = (this.bt + 1) * this.bs;
             this.am = new short[7][var1];
-            byte[] var3 = f.instanceHandler.a("cu", -1);
+            byte[] var3 = AssetManager.instanceHandler.readDataChunkFromFile("cu", -1);
             if (var1 < var3.length / 7) {
                 var1 = var3.length / 7;
             }
@@ -2402,8 +2402,8 @@ public final class k extends a implements Runnable {
         this.fq = this.e10 - 2 * this.fN;
         if (this.bk == null || this.bl == null) {
             try {
-                this.bk = f.a(a(this.aH[16]));
-                this.bl = f.a(a(this.aH[17]));
+                this.bk = AssetManager.readImageFromFilePNG(a(this.aH[16]));
+                this.bl = AssetManager.readImageFromFilePNG(a(this.aH[17]));
             } catch (Exception var4) {
                 this.bk = null;
                 this.bl = null;
@@ -2412,7 +2412,7 @@ public final class k extends a implements Runnable {
 
         if (this.bm == null) {
             try {
-                this.bm = f.a(a(this.aH[18]));
+                this.bm = AssetManager.readImageFromFilePNG(a(this.aH[18]));
             } catch (Exception var3) {
             }
         }
@@ -2473,7 +2473,7 @@ public final class k extends a implements Runnable {
             var2 = null;
 
             try {
-                var2 = f.a("/l" + var6 + ".png");
+                var2 = AssetManager.readImageFromFilePNG("/l" + var6 + ".png");
             } catch (Exception var23) {
             }
 
@@ -2541,7 +2541,7 @@ public final class k extends a implements Runnable {
     private void P() {
         try {
             if (this.s == null) {
-                this.s = f.instanceHandler.a(f.instanceHandler.f("tlk"), j.x, this.e10, false);
+                this.s = AssetManager.instanceHandler.a(AssetManager.instanceHandler.f("tlk"), j.x, this.e10, false);
             }
 
         } catch (Exception var2) {
@@ -2572,7 +2572,7 @@ public final class k extends a implements Runnable {
         for(int var1 = 0; var1 < this.bo.length; ++var1) {
             if (this.bo[var1] == null && !this.cN[var1]) {
                 try {
-                    this.bo[var1] = f.a("/mm" + var1 + ".png");
+                    this.bo[var1] = AssetManager.readImageFromFilePNG("/mm" + var1 + ".png");
                 } catch (Exception var3) {
                 }
 
@@ -2605,14 +2605,14 @@ public final class k extends a implements Runnable {
 
             for(int var3 = 0; var3 < this.bt; ++var3) {
                 try {
-                    this.eX[var3] = f.a("/u" + var3 + ".png");
+                    this.eX[var3] = AssetManager.readImageFromFilePNG("/u" + var3 + ".png");
                 } catch (Exception var12) {
                 }
 
                 if (this.eX[var3] != null && av > 0 && var5) {
                     if (var3 >> 1 << 1 == var3) {
                         try {
-                            this.dR[var3] = f.a("/w" + var3 + ".png");
+                            this.dR[var3] = AssetManager.readImageFromFilePNG("/w" + var3 + ".png");
                         } catch (Exception var11) {
                         }
                     } else {
@@ -2641,7 +2641,7 @@ public final class k extends a implements Runnable {
         }
 
         try {
-            Image var1 = f.a("/l11.png");
+            Image var1 = AssetManager.readImageFromFilePNG("/l11.png");
             this.cW[11] = var1;
             this.cW[12] = a.a(var1, 0);
         } catch (Exception var2) {
@@ -3184,16 +3184,16 @@ public final class k extends a implements Runnable {
                             var6 = "iwn";
                         }
 
-                        this.aA = f.a("/" + var6 + ".png");
+                        this.aA = AssetManager.readImageFromFilePNG("/" + var6 + ".png");
 
                         try {
-                            this.aA = f.a(this.aA);
+                            this.aA = AssetManager.a(this.aA);
                         } catch (OutOfMemoryError var16) {
                         }
 
                         if (this.aA != null && this.aA.getWidth() != this.e10 && this.aA.getHeight() != var3) {
                             try {
-                                this.aA = f.a(this.aA, 0, 0, this.aA.getWidth(), this.aA.getHeight(), this.e10, var3, 0, false, true);
+                                this.aA = AssetManager.a(this.aA, 0, 0, this.aA.getWidth(), this.aA.getHeight(), this.e10, var3, 0, false, true);
                             } catch (OutOfMemoryError var15) {
                             }
                         }
@@ -3313,7 +3313,7 @@ public final class k extends a implements Runnable {
             int var14 = 4 + var8.a(var13);
             var7 -= var14 >> 1;
             var1.setColor(0);
-            var1.setFont(j.y);
+            var1.setFont(j.defaultFont);
             if (this.aF > var8.b() - var8.f3) {
                 var8.a(var1, var13, var7 + 2, var10 + (this.aF - (var8.b() - var8.f3) >> 1), 20);
             }
@@ -3507,7 +3507,7 @@ public final class k extends a implements Runnable {
     }
 
     private final void s(int var1) {
-        if (f.h1) {
+        if (AssetManager.h1) {
             this.P();
 
             try {
@@ -3536,7 +3536,7 @@ public final class k extends a implements Runnable {
                     var5 = this.g10;
                 }
 
-                this.cs = f.instanceHandler.a(var2, j.x, var5, true);
+                this.cs = AssetManager.instanceHandler.a(var2, j.x, var5, true);
                 boolean var6 = false;
                 int var7 = 0;
 
@@ -3652,9 +3652,9 @@ public final class k extends a implements Runnable {
 
                         if (var3 >= 0 && var3 < 80) {
                             this.P();
-                            if (f.a1[var3 + 32] <= 0) {
+                            if (AssetManager.a1[var3 + 32] <= 0) {
                                 this.s(var3);
-                                f.a1[var3 + 32] = 1;
+                                AssetManager.a1[var3 + 32] = 1;
                                 this.eP = System.currentTimeMillis() + 333L;
                             }
                         }
@@ -4084,12 +4084,12 @@ public final class k extends a implements Runnable {
         boolean var1 = false;
         int var4 = 64 + var0 * 2;
         int var2;
-        if ((var2 = f.a1[var4]) < 0) {
+        if ((var2 = AssetManager.a1[var4]) < 0) {
             var2 += 256;
         }
 
         int var3;
-        if ((var3 = f.a1[var4 + 1]) < 0) {
+        if ((var3 = AssetManager.a1[var4 + 1]) < 0) {
             var3 += 256;
         }
 
@@ -4287,17 +4287,17 @@ public final class k extends a implements Runnable {
                             this.ae = false;
                             break;
                         case 1:
-                            f.l1 = !f.l1;
-                            if (!f.l1) {
+                            AssetManager.l1 = !AssetManager.l1;
+                            if (!AssetManager.l1) {
                                 t();
                             } else {
-                                C(f.e1 - 1);
+                                C(AssetManager.e1 - 1);
                             }
 
                             aE();
                             break;
                         case 2:
-                            f.h1 = !f.h1;
+                            AssetManager.h1 = !AssetManager.h1;
                             aE();
                             break;
                         case 3:
@@ -4369,7 +4369,7 @@ public final class k extends a implements Runnable {
                                 this.ae = false;
                                 this.ah = false;
                                 this.aw();
-                                f.c1 = 0;
+                                AssetManager.c1 = 0;
                                 aE();
                                 this.a(false);
                             } else {
@@ -5331,11 +5331,11 @@ public final class k extends a implements Runnable {
     }
 
     private void ai() {
-        N = f.a(this.cJ, N, false);
+        N = AssetManager.a(this.cJ, N, false);
     }
 
     static void k() {
-        f.e1 = N[9];
+        AssetManager.e1 = N[9];
     }
 
     private final void aj() {
@@ -5391,7 +5391,7 @@ public final class k extends a implements Runnable {
                 return true;
             }
 
-            if (var1[9] != f.e1 || var1[8] == 0 || cP) {
+            if (var1[9] != AssetManager.e1 || var1[8] == 0 || cP) {
                 return true;
             }
 
@@ -5532,8 +5532,8 @@ public final class k extends a implements Runnable {
     }
 
     private final boolean ak() {
-        f.a();
-        byte[] var1 = f.a1;
+        AssetManager.a();
+        byte[] var1 = AssetManager.a1;
         if (cy) {
             if (this.cx) {
                 var1 = N;
@@ -6041,14 +6041,14 @@ public final class k extends a implements Runnable {
 
         try {
             if (cy) {
-                var3 = f.instanceHandler.a("lm" + f.e1, -1);
+                var3 = AssetManager.instanceHandler.readDataChunkFromFile("lm" + AssetManager.e1, -1);
             }
         } catch (Exception var22) {
         }
 
         try {
             if (var3 == null || var3.length <= 0) {
-                var3 = f.instanceHandler.a("ll" + f.e1, -1);
+                var3 = AssetManager.instanceHandler.readDataChunkFromFile("ll" + AssetManager.e1, -1);
             }
         } catch (Exception var23) {
         }
@@ -6060,7 +6060,7 @@ public final class k extends a implements Runnable {
             }
 
             byte[] var4 = var3;
-            var3 = f.instanceHandler.a("mn", this.ce.length * this.ce[0].length);
+            var3 = AssetManager.instanceHandler.readDataChunkFromFile("mn", this.ce.length * this.ce[0].length);
             int var2 = 0;
 
             for(this.cT = 0; this.cT < this.ce[0].length; ++this.cT) {
@@ -6074,8 +6074,8 @@ public final class k extends a implements Runnable {
             this.fX = a(var4[1]) - 1;
             this.y = this.fE <= 0 || this.fX <= 0;
             if (this.y) {
-                this.fE = 23 + f.e1 * 2;
-                this.fX = 23 + f.e1 * 2;
+                this.fE = 23 + AssetManager.e1 * 2;
+                this.fX = 23 + AssetManager.e1 * 2;
             }
 
             if (ey) {
@@ -6140,14 +6140,14 @@ public final class k extends a implements Runnable {
             this.K();
             if (this.v == null) {
                 try {
-                    this.v = f.a("/ar.png");
+                    this.v = AssetManager.readImageFromFilePNG("/ar.png");
                 } catch (Exception var20) {
                 }
             }
 
             if (this.au == null) {
                 try {
-                    this.au = f.a("/d.png");
+                    this.au = AssetManager.readImageFromFilePNG("/d.png");
                 } catch (Exception var19) {
                 }
             }
@@ -6159,7 +6159,7 @@ public final class k extends a implements Runnable {
             for(int var11 = 0; var11 < this.ar.length; ++var11) {
                 if (this.ar[var11] == null) {
                     try {
-                        this.ar[var11] = f.a("/crv" + var11 + ".png");
+                        this.ar[var11] = AssetManager.readImageFromFilePNG("/crv" + var11 + ".png");
                     } catch (Exception var18) {
                     }
                 }
@@ -6220,7 +6220,7 @@ public final class k extends a implements Runnable {
                 this.dB = true;
                 this.G();
                 this.dh = 0L;
-                C(f.e1 - 1);
+                C(AssetManager.e1 - 1);
             } else {
                 this.ao();
             }
@@ -7405,7 +7405,7 @@ public final class k extends a implements Runnable {
 
     private static byte j(int var0, int var1) {
         boolean var2 = false;
-        int var4 = (byte)((f.e1 ^ 1365) * f.e1 + (var0 ^ 1365) * var1 + (var1 ^ 1365) * var0);
+        int var4 = (byte)((AssetManager.e1 ^ 1365) * AssetManager.e1 + (var0 ^ 1365) * var1 + (var1 ^ 1365) * var0);
         int var5 = Math.abs(var0 + var1);
 
         for(int var6 = 0; var6 <= var5; ++var6) {
@@ -7649,7 +7649,7 @@ public final class k extends a implements Runnable {
     }
 
     private static void C(int var0) {
-        if (f.l1) {
+        if (AssetManager.l1) {
             if (m.y == null) {
                 boolean var1 = cq;
                 cq = false;
@@ -8174,7 +8174,7 @@ public final class k extends a implements Runnable {
             this.j(var1);
             this.a(var1, -1, -1, var6, var7, true, false, true);
             var1.setColor(0);
-            var1.setFont(j.y);
+            var1.setFont(j.defaultFont);
             this.b(var1);
             if (this.ct != null) {
                 this.a(var1, this.ct);
@@ -8377,7 +8377,7 @@ public final class k extends a implements Runnable {
                     this.dZ = -1;
                     if (cy) {
                         if (this.victory) {
-                            this.F(f.e1);
+                            this.F(AssetManager.e1);
                             this.h(3);
                         } else {
                             this.h(4);
@@ -8390,27 +8390,27 @@ public final class k extends a implements Runnable {
                         n.c12 = null;
                     } else {
                         if (this.victory) {
-                            this.F(f.e1);
-                            f.k1 = true;
+                            this.F(AssetManager.e1);
+                            AssetManager.k1 = true;
                             this.h(3);
-                            ++f.e1;
-                            if (f.e1 > f.f1) {
-                                f.f1 = f.e1;
+                            ++AssetManager.e1;
+                            if (AssetManager.e1 > AssetManager.f1) {
+                                AssetManager.f1 = AssetManager.e1;
                             }
 
-                            if (f.f1 > bP) {
-                                f.f1 = bP;
-                                f.e1 = f.f1;
-                                f.c1 = 0;
-                                f.e1 = 1;
-                                f.g1 = 0;
+                            if (AssetManager.f1 > bP) {
+                                AssetManager.f1 = bP;
+                                AssetManager.e1 = AssetManager.f1;
+                                AssetManager.c1 = 0;
+                                AssetManager.e1 = 1;
+                                AssetManager.g1 = 0;
                                 this.aL = true;
                                 this.dA = false;
                             } else {
                                 this.aL = false;
                                 this.dA = true;
                                 this.dA = false;
-                                this.i(f.e1);
+                                this.i(AssetManager.e1);
                             }
                         } else {
                             this.h(4);
@@ -8418,7 +8418,7 @@ public final class k extends a implements Runnable {
                         }
 
                         if (this.victory && !j.bD) {
-                            f.k1 = true;
+                            AssetManager.k1 = true;
                         }
 
                         this.dM = true;
@@ -8588,7 +8588,7 @@ public final class k extends a implements Runnable {
 
             try {
                 byte[] var7;
-                if ((var7 = f.instanceHandler.a("cufr", -1)) != null && var7.length > 0) {
+                if ((var7 = AssetManager.instanceHandler.readDataChunkFromFile("cufr", -1)) != null && var7.length > 0) {
                     var8 = 0;
 
                     for(var9 = 0; var9 < this.bu * 4; ++var9) {
@@ -9325,33 +9325,33 @@ public final class k extends a implements Runnable {
             this.aQ = new c(this);
 
             try {
-                r = f.instanceHandler.e(a(this.aH[3]));
+                r = AssetManager.instanceHandler.e(a(this.aH[3]));
                 cR = false;
             } catch (Exception var31) {
             }
 
             try {
-                bQ = f.instanceHandler.e(a(this.aH[5]));
+                bQ = AssetManager.instanceHandler.e(a(this.aH[5]));
             } catch (Exception var30) {
                 bQ = null;
             }
 
             if (this.v == null) {
                 try {
-                    this.v = f.a(a(this.aH[6]));
+                    this.v = AssetManager.readImageFromFilePNG(a(this.aH[6]));
                 } catch (Exception var29) {
                 }
             }
 
             for(int var1 = 0; var1 < this.x.length; ++var1) {
                 try {
-                    this.x[var1] = f.a(a(this.aH[7]) + var1 + a(this.aH[8]));
+                    this.x[var1] = AssetManager.readImageFromFilePNG(a(this.aH[7]) + var1 + a(this.aH[8]));
                 } catch (Exception var28) {
                 }
             }
 
-            f.a();
-            if (f.a1[12] == 7) {
+            AssetManager.a();
+            if (AssetManager.a1[12] == 7) {
                 j.p = false;
             }
 
@@ -9361,7 +9361,7 @@ public final class k extends a implements Runnable {
             this.ai();
 
             try {
-                f.a(a(this.aH[9]));
+                AssetManager.readImageFromFilePNG(a(this.aH[9]));
             } catch (Exception var27) {
             }
 
@@ -9381,7 +9381,7 @@ public final class k extends a implements Runnable {
             long var9 = 0L;
 
             while(this.S) {
-                if (f.e1 >= 0) {
+                if (AssetManager.e1 >= 0) {
                     this.an();
                 }
 
@@ -9447,7 +9447,7 @@ public final class k extends a implements Runnable {
                             }
 
                             if (!h.e()) {
-                                if (f.e1 > 0 && this.ch != null && !h.f()) {
+                                if (AssetManager.e1 > 0 && this.ch != null && !h.f()) {
                                     this.aB();
                                 }
 
@@ -9481,7 +9481,7 @@ public final class k extends a implements Runnable {
                                     break;
                                 }
 
-                                if (f.e1 >= 0 && this.ch != null && !h.f()) {
+                                if (AssetManager.e1 >= 0 && this.ch != null && !h.f()) {
                                     this.a();
                                 } else {
                                     long var13 = System.currentTimeMillis();
@@ -9524,8 +9524,8 @@ public final class k extends a implements Runnable {
                     this.d();
                 }
 
-                f.k1 = true;
-                f.b();
+                AssetManager.k1 = true;
+                AssetManager.b();
                 NET_Lizard.a();
             }
         }
@@ -9607,7 +9607,7 @@ public final class k extends a implements Runnable {
                 }
 
                 var1[8] = 1;
-                var1[9] = (byte) f.e1;
+                var1[9] = (byte) AssetManager.e1;
                 int var3 = 112;
 
                 byte[] var4;
@@ -9722,8 +9722,8 @@ public final class k extends a implements Runnable {
                     ++var3;
                 }
 
-                f.g1 = f.e1;
-                f.c1 = 1;
+                AssetManager.g1 = AssetManager.e1;
+                AssetManager.c1 = 1;
             } catch (Exception var15) {
             }
         }
@@ -9733,13 +9733,13 @@ public final class k extends a implements Runnable {
         if (cy && !this.aC) {
             this.aD();
         } else {
-            byte[] var1 = f.a1;
+            byte[] var1 = AssetManager.a1;
             if (cy) {
                 var1 = null;
             }
 
             this.g(var1);
-            f.b();
+            AssetManager.b();
         }
     }
 
@@ -9751,33 +9751,33 @@ public final class k extends a implements Runnable {
 
         this.g(var1);
         if (var1 != null) {
-            f.a(this.cJ, var1);
+            AssetManager.a(this.cJ, var1);
         }
 
     }
 
     private static void aE() {
-        f.b();
+        AssetManager.b();
     }
 
     private final void F(int var1) {
         boolean var2 = false;
         int var7 = 64 + var1 * 2;
         int var3;
-        if ((var3 = f.a1[var7]) < 0) {
+        if ((var3 = AssetManager.a1[var7]) < 0) {
             var3 += 256;
         }
 
         int var4;
-        if ((var4 = f.a1[var7 + 1]) < 0) {
+        if ((var4 = AssetManager.a1[var7 + 1]) < 0) {
             var4 += 256;
         }
 
         int var5 = var3 * 60 + var4;
         int var6 = this.eF * 60 + this.eL;
         if (var5 == 0 || var6 < var5) {
-            f.a1[var7] = (byte)this.eF;
-            f.a1[var7 + 1] = (byte)this.eL;
+            AssetManager.a1[var7] = (byte)this.eF;
+            AssetManager.a1[var7 + 1] = (byte)this.eL;
         }
 
     }
@@ -9938,11 +9938,11 @@ public final class k extends a implements Runnable {
             av = 0;
         }
 
-        if (f.instanceHandler.d("/w0.png") <= 0 && f.instanceHandler.d("/l13.png") <= 0) {
+        if (AssetManager.instanceHandler.getFileSize("/w0.png") <= 0 && AssetManager.instanceHandler.getFileSize("/l13.png") <= 0) {
             aw = 0;
         }
 
-        if (f.instanceHandler.d("/l14.png") <= 0) {
+        if (AssetManager.instanceHandler.getFileSize("/l14.png") <= 0) {
             cQ = true;
         }
 
@@ -10563,9 +10563,9 @@ public final class k extends a implements Runnable {
     }
 
     public static final void b(int var0, boolean var1) {
-        if (f.e1 >= 1 || var0 >= bI) {
+        if (AssetManager.e1 >= 1 || var0 >= bI) {
             if (var1 || var0 < bI) {
-                if (f.l1) {
+                if (AssetManager.l1) {
                     if (m.y == null) {
                         boolean var2 = cq;
                         cq = false;
@@ -10887,7 +10887,7 @@ public final class k extends a implements Runnable {
 
     private static void aS() {
         for(int var0 = 1; var0 <= 100; ++var0) {
-            if (f.instanceHandler.d("ll" + var0) <= 0) {
+            if (AssetManager.instanceHandler.getFileSize("ll" + var0) <= 0) {
                 bP = var0 - 1;
                 return;
             }
@@ -11159,7 +11159,7 @@ public final class k extends a implements Runnable {
 
     private final void a(Graphics var1, String var2) {
         if (!this.ae) {
-            var1.setFont(j.y);
+            var1.setFont(j.defaultFont);
             int var3 = j.x.b() + 3;
             if (this.dy) {
                 var3 = this.dH;
@@ -11714,7 +11714,7 @@ public final class k extends a implements Runnable {
     }
 
     static void y() {
-        if (f.o && fe) {
+        if (AssetManager.o && fe) {
             try {
                 m.e();
                 return;
@@ -11736,7 +11736,7 @@ public final class k extends a implements Runnable {
                     var1 = 130;
                 }
 
-                if (f.o) {
+                if (AssetManager.o) {
                     try {
                         m.c(var1);
                     } catch (Exception var3) {
@@ -11752,7 +11752,7 @@ public final class k extends a implements Runnable {
     private final void q(Graphics var1) {
         try {
             int var2 = j.x.b() + this.av();
-            var1.setFont(j.y);
+            var1.setFont(j.defaultFont);
             boolean var3 = false;
             boolean var4 = false;
             int var5 = 0;

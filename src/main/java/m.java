@@ -397,10 +397,10 @@ public final class m implements Runnable {
     private static int c(String var0, int var1) {
         var0 = b(var0);
         if (var1 < 0) {
-            for(var1 = 0; f.instanceHandler.d(var0 + var1 + ".mid") > 0
-                    || f.instanceHandler.d(var0 + var1 + ".amr") > 0
-                    || f.instanceHandler.d(var0 + var1 + ".mp3") > 0
-                    || f.instanceHandler.d(var0 + var1 + ".wav") > 0; ++var1) {
+            for(var1 = 0; AssetManager.instanceHandler.getFileSize(var0 + var1 + ".mid") > 0
+                    || AssetManager.instanceHandler.getFileSize(var0 + var1 + ".amr") > 0
+                    || AssetManager.instanceHandler.getFileSize(var0 + var1 + ".mp3") > 0
+                    || AssetManager.instanceHandler.getFileSize(var0 + var1 + ".wav") > 0; ++var1) {
             }
         }
 

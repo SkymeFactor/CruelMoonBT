@@ -989,12 +989,12 @@ public final class c implements Runnable {
                         var6 = var7;
                     }
 
-                    var10 = 100 * f.e1 / k.bP;
+                    var10 = 100 * AssetManager.e1 / k.bP;
                     if (this.Q.ch[0][var4] < this.Q.bb) {
                         var6 *= 2;
                     }
 
-                    int var8 = 7 + (f.e1 >> 1);
+                    int var8 = 7 + (AssetManager.e1 >> 1);
                     if (this.Q.bZ[0][var5] == 1) {
                         var8 *= 2;
                         var10 *= 2;
@@ -1018,7 +1018,7 @@ public final class c implements Runnable {
             if (this.Q.bZ[0][var6] > 0 && this.Q.bZ[5][var6] == var1 && this.Q.bZ[18][var6] > 0 && this.Q.bZ[0][var6] == 1) {
                 this.b(var6, 4);
                 this.Q.bZ[18][var6] = 0;
-                var10 = 200 * f.e1 / k.bP;
+                var10 = 200 * AssetManager.e1 / k.bP;
                 if (var2 < var10) {
                     var2 = var10;
                 }
@@ -1030,7 +1030,7 @@ public final class c implements Runnable {
                 this.b(var7, 3);
                 this.Q.bZ[18][var7] = 0;
                 if (var2 <= 0) {
-                    var2 = 100 * f.e1 / k.bP;
+                    var2 = 100 * AssetManager.e1 / k.bP;
                 }
             }
         }

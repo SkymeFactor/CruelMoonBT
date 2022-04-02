@@ -10,7 +10,7 @@ public final class d {
     int a3;
     boolean b3 = true;
     short[][] c3;
-    Image d3;
+    Image fontImage;
     int e3 = 1;
     int f3 = 1;
     boolean g3 = false;
@@ -62,15 +62,15 @@ public final class d {
     }
 
     private final void c() {
-        byte[] var4 = f.instanceHandler.a("cf" + this.k3, -1);
+        byte[] var4 = AssetManager.instanceHandler.readDataChunkFromFile("cf" + this.k3, -1);
         byte var5 = 6;
         int var6 = var4.length / var5;
         if (var4.length != var6 * var5) {
             var5 = 7;
             var6 = var4.length / var5;
             if (var4.length == var6 * var5) {
-                if (this.d3 != null) {
-                    if (this.d3.getWidth() > this.d3.getHeight()) {
+                if (this.fontImage != null) {
+                    if (this.fontImage.getWidth() > this.fontImage.getHeight()) {
                         this.g3 = true;
                     } else {
                         this.h3 = true;
@@ -316,10 +316,10 @@ public final class d {
 
     }
 
-    private final void d() {
+    private final void loadFontImage() {
         try {
-            this.d3 = f.a("/fnt" + this.l3 + ".png");
-        } catch (Exception var2) {
+            this.fontImage = AssetManager.readImageFromFilePNG("/fnt" + this.l3 + ".png");
+        } catch (Exception ignore) {
         }
     }
 
@@ -361,7 +361,7 @@ public final class d {
 
         if (var12 > 0 && var13 > 0) {
             var1.setClip(var14, var15, var12, var13);
-            var1.drawImage(this.d3, var3 - var10[0], var4 - var10[1], 20);
+            var1.drawImage(this.fontImage, var3 - var10[0], var4 - var10[1], 20);
         }
 
         var1.setClip(var5, var6, var7, var8);
@@ -421,7 +421,7 @@ public final class d {
 
             if (var21 > 0 && var22 > 0) {
                 var1.setClip(var23, var24, var21, var22);
-                var1.drawImage(this.d3, var19 - var17[0], var20 - var17[1], 20);
+                var1.drawImage(this.fontImage, var19 - var17[0], var20 - var17[1], 20);
             }
 
             if (var15 != '\n' && var15 != '\r') {
@@ -432,13 +432,13 @@ public final class d {
         var1.setClip(var25, var11, var12, var13);
     }
 
-    public static d a() {
-        d var0;
-        (var0 = new d()).d3 = null;
-        var0.d();
-        var0.c3 = null;
-        var0.c();
-        return var0;
+    public static d getInstance() {
+        d instance;
+        (instance = new d()).fontImage = null;
+        instance.loadFontImage();
+        instance.c3 = null;
+        instance.c();
+        return instance;
     }
 
     public final int b() {

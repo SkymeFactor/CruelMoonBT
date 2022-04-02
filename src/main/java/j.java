@@ -33,7 +33,7 @@ public final class j {
     boolean v;
     static boolean w;
     static d x;
-    static Font y;
+    static Font defaultFont;
     static int z = 0;
     static d A;
     static boolean B;
@@ -228,7 +228,7 @@ public final class j {
             String var1 = k.a(this.aC[9]);
 
             try {
-                this.ao = f.a(var1);
+                this.ao = AssetManager.readImageFromFilePNG(var1);
             } catch (Exception var11) {
                 this.n9 = false;
                 i9.S = false;
@@ -236,7 +236,7 @@ public final class j {
             }
 
             try {
-                this.H = f.a(k.a(this.aC[10]));
+                this.H = AssetManager.readImageFromFilePNG(k.a(this.aC[10]));
             } catch (Exception var10) {
             }
 
@@ -244,7 +244,7 @@ public final class j {
                 int var2 = e9;
 
                 try {
-                    this.ao = f.a(this.ao, 0, 0, this.ao.getWidth(), this.ao.getHeight(), var2, this.ao.getHeight() * var2 / this.ao.getWidth(), 0, false, true);
+                    this.ao = AssetManager.a(this.ao, 0, 0, this.ao.getWidth(), this.ao.getHeight(), var2, this.ao.getHeight() * var2 / this.ao.getWidth(), 0, false, true);
                 } catch (OutOfMemoryError var9) {
                 }
             }
@@ -286,27 +286,27 @@ public final class j {
 
         try {
             try {
-                this.bd = f.b(k.a(this.aC[11]));
+                this.bd = AssetManager.readImageFromFileSafe(k.a(this.aC[11]));
             } catch (OutOfMemoryError var10) {
             }
 
             try {
                 if (this.bd != null) {
-                    this.bd = f.a(this.bd);
+                    this.bd = AssetManager.a(this.bd);
                 }
             } catch (OutOfMemoryError var9) {
             }
 
             try {
                 if (this.bd != null && (this.bd.getWidth() != e9 || this.bd.getHeight() != a9)) {
-                    this.bd = f.a(this.bd, 0, 0, this.bd.getWidth(), this.bd.getHeight(), e9, a9, 0, false, true);
+                    this.bd = AssetManager.a(this.bd, 0, 0, this.bd.getWidth(), this.bd.getHeight(), e9, a9, 0, false, true);
                 }
             } catch (OutOfMemoryError var13) {
             }
 
             try {
                 try {
-                    this.be = f.a(k.a(this.aC[12]));
+                    this.be = AssetManager.readImageFromFilePNG(k.a(this.aC[12]));
                     this.bf = e9 >> 1;
                     int var4 = this.bf / 6;
 
@@ -348,13 +348,13 @@ public final class j {
                     k.l();
                     if (var15 == 2) {
                         if (this.N == -7 || this.N == 35) {
-                            f.l1 = false;
+                            AssetManager.l1 = false;
                             k.t();
                             this.r();
                         }
 
                         if (this.N == 53 || this.N == -6 || this.N == -5) {
-                            f.l1 = true;
+                            AssetManager.l1 = true;
                             s();
                             this.r();
                         }
@@ -453,7 +453,7 @@ public final class j {
 
         this.n9 = false;
         if (!k.cy) {
-            f.a();
+            AssetManager.a();
         }
 
     }
@@ -467,19 +467,19 @@ public final class j {
                 var3 = var1;
             } else {
                 try {
-                    var3 = f.b(f.c(var0));
+                    var3 = AssetManager.readImageFromFileSafe(AssetManager.unifyFilename(var0));
                 } catch (Exception var6) {
                 }
             }
 
             try {
-                var3 = f.a(var3);
+                var3 = AssetManager.a(var3);
             } catch (OutOfMemoryError var5) {
             }
 
             try {
                 if (var3.getWidth() != e9 || var3.getHeight() != a9) {
-                    var3 = f.a(var3, 0, 0, var3.getWidth(), var3.getHeight(), e9, a9, 0, false, true);
+                    var3 = AssetManager.a(var3, 0, 0, var3.getWidth(), var3.getHeight(), e9, a9, 0, false, true);
                 }
             } catch (OutOfMemoryError var7) {
             }
@@ -619,9 +619,9 @@ public final class j {
         }
     }
 
-    public static final void a() {
-        x = d.a();
-        y = Font.getFont(0, 0, 8);
+    public static final void init() {
+        x = d.getInstance();
+        defaultFont = Font.getFont(0, 0, 8);
         A = x;
     }
 
@@ -631,13 +631,13 @@ public final class j {
 
             for(int var1 = 0; var1 < this.J.length; ++var1) {
                 try {
-                    this.J[var1] = f.a("/int" + var1 + ".png");
+                    this.J[var1] = AssetManager.readImageFromFilePNG("/int" + var1 + ".png");
                 } catch (Exception var18) {
                 }
             }
 
             try {
-                this.J[0] = f.a(this.J[0]);
+                this.J[0] = AssetManager.a(this.J[0]);
             } catch (OutOfMemoryError var17) {
             }
 
@@ -752,17 +752,17 @@ public final class j {
     private final void b(int var1) {
         byte[] var2;
         if ((var2 = this.g9)[0] != 1) {
-            var2 = f.a(var2, 30);
+            var2 = AssetManager.decryptDataMethodA(var2, 30);
         }
 
         int var3 = var1 - 48;
         if (this.O < var2.length && var3 == var2[this.O]) {
             ++this.O;
             if (this.O >= var2.length) {
-                if (f.a1[12] == 0) {
-                    f.a1[12] = 7;
+                if (AssetManager.a1[12] == 0) {
+                    AssetManager.a1[12] = 7;
                 } else {
-                    f.a1[12] = 0;
+                    AssetManager.a1[12] = 0;
                 }
 
                 p = false;
@@ -850,7 +850,7 @@ public final class j {
                         switch(this.aJ) {
                             case -3:
                                 k.dS = (byte)this.as;
-                                f.b();
+                                AssetManager.b();
                             case 4:
                                 i9.i(1);
                                 this.aU = 5;
@@ -890,7 +890,7 @@ public final class j {
                                     this.n9 = false;
                                     i9.aO = true;
                                     i9.dB = false;
-                                    f.e1 = -1;
+                                    AssetManager.e1 = -1;
                                     k.cq = false;
                                     h.d();
                                     return;
@@ -940,9 +940,9 @@ public final class j {
                             case 2:
                                 switch(this.as) {
                                     case 0:
-                                        f.l1 = !f.l1;
+                                        AssetManager.l1 = !AssetManager.l1;
                                         z();
-                                        if (f.l1) {
+                                        if (AssetManager.l1) {
                                             s();
                                         } else {
                                             k.t();
@@ -978,9 +978,9 @@ public final class j {
                                         return;
                                     case 3:
                                         if (k.fe) {
-                                            f.o = !f.o;
+                                            AssetManager.o = !AssetManager.o;
                                             z();
-                                            if (!f.o) {
+                                            if (!AssetManager.o) {
                                                 return;
                                             }
 
@@ -996,12 +996,12 @@ public final class j {
                             case 3:
                                 switch(this.as) {
                                     case 0:
-                                        f.l1 = true;
+                                        AssetManager.l1 = true;
                                         s();
                                         this.r();
                                         return;
                                     case 1:
-                                        f.l1 = false;
+                                        AssetManager.l1 = false;
                                         k.t();
                                         this.r();
                                         return;
@@ -1009,12 +1009,12 @@ public final class j {
                                         return;
                                 }
                             case 5:
-                                f.e1 = this.as + 1;
-                                if (f.e1 > 1 && p) {
+                                AssetManager.e1 = this.as + 1;
+                                if (AssetManager.e1 > 1 && p) {
                                     this.n9 = false;
                                     i9.aO = true;
                                     i9.dB = false;
-                                    f.e1 = -1;
+                                    AssetManager.e1 = -1;
                                     k.cq = false;
                                     h.d();
                                     return;
@@ -1028,18 +1028,18 @@ public final class j {
                                         k.cl |= 2;
                                     }
 
-                                    k.cz = (byte) f.e1;
+                                    k.cz = (byte) AssetManager.e1;
                                 }
 
                                 if (!k.cy) {
-                                    int var4 = f.e1;
-                                    if (f.e1 > 0) {
-                                        i9.i(f.e1);
+                                    int var4 = AssetManager.e1;
+                                    if (AssetManager.e1 > 0) {
+                                        i9.i(AssetManager.e1);
                                         this.aU = 5;
                                         this.d();
                                     }
 
-                                    f.e1 = var4;
+                                    AssetManager.e1 = var4;
                                 }
 
                                 boolean var8 = bD;
@@ -1070,14 +1070,14 @@ public final class j {
                                 return;
                             case 14:
                                 k.cy = false;
-                                f.a();
+                                AssetManager.a();
                                 var1 = 0;
                                 if (!p && this.aL) {
                                     ++var1;
                                 }
 
                                 if (this.as == 0 && !p && this.aL) {
-                                    f.a();
+                                    AssetManager.a();
                                     this.i();
                                     return;
                                 }
@@ -1108,15 +1108,15 @@ public final class j {
                             case 15:
                                 k.cy = true;
                                 if (k.cS[2]) {
-                                    f.h1 = false;
+                                    AssetManager.h1 = false;
                                 } else {
                                     for(var1 = 32; var1 < 64; ++var1) {
-                                        f.a1[var1] = 0;
+                                        AssetManager.a1[var1] = 0;
                                     }
                                 }
 
                                 k.dS = 1;
-                                f.h1 = false;
+                                AssetManager.h1 = false;
                                 if (this.as == 0) {
                                     i9.cx = false;
                                     i9.d();
@@ -1137,7 +1137,7 @@ public final class j {
                                     i9.d();
                                     this.c9 = true;
                                     k.k();
-                                    k.cz = (byte) f.e1;
+                                    k.cz = (byte) AssetManager.e1;
                                     i9.u();
                                     this.i();
                                     return;
@@ -1180,8 +1180,8 @@ public final class j {
                             this.bv = 0;
                         }
 
-                        if (this.aJ == 4 && f.e1 < k.bP) {
-                            ++f.e1;
+                        if (this.aJ == 4 && AssetManager.e1 < k.bP) {
+                            ++AssetManager.e1;
                         }
 
                         this.Q = true;
@@ -1199,8 +1199,8 @@ public final class j {
                             this.bv = this.as - (this.Y - 1);
                         }
 
-                        if (this.aJ == 4 && f.e1 > 1) {
-                            --f.e1;
+                        if (this.aJ == 4 && AssetManager.e1 > 1) {
+                            --AssetManager.e1;
                         }
 
                         this.R = true;
@@ -1551,7 +1551,7 @@ public final class j {
                                 this.aY = A;
                             }
 
-                            this.aX = f.instanceHandler.a(var4, this.aY, e9 - this.aY.a(" "), true);
+                            this.aX = AssetManager.instanceHandler.a(var4, this.aY, e9 - this.aY.a(" "), true);
                             break;
                         }
 
@@ -1603,7 +1603,7 @@ public final class j {
 
                 if (var1 == 14) {
                     this.aL = D();
-                    this.aM = this.aL || bD || f.f1 > 1;
+                    this.aM = this.aL || bD || AssetManager.f1 > 1;
                     this.aL = this.aM;
                     var13 = var3;
                     if (p) {
@@ -1689,18 +1689,18 @@ public final class j {
 
             if (var1 == 5) {
                 int var15;
-                if ((var15 = f.e1) < 1) {
-                    var14 = f.e1;
-                    f.a();
-                    var15 = f.e1;
-                    f.e1 = var14;
+                if ((var15 = AssetManager.e1) < 1) {
+                    var14 = AssetManager.e1;
+                    AssetManager.a();
+                    var15 = AssetManager.e1;
+                    AssetManager.e1 = var14;
                 }
 
                 if (var15 < 1) {
                     var15 = 1;
                 }
 
-                var14 = f.f1;
+                var14 = AssetManager.f1;
                 if (bD || k.cy) {
                     var14 = k.bP;
                 }
@@ -1780,17 +1780,17 @@ public final class j {
                     try {
                         try {
                             if (ad == null) {
-                                ad = f.b(k.a(NET_Lizard.c_nl.cr.aC[16]));
+                                ad = AssetManager.readImageFromFileSafe(k.a(NET_Lizard.c_nl.cr.aC[16]));
                                 if (ad != null) {
                                     try {
-                                        ad = f.a(ad);
+                                        ad = AssetManager.a(ad);
                                     } catch (OutOfMemoryError var17) {
                                     }
                                 }
 
                                 if (ad != null && (ad.getWidth() != e9 || ad.getHeight() != a9)) {
                                     try {
-                                        ad = f.a(ad, 0, 0, ad.getWidth(), ad.getHeight(), e9, a9, 0, false, true);
+                                        ad = AssetManager.a(ad, 0, 0, ad.getWidth(), ad.getHeight(), e9, a9, 0, false, true);
                                     } catch (OutOfMemoryError var16) {
                                     }
                                 }
@@ -1800,17 +1800,17 @@ public final class j {
 
                         try {
                             if (ad == null && !u) {
-                                ad = f.b(k.a(NET_Lizard.c_nl.cr.aC[16]));
+                                ad = AssetManager.readImageFromFileSafe(k.a(NET_Lizard.c_nl.cr.aC[16]));
                                 if (ad != null) {
                                     try {
-                                        ad = f.a(ad);
+                                        ad = AssetManager.a(ad);
                                     } catch (OutOfMemoryError var15) {
                                     }
                                 }
 
                                 if (ad != null && (ad.getWidth() != e9 || ad.getHeight() != a9)) {
                                     try {
-                                        ad = f.a(ad, 0, 0, ad.getWidth(), ad.getHeight(), e9, a9, 0, false, true);
+                                        ad = AssetManager.a(ad, 0, 0, ad.getWidth(), ad.getHeight(), e9, a9, 0, false, true);
                                     } catch (OutOfMemoryError var14) {
                                     }
                                 }
@@ -1821,7 +1821,7 @@ public final class j {
                         if (ad != null) {
                             var0.drawImage(ad, f9, b9, 3);
                             int var8 = ad.getWidth() / 18;
-                            i9.ab = f.e1 * 10;
+                            i9.ab = AssetManager.e1 * 10;
                             int var9 = ad.getWidth() * 2 / 3;
                             int var10 = i9.c() * (var9 - var8) / 100;
                             int var11 = i9.c() * (var9 - var8) / 100;
@@ -1851,7 +1851,7 @@ public final class j {
             if (var7) {
                 try {
                     if (ac == null) {
-                        ac = f.b(k.a(NET_Lizard.c_nl.cr.aC[12]));
+                        ac = AssetManager.readImageFromFileSafe(k.a(NET_Lizard.c_nl.cr.aC[12]));
                     }
 
                     var23 = a9 - ac.getHeight() >> 1;
@@ -1870,13 +1870,13 @@ public final class j {
         }
 
         var0.setColor(z);
-        var0.setFont(y);
+        var0.setFont(defaultFont);
 
         for(int var24 = 0; var24 < 1; ++var24) {
             if (var24 == 1) {
                 var23 += var6;
-                var1 = k.r[1][1] + String.valueOf(f.e1);
-                if (f.e1 < 1 || k.cq) {
+                var1 = k.r[1][1] + String.valueOf(AssetManager.e1);
+                if (AssetManager.e1 < 1 || k.cq) {
                     var1 = "";
                 }
             }
@@ -1908,13 +1908,13 @@ public final class j {
 
     public static final void a(Graphics var0, d var1, int var2) {
         try {
-            if (f.e1 > 0) {
+            if (AssetManager.e1 > 0) {
                 if (k.bQ != null) {
-                    var1.a(var0, k.bQ[f.e1][0], f9, var2, 17);
+                    var1.a(var0, k.bQ[AssetManager.e1][0], f9, var2, 17);
                     return;
                 }
 
-                var1.a(var0, k.r[1][1] + f.e1, f9, var2, 3);
+                var1.a(var0, k.r[1][1] + AssetManager.e1, f9, var2, 3);
             }
 
         } catch (Exception var4) {
@@ -1922,7 +1922,7 @@ public final class j {
     }
 
     private static void s() {
-        if (f.l1) {
+        if (AssetManager.l1) {
             k.b(k.bI, true);
         }
 
@@ -1985,28 +1985,28 @@ public final class j {
     }
 
     private static void v() {
-        int var0 = f.e1;
-        f.a();
-        f.e1 = var0;
-        if (!bD || f.e1 < 1) {
-            f.e1 = 1;
+        int var0 = AssetManager.e1;
+        AssetManager.a();
+        AssetManager.e1 = var0;
+        if (!bD || AssetManager.e1 < 1) {
+            AssetManager.e1 = 1;
         }
 
         if (!bD) {
-            f.f1 = 1;
+            AssetManager.f1 = 1;
             k.ax = false;
         }
 
-        f.c1 = 0;
-        f.g1 = 0;
+        AssetManager.c1 = 0;
+        AssetManager.g1 = 0;
         if (!bD) {
-            for(int var1 = 32; var1 < f.d1; ++var1) {
-                f.a1[var1] = 0;
+            for(int var1 = 32; var1 < AssetManager.d1; ++var1) {
+                AssetManager.a1[var1] = 0;
             }
         }
 
         if (!k.cy) {
-            f.b();
+            AssetManager.b();
         }
 
         if (k.cy) {
@@ -2072,7 +2072,7 @@ public final class j {
 
                 if (this.bE) {
                     if (var1 != null) {
-                        var1.setFont(y);
+                        var1.setFont(defaultFont);
                     }
 
                     if (this.ak) {
@@ -2202,7 +2202,7 @@ public final class j {
                                     boolean var22 = false;
                                     var21 = new String[4];
                                     byte var23 = 1;
-                                    if (f.l1) {
+                                    if (AssetManager.l1) {
                                         var23 = 0;
                                     }
 
@@ -2216,7 +2216,7 @@ public final class j {
                                     var21[2] = k.r[19][var23];
                                     var23 = 1;
                                     if (k.fe) {
-                                        if (f.o) {
+                                        if (AssetManager.o) {
                                             var23 = 0;
                                         }
 
@@ -2262,7 +2262,7 @@ public final class j {
                                         }
 
                                         if (this.aJ == 4) {
-                                            var20 = var20 + f.e1;
+                                            var20 = var20 + AssetManager.e1;
                                         }
 
                                         var16 = var2.a(var20) + 2 * var4;
@@ -2307,7 +2307,7 @@ public final class j {
                                     }
 
                                     if (this.aJ == 4) {
-                                        var20 = var20 + f.e1;
+                                        var20 = var20 + AssetManager.e1;
                                     }
 
                                     boolean var29 = var8 < var39;
@@ -3084,7 +3084,7 @@ public final class j {
             } else if (this.aU == 8) {
                 var3 = k();
             } else {
-                var3 = f.instanceHandler.f(k.a(this.bO[this.aU]) + var1);
+                var3 = AssetManager.instanceHandler.f(k.a(this.bO[this.aU]) + var1);
             }
 
             if (var3 == null) {
@@ -3106,7 +3106,7 @@ public final class j {
             this.G = null;
             this.l();
             this.aa = true;
-            this.az = f.instanceHandler.a(var3, A, e9 - 2 * this.bu - this.bG - this.bK - 1, true);
+            this.az = AssetManager.instanceHandler.a(var3, A, e9 - 2 * this.bu - this.bG - this.bK - 1, true);
             this.bs = 1;
             this.bt = 0;
             this.ak = true;
@@ -3131,9 +3131,9 @@ public final class j {
                     if (this.J == null) {
                         try {
                             if (var11 == 0) {
-                                this.ae[var11] = f.b("/c_" + var11 + ".png");
+                                this.ae[var11] = AssetManager.readImageFromFileSafe("/c_" + var11 + ".png");
                             } else {
-                                this.ae[var11] = f.a("/c_" + var11 + ".png");
+                                this.ae[var11] = AssetManager.readImageFromFilePNG("/c_" + var11 + ".png");
                             }
                         } catch (Exception var8) {
                         }
@@ -3143,13 +3143,13 @@ public final class j {
                 this.af = new int[this.ae.length][2];
                 if (this.ae[0] != null) {
                     try {
-                        this.ae[0] = f.a(this.ae[0]);
+                        this.ae[0] = AssetManager.a(this.ae[0]);
                     } catch (OutOfMemoryError var7) {
                     }
 
                     if (this.ae[0] != null && this.ae[0].getHeight() != a9) {
                         try {
-                            this.ae[0] = f.a(this.ae[0], 0, 0, this.ae[0].getWidth(), this.ae[0].getHeight(), this.ae[0].getWidth() * a9 / this.ae[0].getHeight(), a9, 0, false, true);
+                            this.ae[0] = AssetManager.a(this.ae[0], 0, 0, this.ae[0].getWidth(), this.ae[0].getHeight(), this.ae[0].getWidth() * a9 / this.ae[0].getHeight(), a9, 0, false, true);
                         } catch (OutOfMemoryError var6) {
                         }
                     }
@@ -3507,7 +3507,7 @@ public final class j {
             try {
                 this.ar = e9;
                 this.j9 = 0;
-                this.ao = f.b(k.a(this.aC[0]));
+                this.ao = AssetManager.readImageFromFileSafe(k.a(this.aC[0]));
                 this.t();
                 this.ao = null;
                 Thread.sleep(330L);
@@ -3530,7 +3530,7 @@ public final class j {
             try {
                 this.ao = null;
                 Thread.sleep(33L);
-                this.ao = f.b(k.a(this.aC[1]));
+                this.ao = AssetManager.readImageFromFileSafe(k.a(this.aC[1]));
                 if (this.ao != null) {
                     this.ar = e9;
                     this.j9 = 0;
@@ -3543,7 +3543,7 @@ public final class j {
 
             this.a(true);
             i9.aO = false;
-            f.e1 = 0;
+            AssetManager.e1 = 0;
             this.m();
         } else {
             s();
@@ -3571,23 +3571,23 @@ public final class j {
 
         if (this.bg == null) {
             try {
-                this.bg = f.a(k.a(this.aC[2]));
+                this.bg = AssetManager.readImageFromFilePNG(k.a(this.aC[2]));
             } catch (Exception var12) {
             }
         }
 
         if (this.aF == null) {
             try {
-                this.aF = f.a(k.a(this.aC[3]));
+                this.aF = AssetManager.readImageFromFilePNG(k.a(this.aC[3]));
                 this.bJ = e9;
                 this.bI = e9 - this.aF.getWidth() >> 1;
                 this.bH = this.bJ;
-                this.aG = f.a(k.a(this.aC[4]));
+                this.aG = AssetManager.readImageFromFilePNG(k.a(this.aC[4]));
                 this.aH = new Image[5];
                 this.aH[1] = this.aG;
 
                 for(int var1 = 2; var1 < this.aH.length; ++var1) {
-                    this.aH[var1] = f.a(k.a(this.aC[5]) + var1 + k.a(this.aC[6]));
+                    this.aH[var1] = AssetManager.readImageFromFilePNG(k.a(this.aC[5]) + var1 + k.a(this.aC[6]));
                 }
             } catch (Exception var17) {
             }
@@ -3595,14 +3595,14 @@ public final class j {
 
         if (this.S == null) {
             try {
-                this.S = f.a(k.a(this.aC[7]));
+                this.S = AssetManager.readImageFromFilePNG(k.a(this.aC[7]));
             } catch (Exception var11) {
             }
         }
 
         if (this.aZ == null) {
             try {
-                this.aZ = f.a(k.a(this.aC[8]));
+                this.aZ = AssetManager.readImageFromFilePNG(k.a(this.aC[8]));
             } catch (Exception var10) {
             }
         }
@@ -3633,7 +3633,7 @@ public final class j {
 
         if (this.aZ == null) {
             try {
-                this.aZ = f.a(k.a(this.aC[8]));
+                this.aZ = AssetManager.readImageFromFilePNG(k.a(this.aC[8]));
             } catch (Exception var9) {
             }
         }
@@ -3725,20 +3725,20 @@ public final class j {
     }
 
     private static void z() {
-        boolean var0 = f.l1;
-        boolean var1 = f.o;
-        boolean var2 = f.h1;
+        boolean var0 = AssetManager.l1;
+        boolean var1 = AssetManager.o;
+        boolean var2 = AssetManager.h1;
         boolean var3 = k.du;
         int var4 = m.K;
-        int var5 = f.e1;
-        f.a();
-        f.l1 = var0;
-        f.o = var1;
-        f.h1 = var2;
+        int var5 = AssetManager.e1;
+        AssetManager.a();
+        AssetManager.l1 = var0;
+        AssetManager.o = var1;
+        AssetManager.h1 = var2;
         k.du = var3;
         m.K = var4;
-        f.b();
-        f.e1 = var5;
+        AssetManager.b();
+        AssetManager.e1 = var5;
     }
 
     private final void b(Graphics var1, d var2, String var3, int var4, int var5) {
@@ -3761,9 +3761,9 @@ public final class j {
     }
 
     private final void A() {
-        f.e1 = k.cz;
-        if (f.e1 < 1) {
-            f.e1 = 1;
+        AssetManager.e1 = k.cz;
+        if (AssetManager.e1 < 1) {
+            AssetManager.e1 = 1;
         }
 
         k.ax = (k.cl & 2) != 0;
@@ -3814,7 +3814,7 @@ public final class j {
                 }
 
                 var1[var2] = -1;
-                f.a(k.cI, var1);
+                AssetManager.a(k.cI, var1);
                 i9.m();
 
                 try {
@@ -3822,7 +3822,7 @@ public final class j {
                     Class.forName("javax.bluetooth.DiscoveryAgent");
                     this.x();
                     var1[var2] = 1;
-                    f.a(k.cI, var1);
+                    AssetManager.a(k.cI, var1);
                     return true;
                 } catch (Exception var4) {
                     this.x();
@@ -3838,7 +3838,7 @@ public final class j {
     }
 
     private boolean B() {
-        return this.a(f.a1, 31);
+        return this.a(AssetManager.a1, 31);
     }
 
     private void a(int var1, int var2) {
@@ -4010,7 +4010,7 @@ public final class j {
     }
 
     private static boolean D() {
-        return f.e1 > 1 || f.c1 != 0 || f.f1 > 1;
+        return AssetManager.e1 > 1 || AssetManager.c1 != 0 || AssetManager.f1 > 1;
     }
 
     private void g(Graphics var1) {

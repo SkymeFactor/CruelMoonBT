@@ -13,8 +13,8 @@ public final class NET_Lizard extends MIDlet {
 
     public NET_Lizard() {
         app = this;
-        if (f.instanceHandler == null) {
-            f.d();
+        if (AssetManager.instanceHandler == null) {
+            AssetManager.createInstance();
         }
 
         if (c_nl == null) {
@@ -27,37 +27,37 @@ public final class NET_Lizard extends MIDlet {
         if (d_nl) {
             try {
                 c_nl.S = false;
-            } catch (Exception var8) {
+            } catch (Exception ignore) {
             }
 
             try {
                 c_nl.cr.n9 = false;
-            } catch (Exception var7) {
+            } catch (Exception ignore) {
             }
 
             try {
                 c.e2 = false;
-            } catch (Exception var6) {
+            } catch (Exception ignore) {
             }
 
             try {
                 m.c();
-            } catch (Exception var5) {
+            } catch (Exception ignore) {
             }
 
             try {
                 if (k.b10 != null && n.g12) {
                     c_nl.d();
                 }
-            } catch (Exception var4) {
+            } catch (Exception ignore) {
             }
         }
 
-        f.c();
+        AssetManager.destroyInstance();
 
         try {
             c_nl.ez = null;
-        } catch (Exception var3) {
+        } catch (Exception ignore) {
         }
 
         c_nl = null;

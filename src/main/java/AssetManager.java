@@ -10,24 +10,25 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.rms.RecordStore;
 
-public final class f {
+// Resource manager
+public final class AssetManager {
     static byte[] a1;
-    static int[] b1;
+    static int[] binaryStringComNokiaUIFullCanvas;
     static int c1;
     static int d1;
     static int e1;
     static int f1;
     static int g1;
     static boolean h1;
-    static int[] i1;
+    static int[] binaryStringPNG;
     static boolean j1;
     static boolean k1;
     private static String q1;
     static boolean l1;
     static int m1;
-    public static f instanceHandler;
+    public static AssetManager instanceHandler;
     static boolean o;
-    static int p = 100;
+    static int default_salt = 100;
 
     static {
         d1 = k.bO;
@@ -42,12 +43,12 @@ public final class f {
         a1 = new byte[d1];
         k1 = false;
         j1 = true;
-        b1 = new int[]{1668246830, 1852795753, 1630432617, 1680766313, 776369516, 1816355182, 1986097920};
-        i1 = new int[]{779120231};
+        binaryStringComNokiaUIFullCanvas = new int[]{1668246830, 1852795753, 1630432617, 1680766313, 776369516, 1816355182, 1986097920};
+        binaryStringPNG = new int[]{779120231};
         m1 = 0;
     }
 
-    public f() {
+    public AssetManager() {
     }
 
     private static final void e() {
@@ -61,17 +62,17 @@ public final class f {
         k.ep = false;
     }
 
-    static final Image a(String var0) {
-        byte[] var1 = instanceHandler.a((String)var0, (int)-1);
+    static final Image readImageFromFilePNG(String filename) {
+        byte[] imageData = instanceHandler.readDataChunkFromFile((String)filename, (int)-1);
 
         try {
-            return Image.createImage(var1, 0, var1.length);
-        } catch (Exception var5) {
+            return Image.createImage(imageData, 0, imageData.length);
+        } catch (Exception e) {
             try {
-                return Image.createImage(a(var1, p), 0, var1.length);
-            } catch (Exception var4) {
-                a(var1, p);
-                return Image.createImage(b(var1, var1[2] - 3), 3, var1.length - 3);
+                return Image.createImage(decryptDataMethodA(imageData, default_salt), 0, imageData.length);
+            } catch (Exception e2) {
+                decryptDataMethodA(imageData, default_salt);
+                return Image.createImage(decryptDataMethodB(imageData, imageData[2] - 3), 3, imageData.length - 3);
             }
         }
     }
@@ -154,22 +155,22 @@ public final class f {
         }
     }
 
-    static final Image b(String var0) {
-        var0 = c(var0);
-        byte[] var1;
-        if (((var1 = instanceHandler.a((String)var0, (int)-1)) == null || var1.length <= 0) && var0.endsWith(".png")) {
-            var0 = var0.substring(0, var0.length() - 4) + ".jpg";
-            var1 = instanceHandler.a((String)var0, (int)-1);
+    static final Image readImageFromFileSafe(String filename) {
+        filename = unifyFilename(filename);
+        byte[] data;
+        if (((data = instanceHandler.readDataChunkFromFile((String)filename, (int)-1)) == null || data.length <= 0) && filename.endsWith(".png")) {
+            filename = filename.substring(0, filename.length() - 4) + ".jpg";
+            data = instanceHandler.readDataChunkFromFile((String)filename, (int)-1);
         }
 
         try {
-            return Image.createImage(var1, 0, var1.length);
-        } catch (Exception var5) {
+            return Image.createImage(data, 0, data.length);
+        } catch (Exception e) {
             try {
-                return Image.createImage(a(var1, p), 0, var1.length);
-            } catch (Exception var4) {
-                a(var1, p);
-                return Image.createImage(b(var1, var1[2] - 3), 3, var1.length - 3);
+                return Image.createImage(decryptDataMethodA(data, default_salt), 0, data.length);
+            } catch (Exception e2) {
+                decryptDataMethodA(data, default_salt);
+                return Image.createImage(decryptDataMethodB(data, data[2] - 3), 3, data.length - 3);
             }
         }
     }
@@ -232,65 +233,65 @@ public final class f {
 
             var2.addRecord(var1, 0, var1.length);
             var2.closeRecordStore();
-        } catch (Exception var4) {
+        } catch (Exception ignore) {
         }
     }
 
-    private static final byte[] b(byte[] var0, int var1) {
-        int var2 = var0.length;
-        byte var4 = (byte)var1;
+    private static final byte[] decryptDataMethodB(byte[] data, int salt) {
+        int dataLength = data.length;
+        byte saltByte = (byte)salt;
 
-        for(int var3 = 0; var3 < var2; ++var3) {
-            var0[var3] ^= var4;
-            ++var4;
+        for(int i = 0; i < dataLength; ++i) {
+            data[i] ^= saltByte;
+            ++saltByte;
         }
 
-        return var0;
+        return data;
     }
 
-    public static final byte[] a(byte[] var0, int var1) {
-        int var2 = var0.length;
+    public static final byte[] decryptDataMethodA(byte[] data, int salt) {
+        int dataLength = data.length;
 
-        for(int var3 = 0; var3 < var2; ++var3) {
-            var0[var3] = (byte)(var0[var3] ^ var1);
-            ++var1;
-            if (var1 > 255) {
-                var1 = 0;
+        for(int i = 0; i < dataLength; ++i) {
+            data[i] = (byte)(data[i] ^ salt);
+            ++salt;
+            if (salt > 255) {
+                salt = 0;
             }
         }
 
-        return var0;
+        return data;
     }
 
     private static int a(int var0, int var1) {
         return var0 / var1;
     }
 
-    static final String c(String var0) {
+    static final String unifyFilename(String filename) {
         try {
-            if (var0.length() > 0) {
-                if (var0.charAt(0) != '/') {
-                    var0 = new String('/' + var0);
+            if (filename.length() > 0) {
+                if (filename.charAt(0) != '/') {
+                    filename = new String('/' + filename);
                 }
             } else {
-                var0 = new String('/' + var0);
+                filename = new String('/' + filename);
             }
 
-            boolean var3 = true;
+            boolean filenameHasNoExtension = true;
 
-            for(int var4 = 0; var4 < var0.length(); ++var4) {
-                if (var0.charAt(var4) == '.') {
-                    var3 = false;
+            for(int i = 0; i < filename.length(); ++i) {
+                if (filename.charAt(i) == '.') {
+                    filenameHasNoExtension = false;
                 }
             }
 
-            if (var3) {
-                var0 = var0 + a(i1);
+            if (filenameHasNoExtension) {
+                filename = filename + decodeBinaryString(binaryStringPNG);
             }
-        } catch (Exception var5) {
+        } catch (Exception ignore) {
         }
 
-        return var0;
+        return filename;
     }
 
     static final void a() {
@@ -311,59 +312,58 @@ public final class f {
         k1 = false;
     }
 
-    protected final int d(String var1) {
-        var1 = c(var1);
-        int var2 = 0;
-        int var3 = -1;
+    protected final int getFileSize(String filename) {
+        filename = unifyFilename(filename);
+        int currentByte = 0;
+        int fileSize = -1;
 
         try {
-            InputStream var4;
-            if ((var4 = this.getClass().getResourceAsStream(var1)) == null) {
+            InputStream resourceStream;
+            if ((resourceStream = this.getClass().getResourceAsStream(filename)) == null) {
                 return -1;
             }
 
-            while(var2 != -1) {
-                var2 = var4.read();
-                ++var3;
+            while(currentByte != -1) {
+                currentByte = resourceStream.read();
+                ++fileSize;
             }
 
-            var4.close();
-        } catch (Exception var5) {
-            var3 = -1;
+            resourceStream.close();
+        } catch (Exception e) {
+            fileSize = -1;
         }
 
-        return var3;
+        return fileSize;
     }
 
-    private static String a(int[] var0) {
-        String var1 = new String();
+    private static String decodeBinaryString(int[] encodedString) {
+        String decodedString = new String();
 
-        for(int var5 = 0; var5 < var0.length; ++var5) {
-            long var3;
-            if ((var3 = (long)var0[var5]) < 0L) {
-                var3 += 4294967296L;
+        for(int i = 0; i < encodedString.length; ++i) {
+            long currentValue;
+            if ((currentValue = (long)encodedString[i]) < 0L) {
+                currentValue += 4294967296L;
             }
 
-            var1 = var1 + (char)((int)((var3 & 4278190080L) >> 24));
-            byte var2;
-            if ((var2 = (byte)((int)((var3 & 16711680L) >> 16))) == 0) {
+            decodedString = decodedString + (char)((int)((currentValue & 4278190080L) >> 24));
+            byte decodedSymbol;
+            if ((decodedSymbol = (byte)((int)((currentValue & 16711680L) >> 16))) == 0) {
                 break;
             }
 
-            var1 = var1 + (char)var2;
-            if ((var2 = (byte)((int)((var3 & 65280L) >> 8))) == 0) {
+            decodedString = decodedString + (char)decodedSymbol;
+            if ((decodedSymbol = (byte)((int)((currentValue & 65280L) >> 8))) == 0) {
                 break;
             }
 
-            var1 = var1 + (char)var2;
-            if ((var2 = (byte)((int)(var3 & 255L))) == 0) {
+            decodedString = decodedString + (char)decodedSymbol;
+            if ((decodedSymbol = (byte)((int)(currentValue & 255L))) == 0) {
                 break;
             }
 
-            var1 = var1 + (char)var2;
+            decodedString = decodedString + (char)decodedSymbol;
         }
-
-        return var1;
+        return decodedString;
     }
 
     private String[][] b(String var1, int var2) {
@@ -407,72 +407,74 @@ public final class f {
         return this.b((String)var1, 61);
     }
 
-    protected final byte[] a(String var1, int var2) {
-        if (var2 < 0) {
-            var2 = this.d(var1);
+    protected final byte[] readDataChunkFromFile(String filename, int dataLength) {
+        if (dataLength < 0) {
+            dataLength = this.getFileSize(filename);
         }
 
-        var1 = c(var1);
-        if (var2 <= 0) {
+        filename = unifyFilename(filename);
+        if (dataLength <= 0) {
             return null;
         } else {
             try {
-                Class.forName(a(b1));
-                return this.c(var1, var2);
-            } catch (Exception var6) {
-                byte[] var3 = new byte[var2];
+                // In case of Nokia platform, we will use a safer function
+                Class.forName(decodeBinaryString(binaryStringComNokiaUIFullCanvas));
+                return this.readDataChunkFromFileSafe(filename, dataLength);
+            } catch (Exception e) {
+                byte[] data = new byte[dataLength];
 
                 try {
-                    InputStream var4;
-                    (var4 = this.getClass().getResourceAsStream(var1)).read(var3);
-                    var4.close();
-                } catch (Exception var5) {
+                    InputStream resourceStream;
+                    (resourceStream = this.getClass().getResourceAsStream(filename)).read(data);
+                    resourceStream.close();
+                } catch (Exception ignore) {
                 }
 
-                return var3;
+                return data;
             }
         }
     }
 
-    private final byte[] c(String var1, int var2) {
-        byte[] var3 = new byte[var2];
+    private final byte[] readDataChunkFromFileSafe(String filename, int dataLength) {
+        byte[] data = new byte[dataLength];
 
         try {
-            InputStream var4;
-            if ((var4 = this.getClass().getResourceAsStream(var1)) == null) {
-                return var3;
+            InputStream resourceStream;
+            if ((resourceStream = this.getClass().getResourceAsStream(filename)) == null) {
+                return data;
             }
 
-            DataInputStream var5 = new DataInputStream(var4);
-            boolean var6 = false;
-            int var7 = 0;
+            DataInputStream dataStream = new DataInputStream(resourceStream);
+            boolean var6 = false;   // Unknown variable, never used
+            int dataOffset = 0;
 
-            int var9;
+            int numBytesRead;
             do {
-                var9 = var5.read(var3, var7, var3.length - var7);
-                var7 += var9;
-            } while(var9 != -1 && var7 < var3.length);
+                numBytesRead = dataStream.read(data, dataOffset, data.length - dataOffset);
+                dataOffset += numBytesRead;
+            } while(numBytesRead != -1 && dataOffset < data.length);
 
-            var5.close();
-        } catch (Exception var8) {
+            dataStream.close();
+        } catch (Exception ignore) {
         }
 
-        return var3;
+        return data;
     }
 
     private String a(String var1, char var2) {
-        int var3 = this.d(var1);
+        int var3 = this.getFileSize(var1);
         String var4 = new String();
         byte[] var5;
-        if ((var5 = this.a(var1, var3)) != null && var5.length > 0) {
+        if ((var5 = this.readDataChunkFromFile(var1, var3)) != null && var5.length > 0) {
             if (var5.length > 1 && var5[0] == 59 && var5[1] == 67) {
-                var5 = a(var5, p);
+                var5 = decryptDataMethodA(var5, default_salt);
             } else if (var5.length > 1 && var5[0] == -101 && var5[1] == -101) {
-                var5 = a(var5, p);
+                var5 = decryptDataMethodA(var5, default_salt);
             }
 
             byte var6 = 0;
             if (var5.length >= 1 && var5[0] == 95) {
+                // Game asset discovered (ascii char 95 is '_')
                 var6 = 2;
             }
 
@@ -528,7 +530,7 @@ public final class f {
 
                 try {
                     var4 = new String(var12);
-                } catch (Exception var15) {
+                } catch (Exception ignored) {
                 }
 
                 return var4;
@@ -542,21 +544,21 @@ public final class f {
         return this.a(var1, ' ');
     }
 
-    static final Image a(Image var0) {
-        if (var0 == null) {
+    static final Image a(Image img) {
+        if (img == null) {
             return null;
         } else {
             try {
                 Image var1;
                 Graphics var2;
-                (var2 = (var1 = Image.createImage(var0.getWidth(), var0.getHeight())).getGraphics()).setClip(0, 0, var0.getWidth(), var0.getHeight());
+                (var2 = (var1 = Image.createImage(img.getWidth(), img.getHeight())).getGraphics()).setClip(0, 0, img.getWidth(), img.getHeight());
                 var2.setColor(0);
-                var2.fillRect(0, 0, var0.getWidth(), var0.getHeight());
-                var2.drawImage(var0, 0, 0, 20);
-                var0 = null;
+                var2.fillRect(0, 0, img.getWidth(), img.getHeight());
+                var2.drawImage(img, 0, 0, 20);
+                img = null;
                 return var1;
             } catch (OutOfMemoryError var3) {
-                return var0;
+                return img;
             }
         }
     }
@@ -1094,14 +1096,14 @@ public final class f {
 
         int var2 = 0;
 
-        for(int var3 = var1; var3 < var0.length && (var0[var3] != 0 || var3 + 1 < var0.length && var0[var3 + 1] != 0); var3 += 2) {
+        for(int i = var1; i < var0.length && (var0[i] != 0 || i + 1 < var0.length && var0[i + 1] != 0); i += 2) {
             ++var2;
         }
 
         char[] var4 = new char[var2];
         int var7 = var1;
 
-        for(int var8 = 0; var8 < var2; ++var8) {
+        for(int i = 0; i < var2; ++i) {
             int var5;
             if ((var5 = var0[var7]) < 0) {
                 var5 += 256;
@@ -1114,23 +1116,24 @@ public final class f {
             }
 
             ++var7;
-            var4[var8] = (char)(var6 * 256 + var5);
+            var4[i] = (char)(var6 * 256 + var5);
         }
 
         String var9;
         if ((var9 = new String(var4)).length() >= 2 && var9.charAt(0) == '_' && var9.charAt(1) == '&') {
+            // In case of game asset successfully found
             var9 = var9.substring(2, var9.length());
         }
 
         return var9;
     }
 
-    public static final void c() {
+    public static final void destroyInstance() {
         instanceHandler = null;
     }
 
-    public static final void d() {
-        instanceHandler = new f();
+    public static final void createInstance() {
+        instanceHandler = new AssetManager();
     }
 
     private static int a(int var0, int var1, int var2, boolean var3, boolean var4) {
