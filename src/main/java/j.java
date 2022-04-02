@@ -3814,7 +3814,7 @@ public final class j {
                 }
 
                 var1[var2] = -1;
-                AssetManager.a(k.cI, var1);
+                AssetManager.clearRecordStoreAndWriteRecord(k.cI, var1);
                 i9.m();
 
                 try {
@@ -3822,7 +3822,7 @@ public final class j {
                     Class.forName("javax.bluetooth.DiscoveryAgent");
                     this.x();
                     var1[var2] = 1;
-                    AssetManager.a(k.cI, var1);
+                    AssetManager.clearRecordStoreAndWriteRecord(k.cI, var1);
                     return true;
                 } catch (Exception var4) {
                     this.x();

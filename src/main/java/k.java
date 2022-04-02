@@ -5331,7 +5331,7 @@ public final class k extends a implements Runnable {
     }
 
     private void ai() {
-        N = AssetManager.a(this.cJ, N, false);
+        N = AssetManager.getRecordFromRecordStore(this.cJ, N, false);
     }
 
     static void k() {
@@ -9751,7 +9751,7 @@ public final class k extends a implements Runnable {
 
         this.g(var1);
         if (var1 != null) {
-            AssetManager.a(this.cJ, var1);
+            AssetManager.clearRecordStoreAndWriteRecord(this.cJ, var1);
         }
 
     }

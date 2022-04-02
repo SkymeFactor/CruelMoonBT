@@ -23,16 +23,16 @@ public final class AssetManager {
     static int[] binaryStringPNG;
     static boolean j1;
     static boolean k1;
-    private static String q1;
+    private static String recordStorageMNMc;
     static boolean l1;
-    static int m1;
+    static int alphaBlendingEnabled;
     public static AssetManager instanceHandler;
     static boolean o;
     static int default_salt = 100;
 
     static {
         d1 = k.bO;
-        q1 = k.cI;
+        recordStorageMNMc = k.cI;
         f1 = 1;
         l1 = false;
         o = true;
@@ -45,7 +45,7 @@ public final class AssetManager {
         j1 = true;
         binaryStringComNokiaUIFullCanvas = new int[]{1668246830, 1852795753, 1630432617, 1680766313, 776369516, 1816355182, 1986097920};
         binaryStringPNG = new int[]{779120231};
-        m1 = 0;
+        alphaBlendingEnabled = 0;
     }
 
     public AssetManager() {
@@ -175,64 +175,65 @@ public final class AssetManager {
         }
     }
 
-    static final byte[] a(String var0, byte[] var1, boolean var2) {
-        boolean var3 = false;
+    static final byte[] getRecordFromRecordStore(String recordStoreName, byte[] recordData, boolean writeIfNotFound) {
+        boolean recordWasFound = false;
 
         try {
-            RecordStore var4;
-            if ((var4 = RecordStore.openRecordStore(var0, true)).getNumRecords() == 1) {
-                var4.getRecord(1, var1, 0);
-                var3 = true;
+            RecordStore myRecordStore;
+            if ((myRecordStore = RecordStore.openRecordStore(recordStoreName, true)).getNumRecords() == 1) {
+                myRecordStore.getRecord(1, recordData, 0);
+                recordWasFound = true;
             }
 
-            var4.closeRecordStore();
-        } catch (Exception var6) {
+            myRecordStore.closeRecordStore();
+        } catch (Exception ignore) {
         }
 
-        if (!var3 && var2) {
-            a(var0, var1);
+        if (!recordWasFound && writeIfNotFound) {
+            clearRecordStoreAndWriteRecord(recordStoreName, recordData);
         }
 
-        return var1;
+        return recordData;
     }
 
-    private static byte[] b(String var0, byte[] var1) {
-        boolean var2 = false;
+    private static byte[] getRecordFromRecordStoreSafe(String recordStoreName, byte[] recordData) {
+        boolean recordWasFound = false;
 
         try {
-            RecordStore var3;
-            if ((var3 = RecordStore.openRecordStore(var0, true)).getNumRecords() == 1) {
-                var3.getRecord(1, var1, 0);
-                var2 = true;
+            RecordStore myRecordStore;
+            if ((myRecordStore = RecordStore.openRecordStore(recordStoreName, true)).getNumRecords() == 1) {
+                myRecordStore.getRecord(1, recordData, 0);
+                recordWasFound = true;
             }
 
-            var3.closeRecordStore();
-        } catch (Exception var5) {
+            myRecordStore.closeRecordStore();
+        } catch (Exception ignore) {
         }
 
-        if (!var2) {
+        if (!recordWasFound) {
+            // TODO: work on since here
             e();
-            var1 = c(var1);
-            a(var0, var1);
+            recordData = c(recordData);
+            clearRecordStoreAndWriteRecord(recordStoreName, recordData);
         }
 
-        return var1;
+        return recordData;
     }
 
-    static final void a(String var0, byte[] var1) {
+    static final void clearRecordStoreAndWriteRecord(String recordStoreName, byte[] recordData) {
         try {
-            RecordStore var2;
-            if ((var2 = RecordStore.openRecordStore(var0, true)).getNumRecords() == 1) {
-                var2.closeRecordStore();
+            RecordStore myRecordStore;
+            if ((myRecordStore = RecordStore.openRecordStore(recordStoreName, true)).getNumRecords() == 1) {
+                myRecordStore.closeRecordStore();
                 if (RecordStore.listRecordStores() != null) {
-                    RecordStore.deleteRecordStore(var0);
+                    RecordStore.deleteRecordStore(recordStoreName);
                 }
 
-                var2 = RecordStore.openRecordStore(var0, true);
+                myRecordStore = RecordStore.openRecordStore(recordStoreName, true);
             }
 
-            var2.addRecord(var1, 0, var1.length);
-            var2.closeRecordStore();
+            myRecordStore.addRecord(recordData, 0, recordData.length);
+            myRecordStore.closeRecordStore();
         } catch (Exception ignore) {
         }
     }
@@ -290,13 +291,12 @@ public final class AssetManager {
             }
         } catch (Exception ignore) {
         }
-
         return filename;
     }
 
     static final void a() {
         if (j1) {
-            a1 = b(q1, a1);
+            a1 = getRecordFromRecordStoreSafe(recordStorageMNMc, a1);
         }
 
         j1 = false;
@@ -306,7 +306,7 @@ public final class AssetManager {
     static final void b() {
         a1 = c(a1);
         if (k1) {
-            a(q1, a1);
+            clearRecordStoreAndWriteRecord(recordStorageMNMc, a1);
         }
 
         k1 = false;
@@ -429,7 +429,6 @@ public final class AssetManager {
                     resourceStream.close();
                 } catch (Exception ignore) {
                 }
-
                 return data;
             }
         }
@@ -461,33 +460,34 @@ public final class AssetManager {
         return data;
     }
 
+    // TODO: some job done, continue
     private String a(String var1, char var2) {
         int var3 = this.getFileSize(var1);
         String var4 = new String();
-        byte[] var5;
-        if ((var5 = this.readDataChunkFromFile(var1, var3)) != null && var5.length > 0) {
-            if (var5.length > 1 && var5[0] == 59 && var5[1] == 67) {
-                var5 = decryptDataMethodA(var5, default_salt);
-            } else if (var5.length > 1 && var5[0] == -101 && var5[1] == -101) {
-                var5 = decryptDataMethodA(var5, default_salt);
+        byte[] textAssetBin;
+        if ((textAssetBin = this.readDataChunkFromFile(var1, var3)) != null && textAssetBin.length > 0) {
+            if (textAssetBin.length > 1 && textAssetBin[0] == 59 && textAssetBin[1] == 67) {
+                textAssetBin = decryptDataMethodA(textAssetBin, default_salt);
+            } else if (textAssetBin.length > 1 && textAssetBin[0] == -101 && textAssetBin[1] == -101) {
+                textAssetBin = decryptDataMethodA(textAssetBin, default_salt);
             }
 
             byte var6 = 0;
-            if (var5.length >= 1 && var5[0] == 95) {
+            if (textAssetBin.length >= 1 && textAssetBin[0] == 95) {
                 // Game asset discovered (ascii char 95 is '_')
                 var6 = 2;
             }
 
-            if (var5.length >= 2 && var5[0] == -1 && var5[1] == -2) {
-                return b(var5);
+            if (textAssetBin.length >= 2 && textAssetBin[0] == -1 && textAssetBin[1] == -2) {
+                return readTextAssetFromBinary(textAssetBin);
             } else {
                 int var7 = var6;
                 boolean var8 = false;
                 int var9;
-                int var10 = (var9 = var5.length - var6) + var6;
+                int var10 = (var9 = textAssetBin.length - var6) + var6;
 
                 for(int var11 = var6; var11 < var10; ++var11) {
-                    if (var5[var11] == 0) {
+                    if (textAssetBin[var11] == 0) {
                         var9 = var11 - var6;
                         var3 = var11;
                         break;
@@ -498,7 +498,7 @@ public final class AssetManager {
 
                 int var16;
                 for(int var13 = 0; var13 < var9; ++var13) {
-                    if ((var16 = var5[var13 + var6]) < 0) {
+                    if ((var16 = textAssetBin[var13 + var6]) < 0) {
                         var16 += 256;
                     }
 
@@ -506,7 +506,7 @@ public final class AssetManager {
                 }
 
                 for(; var7 < var3; ++var7) {
-                    if ((var16 = var5[var7]) < 0) {
+                    if ((var16 = textAssetBin[var7]) < 0) {
                         var16 += 256;
                     }
 
@@ -544,20 +544,21 @@ public final class AssetManager {
         return this.a(var1, ' ');
     }
 
+    // TODO: decide on why I should draw an image on black background
     static final Image a(Image img) {
         if (img == null) {
             return null;
         } else {
             try {
-                Image var1;
-                Graphics var2;
-                (var2 = (var1 = Image.createImage(img.getWidth(), img.getHeight())).getGraphics()).setClip(0, 0, img.getWidth(), img.getHeight());
-                var2.setColor(0);
-                var2.fillRect(0, 0, img.getWidth(), img.getHeight());
-                var2.drawImage(img, 0, 0, 20);
+                Image newImage;
+                Graphics myGraphics;
+                (myGraphics = (newImage = Image.createImage(img.getWidth(), img.getHeight())).getGraphics()).setClip(0, 0, img.getWidth(), img.getHeight());
+                myGraphics.setColor(0);
+                myGraphics.fillRect(0, 0, img.getWidth(), img.getHeight());
+                myGraphics.drawImage(img, 0, 0, 20);
                 img = null;
-                return var1;
-            } catch (OutOfMemoryError var3) {
+                return newImage;
+            } catch (OutOfMemoryError e) {
                 return img;
             }
         }
@@ -593,33 +594,34 @@ public final class AssetManager {
         return var0;
     }
 
-    private static Image a(Image var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8, boolean var9, int var10) {
-        boolean var11 = false;
+    private static Image a(Image var0, int var1, int var2, int var3, int var4, int imageWidth, int imageHeight, int var7, boolean processAlpha, boolean var9, int var10) {
+        boolean alphaBlendingSupported = false;
         if (var0.isMutable()) {
-            var8 = false;
+            processAlpha = false;
         }
 
-        if (var8) {
+        if (processAlpha) {
             try {
-                var11 = f();
-            } catch (Exception var33) {
+                alphaBlendingSupported = checkIfAlphaBlendingIsSupported();
+            } catch (Exception ignore) {
             }
         }
 
-        int[] var12 = a(var0, var1, var2, var3, var4, var7, var8);
-        if (var5 != var3 || var6 != var4) {
-            var12 = a(var12, var3, var4, var5, var6, var9, var8, true);
+        int[] imageDataRGB = a(var0, var1, var2, var3, var4, var7, processAlpha);
+        if (imageWidth != var3 || imageHeight != var4) {
+            imageDataRGB = a(imageDataRGB, var3, var4, imageWidth, imageHeight, var9, processAlpha, true);
         }
 
-        if (var8 && !var11 && var9) {
-            for(int var13 = 0; var13 < var12.length; ++var13) {
+        if (processAlpha && !alphaBlendingSupported && var9) {
+            // Make alpha blending by hands if not supported
+            for(int i = 0; i < imageDataRGB.length; ++i) {
                 int var14;
-                if ((var14 = var12[var13] >> 24 & 255) > 0 && var14 < 255) {
+                if ((var14 = imageDataRGB[i] >> 24 & 255) > 0 && var14 < 255) {
                     if (var10 < 0) {
                         if (var14 <= 64) {
-                            var12[var13] = 0;
+                            imageDataRGB[i] = 0;
                         } else {
-                            var12[var13] |= -16777216;
+                            imageDataRGB[i] |= -16777216;
                         }
                     } else {
                         int var15 = 256 - var14;
@@ -627,23 +629,23 @@ public final class AssetManager {
                         long var19 = (long)((var10 >> 8 & 255) * var15);
                         long var21 = (long)((var10 & 255) * var15);
                         int var23;
-                        long var24 = (long)(((var23 = var12[var13]) >> 16 & 255) * var14);
+                        long var24 = (long)(((var23 = imageDataRGB[i]) >> 16 & 255) * var14);
                         long var26 = (long)((var23 >> 8 & 255) * var14);
                         long var28 = (long)((var23 & 255) * var14);
                         int var30 = (int)(var17 + var24 >> 8);
                         int var31 = (int)(var19 + var26 >> 8);
                         int var32 = (int)(var21 + var28 >> 8);
                         if (var14 < 8) {
-                            var12[var13] = 0;
+                            imageDataRGB[i] = 0;
                         } else {
-                            var12[var13] = -16777216 | var30 << 16 | var31 << 8 | var32;
+                            imageDataRGB[i] = -16777216 | var30 << 16 | var31 << 8 | var32;
                         }
                     }
                 }
             }
         }
 
-        return Image.createRGBImage(var12, var5, var6, var8);
+        return Image.createRGBImage(imageDataRGB, imageWidth, imageHeight, processAlpha);
     }
 
     static final Image a(Image var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8, boolean var9) {
@@ -1056,76 +1058,76 @@ public final class AssetManager {
         return a(var1, var2, var3, var4, true);
     }
 
-    private static boolean f() {
-        if (m1 == 0) {
-            int[] var2 = new int[4];
+    private static boolean checkIfAlphaBlendingIsSupported() {
+        if (alphaBlendingEnabled == 0) {
+            int[] whiteARGB = new int[4];
 
-            for(int var3 = 0; var3 < var2.length; ++var3) {
-                var2[var3] = -2130706433;
+            for(int i = 0; i < whiteARGB.length; ++i) {
+                whiteARGB[i] = -2130706433;  // White color, transparency = 80
             }
 
-            Image var4 = Image.createRGBImage(var2, 2, 2, true);
-            Image var5;
-            Graphics var6;
-            (var6 = (var5 = Image.createImage(2, 2)).getGraphics()).setClip(0, 0, 2, 2);
-            var6.setColor(0);
-            var6.fillRect(0, 0, 2, 2);
-            var6.drawImage(var4, 0, 0, 20);
-            int[] var7 = new int[4];
-            var5.getRGB(var7, 0, 2, 0, 0, 2, 2);
+            Image foreground = Image.createRGBImage(whiteARGB, 2, 2, true);
+            Image background;
+            Graphics myGraphics;
+            (myGraphics = (background = Image.createImage(2, 2)).getGraphics()).setClip(0, 0, 2, 2);
+            myGraphics.setColor(0);
+            myGraphics.fillRect(0, 0, 2, 2);
+            myGraphics.drawImage(foreground, 0, 0, 20);
+            int[] blend = new int[4];
+            background.getRGB(blend, 0, 2, 0, 0, 2, 2);
 
             try {
-                if ((var7[0] & 255) > 16 && (var7[0] & 255) < 224 && Display.getDisplay(NET_Lizard.app).numAlphaLevels() > 2) {
-                    m1 = 1;
+                if ((blend[0] & 255) > 16 && (blend[0] & 255) < 224 && Display.getDisplay(NET_Lizard.app).numAlphaLevels() > 2) {
+                    alphaBlendingEnabled = 1;
                 } else {
-                    m1 = -1;
+                    alphaBlendingEnabled = -1;
                 }
-            } catch (Exception var9) {
-                m1 = -1;
+            } catch (Exception e) {
+                alphaBlendingEnabled = -1;
             }
         }
 
-        return m1 > 0;
+        return alphaBlendingEnabled > 0;
     }
 
-    private static String b(byte[] var0) {
-        byte var1 = 0;
-        if (var0.length >= 2 && var0[0] == -1 && var0[1] == -2) {
-            var1 = 2;
+    private static String readTextAssetFromBinary(byte[] binaryData) {
+        byte offset = 0;
+        if (binaryData.length >= 2 && binaryData[0] == -1 && binaryData[1] == -2) {
+            offset = 2;
         }
 
-        int var2 = 0;
+        int textAssetSize = 0;
 
-        for(int i = var1; i < var0.length && (var0[i] != 0 || i + 1 < var0.length && var0[i + 1] != 0); i += 2) {
-            ++var2;
+        for(int i = offset; i < binaryData.length && (binaryData[i] != 0 || i + 1 < binaryData.length && binaryData[i + 1] != 0); i += 2) {
+            ++textAssetSize;
         }
 
-        char[] var4 = new char[var2];
-        int var7 = var1;
+        char[] textAssetData = new char[textAssetSize];
+        int currentByte = offset;
 
-        for(int i = 0; i < var2; ++i) {
-            int var5;
-            if ((var5 = var0[var7]) < 0) {
-                var5 += 256;
+        for(int i = 0; i < textAssetSize; ++i) {
+            int rightByte;
+            if ((rightByte = binaryData[currentByte]) < 0) {
+                rightByte += 256;
             }
 
-            ++var7;
-            int var6;
-            if ((var6 = var0[var7]) < 0) {
-                var6 += 256;
+            ++currentByte;
+            int leftByte;
+            if ((leftByte = binaryData[currentByte]) < 0) {
+                leftByte += 256;
             }
 
-            ++var7;
-            var4[i] = (char)(var6 * 256 + var5);
+            ++currentByte;
+            textAssetData[i] = (char)(leftByte * 256 + rightByte);   // (x * 256) === x << 8
         }
 
-        String var9;
-        if ((var9 = new String(var4)).length() >= 2 && var9.charAt(0) == '_' && var9.charAt(1) == '&') {
-            // In case of game asset successfully found
-            var9 = var9.substring(2, var9.length());
+        String textAsset;
+        // All text assets are starting with "_&" symbols
+        if ((textAsset = new String(textAssetData)).length() >= 2 && textAsset.charAt(0) == '_' && textAsset.charAt(1) == '&') {
+            textAsset = textAsset.substring(2, textAsset.length());
         }
 
-        return var9;
+        return textAsset;
     }
 
     public static final void destroyInstance() {
