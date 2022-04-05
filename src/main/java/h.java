@@ -14,13 +14,13 @@ import javax.microedition.rms.RecordStore;
 
 // Ransom manager + device info, etc
 public final class h {
-    static int[] a7;
-    static int[] b7;
+    static int[] binaryStringDem;
+    static int[] binaryStringDmc;
     static int[] c7;
     static int d7;
     static int e7;
     static k f7;
-    static boolean g7;
+    static boolean isRunning;  // Perhaps, the name can change
     static boolean h7;
     static int i7;
     static int j7;
@@ -79,13 +79,13 @@ public final class h {
     static int ai;
     static boolean aj;
     static boolean ak;
-    static int[] al = new int[]{1299148654, 541217792};
+    static int[] binaryStringMoonBT = new int[]{1299148654, 541217792};
     static String[] am;
-    static int[] an;
+    static int[] binaryStringIconPathAndMidletClass;
     static int ao;
     static int ap;
     static int aq;
-    static int[] ar;
+    static int[] binaryStringMIDletName;
     static int as;
     int at;
     static int[][] au;
@@ -108,26 +108,27 @@ public final class h {
     static int aK;
     static long aL;
     static long aM;
-    static int[] aN;
-    static int[] aO;
+    static int[] binaryStringMIDletVendor;
+    static int[] binaryStringNetLizard;
     static int aP;
     static byte aQ;
     static byte aR;
 
     static {
-        int[] var10000 = new int[]{1296389185, 759778886, 793592142, 1229342035, 1412320582};
-        var10000 = new int[]{1399874915, 1768319331, 1635019119, 1845493760};
-        var10000 = new int[]{1296647248, 758263344};
-        a7 = new int[]{1684368640};
-        var10000 = new int[]{1819934720};
-        b7 = new int[]{1684890368};
-        var10000 = new int[]{1296647276, 1702112586, 1634872661, 1380712448};
+        int[] var10000 = new int[]{1296389185, 759778886, 793592142, 1229342035, 1412320582};           // META-INF/MANIFEST.MF
+        var10000 = new int[]{1399874915, 1768319331, 1635019119, 1845493760};                           // Specification
+        var10000 = new int[]{1296647248, 758263344};                                                    // MIDP-2.0
+        binaryStringDem = new int[]{1684368640};                                                        // dem
+        var10000 = new int[]{1819934720};                                                               // lz
+        binaryStringDmc = new int[]{1684890368};                                                        // dmc
+        var10000 = new int[]{1296647276, 1702112586, 1634872661, 1380712448};                           // MIDlet-Jar-URL
         B = true;
-        aN = new int[]{1296647276, 1702112598, 1701733487, 1912602624};
-        aO = new int[]{1313166368, 1281981025, 1919156224};
-        ar = new int[]{1296647276, 1702112590, 1634559232};
-        an = new int[]{740306793, 1668247155, 795435887, 779120231, 740314693, 1415531625, 2053206628};
-        g7 = true;
+        binaryStringMIDletVendor = new int[]{1296647276, 1702112598, 1701733487, 1912602624};           // MIDlet-Vendor
+        binaryStringNetLizard = new int[]{1313166368, 1281981025, 1919156224};                          // NET Lizard
+        binaryStringMIDletName = new int[]{1296647276, 1702112590, 1634559232};                         // MIDlet-Name
+        // contains: ", /icons/ico.png, NET_Lizard"
+        binaryStringIconPathAndMidletClass = new int[]{740306793, 1668247155, 795435887, 779120231, 740314693, 1415531625, 2053206628};
+        isRunning = true;
         R = new int[70];
         S = new int[R.length];
         ao = 0;
@@ -161,19 +162,19 @@ public final class h {
         H = e7 - 4;
         C = d7 - 10 - I;
         F = 2;
-        var10000 = new int[]{1296647276, 1702112595, 761491300, 1694498816};
-        var10000 = new int[]{1869753968, 1852243968};
-        var10000 = new int[]{1684368689};
-        var10000 = new int[]{1684368690};
-        var10000 = new int[]{1852990573};
-        var10000 = new int[]{1835623282, 1868915817, 1953066862, 779119713, 1952870258, 1828716544};
-        var10000 = new int[]{1885892462, 1697540461, 1701380096};
-        var10000 = new int[]{1668246830, 1852795753, 1630423373, 1162412032};
-        var10000 = new int[]{1668246830, 1936682617, 1701996899, 1936945006, 778661221, 1761607680};
-        var10000 = new int[]{1229800777};
-        var10000 = new int[]{1668246830, 1836020847, 1919904865, 776555845, 1224736768};
-        var10000 = new int[]{1668246830, 1935764851, 1970169646, 1768777065};
-        var10000 = new int[]{1668246830, 1936287085, 1701737262, 1768777065};
+        var10000 = new int[]{1296647276, 1702112595, 761491300, 1694498816};                            // MIDlet-S-code
+        var10000 = new int[]{1869753968, 1852243968};                                                   // or.png
+        var10000 = new int[]{1684368689};                                                               // dem1
+        var10000 = new int[]{1684368690};                                                               // dem2
+        var10000 = new int[]{1852990573};                                                               // nrdm
+        var10000 = new int[]{1835623282, 1868915817, 1953066862, 779119713, 1952870258, 1828716544};    // microedition.platform
+        var10000 = new int[]{1885892462, 1697540461, 1701380096};                                       // phone.imei
+        var10000 = new int[]{1668246830, 1852795753, 1630423373, 1162412032};                           // com.nokia.IMEI
+        var10000 = new int[]{1668246830, 1936682617, 1701996899, 1936945006, 778661221, 1761607680};    // com.sonyericsson.imei
+        var10000 = new int[]{1229800777};                                                               // IMEI
+        var10000 = new int[]{1668246830, 1836020847, 1919904865, 776555845, 1224736768};                // com.motorola.IMEI
+        var10000 = new int[]{1668246830, 1935764851, 1970169646, 1768777065};                           // com.samsung.imei
+        var10000 = new int[]{1668246830, 1936287085, 1701737262, 1768777065};                           // com.siemens.imei
         ac = "";
         J = false;
         w = null;
@@ -438,7 +439,7 @@ public final class h {
     }
 
     static boolean a() {
-        return !g7;
+        return !isRunning;
     }
 
     private static final void h() {
@@ -946,35 +947,35 @@ public final class h {
         ah = 0;
     }
 
-    private static String a(int[] var0) {
-        String var1 = new String();
+    private static String decodeBinaryString(int[] encodedString) {
+        String decodedString = new String();
 
-        for(int var5 = 0; var5 < var0.length; ++var5) {
-            long var3;
-            if ((var3 = (long)var0[var5]) < 0L) {
-                var3 += 4294967296L;
+        for(int i = 0; i < encodedString.length; ++i) {
+            long currentValue;
+            if ((currentValue = (long)encodedString[i]) < 0L) {
+                currentValue += 4294967296L;
             }
 
-            var1 = var1 + (char)((int)((var3 & 4278190080L) >> 24));
-            byte var2;
-            if ((var2 = (byte)((int)((var3 & 16711680L) >> 16))) == 0) {
+            decodedString = decodedString + (char)((int)((currentValue & 4278190080L) >> 24));
+            byte decodedSymbol;
+            if ((decodedSymbol = (byte)((int)((currentValue & 16711680L) >> 16))) == 0) {
                 break;
             }
 
-            var1 = var1 + (char)var2;
-            if ((var2 = (byte)((int)((var3 & 65280L) >> 8))) == 0) {
+            decodedString = decodedString + (char)decodedSymbol;
+            if ((decodedSymbol = (byte)((int)((currentValue & 65280L) >> 8))) == 0) {
                 break;
             }
 
-            var1 = var1 + (char)var2;
-            if ((var2 = (byte)((int)(var3 & 255L))) == 0) {
+            decodedString = decodedString + (char)decodedSymbol;
+            if ((decodedSymbol = (byte)((int)(currentValue & 255L))) == 0) {
                 break;
             }
 
-            var1 = var1 + (char)var2;
+            decodedString = decodedString + (char)decodedSymbol;
         }
 
-        return var1;
+        return decodedString;
     }
 
     private static String b(int[] var0) {
@@ -1695,7 +1696,7 @@ public final class h {
     private static boolean d(boolean var0) {
         try {
             byte[] var1;
-            if ((var1 = AssetManager.instanceHandler.readDataChunkFromFile(a(b7), -1))[0] != 0 && var1[0] != 32) {
+            if ((var1 = AssetManager.instanceHandler.readDataChunkFromFile(decodeBinaryString(binaryStringDmc), -1))[0] != 0 && var1[0] != 32) {
                 B = false;
             } else {
                 B = true;
@@ -1714,14 +1715,14 @@ public final class h {
         String var1 = null;
 
         try {
-            var1 = NET_Lizard.app.getAppProperty(a(ar));
+            var1 = NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletName));
         } catch (Exception var3) {
         }
 
         var1 = b(var1);
         if (!var0) {
             try {
-                if (var1 == null || var1.length() < 1 || !a(var1, a(al))) {
+                if (var1 == null || var1.length() < 1 || !a(var1, decodeBinaryString(binaryStringMoonBT))) {
                     var0 = true;
                 }
             } catch (Exception var4) {
@@ -1736,14 +1737,14 @@ public final class h {
         String var1 = null;
 
         try {
-            var1 = NET_Lizard.app.getAppProperty(a(aN));
-        } catch (Exception var3) {
+            var1 = NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletVendor));
+        } catch (Exception ignore) {
         }
 
         var1 = b(var1);
         if (!var0) {
             try {
-                if (var1 == null || var1.length() < 1 || !a(var1, a(aO))) {
+                if (var1 == null || var1.length() < 1 || !a(var1, decodeBinaryString(binaryStringNetLizard))) {
                     var0 = true;
                 }
             } catch (Exception var4) {
@@ -1757,37 +1758,38 @@ public final class h {
     static final boolean b(boolean var0) {
         n();
         if (t()) {
-            g7 = false;
+            isRunning = false;
             return true;
         } else {
             try {
-                A = AssetManager.instanceHandler.e(a(a7));
+                A = AssetManager.instanceHandler.e(decodeBinaryString(binaryStringDem));
                 if (A == null || A[0] == null || A[0].length <= 0) {
-                    g7 = false;
+                    isRunning = false;
                     var0 = true;
                 }
             } catch (Exception var3) {
-                g7 = false;
+                isRunning = false;
                 var0 = true;
             }
 
             try {
                 z = AssetManager.instanceHandler.e("dem3");
                 if (z == null || z[0] == null || z[0].length <= 0) {
-                    g7 = false;
+                    isRunning = false;
                     var0 = true;
                 }
             } catch (Exception var2) {
-                g7 = false;
+                isRunning = false;
                 return true;
             }
 
-            if (NET_Lizard.app.getAppProperty(a(aN)) == null && NET_Lizard.app.getAppProperty(a(ar)) == null) {
+            if (NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletVendor)) == null && NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletName)) == null) {
                 J = true;
             } else {
                 J = false;
-                if (f(var0) || e(var0)) {
-                    g7 = false;
+                // TODO: uncomment and remove false
+                if (false/*f(var0) || e(var0)*/) {
+                    isRunning = false;
                     return true;
                 }
             }
@@ -1816,17 +1818,19 @@ public final class h {
     }
 
     private static boolean t() {
-        try {
-            String var0 = GlomoReg.i.a(NET_Lizard.app, new String[]{a(al) + a(an)});
-            if ((NET_Lizard.app.getAppProperty(a(aN)) != null || NET_Lizard.app.getAppProperty(a(ar)) != null) && var0 != null && var0.length() > 0) {
+        return false;
+        // TODO: uncomment
+        /*try {
+            String var0 = GlomoReg.i.a(NET_Lizard.app, new String[]{decodeBinaryString(binaryStringMoonBT) + decodeBinaryString(binaryStringIconPathAndMidletClass)});
+            if ((NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletVendor)) != null || NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletName)) != null) && var0 != null && var0.length() > 0) {
                 return true;
             } else {
                 aU = new GlomoReg.i(NET_Lizard.app);
                 return false;
             }
-        } catch (Throwable var1) {
+        } catch (Throwable e) {
             return true;
-        }
+        }*/
     }
 
     private boolean u() {
