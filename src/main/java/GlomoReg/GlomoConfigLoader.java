@@ -12,75 +12,75 @@ import java.io.InputStream;
 import java.util.Random;
 import javax.microedition.midlet.MIDlet;
 
-public final class c {
-    private static Random a = new Random();
-    private static String b = "0123456789ABCDEF";
-    private static String c = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+public final class GlomoConfigLoader {
+    private static final Random randomGenerator = new Random();
+    private static final String hexadecimalChars = "0123456789ABCDEF";
+    private static final String alphaNumericChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    public c() {
+    public GlomoConfigLoader() {
     }
 
-    public static final String[] a(String var0, String var1) {
-        int var2 = 1;
-        int var4 = 0;
+    public static final String[] splitString(String separator, String data) {
+        int numStrings = 1;
+        int substringBeginIndex = 0;
 
-        int var3;
-        for(var3 = 0; (var3 = var1.indexOf(var0, var3) + 1) > 0; ++var2) {
+        int dataIndex;
+        for(dataIndex = 0; (dataIndex = data.indexOf(separator, dataIndex) + 1) > 0; ++numStrings) {
         }
 
-        String[] var5 = new String[var2];
-        var2 = 0;
+        String[] separatedStrings = new String[numStrings];
+        numStrings = 0;
 
-        for(var3 = 0; (var3 = var1.indexOf(var0, var3) + 1) > 0; var4 = var3 - 1 + var0.length()) {
-            var5[var2] = var1.substring(var4, var3 - 1);
-            ++var2;
+        for(dataIndex = 0; (dataIndex = data.indexOf(separator, dataIndex) + 1) > 0; substringBeginIndex = dataIndex - 1 + separator.length()) {
+            separatedStrings[numStrings] = data.substring(substringBeginIndex, dataIndex - 1);
+            ++numStrings;
         }
 
-        var5[var2] = var1.substring(var4);
-        return var5;
+        separatedStrings[numStrings] = data.substring(substringBeginIndex);
+        return separatedStrings;
     }
 
-    public static String[] a(MIDlet var0, String var1) {
-        return a(var0, var1, true);
+    public static String[] readGlomoConfigFile(MIDlet midletApp, String configFilename) {
+        return readGlomoConfigFile(midletApp, configFilename, true);
     }
 
-    private static String[] a(MIDlet var0, String var1, boolean var2) {
-        return a("\n", b(var0, var1, var2));
+    private static String[] readGlomoConfigFile(MIDlet midletApp, String configFilename, boolean requiresDecoding) {
+        return splitString("\n", readConfigFile(midletApp, configFilename, requiresDecoding));
     }
 
-    private static String b(MIDlet var0, String var1, boolean var2) {
+    private static String readConfigFile(MIDlet midletApp, String filename, boolean requiresDecoding) {
         try {
-            InputStream var7;
-            char[] var10 = new char[(var7 = var0.getClass().getResourceAsStream(var1)).available() / 2 - 1];
-            ByteArrayOutputStream var3 = new ByteArrayOutputStream();
+            InputStream resourceStream;
+            char[] configData = new char[(resourceStream = midletApp.getClass().getResourceAsStream(filename)).available() / 2 - 1];
+            ByteArrayOutputStream dataBufferStream = new ByteArrayOutputStream();
 
-            int var4;
-            while((var4 = var7.read()) != -1) {
-                var3.write(var4);
+            int currentSymbol;
+            while((currentSymbol = resourceStream.read()) != -1) {
+                dataBufferStream.write(currentSymbol);
             }
 
-            ByteArrayInputStream var8 = new ByteArrayInputStream(var3.toByteArray());
-            DataInputStream var11;
-            (var11 = new DataInputStream(var8)).readChar();
+            ByteArrayInputStream byteStream = new ByteArrayInputStream(dataBufferStream.toByteArray());
+            DataInputStream charStream;
+            (charStream = new DataInputStream(byteStream)).readChar();
 
-            for(int var5 = 0; var5 < var10.length; ++var5) {
-                var10[var5] = var11.readChar();
+            for(int i = 0; i < configData.length; ++i) {
+                configData[i] = charStream.readChar();
             }
 
-            var11.close();
-            var8.close();
-            var3.close();
-            String var9;
-            a((String)(var9 = new String(var10)), 0);
-            return var2 ? a((String)var9, 0) : var9;
-        } catch (Exception var6) {
-            var6.printStackTrace();
+            charStream.close();
+            byteStream.close();
+            dataBufferStream.close();
+            String configDataString;
+            decodeString((String)(configDataString = new String(configData)), 0);
+            return requiresDecoding ? decodeString((String)configDataString, 0) : configDataString;
+        } catch (Exception configReadException) {
+            configReadException.printStackTrace();
             return null;
         }
     }
 
-    private static int a(int var0, int var1) {
-        return Math.abs(a.nextInt()) % (var1 - var0) + var0;
+    private static int getRandomInRange(int minValue, int maxValue) {
+        return Math.abs(randomGenerator.nextInt()) % (maxValue - minValue) + minValue;
     }
 
     public static final long a(int var0) {
@@ -96,7 +96,7 @@ public final class c {
                 var1 = var1 * 10 + 9;
             }
 
-            return (long)a(var0, var1);
+            return (long) getRandomInRange(var0, var1);
         }
     }
 
@@ -150,22 +150,22 @@ public final class c {
 
         byte[] var1 = new byte[var0.length() / 2];
 
-        for(int var2 = 0; var2 < var1.length; ++var2) {
-            var1[var2] = (byte)(Byte.parseByte(var0.substring(var2 << 1, (var2 << 1) + 1)) + (byte)(Byte.parseByte(var0.substring((var2 << 1) + 1, (var2 << 1) + 2)) << 4));
+        for(int i = 0; i < var1.length; ++i) {
+            var1[i] = (byte)(Byte.parseByte(var0.substring(i << 1, (i << 1) + 1)) + (byte)(Byte.parseByte(var0.substring((i << 1) + 1, (i << 1) + 2)) << 4));
         }
 
         return var1;
     }
 
-    private static String a(byte[] var0) {
-        StringBuffer var1 = new StringBuffer("");
+    private static String convertToHexString(byte[] data) {
+        StringBuffer hexString = new StringBuffer("");
 
-        for(int var2 = 0; var2 < var0.length; ++var2) {
-            var1.append(String.valueOf(b.charAt(var0[var2] & 15)));
-            var1.append(String.valueOf(b.charAt(var0[var2] >> 4 & 15)));
+        for(int i = 0; i < data.length; ++i) {
+            hexString.append(String.valueOf(hexadecimalChars.charAt(data[i] & 15)));
+            hexString.append(String.valueOf(hexadecimalChars.charAt(data[i] >> 4 & 15)));
         }
 
-        return var1.toString();
+        return hexString.toString();
     }
 
     private static String b(String var0, int var1) {
@@ -174,12 +174,12 @@ public final class c {
         } else if (var1 == 0) {
             return new String(a(var0.getBytes(), var1));
         } else if (var1 == 1) {
-            return a(a((byte[])a(var0), 0));
+            return convertToHexString(a((byte[])a(var0), 0));
         } else if (var1 == 2 && var0.length() > 2) {
             StringBuffer var3 = new StringBuffer(var0.substring(0, 2));
 
             for(int var2 = 0; var2 < var0.length() - 2; ++var2) {
-                var3.append(var0.charAt(2 + (var2 + c.indexOf(var0.charAt(1))) % (var0.length() - 2)));
+                var3.append(var0.charAt(2 + (var2 + alphaNumericChars.indexOf(var0.charAt(1))) % (var0.length() - 2)));
             }
 
             return var3.toString();
@@ -191,7 +191,7 @@ public final class c {
     private static String a(long var0, int var2) {
         StringBuffer var3;
         for(var3 = new StringBuffer(""); var0 > 0L; var0 /= 36L) {
-            var3.append(c.charAt((int)(var0 % 36L)));
+            var3.append(alphaNumericChars.charAt((int)(var0 % 36L)));
         }
 
         while(var3.length() < var2) {
@@ -201,9 +201,9 @@ public final class c {
         return var3.toString();
     }
 
-    public static String a(String var0, int var1) {
+    public static String decodeString(String dataBuffer, int var1) {
         char[] var13;
-        char[] var14 = new char[(var13 = var0.toCharArray()).length];
+        char[] var14 = new char[(var13 = dataBuffer.toCharArray()).length];
         int var3 = var13.length + 1;
 
         int var5;
@@ -244,16 +244,15 @@ public final class c {
         return new String(var13);
     }
 
-    public static final String b(MIDlet var0, String var1) {
+    public static final String getMidletPropertySafe(MIDlet midletApp, String propertyName) {
         try {
-            String var3;
-            String var10000 = var3 = var0.getAppProperty(var1) == null ? "" : var0.getAppProperty(var1);
-            if (var10000.charAt(var10000.length() - 1) == ';') {
-                var3 = var3.substring(0, var3.length() - 1);
+            String property = midletApp.getAppProperty(propertyName) == null ? "" : midletApp.getAppProperty(propertyName);
+            if (property.charAt(property.length() - 1) == ';') {
+                property = property.substring(0, property.length() - 1);
             }
 
-            return var3;
-        } catch (Exception var2) {
+            return property;
+        } catch (Exception e) {
             return "";
         }
     }
