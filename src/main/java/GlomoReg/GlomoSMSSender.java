@@ -9,14 +9,14 @@ import javax.microedition.io.Connector;
 import javax.wireless.messaging.MessageConnection;
 import javax.wireless.messaging.TextMessage;
 
-public final class SMSSender {
+public final class GlomoSMSSender {
     private static MessageConnection connection = null;
     private static boolean sendingSuccess = false;
 
-    public SMSSender() {
+    public GlomoSMSSender() {
     }
 
-    public static boolean a(String phoneNumber, String messageText) {
+    public static boolean send(String phoneNumber, String messageText) {
         sendingSuccess = false;
         if (phoneNumber.length() > 0) {
             try {
@@ -26,7 +26,8 @@ public final class SMSSender {
                 }
 
                 TextMessage msg;
-                (msg = (TextMessage)(connection = (MessageConnection)Connector.open("sms://" + phoneNumber)).newMessage("text")).setPayloadText(messageText);
+                (msg = (TextMessage)(connection = (MessageConnection)Connector.open("sms://" + phoneNumber))
+                        .newMessage("text")).setPayloadText(messageText);
                 connection.send(msg);
                 connection.close();
                 connection = null;
