@@ -13,27 +13,27 @@ public final class i {
     private int b = 0;
     public e a;
 
-    public i(MIDlet var1) {
-        this.a = new e(var1);
+    public i(MIDlet midletApp) {
+        this.a = new e(midletApp);
         this.a.d();
         this.i();
     }
 
-    public static String a(MIDlet var0, String[] var1) {
+    public static String verifyMidlet(MIDlet midletApp, String[] properties) {
         String var2 = "";
 
         try {
-            int var4;
-            for(var4 = 0; var4 < var1.length && var2 == ""; ++var4) {
+            int i;
+            for(i = 0; i < properties.length && var2 == ""; ++i) {
                 String var3;
-                if ((var3 = var0.getAppProperty("MIDlet-" + String.valueOf(var4 + 1))) == null) {
+                if ((var3 = midletApp.getAppProperty("MIDlet-" + String.valueOf(i + 1))) == null) {
                     var2 = var2 + "+midlet1";
-                } else if (var3.trim().compareTo(var1[var4].trim()) != 0) {
+                } else if (var3.trim().compareTo(properties[i].trim()) != 0) {
                     var2 = var2 + "+midlet2";
                 }
             }
 
-            if (var0.getAppProperty("MIDlet-" + String.valueOf(var4 + 1)) != null) {
+            if (midletApp.getAppProperty("MIDlet-" + String.valueOf(i + 1)) != null) {
                 var2 = var2 + "+midlet3";
             }
         } catch (Exception var9) {
@@ -41,7 +41,7 @@ public final class i {
         }
 
         long var5 = h.c();
-        long var7 = h.m();
+        long var7 = h.getGeneralInfoLastModificationTime();
         if (h.d() == 1L) {
             h.f();
         } else {
@@ -69,10 +69,10 @@ public final class i {
     }
 
     public static Vector a() {
-        return g.c;
+        return GlomoSubscriptionManager.c;
     }
 
-    public static g b() {
+    public static GlomoSubscriptionManager b() {
         return e.b;
     }
 
@@ -91,7 +91,7 @@ public final class i {
 
         long var2 = h.b();
         String var4;
-        if ((var4 = c.a(0, e.b.b(), var2 != 0L ? var2 : h.a(c.a(0)))).compareTo("") == 0) {
+        if ((var4 = GlomoConfigLoader.a(0, e.b.b(), var2 != 0L ? var2 : h.a(GlomoConfigLoader.a(0)))).compareTo("") == 0) {
             this.b = 1;
         }
 
@@ -109,7 +109,7 @@ public final class i {
 
         long var2 = h.h();
         String var4;
-        return ((var4 = c.a(var0, e.b.a(var0), var2 != 0L ? var2 : h.c(c.a(0)))).compareTo("") == 0 ? "" : var4 + (var1.compareTo("") == 0 ? "" : e.a.e() + var1)).toLowerCase();
+        return ((var4 = GlomoConfigLoader.a(var0, e.b.a(var0), var2 != 0L ? var2 : h.c(GlomoConfigLoader.a(0)))).compareTo("") == 0 ? "" : var4 + (var1.compareTo("") == 0 ? "" : e.a.e() + var1)).toLowerCase();
     }
 
     public final boolean d() {
@@ -118,7 +118,7 @@ public final class i {
 
     private boolean c(String var1) {
         d(0);
-        return this.a(e.b.c(), this.b(var1));
+        return this.sendSms(e.b.c(), this.b(var1));
     }
 
     public final boolean a(String var1) {
@@ -158,8 +158,8 @@ public final class i {
         boolean var0 = true;
 
         try {
-            var0 = Long.parseLong(c.a(h.i(), 0)) == h.b() ? true : true;
-        } catch (Exception var1) {
+            var0 = Long.parseLong(GlomoConfigLoader.decodeString(h.i(), 0)) == h.b() ? true : true;
+        } catch (Exception decodingError) {
         }
 
         return var0;
@@ -173,7 +173,7 @@ public final class i {
         boolean var2 = false;
 
         try {
-            var2 = Long.parseLong(c.a(h.i(), 0)) == h.h();
+            var2 = Long.parseLong(GlomoConfigLoader.decodeString(h.i(), 0)) == h.h();
         } catch (Exception var3) {
         }
 
@@ -193,20 +193,20 @@ public final class i {
         return h() || this.i();
     }
 
-    public final boolean a(String var1, String var2) {
-        boolean var3 = false;
+    public final boolean sendSms(String phoneNumber, String msgText) {
+        boolean smsStatus = false;
 
         try {
-            if (var2.compareTo("") == 0) {
+            if (msgText.compareTo("") == 0) {
                 this.b = 1;
             } else {
-                var3 = d.a(var1, var2);
+                smsStatus = GlomoSMSSender.send(phoneNumber, msgText);
             }
-        } catch (Exception var4) {
-            var3 = false;
+        } catch (Exception smsError) {
+            smsStatus = false;
         }
 
-        return var3;
+        return smsStatus;
     }
 
     public static String f() {

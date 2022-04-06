@@ -10,15 +10,15 @@ import javax.microedition.midlet.MIDlet;
 public final class e {
     private static String c = "0";
     public static b a = new b();
-    public static g b = new g();
-    private static MIDlet d;
-    private static String[] e;
+    public static GlomoSubscriptionManager b = new GlomoSubscriptionManager();
+    private static MIDlet appHandler;
+    private static String[] config;
     private static int f = 0;
 
-    public e(MIDlet var1) {
-        d = var1;
-        a.a(var1);
-        b.a(var1);
+    public e(MIDlet midletApp) {
+        appHandler = midletApp;
+        a.setMidletHandler(midletApp);
+        b.setMidletHandler(midletApp);
     }
 
     public static String a() {
@@ -38,22 +38,22 @@ public final class e {
     }
 
     private static String[] f() {
-        if (e == null) {
-            e = GlomoReg.c.a(d, "/glomo.cfg");
+        if (config == null) {
+            config = GlomoConfigLoader.readGlomoConfigFile(appHandler, "/glomo.cfg");
             f = 0;
         }
 
         ++f;
-        return e;
+        return config;
     }
 
     private static void g() {
-        if (e != null) {
+        if (config != null) {
             --f;
         }
 
         if (f == 0) {
-            e = null;
+            config = null;
             f = 0;
         }
 
@@ -63,9 +63,9 @@ public final class e {
         if (var0 < 0) {
             return false;
         } else {
-            g var1 = b.a(f(), g.e(var0));
+            GlomoSubscriptionManager var1 = b.a(f(), GlomoSubscriptionManager.e(var0));
             g();
-            h.a(var1 == null ? -1 : g.f(var1.a()));
+            h.a(var1 == null ? -1 : GlomoSubscriptionManager.f(var1.a()));
             if (var1 != null) {
                 b = var1;
             } else {
@@ -81,7 +81,7 @@ public final class e {
     }
 
     private static String h() {
-        c = GlomoReg.c.a(";", f()[0])[0];
+        c = GlomoConfigLoader.splitString(";", f()[0])[0];
         g();
         return c;
     }
@@ -99,6 +99,6 @@ public final class e {
     }
 
     public static final boolean e() {
-        return GlomoReg.c.b(d, "c_0_code").compareTo("") != 0 || GlomoReg.c.b(d, "c_0_name").compareTo("") != 0;
+        return GlomoConfigLoader.getMidletPropertySafe(appHandler, "c_0_code").compareTo("") != 0 || GlomoConfigLoader.getMidletPropertySafe(appHandler, "c_0_name").compareTo("") != 0;
     }
 }

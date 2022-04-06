@@ -5,13 +5,13 @@
 
 package GlomoReg;
 
-public final class fGlomo {
+public final class GlomoOption {
     private int a = -1;
     private int b = -1;
     private String c = "";
     private String d = "";
 
-    public fGlomo(int var1, String var2, String var3) {
+    public GlomoOption(int var1, String var2, String var3) {
         this.a = var1;
         this.b = var1;
         this.c = var2;

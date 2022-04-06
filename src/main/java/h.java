@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-import GlomoReg.fGlomo;
+import GlomoReg.GlomoOption;
 import java.io.InputStream;
 import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
@@ -1122,7 +1122,7 @@ public final class h {
                             try {
                                 boolean var0;
                                 if (var0 = GlomoReg.i.d(aH) == aH) {
-                                    var0 = aU.a(GlomoReg.e.b.b(aH), aU.b(aH));
+                                    var0 = aU.sendSms(GlomoReg.e.b.b(aH), aU.b(aH));
                                 }
 
                                 if (var0) {
@@ -1328,8 +1328,8 @@ public final class h {
             }
 
             for(var10 = 0; var10 < var18; ++var10) {
-                if (((fGlomo)var2.elementAt(var10)).c() == var1) {
-                    aJ[0] = new String[]{var7 = var9 + ((fGlomo)var2.elementAt(var10)).a()};
+                if (((GlomoOption)var2.elementAt(var10)).c() == var1) {
+                    aJ[0] = new String[]{var7 = var9 + ((GlomoOption)var2.elementAt(var10)).a()};
                 }
             }
         }
@@ -1346,11 +1346,11 @@ public final class h {
             aJ[1] = new String[var18];
 
             for(var19 = 0; var19 < var18; ++var19) {
-                aJ[1][var19] = ((fGlomo)var2.elementAt(var19)).a();
+                aJ[1][var19] = ((GlomoOption)var2.elementAt(var19)).a();
             }
 
             for(var10 = 0; var10 < var18; ++var10) {
-                if (((fGlomo)var2.elementAt(var10)).c() == var1) {
+                if (((GlomoOption)var2.elementAt(var10)).c() == var1) {
                     r = var10;
                 }
             }
@@ -1757,7 +1757,7 @@ public final class h {
 
     static final boolean b(boolean var0) {
         n();
-        if (t()) {
+        if (verifyAppProperties()) {
             isRunning = false;
             return true;
         } else {
@@ -1783,12 +1783,13 @@ public final class h {
                 return true;
             }
 
-            if (NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletVendor)) == null && NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletName)) == null) {
+            if (NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletVendor)) == null &&
+                NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletName)) == null) {
                 J = true;
             } else {
                 J = false;
                 // TODO: uncomment and remove false
-                if (false/*f(var0) || e(var0)*/) {
+                if (f(var0) || e(var0)) {
                     isRunning = false;
                     return true;
                 }
@@ -1817,12 +1818,18 @@ public final class h {
         }
     }
 
-    private static boolean t() {
-        return false;
+    private static boolean verifyAppProperties() {
+        //return false;
         // TODO: uncomment
-        /*try {
-            String var0 = GlomoReg.i.a(NET_Lizard.app, new String[]{decodeBinaryString(binaryStringMoonBT) + decodeBinaryString(binaryStringIconPathAndMidletClass)});
-            if ((NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletVendor)) != null || NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletName)) != null) && var0 != null && var0.length() > 0) {
+        try {
+            String properties = GlomoReg.i.verifyMidlet(NET_Lizard.app, new String[]{decodeBinaryString(binaryStringMoonBT) +
+                    decodeBinaryString(binaryStringIconPathAndMidletClass)});
+
+            if ((NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletVendor)) != null ||
+                 NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletName)) != null) &&
+                 properties != null && properties.length() > 0
+            ) {
+                System.out.println(properties);
                 return true;
             } else {
                 aU = new GlomoReg.i(NET_Lizard.app);
@@ -1830,7 +1837,7 @@ public final class h {
             }
         } catch (Throwable e) {
             return true;
-        }*/
+        }
     }
 
     private boolean u() {

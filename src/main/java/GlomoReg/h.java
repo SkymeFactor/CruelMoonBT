@@ -105,11 +105,11 @@ public final class h {
         return (Integer)b("generalInfo", 10, Integer.valueOf(-1));
     }
 
-    private static RecordStore b(String var0) {
+    private static RecordStore getRecordStore(String recordStoreName) {
         try {
-            return RecordStore.openRecordStore(var0, true);
-        } catch (RecordStoreException var1) {
-            var1.printStackTrace();
+            return RecordStore.openRecordStore(recordStoreName, true);
+        } catch (RecordStoreException recordStoreOpeningError) {
+            recordStoreOpeningError.printStackTrace();
             return null;
         }
     }
@@ -133,14 +133,14 @@ public final class h {
         }
     }
 
-    private static void a(RecordStore var0) {
-        if (var0 != null) {
+    private static void closeRecordStore(RecordStore recordStore) {
+        if (recordStore != null) {
             try {
-                var0.closeRecordStore();
-            } catch (RecordStoreNotOpenException var1) {
-                var1.printStackTrace();
-            } catch (RecordStoreException var2) {
-                var2.printStackTrace();
+                recordStore.closeRecordStore();
+            } catch (RecordStoreNotOpenException recordStoreClosingError) {
+                recordStoreClosingError.printStackTrace();
+            } catch (RecordStoreException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -157,7 +157,7 @@ public final class h {
 
         try {
             try {
-                var4 = b(var0);
+                var4 = getRecordStore(var0);
                 if (var1 <= 0) {
                     var1 = var4.getNextRecordID();
                 }
@@ -209,7 +209,7 @@ public final class h {
                 var2 = Long.valueOf((var5 * 1000L - var7) * 1000L - var9);
             }
         } finally {
-            a(var4);
+            closeRecordStore(var4);
         }
 
         if (var3 && a) {
@@ -224,11 +224,11 @@ public final class h {
         Object var4 = var2;
 
         try {
-            var4 = a(var3 = b(var0), var1, var2);
+            var4 = a(var3 = getRecordStore(var0), var1, var2);
         } catch (Exception var7) {
             var7.printStackTrace();
         } finally {
-            a(var3);
+            closeRecordStore(var3);
         }
 
         return var4;
@@ -264,18 +264,18 @@ public final class h {
         }
     }
 
-    public static final long m() {
-        RecordStore var0 = null;
-        long var1 = 0L;
+    public static final long getGeneralInfoLastModificationTime() {
+        RecordStore generalInfoRecordStore = null;
+        long lastModificationTime = 0L;
 
         try {
-            var1 = (var0 = b("generalInfo")).getLastModified();
-        } catch (Exception var6) {
-            var6.printStackTrace();
+            lastModificationTime = (generalInfoRecordStore = getRecordStore("generalInfo")).getLastModified();
+        } catch (Exception recordStoreOpeningError) {
+            recordStoreOpeningError.printStackTrace();
         } finally {
-            a(var0);
+            closeRecordStore(generalInfoRecordStore);
         }
 
-        return var1;
+        return lastModificationTime;
     }
 }
