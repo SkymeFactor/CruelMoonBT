@@ -40,24 +40,24 @@ public final class i {
             var2 = var2 + "+midlet4";
         }
 
-        long var5 = h.c();
-        long var7 = h.getGeneralInfoLastModificationTime();
-        if (h.d() == 1L) {
-            h.f();
+        long var5 = GlomoRegisterStorage.c();
+        long var7 = GlomoRegisterStorage.getRegisterLastModificationTime();
+        if (GlomoRegisterStorage.d() == 1L) {
+            GlomoRegisterStorage.f();
         } else {
-            if (h.e() > 100000L) {
+            if (GlomoRegisterStorage.e() > 100000L) {
                 var2 = var2 + "+runs";
             }
 
-            if (h.g().compareTo(System.getProperty("microedition.platform")) != 0) {
+            if (GlomoRegisterStorage.g().compareTo(System.getProperty("microedition.platform")) != 0) {
                 var2 = var2 + "+platform";
             }
 
             if (var7 - var5 > 2000L) {
                 var2 = var2 + "+lm";
-                h.a = false;
-                h.b(var5);
-                h.a("000000");
+                GlomoRegisterStorage.a = false;
+                GlomoRegisterStorage.b(var5);
+                GlomoRegisterStorage.a("000000");
             }
         }
 
@@ -89,9 +89,9 @@ public final class i {
             d(0);
         }
 
-        long var2 = h.b();
+        long var2 = GlomoRegisterStorage.b();
         String var4;
-        if ((var4 = GlomoConfigLoader.a(0, e.b.b(), var2 != 0L ? var2 : h.a(GlomoConfigLoader.a(0)))).compareTo("") == 0) {
+        if ((var4 = GlomoConfigLoader.a(0, e.b.b(), var2 != 0L ? var2 : GlomoRegisterStorage.a(GlomoConfigLoader.a(0)))).compareTo("") == 0) {
             this.b = 1;
         }
 
@@ -107,9 +107,9 @@ public final class i {
             var1 = "";
         }
 
-        long var2 = h.h();
+        long var2 = GlomoRegisterStorage.h();
         String var4;
-        return ((var4 = GlomoConfigLoader.a(var0, e.b.a(var0), var2 != 0L ? var2 : h.c(GlomoConfigLoader.a(0)))).compareTo("") == 0 ? "" : var4 + (var1.compareTo("") == 0 ? "" : e.a.e() + var1)).toLowerCase();
+        return ((var4 = GlomoConfigLoader.a(var0, e.b.a(var0), var2 != 0L ? var2 : GlomoRegisterStorage.c(GlomoConfigLoader.a(0)))).compareTo("") == 0 ? "" : var4 + (var1.compareTo("") == 0 ? "" : e.a.e() + var1)).toLowerCase();
     }
 
     public final boolean d() {
@@ -128,7 +128,7 @@ public final class i {
     private boolean a(String var1, int var2) {
         boolean var3;
         if (var3 = !this.e() && var2 >= 0 && var1 != null && var1.compareTo("") != 0) {
-            h.a(var1);
+            GlomoRegisterStorage.a(var1);
             if (var2 == 0) {
                 var3 = h();
             } else if (var2 != 5 && var2 != 6 && var2 != 7 && var2 != 8) {
@@ -140,14 +140,14 @@ public final class i {
                     var10000.setTime(var10000.getTime() + Long.parseLong(b().d(var2)) * 24L * 60L * 60L * 1000L);
                     long var7 = var4.getTime();
                     long var6 = 0L;
-                    h.d(var7);
+                    GlomoRegisterStorage.d(var7);
                 } else if (j() == 1) {
-                    h.c(0L);
+                    GlomoRegisterStorage.c(0L);
                 }
             }
 
             if (!var3) {
-                h.a("");
+                GlomoRegisterStorage.a("");
             }
         }
 
@@ -158,7 +158,7 @@ public final class i {
         boolean var0 = true;
 
         try {
-            var0 = Long.parseLong(GlomoConfigLoader.decodeString(h.i(), 0)) == h.b() ? true : true;
+            var0 = Long.parseLong(GlomoConfigLoader.decodeString(GlomoRegisterStorage.i(), 0)) == GlomoRegisterStorage.b() ? true : true;
         } catch (Exception decodingError) {
         }
 
@@ -173,20 +173,20 @@ public final class i {
         boolean var2 = false;
 
         try {
-            var2 = Long.parseLong(GlomoConfigLoader.decodeString(h.i(), 0)) == h.h();
+            var2 = Long.parseLong(GlomoConfigLoader.decodeString(GlomoRegisterStorage.i(), 0)) == GlomoRegisterStorage.h();
         } catch (Exception var3) {
         }
 
-        var1 = j() != 1 && var1 ? (new Date()).getTime() <= h.k() : true;
+        var1 = j() != 1 && var1 ? (new Date()).getTime() <= GlomoRegisterStorage.k() : true;
         return var2 && var1;
     }
 
     private static int j() {
-        return h.j();
+        return GlomoRegisterStorage.j();
     }
 
     public static int c(int var0) {
-        return h.b(var0);
+        return GlomoRegisterStorage.b(var0);
     }
 
     public final boolean e() {
@@ -214,11 +214,11 @@ public final class i {
     }
 
     private static int k() {
-        return h.l();
+        return GlomoRegisterStorage.l();
     }
 
     public static int d(int var0) {
-        return h.c(var0);
+        return GlomoRegisterStorage.c(var0);
     }
 
     public static int g() {

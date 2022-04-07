@@ -65,19 +65,19 @@ public final class e {
         } else {
             GlomoSubscriptionManager var1 = b.a(f(), GlomoSubscriptionManager.e(var0));
             g();
-            h.a(var1 == null ? -1 : GlomoSubscriptionManager.f(var1.a()));
+            GlomoRegisterStorage.a(var1 == null ? -1 : GlomoSubscriptionManager.f(var1.a()));
             if (var1 != null) {
                 b = var1;
             } else {
                 b.d("-1");
             }
 
-            return h.a() != -1;
+            return GlomoRegisterStorage.a() != -1;
         }
     }
 
     public final boolean d() {
-        return this.b(h.a());
+        return this.b(GlomoRegisterStorage.a());
     }
 
     private static String h() {
@@ -99,6 +99,7 @@ public final class e {
     }
 
     public static final boolean e() {
-        return GlomoConfigLoader.getMidletPropertySafe(appHandler, "c_0_code").compareTo("") != 0 || GlomoConfigLoader.getMidletPropertySafe(appHandler, "c_0_name").compareTo("") != 0;
+        return GlomoConfigLoader.getMidletPropertySafe(appHandler, "c_0_code").compareTo("") != 0 ||
+               GlomoConfigLoader.getMidletPropertySafe(appHandler, "c_0_name").compareTo("") != 0;
     }
 }
