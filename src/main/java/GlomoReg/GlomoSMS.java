@@ -9,11 +9,11 @@ import javax.microedition.io.Connector;
 import javax.wireless.messaging.MessageConnection;
 import javax.wireless.messaging.TextMessage;
 
-public final class GlomoSMSSender {
+public final class GlomoSMS {
     private static MessageConnection connection = null;
     private static boolean sendingSuccess = false;
 
-    public GlomoSMSSender() {
+    public GlomoSMS() {
     }
 
     public static boolean send(String phoneNumber, String messageText) {
