@@ -13,6 +13,6 @@ public abstract class MIDlet {
     }
 
     public String getAppProperty(String key) {
-        return new String();
+        return System.getProperty(key);
     }
 }
