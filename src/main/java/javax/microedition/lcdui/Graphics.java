@@ -1,6 +1,12 @@
 package javax.microedition.lcdui;
 
 public class Graphics {
+    private final java.awt.Graphics graphics;
+
+    public Graphics(java.awt.Graphics graphics) {
+        this.graphics = graphics;
+    }
+
     public int getTranslateX() {
         return 0;
     }
@@ -51,6 +57,7 @@ public class Graphics {
     }
 
     public void drawImage(Image img, int x, int y, int anchor) {
+        graphics.drawImage(img.awtImage, x, y, null);
     }
 
     public void setFont(Font y) {
