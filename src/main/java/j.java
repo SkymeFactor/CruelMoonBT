@@ -1780,7 +1780,7 @@ public final class j {
                     try {
                         try {
                             if (ad == null) {
-                                ad = AssetManager.readImageFromFileSafe(k.a(NET_Lizard.c_nl.cr.aC[16]));
+                                ad = AssetManager.readImageFromFileSafe(k.a(NET_Lizard.game.cr.aC[16]));
                                 if (ad != null) {
                                     try {
                                         ad = AssetManager.a(ad);
@@ -1800,7 +1800,7 @@ public final class j {
 
                         try {
                             if (ad == null && !u) {
-                                ad = AssetManager.readImageFromFileSafe(k.a(NET_Lizard.c_nl.cr.aC[16]));
+                                ad = AssetManager.readImageFromFileSafe(k.a(NET_Lizard.game.cr.aC[16]));
                                 if (ad != null) {
                                     try {
                                         ad = AssetManager.a(ad);
@@ -1851,7 +1851,7 @@ public final class j {
             if (var7) {
                 try {
                     if (ac == null) {
-                        ac = AssetManager.readImageFromFileSafe(k.a(NET_Lizard.c_nl.cr.aC[12]));
+                        ac = AssetManager.readImageFromFileSafe(k.a(NET_Lizard.game.cr.aC[12]));
                     }
 
                     var23 = a9 - ac.getHeight() >> 1;
@@ -3483,7 +3483,7 @@ public final class j {
                 }
 
                 return;
-            } catch (Exception var15) {
+            } catch (Exception ignore) {
             }
         }
 

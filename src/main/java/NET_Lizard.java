@@ -7,8 +7,8 @@ import javax.microedition.midlet.MIDlet;
 
 public final class NET_Lizard extends MIDlet {
     static NET_Lizard app;
-    static int b_nl = 0;
-    static k c_nl;
+    static int appState = 0;
+    static k game;
     static boolean d_nl = true;
 
     public NET_Lizard() {
@@ -17,8 +17,8 @@ public final class NET_Lizard extends MIDlet {
             AssetManager.createInstance();
         }
 
-        if (c_nl == null) {
-            c_nl = new k();
+        if (game == null) {
+            game = new k();
         }
 
     }
@@ -26,12 +26,12 @@ public final class NET_Lizard extends MIDlet {
     public final void destroyApp(boolean unconditional) {
         if (d_nl) {
             try {
-                c_nl.S = false;
+                game.S = false;
             } catch (Exception ignore) {
             }
 
             try {
-                c_nl.cr.n9 = false;
+                game.cr.n9 = false;
             } catch (Exception ignore) {
             }
 
@@ -47,7 +47,7 @@ public final class NET_Lizard extends MIDlet {
 
             try {
                 if (k.b10 != null && n.g12) {
-                    c_nl.d();
+                    game.d();
                 }
             } catch (Exception ignore) {
             }
@@ -56,17 +56,17 @@ public final class NET_Lizard extends MIDlet {
         AssetManager.destroyInstance();
 
         try {
-            c_nl.ez = null;
+            game.ez = null;
         } catch (Exception ignore) {
         }
 
-        c_nl = null;
-        b_nl = 0;
+        game = null;
+        appState = 0;
         this.notifyDestroyed();
     }
 
     public final void pauseApp() {
-        b_nl = 2;
+        appState = 2;
         this.notifyPaused();
     }
 
@@ -78,12 +78,12 @@ public final class NET_Lizard extends MIDlet {
     }
 
     public final void startApp() {
-        if (b_nl == 0) {
+        if (appState == 0) {
             k.cq = true;
-            c_nl.j();
+            game.runGameThread();
         }
 
-        b_nl = 1;
+        appState = 1;
         d_nl = true;
     }
 }

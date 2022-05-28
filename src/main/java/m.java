@@ -229,7 +229,7 @@ public final class m implements Runnable {
     public static void a() {
         z = true;
         if (y == null) {
-            a(NET_Lizard.c_nl);
+            a(NET_Lizard.game);
         }
 
         if (y == null) {
