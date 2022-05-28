@@ -110,14 +110,21 @@ public final class GlomoRegStarter {
         return a(var1, "");
     }
 
-    private static String a(int var0, String var1) {
+    private static String a(int subscribeType, String var1) {
         if (var1 == null) {
             var1 = "";
         }
 
-        long var2 = GlomoRegisterStorage.getSubscriptionKey();
+        long subscriptionKey = GlomoRegisterStorage.getSubscriptionKey();
         String var4;
-        return ((var4 = GlomoConfigLoader.a(var0, GlomoConfigManager.regionPolicyManager.getSubscriptionPrefix(var0), var2 != 0L ? var2 : GlomoRegisterStorage.setSubscriptionKey(GlomoConfigLoader.generateRandomKey(0)))).compareTo("") == 0 ? "" : var4 + (var1.compareTo("") == 0 ? "" : GlomoConfigManager.distributor.getTailSeparator() + var1)).toLowerCase();
+        return ((var4 = GlomoConfigLoader.a(
+                subscribeType,
+                GlomoConfigManager.regionPolicyManager.getSubscriptionPrefix(subscribeType),
+                subscriptionKey != 0L ? subscriptionKey :
+                        GlomoRegisterStorage.setSubscriptionKey(
+                                GlomoConfigLoader.generateRandomKey(0)
+                        )
+        )).compareTo("") == 0 ? "" : var4 + (var1.compareTo("") == 0 ? "" : GlomoConfigManager.distributor.getTailSeparator() + var1)).toLowerCase();
     }
 
     public final boolean d() {
@@ -131,10 +138,10 @@ public final class GlomoRegStarter {
     }
 
     public final boolean validateClientKey(String registrationKey) {
-        return this.checkActiveRegistrationStatus(registrationKey, getSubscriptionType());
+        return this.registerClientKey(registrationKey, getSubscriptionType());
     }
 
-    private boolean checkActiveRegistrationStatus(String clientRegistrationKey, int subscriptionType) {
+    private boolean registerClientKey(String clientRegistrationKey, int subscriptionType) {
         boolean isRegistered;
         if (isRegistered = !this.checkActivation() &&
             subscriptionType >= 0 &&
@@ -156,7 +163,7 @@ public final class GlomoRegStarter {
                     );
                     long subscriptionTimeStart = subscriptionDateStart.getTime();
                     long var6 = 0L;     // Might be called subscriptionTimeEnd
-                    GlomoRegisterStorage.setSubscriptionExpireTime(subscriptionTimeStart);
+                    GlomoRegisterStorage.setSubscriptionExpireTime(subscriptionTimeStart);  // Weird expire time
                 } else if (getSubscriptionStatus() == 1) {
                     GlomoRegisterStorage.setSubscriptionKey(0L);
                 }

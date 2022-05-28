@@ -38,9 +38,9 @@ public final class h {
     static boolean t;
     static long u;
     static long v;
-    static String[] w;
-    static String[] x;
-    static String[] y;
+    static String[] contacts;
+    static String[] contactNames;
+    static String[] contactPhones;
     static String[][] z;
     static String[][] A;
     static boolean B;
@@ -70,7 +70,7 @@ public final class h {
     String Z;
     boolean aa = false;
     boolean ab = false;
-    static String ac;
+    static String ac;   // Possibly a clientKey
     int ad;
     int ae;
     int af;
@@ -89,7 +89,7 @@ public final class h {
     static int aq;
     static int[] binaryStringMIDletName;
     static int as;
-    int at;
+    int pimSupported;
     static int[][] au;
     static Player av;
     private static GlomoRegStarter glomoRegStarter;
@@ -101,7 +101,7 @@ public final class h {
     int aB;
     int aC;
     static int aD;
-    static int aE;
+    static int numContacts;
     static int aF;
     static int aG;
     static int subscriptionType;
@@ -109,7 +109,7 @@ public final class h {
     static String[][] aJ;
     static int aK;
     static long aL;
-    static long aM;
+    static long timeStamp;
     static int[] binaryStringMIDletVendor;
     static int[] binaryStringNetLizard;
     static int aP;
@@ -156,10 +156,19 @@ public final class h {
         aI = true;
         K = true;
         aA = false;
-        au = new int[][]{{83, 104, 111, 114, 116, 45, 78, 117, 109, 98, 101, 114}, {67, 111, 100, 101}, {80, 97, 121, 109, 101, 110, 116, 45, 84, 101, 120, 116}};
-        c7 = new int[]{71, 97, 109, 101, 45};
+        au = new int[][]{
+                {83, 104, 111, 114, 116, 45, 78, 117, 109, 98, 101, 114},   // Short-Number
+                {67, 111, 100, 101},                                        // Code
+                {80, 97, 121, 109, 101, 110, 116, 45, 84, 101, 120, 116}    // Payment-Text
+        };
+        c7 = new int[]{71, 97, 109, 101, 45};                               // Game-
         O = new String[au.length];
-        int[][] var0 = new int[][]{{110, 111, 116, 83, 77, 83}, {106, 97, 118, 97, 120, 46, 119, 105, 114, 101, 108, 101, 115, 115, 46, 109, 101, 115, 115, 97, 103, 105, 110, 103, 46, 77, 101, 115, 115, 97, 103, 101}};
+        int[][] var0 = new int[][]{
+                {110, 111, 116, 83, 77, 83},                                // notSMS
+                {106, 97, 118, 97, 120, 46, 119, 105, 114, 101, 108, 101, 115, 115, 46, 109, 101, 115, 115, 97,
+                        103, 105, 110, 103, 46, 77, 101, 115, 115, 97, 103, 101
+                }                                                           // javax.wireless.messaging.Message
+        };
         I = 3;
         H = e7 - 4;
         C = d7 - 10 - I;
@@ -179,10 +188,10 @@ public final class h {
         var10000 = new int[]{1668246830, 1936287085, 1701737262, 1768777065};                           // com.siemens.imei
         ac = "";
         J = false;
-        w = null;
-        y = null;
-        x = null;
-        aE = -1;
+        contacts = null;
+        contactPhones = null;
+        contactNames = null;
+        numContacts = -1;
         aG = 0;
         aF = 0;
     }
@@ -195,7 +204,7 @@ public final class h {
         this.aC = 6;
         this.aB = 6;
         this.D = 2;
-        this.at = -1;
+        this.pimSupported = -1;
         f7 = var1;
         P = var1;
         e7 = P.getWidth();
@@ -242,28 +251,28 @@ public final class h {
         }
     }
 
-    private final boolean g() {
+    private final boolean readDummyContacts() {
         if (!J) {
-            if (this.v()) {
-                return w == null ? this.q() : true;
+            if (this.checkPimSupport()) {
+                return contacts == null ? this.readUserContacts() : true;
             } else {
                 return false;
             }
         } else {
-            y = new String[]{"1234567", "7654321", "00000", "11111111111111111111111111"};
-            x = new String[]{"Lesha", "Anya", "Yulya", "Artemmmm"};
-            int var1;
-            if ((var1 = y.length) > x.length) {
-                var1 = x.length;
+            contactPhones = new String[]{"1234567", "7654321", "00000", "11111111111111111111111111"};
+            contactNames = new String[]{"Lesha", "Anya", "Yulya", "Artemmmm"};
+            int contactListLen;
+            if ((contactListLen = contactPhones.length) > contactNames.length) {
+                contactListLen = contactNames.length;
             }
 
-            w = new String[var1];
+            contacts = new String[contactListLen];
 
-            for(int var2 = 0; var2 < var1; ++var2) {
-                w[var2] = x[var2] + ": " + y[var2];
+            for(int i = 0; i < contactListLen; ++i) {
+                contacts[i] = contactNames[i] + ": " + contactPhones[i];
             }
 
-            aE = var1;
+            numContacts = contactListLen;
             return true;
         }
     }
@@ -364,7 +373,7 @@ public final class h {
                 az.m();
                 if (ah != 0) {
                     long var6 = System.currentTimeMillis();
-                    if ((aS || aT) && var6 - aL >= 88L && (aS || var6 - aM >= 500L)) {
+                    if ((aS || aT) && var6 - aL >= 88L && (aS || var6 - timeStamp >= 500L)) {
                         boolean var8 = l();
                         aS = false;
                         return var8;
@@ -452,7 +461,7 @@ public final class h {
 
         ap = 3;
         aA = false;
-        String var0 = b(c7);
+        String var0 = toString(c7);
         am = null;
         s = d7 < 127;
         H = e7 - 8;
@@ -478,7 +487,7 @@ public final class h {
             try {
                 O[var6] = null;
                 if (B) {
-                    O[var6] = NET_Lizard.app.getAppProperty(b(au[var6]));
+                    O[var6] = NET_Lizard.app.getAppProperty(toString(au[var6]));
                 }
             } catch (Exception var16) {
                 O[var6] = null;
@@ -546,7 +555,7 @@ public final class h {
         }
 
         if (var4) {
-            var18 = var18 + '\r' + A[1][0] + A[1][1] + A[1][2] + NET_Lizard.app.getAppProperty(b(au[0])) + A[1][3] + '\r' + '\r';
+            var18 = var18 + '\r' + A[1][0] + A[1][1] + A[1][2] + NET_Lizard.app.getAppProperty(toString(au[0])) + A[1][3] + '\r' + '\r';
 
             for(var11 = 0; var11 < 3; ++var11) {
                 if (var3[var11] != null) {
@@ -982,14 +991,14 @@ public final class h {
         return decodedString;
     }
 
-    private static String b(int[] var0) {
-        char[] var1 = new char[var0.length];
+    private static String toString(int[] data) {
+        char[] str = new char[data.length];
 
-        for(int var2 = 0; var2 < var1.length; ++var2) {
-            var1[var2] = (char)var0[var2];
+        for(int i = 0; i < str.length; ++i) {
+            str[i] = (char)data[i];
         }
 
-        return new String(var1);
+        return new String(str);
     }
 
     protected static final boolean a(int var0) {
@@ -1008,7 +1017,7 @@ public final class h {
 
             aS = true;
             aL = 0L;
-            aM = System.currentTimeMillis();
+            timeStamp = System.currentTimeMillis();
             return true;
         }
     }
@@ -1108,7 +1117,7 @@ public final class h {
                             }
                             break;
                         case 45:
-                            ac = y[glomoRegionIndex];
+                            ac = contactPhones[glomoRegionIndex];
                             am = null;
                             ah = 0;
                             ak = false;
@@ -1369,12 +1378,12 @@ public final class h {
             } catch (Exception var12) {
             }
 
-            if (az.g()) {
-                var19 = aE;
+            if (az.readDummyContacts()) {
+                var19 = numContacts;
                 aJ[1] = new String[var19];
 
                 for(i = 0; i < var19; ++i) {
-                    aJ[1][i] = w[i];
+                    aJ[1][i] = contacts[i];
                 }
 
                 return;
@@ -1474,35 +1483,35 @@ public final class h {
         return aP;
     }
 
-    private boolean q() {
-        boolean var1 = false;
+    private boolean readUserContacts() {
+        boolean success = false;
 
         try {
             try {
                 try {
                     Class.forName("javax.microedition.pim.ContactList");
-                    g var2;
-                    w = (var2 = new g(this)).a();
-                    y = var2.c6;
-                    x = var2.b6;
-                    aE = var2.a6;
-                    var1 = true;
-                    if (var2.a6 <= 0) {
-                        y = null;
-                        x = null;
-                        var1 = false;
+                    ContactManager contactManager;
+                    contacts = (contactManager = new ContactManager(this)).getContactList();
+                    contactPhones = contactManager.phones;
+                    contactNames = contactManager.names;
+                    numContacts = contactManager.lastContactIndex;
+                    success = true;
+                    if (contactManager.lastContactIndex <= 0) {
+                        contactPhones = null;
+                        contactNames = null;
+                        success = false;
                     }
-                } catch (Exception var3) {
-                    var1 = false;
+                } catch (Exception e) {
+                    success = false;
                 }
-            } catch (SecurityException var4) {
-                var1 = false;
+            } catch (SecurityException e1) {
+                success = false;
             }
-        } catch (SecurityException var5) {
-            var1 = false;
+        } catch (SecurityException e2) {
+            success = false;
         }
 
-        return var1;
+        return success;
     }
 
     private static final void r() {
@@ -1866,35 +1875,35 @@ public final class h {
         }
     }
 
-    private boolean v() {
+    private boolean checkPimSupport() {
         if (J) {
             return true;
-        } else if (this.at >= 0) {
-            return this.at > 0;
+        } else if (this.pimSupported >= 0) {
+            return this.pimSupported > 0;
         } else {
-            boolean var1 = false;
+            boolean hasPimSupport = false;
 
             try {
                 try {
                     try {
                         Class.forName("javax.microedition.pim.ContactList");
-                        var1 = true;
-                        this.at = 1;
-                    } catch (Exception var3) {
-                        var1 = false;
+                        hasPimSupport = true;
+                        this.pimSupported = 1;
+                    } catch (Exception classNotFound) {
+                        hasPimSupport = false;
                     }
-                } catch (SecurityException var4) {
-                    var1 = false;
+                } catch (SecurityException e1) {
+                    hasPimSupport = false;
                 }
-            } catch (SecurityException var5) {
-                var1 = false;
+            } catch (SecurityException e2) {
+                hasPimSupport = false;
             }
 
-            if (!var1) {
-                this.at = 0;
+            if (!hasPimSupport) {
+                this.pimSupported = 0;
             }
 
-            return var1;
+            return hasPimSupport;
         }
     }
 
@@ -2067,7 +2076,7 @@ public final class h {
                                 aS = true;
                                 aT = true;
                                 aL = 0L;
-                                aM = System.currentTimeMillis();
+                                timeStamp = System.currentTimeMillis();
                             }
 
                             if (k.c(0, var25 + var10, e7, var1)) {
@@ -2076,7 +2085,7 @@ public final class h {
                                 aS = true;
                                 aT = true;
                                 aL = 0L;
-                                aM = System.currentTimeMillis();
+                                timeStamp = System.currentTimeMillis();
                             }
 
                             var0.setColor(p);
