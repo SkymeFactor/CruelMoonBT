@@ -1,4 +1,4 @@
 package javax.microedition.rms;
 
-public class InvalidRecordIDException {
+public class InvalidRecordIDException extends RecordStoreException {
 }

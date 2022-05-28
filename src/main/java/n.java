@@ -15,51 +15,52 @@ import javax.bluetooth.ServiceRecord;
 import javax.bluetooth.UUID;
 import javax.microedition.io.Connector;
 
+// Connection manager
 public final class n implements Runnable {
-    String a = "1020304050d0708093a1b121d1e1f100";
-    static boolean b;
-    static String c;
-    int[] d = new int[1];
-    String e;
-    L2CAPConnection f;
-    static boolean g;
-    byte[] h;
-    byte[] i;
-    Enumeration j;
-    DiscoveryAgent k;
-    boolean l;
-    byte m;
-    b n;
+    String a12 = "1020304050d0708093a1b121d1e1f100";
+    static boolean b12;
+    static String c12;
+    int[] d12 = new int[1];
+    String e12;
+    L2CAPConnection f12;
+    static boolean g12;
+    byte[] h12;
+    byte[] i12;
+    Enumeration j12;
+    DiscoveryAgent k12;
+    boolean l12;
+    byte m12;
+    MyDiscoveryAgent n12;
     LocalDevice o;
     LocalDevice p;
     String q;
     static boolean r;
     static boolean s = false;
     boolean t = false;
-    l u;
+    ServerListener u;
     L2CAPConnectionNotifier v;
     String w;
     ServiceRecord x;
     Thread y;
 
     public n(int var1) {
-        this.d[0] = 256;
-        this.f = null;
+        this.d12[0] = 256;
+        this.f12 = null;
         this.v = null;
-        this.e = null;
+        this.e12 = null;
         this.x = null;
         this.o = null;
-        this.n = null;
+        this.n12 = null;
         this.u = null;
         this.p = null;
-        this.k = null;
-        this.j = null;
+        this.k12 = null;
+        this.j12 = null;
         this.y = null;
-        c = null;
+        c12 = null;
         r = false;
-        this.l = false;
-        this.h = new byte[var1];
-        this.i = new byte[var1];
+        this.l12 = false;
+        this.h12 = new byte[var1];
+        this.i12 = new byte[var1];
         this.q = "server";
     }
 
@@ -69,43 +70,43 @@ public final class n implements Runnable {
 
         try {
             this.p = LocalDevice.getLocalDevice();
-            this.k = this.p.getDiscoveryAgent();
-            this.n = new b(this);
+            this.k12 = this.p.getDiscoveryAgent();
+            this.n12 = new MyDiscoveryAgent(this);
             this.p.setDiscoverable(10390323);
-            synchronized(this.n) {
-                this.k.startInquiry(10390323, this.n);
+            synchronized(this.n12) {
+                this.k12.startInquiry(10390323, this.n12);
 
                 try {
-                    this.n.wait();
+                    this.n12.wait();
                 } catch (InterruptedException var10) {
-                    e.a("DiscoveryAgent feild");
-                    g = false;
+                    e.a("DiscoveryAgent failed");
+                    g12 = false;
                     return;
                 }
             }
 
             e.a("SearchServices...");
-            this.j = this.n.a.elements();
-            UUID[] var2 = new UUID[]{new UUID(this.a, false)};
+            this.j12 = this.n12.devices.elements();
+            UUID[] var2 = new UUID[]{new UUID(this.a12, false)};
             int[] var3 = new int[]{256};
-            this.u = new l(this);
+            this.u = new ServerListener(this);
 
-            while(this.j.hasMoreElements()) {
+            while(this.j12.hasMoreElements()) {
                 synchronized(this.u) {
-                    this.k.searchServices(var3, var2, (RemoteDevice)this.j.nextElement(), this.u);
+                    this.k12.searchServices(var3, var2, (RemoteDevice)this.j12.nextElement(), this.u);
 
                     try {
                         this.u.wait();
                     } catch (InterruptedException var8) {
-                        e.a("serv_listener feild");
-                        g = false;
+                        e.a("serv_listener failed");
+                        g12 = false;
                         return;
                     }
                 }
             }
         } catch (BluetoothStateException var12) {
-            e.a("SearchServices feild");
-            g = false;
+            e.a("SearchServices failed");
+            g12 = false;
             return;
         }
 
@@ -113,18 +114,18 @@ public final class n implements Runnable {
             try {
                 this.w = this.u.a.getHostDevice().getFriendlyName(true);
                 String var1 = LocalDevice.getLocalDevice().getFriendlyName();
-                c = this.u.a.getConnectionURL(0, false);
+                c12 = this.u.a.getConnectionURL(0, false);
                 e.a("Client name:" + var1);
                 e.a("Server name:" + this.w);
-                e.a("Connect to url:" + c);
-                this.f = (L2CAPConnection)Connector.open(c);
-                g = true;
+                e.a("Connect to url:" + c12);
+                this.f12 = (L2CAPConnection)Connector.open(c12);
+                g12 = true;
             } catch (Exception var7) {
-                g = false;
+                g12 = false;
             }
         } else {
             e.a("Service not find");
-            g = false;
+            g12 = false;
         }
     }
 
@@ -133,30 +134,30 @@ public final class n implements Runnable {
             e.a("Starting server...");
             this.o = LocalDevice.getLocalDevice();
             this.o.setDiscoverable(10390323);
-            this.v = (L2CAPConnectionNotifier)Connector.open("btl2cap://localhost:" + this.a);
+            this.v = (L2CAPConnectionNotifier)Connector.open("btl2cap://localhost:" + this.a12);
             this.x = this.o.getRecord(this.v);
-            this.q = this.e == null ? this.o.getFriendlyName() : this.e;
-            this.x.setAttributeValue(this.d[0], new DataElement(32, this.q));
+            this.q = this.e12 == null ? this.o.getFriendlyName() : this.e12;
+            this.x.setAttributeValue(this.d12[0], new DataElement(32, this.q));
             e.a("wait for client...");
-            c = this.x.getConnectionURL(0, true).substring(10, this.x.getConnectionURL(0, true).length());
-            c = c.substring(0, c.indexOf(";"));
-            e.a("I:" + c);
-            this.f = this.v.acceptAndOpen();
+            c12 = this.x.getConnectionURL(0, true).substring(10, this.x.getConnectionURL(0, true).length());
+            c12 = c12.substring(0, c12.indexOf(";"));
+            e.a("I:" + c12);
+            this.f12 = this.v.acceptAndOpen();
             this.v.close();
             this.h();
             e.a("Wait...");
-            g = true;
+            g12 = true;
         } catch (Exception var2) {
-            g = false;
+            g12 = false;
         }
     }
 
     private void e() {
         try {
-            this.f = (L2CAPConnection)Connector.open(c);
-            g = true;
+            this.f12 = (L2CAPConnection)Connector.open(c12);
+            g12 = true;
         } catch (Exception var2) {
-            g = false;
+            g12 = false;
         }
 
         this.g();
@@ -168,17 +169,17 @@ public final class n implements Runnable {
 
         try {
             this.p = LocalDevice.getLocalDevice();
-            this.k = this.p.getDiscoveryAgent();
-            this.n = new b(this);
+            this.k12 = this.p.getDiscoveryAgent();
+            this.n12 = new MyDiscoveryAgent(this);
             this.p.setDiscoverable(10390323);
-            synchronized(this.n) {
-                this.k.startInquiry(10390323, this.n);
+            synchronized(this.n12) {
+                this.k12.startInquiry(10390323, this.n12);
 
                 try {
-                    this.n.wait();
+                    this.n12.wait();
                 } catch (InterruptedException var10) {
                     e.a("DiscoveryAgent feild");
-                    g = false;
+                    g12 = false;
                     return;
                 }
             }
@@ -189,27 +190,27 @@ public final class n implements Runnable {
             }
 
             e.a("SearchServices...");
-            this.j = this.n.a.elements();
-            UUID[] var2 = new UUID[]{new UUID(this.a, false)};
+            this.j12 = this.n12.devices.elements();
+            UUID[] var2 = new UUID[]{new UUID(this.a12, false)};
             int[] var3 = new int[]{256};
-            this.u = new l(this);
+            this.u = new ServerListener(this);
 
-            while(this.j.hasMoreElements() && !this.t) {
+            while(this.j12.hasMoreElements() && !this.t) {
                 synchronized(this.u) {
-                    this.k.searchServices(var3, var2, (RemoteDevice)this.j.nextElement(), this.u);
+                    this.k12.searchServices(var3, var2, (RemoteDevice)this.j12.nextElement(), this.u);
 
                     try {
                         this.u.wait();
                     } catch (InterruptedException var8) {
                         e.a("serv_listener feild");
-                        g = false;
+                        g12 = false;
                         return;
                     }
                 }
             }
         } catch (BluetoothStateException var12) {
             e.a("SearchServices feild");
-            g = false;
+            g12 = false;
             return;
         }
 
@@ -217,10 +218,10 @@ public final class n implements Runnable {
             try {
                 this.w = this.u.a.getHostDevice().getFriendlyName(true);
                 String var1 = LocalDevice.getLocalDevice().getFriendlyName();
-                c = this.u.a.getConnectionURL(0, false);
+                c12 = this.u.a.getConnectionURL(0, false);
                 e.a("Client name:" + var1);
                 e.a("Server name:" + this.w);
-                e.a("url:" + c);
+                e.a("url:" + c12);
             } catch (Exception var7) {
                 e.a("Service not find");
             }
@@ -233,7 +234,7 @@ public final class n implements Runnable {
         this.t = true;
 
         try {
-            this.f.close();
+            this.f12.close();
         } catch (Exception var3) {
         }
 
@@ -242,12 +243,12 @@ public final class n implements Runnable {
         } catch (Exception var2) {
         }
 
-        g = false;
+        g12 = false;
         this.v = null;
-        if (this.l && s) {
+        if (this.l12 && s) {
             try {
-                if (this.k != null) {
-                    this.k.cancelInquiry(this.n);
+                if (this.k12 != null) {
+                    this.k12.cancelInquiry(this.n12);
                 }
 
                 return;
@@ -261,36 +262,36 @@ public final class n implements Runnable {
         r = false;
 
         try {
-            this.f.receive(this.h);
-            k.cz = this.h[0];
-            k.cl = this.h[1];
-            this.m = 1;
+            this.f12.receive(this.h12);
+            k.cz = this.h12[0];
+            k.cl = this.h12[1];
+            this.m12 = 1;
         } catch (Exception var2) {
             this.i();
-            this.m = -1;
+            this.m12 = -1;
         }
     }
 
     public final void run() {
         this.t = false;
         s = true;
-        if (this.l) {
+        if (this.l12) {
             this.f();
         } else {
-            if (b) {
+            if (b12) {
                 this.d();
-            } else if (c == null) {
+            } else if (c12 == null) {
                 this.c();
             } else {
                 this.e();
             }
 
-            if (!g) {
-                e.a("error: creat connect fail");
+            if (!g12) {
+                e.a("error: create connection failed");
             } else {
                 e.a("connect ok");
-                byte[] var3 = this.h;
-                byte[] var4 = this.i;
+                byte[] var3 = this.h12;
+                byte[] var4 = this.i12;
                 r = false;
 
                 label62:
@@ -298,7 +299,7 @@ public final class n implements Runnable {
                     while(true) {
                         do {
                             while(true) {
-                                if (!g) {
+                                if (!g12) {
                                     break label62;
                                 }
 
@@ -312,10 +313,10 @@ public final class n implements Runnable {
                         } while(r);
 
                         System.currentTimeMillis();
-                        if (b) {
+                        if (b12) {
                             try {
-                                this.f.send(var4);
-                                this.f.receive(var3);
+                                this.f12.send(var4);
+                                this.f12.receive(var3);
                                 r = true;
                                 break;
                             } catch (Exception var8) {
@@ -323,8 +324,8 @@ public final class n implements Runnable {
                             }
                         } else {
                             try {
-                                this.f.receive(var3);
-                                this.f.send(var4);
+                                this.f12.receive(var3);
+                                this.f12.send(var4);
                                 r = true;
                                 break;
                             } catch (Exception var9) {
@@ -338,38 +339,38 @@ public final class n implements Runnable {
             }
 
             try {
-                this.f.close();
+                this.f12.close();
             } catch (Exception var6) {
             }
 
-            this.f = null;
+            this.f12 = null;
             r = false;
             this.v = null;
-            this.e = null;
+            this.e12 = null;
             this.x = null;
             this.o = null;
-            this.n = null;
+            this.n12 = null;
             this.u = null;
             this.p = null;
-            this.k = null;
-            this.j = null;
-            c = null;
-            g = false;
-            this.l = false;
+            this.k12 = null;
+            this.j12 = null;
+            c12 = null;
+            g12 = false;
+            this.l12 = false;
         }
 
         e.a("RUN --- OK");
-        this.l = false;
+        this.l12 = false;
         s = false;
     }
 
     private void h() {
         r = false;
-        this.i[0] = k.cz;
-        this.i[1] = (byte)k.cl;
+        this.i12[0] = k.cz;
+        this.i12[1] = (byte) k.cl;
 
         try {
-            this.f.send(this.i);
+            this.f12.send(this.i12);
         } catch (Exception var2) {
             this.i();
         }
@@ -377,33 +378,33 @@ public final class n implements Runnable {
 
     public final void b() {
         this.y = null;
-        g = false;
+        g12 = false;
         this.y = new Thread(this);
         this.y.start();
         s = true;
     }
 
     private void i() {
-        g = false;
+        g12 = false;
 
         try {
-            this.f.close();
+            this.f12.close();
         } catch (Exception var2) {
         }
 
-        this.f = null;
-        this.l = false;
+        this.f12 = null;
+        this.l12 = false;
         r = false;
         this.v = null;
-        this.e = null;
+        this.e12 = null;
         this.x = null;
         this.o = null;
-        this.n = null;
+        this.n12 = null;
         this.u = null;
         this.p = null;
-        this.k = null;
-        this.j = null;
-        c = null;
+        this.k12 = null;
+        this.j12 = null;
+        c12 = null;
         e.a("Disconnect");
     }
 }

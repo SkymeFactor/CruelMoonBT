@@ -8,20 +8,21 @@ import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
+// Game logic + rendering
 public final class k extends a implements Runnable {
-    static n b;
-    int c;
-    int d;
-    int e;
-    int f;
-    int g;
-    static boolean h;
-    boolean i;
-    boolean j;
-    boolean k;
-    boolean l;
-    int m;
-    int n;
+    static n b10;
+    int c10;
+    int d10;
+    int e10;
+    int f10;
+    int g10;
+    static boolean h10;
+    boolean i10;
+    boolean j10;
+    boolean k10;
+    boolean l10;
+    int m10;
+    int n10;
     int o;
     int p;
     boolean q;
@@ -189,7 +190,7 @@ public final class k extends a implements Runnable {
     long cw;
     boolean cx;
     static boolean cy = false;
-    private Random gg;
+    private Random randomGenerator;
     static byte cz;
     int cA;
     int cB;
@@ -340,7 +341,7 @@ public final class k extends a implements Runnable {
     int fq;
     int fr;
     int fs;
-    boolean ft = false;
+    boolean victory = false;
     long fu;
     long fv;
     int fw;
@@ -393,7 +394,7 @@ public final class k extends a implements Runnable {
         cS = new boolean[]{false, false, false, false, true, true, true, true, true};
         ee = 1;
         N = new byte[bO];
-        h = false;
+        h10 = false;
         cZ = false;
         dF = false;
         ds = false;
@@ -413,8 +414,8 @@ public final class k extends a implements Runnable {
         this.ei = this.eg / 4;
         this.cm = 0;
         this.cn = 0;
-        this.e = this.getWidth();
-        this.c = this.getHeight();
+        this.e10 = this.getWidth();
+        this.c10 = this.getHeight();
         this.ae = false;
         this.Q = false;
         this.P = true;
@@ -430,8 +431,8 @@ public final class k extends a implements Runnable {
         this.cL = 250;
         this.cf = new byte[this.cL + 2][this.cU + 2];
         this.cg = new byte[this.cL + 2][this.cU + 2];
-        this.fD = this.e / this.ej;
-        this.fW = this.c / this.eg;
+        this.fD = this.e10 / this.ej;
+        this.fW = this.c10 / this.eg;
         this.fB = this.fD;
         this.fU = this.fW;
         this.fJ = 0;
@@ -444,18 +445,18 @@ public final class k extends a implements Runnable {
         this.fS = this.fQ;
         this.cC = false;
         this.aW = false;
-        this.gg = new Random();
+        this.randomGenerator = new Random();
         Runtime.getRuntime();
         this.fT = 0;
-        this.aM = this.c;
+        this.aM = this.c10;
         this.aO = false;
         this.S = false;
         this.x = new Image[4];
-        int[] var10000 = new int[]{1296389185, 759778886, 793592142, 1229342035, 1412320582};
-        var10000 = new int[]{1399874915, 1768319331, 1635019119, 1845493760};
-        var10000 = new int[]{1296647248, 758263344};
-        var10000 = new int[]{1684368640};
-        var10000 = new int[]{1819934720};
+        int[] var10000 = new int[]{1296389185, 759778886, 793592142, 1229342035, 1412320582};   // META-INF/MANIFEST.MF
+        var10000 = new int[]{1399874915, 1768319331, 1635019119, 1845493760};                   // Specification
+        var10000 = new int[]{1296647248, 758263344};                                            // MIDP-2.0
+        var10000 = new int[]{1684368640};                                                       // dem
+        var10000 = new int[]{1819934720};                                                       // lz
         this.aH = new byte[][]{{99, 102, 50}, {102, 110, 116, 50}, {50}, {115, 116}, {116, 108, 107}, {110, 109}, {47, 97, 114, 46, 112, 110, 103}, {47, 97, 114}, {46, 112, 110, 103}, {47, 122, 118, 122, 46, 112, 110, 103}, {46, 106, 112, 103}, {47, 108}, {47, 117}, {99, 99, 51}, {99, 117, 51}, {109, 117, 97}, {47, 105, 108, 49, 46, 112, 110, 103}, {47, 105, 108, 50, 46, 112, 110, 103}, {47, 105, 108, 51, 46, 112, 110, 103}, {47, 105, 108, 108, 46, 112, 110, 103}, {47, 105, 108, 119, 46, 112, 110, 103}, {47, 101, 108, 48, 46, 112, 110, 103}, {47, 101, 108, 49, 46, 112, 110, 103}, {47, 105, 108, 108, 119, 46, 112, 110, 103}};
         this.fw = 0;
         this.fO = 0;
@@ -525,7 +526,7 @@ public final class k extends a implements Runnable {
         this.bS = 10;
         this.bR = 1000;
         this.fN = 5;
-        this.fq = this.e - 2 * this.fN;
+        this.fq = this.e10 - 2 * this.fN;
         this.fr = 0;
         this.fs = 0;
         this.bJ = 0;
@@ -534,13 +535,13 @@ public final class k extends a implements Runnable {
         this.fC = this.fB;
         this.fV = this.fU;
         this.W = 1;
-        this.fM = this.e;
+        this.fM = this.e10;
         this.bf = 0;
         this.ak = 0;
         this.ao = 0;
         this.ap = 0;
         this.cB = -1;
-        this.bx = this.c;
+        this.bx = this.c10;
         this.aq = 0;
         this.dN = true;
         this.ff = -1;
@@ -561,7 +562,7 @@ public final class k extends a implements Runnable {
         this.bE = 4;
         this.cX = 6;
         this.cY = 6;
-        this.n = 9;
+        this.n10 = 9;
         this.er = false;
         this.y = false;
         this.dG = 0;
@@ -570,7 +571,7 @@ public final class k extends a implements Runnable {
         this.bv = 0;
         this.bw = 0;
         this.bN = false;
-        this.d = 35;
+        this.d10 = 35;
         this.bq = false;
         this.br = 0;
         this.cb = new boolean[64];
@@ -583,15 +584,15 @@ public final class k extends a implements Runnable {
         this.t = 22;
         this.bD = 0;
         this.eP = 0L;
-        this.fp = this.e * 2 / 3;
-        this.ba = this.c * 2 / 3;
-        this.fI = this.e - this.fp >> 1;
-        this.gc = this.c - this.ba >> 1;
+        this.fp = this.e10 * 2 / 3;
+        this.ba = this.c10 * 2 / 3;
+        this.fI = this.e10 - this.fp >> 1;
+        this.gc = this.c10 - this.ba >> 1;
         this.en = 0;
-        this.f = this.e / 2;
-        this.g = this.e * 3 / 4;
+        this.f10 = this.e10 / 2;
+        this.g10 = this.e10 * 3 / 4;
         this.bn = false;
-        this.m = 0;
+        this.m10 = 0;
         this.bK = 0;
         this.dv = new byte[32];
         this.bp = 0;
@@ -602,13 +603,13 @@ public final class k extends a implements Runnable {
         this.ef = new boolean[2];
         this.az = new boolean[2];
         eu = true;
-        j.a();
-        j.e = this.e;
-        j.a = this.c;
+        j.init();
+        j.e9 = this.e10;
+        j.a9 = this.c10;
     }
 
     private boolean A() {
-        return n.b ^ this.bn;
+        return n.b12 ^ this.bn;
     }
 
     final void a() {
@@ -639,8 +640,8 @@ public final class k extends a implements Runnable {
                 int var3 = this.cm;
                 int var4 = this.cn;
                 if (this.fl > 0) {
-                    this.cm += this.gg.nextInt() % this.fm;
-                    this.cn += this.gg.nextInt() % this.fm;
+                    this.cm += this.randomGenerator.nextInt() % this.fm;
+                    this.cn += this.randomGenerator.nextInt() % this.fm;
                     --this.fl;
                 }
 
@@ -807,18 +808,18 @@ public final class k extends a implements Runnable {
         int var3 = (var2 = ac).length;
 
         try {
-            if (this.m + var1.length > var3) {
+            if (this.m10 + var1.length > var3) {
                 return false;
             }
 
-            int var4 = this.m;
+            int var4 = this.m10;
 
             for(int var5 = 0; var5 < var1.length; ++var5) {
                 var2[var4] = var1[var5];
                 ++var4;
             }
 
-            this.m += var1.length;
+            this.m10 += var1.length;
         } catch (Exception var6) {
         }
 
@@ -830,7 +831,7 @@ public final class k extends a implements Runnable {
         int var3 = (var2 = ac).length;
 
         try {
-            if (this.m + var1.length > var3) {
+            if (this.m10 + var1.length > var3) {
                 return false;
             }
 
@@ -842,7 +843,7 @@ public final class k extends a implements Runnable {
             }
 
             ac = var4;
-            this.m += var1.length;
+            this.m10 += var1.length;
         } catch (Exception var6) {
         }
 
@@ -1019,17 +1020,17 @@ public final class k extends a implements Runnable {
                 if (!this.fi) {
                     this.fk = true;
                 } else {
-                    this.aQ.a = 0;
+                    this.aQ.a2 = 0;
                 }
             }
 
-            if ((this.fi || this.fk) && (this.aQ.a < this.aQ.K || this.fk)) {
+            if ((this.fi || this.fk) && (this.aQ.a2 < this.aQ.K || this.fk)) {
                 if (this.aQ.B < this.aQ.C) {
                     this.aQ.B = this.aQ.C;
                     this.aQ.a();
                 }
 
-                if (Display.getDisplay(NET_Lizard.a).numAlphaLevels() <= 2) {
+                if (Display.getDisplay(NET_Lizard.app).numAlphaLevels() <= 2) {
                     var2 = 250;
                 }
 
@@ -1038,13 +1039,13 @@ public final class k extends a implements Runnable {
                 }
 
                 c var10000 = this.aQ;
-                var10000.a += var2;
-                if (this.aQ.a > this.aQ.K) {
-                    this.aQ.a = this.aQ.K;
+                var10000.a2 += var2;
+                if (this.aQ.a2 > this.aQ.K) {
+                    this.aQ.a2 = this.aQ.K;
                 }
 
-                if (this.aQ.a < 0) {
-                    this.aQ.a = 0;
+                if (this.aQ.a2 < 0) {
+                    this.aQ.a2 = 0;
                     this.fk = false;
                     this.fi = false;
                 }
@@ -1086,18 +1087,18 @@ public final class k extends a implements Runnable {
                 }
             }
 
-            if ((this.aW || this.aY) && (this.fM > this.e - var2 || this.aY)) {
+            if ((this.aW || this.aY) && (this.fM > this.e10 - var2 || this.aY)) {
                 if (this.aY) {
                     var5 = 7;
                 }
 
                 this.fM += var5;
-                if (this.fM < this.e - var2) {
-                    this.fM = this.e - var2;
+                if (this.fM < this.e10 - var2) {
+                    this.fM = this.e10 - var2;
                 }
 
-                if (this.fM >= this.e) {
-                    this.fM = this.e;
+                if (this.fM >= this.e10) {
+                    this.fM = this.e10;
                     this.aY = false;
                     this.aW = false;
                 }
@@ -1106,7 +1107,7 @@ public final class k extends a implements Runnable {
             int var3;
             if ((var3 = this.ck[this.fy][this.fQ] - 1) >= 0 && var3 < this.cU && this.ch[0][var3] > 0 && this.ch[8][var3] == 1 && (!this.eV || var3 != this.eW)) {
                 if (this.eV) {
-                    this.aQ.f = true;
+                    this.aQ.f2 = true;
                 }
 
                 this.aQ.L = true;
@@ -1117,7 +1118,7 @@ public final class k extends a implements Runnable {
             if (var3 != this.eW) {
                 this.eW = var3;
                 if (this.eV) {
-                    this.aQ.f = true;
+                    this.aQ.f2 = true;
                     this.eV = false;
                 }
             }
@@ -1172,14 +1173,14 @@ public final class k extends a implements Runnable {
     private void a(Graphics var1, d var2) {
         boolean var3 = false;
         var1.translate(-var1.getTranslateX(), -var1.getTranslateY());
-        var1.setClip(0, 0, this.e, this.c);
+        var1.setClip(0, 0, this.e10, this.c10);
         int var4;
         int var5;
-        if (this.G != null && this.G.length > 0 && (this.bL != 5 && this.bL != 6 || b == null || n.s)) {
+        if (this.G != null && this.G.length > 0 && (this.bL != 5 && this.bL != 6 || b10 == null || n.s)) {
             var3 = true;
             var4 = var2.b();
             var5 = this.G.length * var4 + 2;
-            a.a(var1, 0, 0, this.e, var5, 0, 128);
+            a.a(var1, 0, 0, this.e10, var5, 0, 128);
             int var6 = 1;
 
             for(int var7 = 0; var7 < this.G.length; ++var7) {
@@ -1193,8 +1194,8 @@ public final class k extends a implements Runnable {
 
         if (this.I != null && this.I[0] != null && this.I[1] != null && var3) {
             var4 = 0;
-            if (b != null) {
-                if (n.g) {
+            if (b10 != null) {
+                if (n.g12) {
                     var4 = 1;
                 } else if ((this.bL == 1 || this.bL == 0) && n.s) {
                     ++this.J;
@@ -1210,7 +1211,7 @@ public final class k extends a implements Runnable {
                 }
             }
 
-            var5 = this.e - this.I[var4].getWidth();
+            var5 = this.e10 - this.I[var4].getWidth();
             if (var4 == 0 && this.bL == 5) {
                 this.M += this.K;
                 if (this.M >= this.I[var4].getWidth()) {
@@ -1226,7 +1227,7 @@ public final class k extends a implements Runnable {
                 var5 += this.M;
             }
 
-            if (var5 < this.e) {
+            if (var5 < this.e10) {
                 var1.drawImage(this.I[var4], var5, 0, 20);
             }
         }
@@ -1308,7 +1309,7 @@ public final class k extends a implements Runnable {
                 var3 = 44;
             }
 
-            if (this.m + var3 > ac.length) {
+            if (this.m10 + var3 > ac.length) {
                 return false;
             } else {
                 boolean var4 = true;
@@ -1339,8 +1340,8 @@ public final class k extends a implements Runnable {
     private final void E() {
         byte[] var1;
         int var2 = (var1 = ac).length;
-        if (this.m < var2) {
-            int var3 = this.m - 1;
+        if (this.m10 < var2) {
+            int var3 = this.m10 - 1;
             int var4 = -1;
 
             while(true) {
@@ -1363,12 +1364,12 @@ public final class k extends a implements Runnable {
     final void d() {
         if (cy) {
             boolean var1 = false;
-            if (b != null && n.g && !n.b) {
+            if (b10 != null && n.g12 && !n.b12) {
                 long var2 = System.currentTimeMillis();
 
-                while(n.g) {
-                    if (n.r && n.g) {
-                        b.i[0] = 125;
+                while(n.g12) {
+                    if (n.r && n.g12) {
+                        b10.i12[0] = 125;
                         n.r = false;
                         var1 = true;
                     }
@@ -1384,9 +1385,9 @@ public final class k extends a implements Runnable {
                 }
             }
 
-            if (b != null) {
-                b.h[0] = 0;
-                b.i[0] = 0;
+            if (b10 != null) {
+                b10.h12[0] = 0;
+                b10.i12[0] = 0;
             }
 
             this.F();
@@ -1398,13 +1399,13 @@ public final class k extends a implements Runnable {
     }
 
     private void F() {
-        if (n.g) {
+        if (n.g12) {
             this.c(3);
         }
 
-        b.a();
-        b.w = null;
-        n.c = null;
+        b10.a();
+        b10.w = null;
+        n.c12 = null;
     }
 
     private final void G() {
@@ -1462,9 +1463,9 @@ public final class k extends a implements Runnable {
             }
         }
 
-        var15 = var6.b() - var6.f + 4;
+        var15 = var6.b() - var6.f3 + 4;
         if (this.v()) {
-            var15 = 2 * (var6.b() - var6.f) + 6;
+            var15 = 2 * (var6.b() - var6.f3) + 6;
         }
 
         if (var3 > 320) {
@@ -1545,7 +1546,7 @@ public final class k extends a implements Runnable {
 
         var24 += 0;
         int var29 = this.fT + (var3 - var24) / 2;
-        var1.setFont(j.y);
+        var1.setFont(j.defaultFont);
         var1.setClip(0, this.fT, var2, var3);
         int var30 = var1.getColor();
         int var33 = 5;
@@ -1649,11 +1650,11 @@ public final class k extends a implements Runnable {
                 ++var39;
                 var8 = var7;
                 String var44 = "";
-                if (var7 == 1 && !f.l) {
+                if (var7 == 1 && !AssetManager.l1) {
                     var8 = var13 - 1 - 4;
                 }
 
-                if (var7 == 2 && !f.h) {
+                if (var7 == 2 && !AssetManager.h1) {
                     var8 = var13 - 2 - 4;
                 }
 
@@ -1679,7 +1680,7 @@ public final class k extends a implements Runnable {
                     for(int var10 = -1; var10 <= 1; ++var10) {
                         for(int var9 = -1; var9 <= 1; ++var9) {
                             if ((var9 != 0 || var10 != 0) && (!this.P || var9 == 0 || var10 == 0)) {
-                                var6.a(var1, var43, this.f - (var6.a(var43) >> 1) + var9, var29 + var10, 20);
+                                var6.a(var1, var43, this.f10 - (var6.a(var43) >> 1) + var9, var29 + var10, 20);
                             }
                         }
                     }
@@ -1696,12 +1697,12 @@ public final class k extends a implements Runnable {
                     }
 
                     var1.setColor(16777215);
-                    var1.fillRect(0, var29 - 2 - 1 + 1 - var42, var2, var6.b() - var6.f + 4 + 1 + 2 * var42);
+                    var1.fillRect(0, var29 - 2 - 1 + 1 - var42, var2, var6.b() - var6.f3 + 4 + 1 + 2 * var42);
                     var1.setColor(0);
-                    var1.fillRect(0, var29 - 1 - 1 + 1 - var42, var2, var6.b() - var6.f + 2 + 1 + 2 * var42);
+                    var1.fillRect(0, var29 - 1 - 1 + 1 - var42, var2, var6.b() - var6.f3 + 2 + 1 + 2 * var42);
                 }
 
-                var42 = var15 - (j.x.b() - j.x.f) >> 1;
+                var42 = var15 - (j.x.b() - j.x.f3) >> 1;
                 if (b(0, var29 - 2 + 1 - var42, var2, var15) && var7 != this.ad && !this.ah) {
                     this.ad = var7;
                 }
@@ -1715,21 +1716,21 @@ public final class k extends a implements Runnable {
                 }
 
                 var1.setColor(j.z);
-                var6.a(var1, var43, this.f - (var6.a(var43) >> 1), var29, 20);
+                var6.a(var1, var43, this.f10 - (var6.a(var43) >> 1), var29, 20);
                 var29 += var15;
                 this.af = var15;
             }
         }
 
         var43 = r[1][7];
-        int var45 = var6.b() - var6.f + 4;
+        int var45 = var6.b() - var6.f3 + 4;
         if (this.dJ > 0) {
             var45 = this.dJ - 1;
         }
 
-        var42 = var45 - (var6.b() - var6.f) >> 1;
+        var42 = var45 - (var6.b() - var6.f3) >> 1;
         if (!cy) {
-            var6.a(var1, var43, this.f - (var6.a(var43) >> 1), var42, 20);
+            var6.a(var1, var43, this.f10 - (var6.a(var43) >> 1), var42, 20);
         }
 
         var1.setColor(var30);
@@ -1741,11 +1742,11 @@ public final class k extends a implements Runnable {
         if (!cy) {
             return false;
         } else {
-            if (!n.s && n.c != null) {
-                n.b = false;
-                b.m = 0;
-                b.b();
-                if (!n.b) {
+            if (!n.s && n.c12 != null) {
+                n.b12 = false;
+                b10.m12 = 0;
+                b10.b();
+                if (!n.b12) {
                     if (cq && this.cr != null) {
                         this.cr.N = 0;
                         this.cr.T = true;
@@ -1760,7 +1761,7 @@ public final class k extends a implements Runnable {
                         } catch (Exception var2) {
                         }
 
-                        if (b.m == 1) {
+                        if (b10.m12 == 1) {
                             if (cq && this.cr != null) {
                                 this.cr.N = 0;
                                 this.cr.T = true;
@@ -1782,14 +1783,14 @@ public final class k extends a implements Runnable {
                             return false;
                         }
 
-                        if (b.m == -1) {
+                        if (b10.m12 == -1) {
                             return false;
                         }
                     }
                 }
             }
 
-            return n.g;
+            return n.g12;
         }
     }
 
@@ -1924,7 +1925,7 @@ public final class k extends a implements Runnable {
 
     private final void J() {
         if (cy) {
-            if (!n.b) {
+            if (!n.b12) {
                 for(int var1 = 0; var1 < this.cU; ++var1) {
                     if (this.ch[0][var1] > 0) {
                         if (this.ch[8][var1] == 1) {
@@ -2078,7 +2079,7 @@ public final class k extends a implements Runnable {
 
             for(int var1 = 0; var1 < this.w.length; ++var1) {
                 try {
-                    this.w[var1] = f.a("/ar0" + var1 + ".png");
+                    this.w[var1] = AssetManager.readImageFromFilePNG("/ar0" + var1 + ".png");
                 } catch (Exception var3) {
                 }
             }
@@ -2093,7 +2094,7 @@ public final class k extends a implements Runnable {
 
             for(var2 = 0; var2 < this.I.length; ++var2) {
                 try {
-                    this.I[var2] = f.a("/bt" + var2 + ".png");
+                    this.I[var2] = AssetManager.readImageFromFilePNG("/bt" + var2 + ".png");
                 } catch (Exception var5) {
                 }
             }
@@ -2106,12 +2107,12 @@ public final class k extends a implements Runnable {
             var2 = var1 + 60;
 
             try {
-                int var3 = this.e - 4;
+                int var3 = this.e10 - 4;
                 if (this.I != null && this.I[0] != null) {
                     var3 -= this.I[0].getWidth();
                 }
 
-                this.G = f.n.a(r[var2][0], j.x, var3 - 4, true);
+                this.G = AssetManager.instanceHandler.a(r[var2][0], j.x, var3 - 4, true);
             } catch (Exception var4) {
                 this.G = null;
             }
@@ -2121,7 +2122,7 @@ public final class k extends a implements Runnable {
     private final void L() {
         if (this.R == null) {
             int var4 = 110;
-            byte[] var5 = f.n.a("cc", -1);
+            byte[] var5 = AssetManager.instanceHandler.readDataChunkFromFile("cc", -1);
             if (110 < var5.length / 8) {
                 var4 = var5.length / 8;
             }
@@ -2182,7 +2183,7 @@ public final class k extends a implements Runnable {
         if (this.am == null) {
             int var1 = (this.bt + 1) * this.bs;
             this.am = new short[7][var1];
-            byte[] var3 = f.n.a("cu", -1);
+            byte[] var3 = AssetManager.instanceHandler.readDataChunkFromFile("cu", -1);
             if (var1 < var3.length / 7) {
                 var1 = var3.length / 7;
             }
@@ -2217,7 +2218,7 @@ public final class k extends a implements Runnable {
     }
 
     private static void a(String var0) {
-        if (b != null && var0 != null && var0.length() > 0) {
+        if (b10 != null && var0 != null && var0.length() > 0) {
             char[] var1 = new char[var0.length()];
 
             for(int var2 = 0; var2 < var1.length; ++var2) {
@@ -2246,7 +2247,7 @@ public final class k extends a implements Runnable {
                 var4 = var4.substring(0, 32);
             }
 
-            b.a = b.a.substring(0, b.a.length() - var4.length()) + var4;
+            b10.a12 = b10.a12.substring(0, b10.a12.length() - var4.length()) + var4;
         }
     }
 
@@ -2286,7 +2287,7 @@ public final class k extends a implements Runnable {
 
             this.cv = new int[]{1, 7700 - ee * 10, 5000 + (ee - 1) * 1000};
             c.N = (long)('袸' * (bP - ee));
-            int var6 = this.n;
+            int var6 = this.n10;
 
             for(int var7 = 0; var7 < 3; ++var7) {
                 int var8 = a(this.cd[var6]);
@@ -2397,12 +2398,12 @@ public final class k extends a implements Runnable {
 
     final void g() {
         this.bS = 5;
-        this.fN = this.e >> 4;
-        this.fq = this.e - 2 * this.fN;
+        this.fN = this.e10 >> 4;
+        this.fq = this.e10 - 2 * this.fN;
         if (this.bk == null || this.bl == null) {
             try {
-                this.bk = f.a(a(this.aH[16]));
-                this.bl = f.a(a(this.aH[17]));
+                this.bk = AssetManager.readImageFromFilePNG(a(this.aH[16]));
+                this.bl = AssetManager.readImageFromFilePNG(a(this.aH[17]));
             } catch (Exception var4) {
                 this.bk = null;
                 this.bl = null;
@@ -2411,7 +2412,7 @@ public final class k extends a implements Runnable {
 
         if (this.bm == null) {
             try {
-                this.bm = f.a(a(this.aH[18]));
+                this.bm = AssetManager.readImageFromFilePNG(a(this.aH[18]));
             } catch (Exception var3) {
             }
         }
@@ -2420,7 +2421,7 @@ public final class k extends a implements Runnable {
             this.fq = this.bk.getHeight();
         }
 
-        this.fN = (this.e - this.fq) / 2;
+        this.fN = (this.e10 - this.fq) / 2;
         this.fs = -10;
         this.fr = 0;
         this.bJ = 0;
@@ -2443,8 +2444,8 @@ public final class k extends a implements Runnable {
     private final void O() {
         this.L();
         if (this.cV == null || this.cW == null) {
-            c.g = 0;
-            c.n = null;
+            c.g2 = 0;
+            c.n2 = null;
             if (this.cW != null) {
                 this.cW = null;
             }
@@ -2472,7 +2473,7 @@ public final class k extends a implements Runnable {
             var2 = null;
 
             try {
-                var2 = f.a("/l" + var6 + ".png");
+                var2 = AssetManager.readImageFromFilePNG("/l" + var6 + ".png");
             } catch (Exception var23) {
             }
 
@@ -2540,7 +2541,7 @@ public final class k extends a implements Runnable {
     private void P() {
         try {
             if (this.s == null) {
-                this.s = f.n.a(f.n.f("tlk"), j.x, this.e, false);
+                this.s = AssetManager.instanceHandler.a(AssetManager.instanceHandler.f("tlk"), j.x, this.e10, false);
             }
 
         } catch (Exception var2) {
@@ -2571,7 +2572,7 @@ public final class k extends a implements Runnable {
         for(int var1 = 0; var1 < this.bo.length; ++var1) {
             if (this.bo[var1] == null && !this.cN[var1]) {
                 try {
-                    this.bo[var1] = f.a("/mm" + var1 + ".png");
+                    this.bo[var1] = AssetManager.readImageFromFilePNG("/mm" + var1 + ".png");
                 } catch (Exception var3) {
                 }
 
@@ -2596,7 +2597,7 @@ public final class k extends a implements Runnable {
 
             try {
                 try {
-                    var5 = Display.getDisplay(NET_Lizard.a).numAlphaLevels() > 2;
+                    var5 = Display.getDisplay(NET_Lizard.app).numAlphaLevels() > 2;
                 } catch (Exception var13) {
                 }
             } catch (Throwable var14) {
@@ -2604,14 +2605,14 @@ public final class k extends a implements Runnable {
 
             for(int var3 = 0; var3 < this.bt; ++var3) {
                 try {
-                    this.eX[var3] = f.a("/u" + var3 + ".png");
+                    this.eX[var3] = AssetManager.readImageFromFilePNG("/u" + var3 + ".png");
                 } catch (Exception var12) {
                 }
 
                 if (this.eX[var3] != null && av > 0 && var5) {
                     if (var3 >> 1 << 1 == var3) {
                         try {
-                            this.dR[var3] = f.a("/w" + var3 + ".png");
+                            this.dR[var3] = AssetManager.readImageFromFilePNG("/w" + var3 + ".png");
                         } catch (Exception var11) {
                         }
                     } else {
@@ -2640,7 +2641,7 @@ public final class k extends a implements Runnable {
         }
 
         try {
-            Image var1 = f.a("/l11.png");
+            Image var1 = AssetManager.readImageFromFilePNG("/l11.png");
             this.cW[11] = var1;
             this.cW[12] = a.a(var1, 0);
         } catch (Exception var2) {
@@ -2714,7 +2715,7 @@ public final class k extends a implements Runnable {
                 this.ch[13][this.ff] = this.fy;
                 this.ch[14][this.ff] = this.fQ;
                 this.ch[12][this.ff] = -10;
-                c.b = this.ff;
+                c.b2 = this.ff;
                 if (var3 || !this.dN) {
                     this.ch[15][this.ff] = 0;
                 }
@@ -2784,7 +2785,7 @@ public final class k extends a implements Runnable {
                     }
                 }
 
-                c.b = -100;
+                c.b2 = -100;
                 if (!this.dN) {
                     this.ff = -1;
                 }
@@ -2920,7 +2921,7 @@ public final class k extends a implements Runnable {
                         var5 += this.cm;
                         var6 += this.cn;
                         var7 = this.bh - 128 + this.bc - 1;
-                        if (this.bc != c.g) {
+                        if (this.bc != c.g2) {
                             Image var8 = this.cW[this.R[6][var7]];
                             short var9 = this.R[0][var7];
                             short var10 = this.R[1][var7];
@@ -2937,7 +2938,7 @@ public final class k extends a implements Runnable {
                             }
 
                             c.a(var8, var9, var10, var11, var12);
-                            c.g = this.bc;
+                            c.g2 = this.bc;
                         }
 
                         if (this.bi) {
@@ -3142,6 +3143,7 @@ public final class k extends a implements Runnable {
         }
     }
 
+    // TODO: decode byte array to String
     static final String a(byte[] var0) {
         char[] var1 = new char[var0.length];
 
@@ -3162,13 +3164,13 @@ public final class k extends a implements Runnable {
     }
 
     private final void c(Graphics var1) {
-        var1.setClip(0, this.fT, this.e, this.aM);
+        var1.setClip(0, this.fT, this.e10, this.aM);
     }
 
     private final void d(Graphics var1) {
         int var3;
         int var4 = var3 = this.getHeight();
-        var1.setClip(0, this.fT, this.e, var4);
+        var1.setClip(0, this.fT, this.e10, var4);
         var1.setColor(0);
 
         try {
@@ -3179,20 +3181,20 @@ public final class k extends a implements Runnable {
                 try {
                     try {
                         String var6 = "ils";
-                        if (this.ft) {
+                        if (this.victory) {
                             var6 = "iwn";
                         }
 
-                        this.aA = f.a("/" + var6 + ".png");
+                        this.aA = AssetManager.readImageFromFilePNG("/" + var6 + ".png");
 
                         try {
-                            this.aA = f.a(this.aA);
+                            this.aA = AssetManager.a(this.aA);
                         } catch (OutOfMemoryError var16) {
                         }
 
-                        if (this.aA != null && this.aA.getWidth() != this.e && this.aA.getHeight() != var3) {
+                        if (this.aA != null && this.aA.getWidth() != this.e10 && this.aA.getHeight() != var3) {
                             try {
-                                this.aA = f.a(this.aA, 0, 0, this.aA.getWidth(), this.aA.getHeight(), this.e, var3, 0, false, true);
+                                this.aA = AssetManager.a(this.aA, 0, 0, this.aA.getWidth(), this.aA.getHeight(), this.e10, var3, 0, false, true);
                             } catch (OutOfMemoryError var15) {
                             }
                         }
@@ -3208,7 +3210,7 @@ public final class k extends a implements Runnable {
                 this.aG = var3 - (var3 >> 2);
                 this.aF = 0;
                 if (!this.aL) {
-                    var1.fillRect(0, 0, this.e, var3);
+                    var1.fillRect(0, 0, this.e10, var3);
                 }
 
                 if (!this.aL) {
@@ -3217,30 +3219,30 @@ public final class k extends a implements Runnable {
 
                 for(int var20 = 1; var20 < this.ch[0].length; ++var20) {
                     this.ch[0][var20] = 0;
-                    this.ch[1][var20] = Math.abs(this.gg.nextInt() % this.e);
-                    this.ch[2][var20] = Math.abs(this.gg.nextInt() % var4);
-                    this.ch[13][var20] = this.gg.nextInt() % this.ek >> 1;
-                    this.ch[14][var20] = 2 + Math.abs(this.gg.nextInt() % this.eh);
+                    this.ch[1][var20] = Math.abs(this.randomGenerator.nextInt() % this.e10);
+                    this.ch[2][var20] = Math.abs(this.randomGenerator.nextInt() % var4);
+                    this.ch[13][var20] = this.randomGenerator.nextInt() % this.ek >> 1;
+                    this.ch[14][var20] = 2 + Math.abs(this.randomGenerator.nextInt() % this.eh);
                 }
             }
 
-            int var7 = this.f;
+            int var7 = this.f10;
             var1.setColor(0);
-            var1.fillRect(0, 0, this.e, var3);
+            var1.fillRect(0, 0, this.e10, var3);
             if (this.aA != null && this.aA.getWidth() > 1) {
-                var1.drawImage(this.aA, this.f, var3 >> 1, 3);
+                var1.drawImage(this.aA, this.f10, var3 >> 1, 3);
             }
 
-            var1.setColor(178, 1, 1);
-            if (this.ft) {
-                var1.setColor(1, 89, 198);
+            var1.setColor(178, 1, 1);   // Color allies
+            if (this.victory) {
+                var1.setColor(1, 89, 198);  // Color enemies
             }
 
             d var8;
-            int var9 = (var8 = j.x).b() - var8.f + 4;
+            int var9 = (var8 = j.x).b() - var8.f3 + 4;
             if (this.cr != null && this.cr.f() && this.bT > 0) {
                 if (this.bT > 0 && this.bT <= 255) {
-                    a.a(var1, 0, 0, this.e, var3, 0, this.bT);
+                    a.a(var1, 0, 0, this.e10, var3, 0, this.bT);
                 }
 
                 this.bT -= 16;
@@ -3262,11 +3264,11 @@ public final class k extends a implements Runnable {
 
             int var10 = this.aG - (this.aF >> 1);
             if (this.aF > 0) {
-                var1.setColor(0, 247, 255);
+                var1.setColor(0, 247, 255); // Cyan
                 boolean var11 = false;
-                var1.fillRect(0, var10 - 1, this.e, 1);
-                var1.fillRect(0, var10 + this.aF, this.e, 1);
-                a.a(var1, 0, var10, this.e, this.aF, 0, 128);
+                var1.fillRect(0, var10 - 1, this.e10, 1);
+                var1.fillRect(0, var10 + this.aF, this.e10, 1);
+                a.a(var1, 0, var10, this.e10, this.aF, 0, 128);
             }
 
             if (this.aL) {
@@ -3289,19 +3291,19 @@ public final class k extends a implements Runnable {
 
                         if (this.ch[1][var21] < 0) {
                             var10000 = this.ch[1];
-                            var10000[var21] += this.e;
+                            var10000[var21] += this.e10;
                         }
 
-                        if (this.ch[1][var21] > this.e) {
+                        if (this.ch[1][var21] > this.e10) {
                             var10000 = this.ch[1];
-                            var10000[var21] -= this.e;
+                            var10000[var21] -= this.e10;
                         }
                     }
                 }
             }
 
             int var12 = 0;
-            if (this.ft) {
+            if (this.victory) {
                 var12 = 1;
                 if (this.aL) {
                     ++var12;
@@ -3312,12 +3314,12 @@ public final class k extends a implements Runnable {
             int var14 = 4 + var8.a(var13);
             var7 -= var14 >> 1;
             var1.setColor(0);
-            var1.setFont(j.y);
-            if (this.aF > var8.b() - var8.f) {
-                var8.a(var1, var13, var7 + 2, var10 + (this.aF - (var8.b() - var8.f) >> 1), 20);
+            var1.setFont(j.defaultFont);
+            if (this.aF > var8.b() - var8.f3) {
+                var8.a(var1, var13, var7 + 2, var10 + (this.aF - (var8.b() - var8.f3) >> 1), 20);
             }
 
-            if (c(0, 0, this.e, this.getHeight())) {
+            if (c(0, 0, this.e10, this.getHeight())) {
                 this.x(53);
             }
 
@@ -3342,7 +3344,7 @@ public final class k extends a implements Runnable {
                 boolean var11 = true;
 
                 try {
-                    if (Display.getDisplay(NET_Lizard.a).numAlphaLevels() > 2) {
+                    if (Display.getDisplay(NET_Lizard.app).numAlphaLevels() > 2) {
                         if (this.aI == null || this.aI.length != var4 || this.aI[0] != var10) {
                             if (this.aI == null || this.aI.length != var4) {
                                 if (this.aI != null) {
@@ -3395,7 +3397,7 @@ public final class k extends a implements Runnable {
                     var1.drawRGB(this.aI, 0, var4, var2, var3, var4, var5, true);
                 }
             } catch (Exception var18) {
-                a.a = null;
+                a.a5 = null;
             }
 
             var1.translate(var8, var9);
@@ -3446,11 +3448,11 @@ public final class k extends a implements Runnable {
             return false;
         } else if (!n.s) {
             this.c(1);
-            n.b = false;
-            b.w = null;
-            n.c = null;
-            b.l = true;
-            b.b();
+            n.b12 = false;
+            b10.w = null;
+            n.c12 = null;
+            b10.l12 = true;
+            b10.b();
             return true;
         } else {
             this.c(5);
@@ -3506,7 +3508,7 @@ public final class k extends a implements Runnable {
     }
 
     private final void s(int var1) {
-        if (f.h) {
+        if (AssetManager.h1) {
             this.P();
 
             try {
@@ -3527,15 +3529,15 @@ public final class k extends a implements Runnable {
                 } catch (Exception var9) {
                 }
 
-                if ((var5 = j.x.a(var2) / 3) < this.f) {
-                    var5 = this.f;
+                if ((var5 = j.x.a(var2) / 3) < this.f10) {
+                    var5 = this.f10;
                 }
 
-                if (var5 > this.g) {
-                    var5 = this.g;
+                if (var5 > this.g10) {
+                    var5 = this.g10;
                 }
 
-                this.cs = f.n.a(var2, j.x, var5, true);
+                this.cs = AssetManager.instanceHandler.a(var2, j.x, var5, true);
                 boolean var6 = false;
                 int var7 = 0;
 
@@ -3566,7 +3568,7 @@ public final class k extends a implements Runnable {
 
     final void i() {
         l();
-        a.a = null;
+        a.a5 = null;
         this.eX = null;
         this.dR = null;
         this.ar = null;
@@ -3575,9 +3577,9 @@ public final class k extends a implements Runnable {
         this.ad = 0;
     }
 
-    final void j() {
-        Display.getDisplay(NET_Lizard.a).setCurrent(this);
-        aP = NET_Lizard.c;
+    final void runGameThread() {
+        Display.getDisplay(NET_Lizard.app).setCurrent(this);
+        aP = NET_Lizard.game;
         this.S = true;
         if (this.ez == null) {
             this.ez = new Thread(this);
@@ -3651,9 +3653,9 @@ public final class k extends a implements Runnable {
 
                         if (var3 >= 0 && var3 < 80) {
                             this.P();
-                            if (f.a[var3 + 32] <= 0) {
+                            if (AssetManager.a1[var3 + 32] <= 0) {
                                 this.s(var3);
-                                f.a[var3 + 32] = 1;
+                                AssetManager.a1[var3 + 32] = 1;
                                 this.eP = System.currentTimeMillis() + 333L;
                             }
                         }
@@ -4083,12 +4085,12 @@ public final class k extends a implements Runnable {
         boolean var1 = false;
         int var4 = 64 + var0 * 2;
         int var2;
-        if ((var2 = f.a[var4]) < 0) {
+        if ((var2 = AssetManager.a1[var4]) < 0) {
             var2 += 256;
         }
 
         int var3;
-        if ((var3 = f.a[var4 + 1]) < 0) {
+        if ((var3 = AssetManager.a1[var4 + 1]) < 0) {
             var3 += 256;
         }
 
@@ -4136,7 +4138,7 @@ public final class k extends a implements Runnable {
         }
 
         if (var1 == -7) {
-            var1 = this.d;
+            var1 = this.d10;
         }
 
         return var1;
@@ -4144,7 +4146,7 @@ public final class k extends a implements Runnable {
 
     protected final void keyPressed(int var1) {
         try {
-            var1 = a.a(var1);
+            var1 = a.standardizeKeyCodes(var1);
         } catch (Exception var3) {
         }
 
@@ -4178,11 +4180,11 @@ public final class k extends a implements Runnable {
                 }
 
                 if (var1 == -7) {
-                    var1 = this.d;
+                    var1 = this.d10;
                 }
 
                 boolean var2 = false;
-                if (var1 != 53 && var1 != 42 && var1 != this.d && var1 != 48 && !this.ae && !this.cC && !this.aW) {
+                if (var1 != 53 && var1 != 42 && var1 != this.d10 && var1 != 48 && !this.ae && !this.cC && !this.aW) {
                     this.bq = true;
                 } else {
                     this.bq = false;
@@ -4214,7 +4216,7 @@ public final class k extends a implements Runnable {
 
     protected final void keyReleased(int var1) {
         try {
-            var1 = a.a(var1);
+            var1 = a.standardizeKeyCodes(var1);
         } catch (Exception var3) {
         }
 
@@ -4286,17 +4288,17 @@ public final class k extends a implements Runnable {
                             this.ae = false;
                             break;
                         case 1:
-                            f.l = !f.l;
-                            if (!f.l) {
+                            AssetManager.l1 = !AssetManager.l1;
+                            if (!AssetManager.l1) {
                                 t();
                             } else {
-                                C(f.e - 1);
+                                C(AssetManager.e1 - 1);
                             }
 
                             aE();
                             break;
                         case 2:
-                            f.h = !f.h;
+                            AssetManager.h1 = !AssetManager.h1;
                             aE();
                             break;
                         case 3:
@@ -4368,7 +4370,7 @@ public final class k extends a implements Runnable {
                                 this.ae = false;
                                 this.ah = false;
                                 this.aw();
-                                f.c = 0;
+                                AssetManager.c1 = 0;
                                 aE();
                                 this.a(false);
                             } else {
@@ -4446,14 +4448,14 @@ public final class k extends a implements Runnable {
             }
 
         } else if (this.aC) {
-            if (this.aE && (this.br == 53 || this.br == this.d)) {
+            if (this.aE && (this.br == 53 || this.br == this.d10)) {
                 if (j.p) {
                     h.d();
                     h.G = 8L;
                     return;
                 }
 
-                if (this.ft) {
+                if (this.victory) {
                     if (!this.dA) {
                         this.ao();
                         if (this.aL) {
@@ -4476,7 +4478,7 @@ public final class k extends a implements Runnable {
             }
 
         } else {
-            if ((this.fi || this.fk) && (this.br == 53 || this.br == this.d)) {
+            if ((this.fi || this.fk) && (this.br == 53 || this.br == this.d10)) {
                 if (!this.fi) {
                     return;
                 }
@@ -4485,7 +4487,7 @@ public final class k extends a implements Runnable {
             }
 
             boolean var2 = (this.br == 53 && this.cC && this.ff > this.cU && this.ff < 100) | (this.br == 53 && this.cC && this.ff >= 123);
-            if (this.br == this.d || var2) {
+            if (this.br == this.d10 || var2) {
                 if (this.ff >= 0) {
                     if (this.ff == 123) {
                         try {
@@ -5119,18 +5121,18 @@ public final class k extends a implements Runnable {
                         }
                     }
 
-                    if (this.cs != null && c(0, var7, this.e, var8)) {
+                    if (this.cs != null && c(0, var7, this.e10, var8)) {
                         var2 = false;
                         this.G(53);
                     } else if (this.aO && this.dB) {
-                        if (this.cC && c(0, var7, this.e, var8)) {
+                        if (this.cC && c(0, var7, this.e10, var8)) {
                             var2 = false;
-                            this.G(this.d);
-                        } else if (!this.cC && !this.ae && this.cs == null && (this.ff == 122 || this.ff == 121) && c(0, var7, this.e, var8)) {
+                            this.G(this.d10);
+                        } else if (!this.cC && !this.ae && this.cs == null && (this.ff == 122 || this.ff == 121) && c(0, var7, this.e10, var8)) {
                             var2 = false;
-                            this.G(this.d);
+                            this.G(this.d10);
                         } else if (!this.cC && !this.ae && this.cs == null) {
-                            if (d(0, var7, this.e, var8)) {
+                            if (d(0, var7, this.e10, var8)) {
                                 this.fy = (this.fJ * this.ej + fF - this.cm) / this.ej;
                                 this.fQ = (this.gd * this.eg + fZ - this.cn - var7) / this.eg;
                                 if (this.ff >= 123) {
@@ -5157,7 +5159,7 @@ public final class k extends a implements Runnable {
                                 this.fR = this.fQ;
                                 this.fA = this.fy;
                                 this.fS = this.fQ;
-                            } else if ((this.ff > this.cU && this.ff < 100 || this.ff >= 123) && b(0, var7, this.e, var8)) {
+                            } else if ((this.ff > this.cU && this.ff < 100 || this.ff >= 123) && b(0, var7, this.e10, var8)) {
                                 this.fy = (this.fJ * this.ej + fF - this.cm) / this.ej;
                                 this.fQ = (this.gd * this.eg + fZ - this.cn - var7) / this.eg;
                                 if (this.ff >= 123) {
@@ -5186,7 +5188,7 @@ public final class k extends a implements Runnable {
                                 this.fS = this.fQ;
                             }
 
-                            if (c(0, var7, this.e, var8)) {
+                            if (c(0, var7, this.e10, var8)) {
                                 var2 = false;
                                 this.fy = (this.fJ * this.ej + fF - this.cm) / this.ej;
                                 this.fQ = (this.gd * this.eg + fZ - this.cn - var7) / this.eg;
@@ -5240,12 +5242,12 @@ public final class k extends a implements Runnable {
                     }
 
                     (new StringBuffer()).append("").append(fF).append(" ").append(fZ).toString();
-                    if (d(this.e / 3, var1 - var3, this.e / 3, var3)) {
+                    if (d(this.e10 / 3, var1 - var3, this.e10 / 3, var3)) {
                         this.x(this.br = 42);
                         this.eD = this.eA;
                     }
 
-                    if (d(0, var1 - var3, this.e / 3, var3)) {
+                    if (d(0, var1 - var3, this.e10 / 3, var3)) {
                         this.x(this.br = 53);
                         this.eD = this.eA;
                     }
@@ -5254,7 +5256,7 @@ public final class k extends a implements Runnable {
                         var3 = this.dH;
                     }
 
-                    if (d(this.e - this.e / 3, var1 - var3, this.e / 3, var3)) {
+                    if (d(this.e10 - this.e10 / 3, var1 - var3, this.e10 / 3, var3)) {
                         this.x(this.br = 35);
                         this.eD = this.eA;
                         this.eD = this.eA;
@@ -5330,11 +5332,11 @@ public final class k extends a implements Runnable {
     }
 
     private void ai() {
-        N = f.a(this.cJ, N, false);
+        N = AssetManager.getRecordFromRecordStore(this.cJ, N, false);
     }
 
     static void k() {
-        f.e = N[9];
+        AssetManager.e1 = N[9];
     }
 
     private final void aj() {
@@ -5383,14 +5385,14 @@ public final class k extends a implements Runnable {
 
             this.D = 0;
             if (this.aQ != null) {
-                this.aQ.h = false;
+                this.aQ.h2 = false;
             }
 
             if (var1 == null) {
                 return true;
             }
 
-            if (var1[9] != f.e || var1[8] == 0 || cP) {
+            if (var1[9] != AssetManager.e1 || var1[8] == 0 || cP) {
                 return true;
             }
 
@@ -5485,7 +5487,7 @@ public final class k extends a implements Runnable {
             this.D = var1[var4];
             ++var4;
             if (this.aQ != null) {
-                this.aQ.h = var1[var4] > 0;
+                this.aQ.h2 = var1[var4] > 0;
             }
 
             ++var4;
@@ -5531,8 +5533,8 @@ public final class k extends a implements Runnable {
     }
 
     private final boolean ak() {
-        f.a();
-        byte[] var1 = f.a;
+        AssetManager.a();
+        byte[] var1 = AssetManager.a1;
         if (cy) {
             if (this.cx) {
                 var1 = N;
@@ -5546,14 +5548,14 @@ public final class k extends a implements Runnable {
 
     private void al() {
         if (cy) {
-            if (this.aO && this.dB && !n.g) {
+            if (this.aO && this.dB && !n.g12) {
                 this.aD();
                 this.ao();
                 this.c(3);
             }
 
-            if (n.r && n.g) {
-                if (b.h[0] == 125 && n.b) {
+            if (n.r && n.g12) {
+                if (b10.h12[0] == 125 && n.b12) {
                     this.d();
                     return;
                 }
@@ -5564,7 +5566,7 @@ public final class k extends a implements Runnable {
                 int var6;
                 try {
                     int var2;
-                    if ((var2 = (var1 = b.h).length) > ai) {
+                    if ((var2 = (var1 = b10.h12).length) > ai) {
                         var2 = ai;
                     }
 
@@ -5683,7 +5685,7 @@ public final class k extends a implements Runnable {
                         int var32;
                         if (var4 == 21) {
                             this.bn = true;
-                            this.m = 0;
+                            this.m10 = 0;
                             this.bK = 0;
                             if (!this.A()) {
                                 byte[] var31 = ac;
@@ -5866,7 +5868,7 @@ public final class k extends a implements Runnable {
                 }
 
                 try {
-                    var1 = b.i;
+                    var1 = b10.i12;
                     byte[] var27 = ac;
                     var3 = 0;
                     int var28;
@@ -5920,20 +5922,20 @@ public final class k extends a implements Runnable {
                         var1[var29] = 0;
                     }
 
-                    if ((var6 = this.m - var3) > 0) {
+                    if ((var6 = this.m10 - var3) > 0) {
                         byte[] var30 = new byte[var5];
                         System.arraycopy(var27, var3, var30, 0, var6);
                         ac = var30;
                     }
 
                     if (var3 == 0) {
-                        this.m = 0;
+                        this.m10 = 0;
                         this.bK = 0;
                     }
 
-                    this.m -= var3;
-                    if (this.m < 0) {
-                        this.m = 0;
+                    this.m10 -= var3;
+                    if (this.m10 < 0) {
+                        this.m10 = 0;
                     }
 
                     this.bK -= var3;
@@ -5987,7 +5989,7 @@ public final class k extends a implements Runnable {
     private void an() {
         this.bp = 0;
         this.el = this.ej;
-        this.m = 0;
+        this.m10 = 0;
         this.bK = 0;
         this.o = 0;
         aj = dz;
@@ -5998,8 +6000,8 @@ public final class k extends a implements Runnable {
         this.ab = 0;
         this.fw = 0;
         this.fO = 0;
-        c.g = 0;
-        c.n = null;
+        c.g2 = 0;
+        c.n2 = null;
         this.bT = 255;
         this.aA = null;
         this.dA = false;
@@ -6007,7 +6009,7 @@ public final class k extends a implements Runnable {
         this.aC = false;
         this.aD = false;
         this.aE = false;
-        this.ft = false;
+        this.victory = false;
         this.aL = false;
         this.aF = 0;
         this.aG = 0;
@@ -6032,7 +6034,7 @@ public final class k extends a implements Runnable {
         this.dB = false;
         this.fi = false;
         if (this.aQ != null) {
-            this.aQ.h = false;
+            this.aQ.h2 = false;
         }
 
         this.aF();
@@ -6040,14 +6042,14 @@ public final class k extends a implements Runnable {
 
         try {
             if (cy) {
-                var3 = f.n.a("lm" + f.e, -1);
+                var3 = AssetManager.instanceHandler.readDataChunkFromFile("lm" + AssetManager.e1, -1);
             }
         } catch (Exception var22) {
         }
 
         try {
             if (var3 == null || var3.length <= 0) {
-                var3 = f.n.a("ll" + f.e, -1);
+                var3 = AssetManager.instanceHandler.readDataChunkFromFile("ll" + AssetManager.e1, -1);
             }
         } catch (Exception var23) {
         }
@@ -6059,7 +6061,7 @@ public final class k extends a implements Runnable {
             }
 
             byte[] var4 = var3;
-            var3 = f.n.a("mn", this.ce.length * this.ce[0].length);
+            var3 = AssetManager.instanceHandler.readDataChunkFromFile("mn", this.ce.length * this.ce[0].length);
             int var2 = 0;
 
             for(this.cT = 0; this.cT < this.ce[0].length; ++this.cT) {
@@ -6073,8 +6075,8 @@ public final class k extends a implements Runnable {
             this.fX = a(var4[1]) - 1;
             this.y = this.fE <= 0 || this.fX <= 0;
             if (this.y) {
-                this.fE = 23 + f.e * 2;
-                this.fX = 23 + f.e * 2;
+                this.fE = 23 + AssetManager.e1 * 2;
+                this.fX = 23 + AssetManager.e1 * 2;
             }
 
             if (ey) {
@@ -6139,14 +6141,14 @@ public final class k extends a implements Runnable {
             this.K();
             if (this.v == null) {
                 try {
-                    this.v = f.a("/ar.png");
+                    this.v = AssetManager.readImageFromFilePNG("/ar.png");
                 } catch (Exception var20) {
                 }
             }
 
             if (this.au == null) {
                 try {
-                    this.au = f.a("/d.png");
+                    this.au = AssetManager.readImageFromFilePNG("/d.png");
                 } catch (Exception var19) {
                 }
             }
@@ -6158,7 +6160,7 @@ public final class k extends a implements Runnable {
             for(int var11 = 0; var11 < this.ar.length; ++var11) {
                 if (this.ar[var11] == null) {
                     try {
-                        this.ar[var11] = f.a("/crv" + var11 + ".png");
+                        this.ar[var11] = AssetManager.readImageFromFilePNG("/crv" + var11 + ".png");
                     } catch (Exception var18) {
                     }
                 }
@@ -6168,7 +6170,7 @@ public final class k extends a implements Runnable {
                 try {
                     this.dH = j.x.b() + 5;
                     boolean var12 = false;
-                    int var13 = j.x.b() - j.x.f + 4 + 2;
+                    int var13 = j.x.b() - j.x.f3 + 4 + 2;
 
                     try {
                         if (this.R != null && var13 < this.R[3][130] + 2) {
@@ -6194,7 +6196,7 @@ public final class k extends a implements Runnable {
             this.ge = this.gd;
             if (this.bR <= 0) {
                 this.bJ = 0;
-                this.bR = this.e;
+                this.bR = this.e10;
             }
 
             while(this.bJ < this.bR) {
@@ -6207,7 +6209,7 @@ public final class k extends a implements Runnable {
                 this.dE = false;
             }
 
-            if (!cy || n.g && this.er) {
+            if (!cy || n.g12 && this.er) {
                 this.c(-1);
                 this.br = 0;
                 this.aa();
@@ -6219,7 +6221,7 @@ public final class k extends a implements Runnable {
                 this.dB = true;
                 this.G();
                 this.dh = 0L;
-                C(f.e - 1);
+                C(AssetManager.e1 - 1);
             } else {
                 this.ao();
             }
@@ -6253,8 +6255,8 @@ public final class k extends a implements Runnable {
     private final void ao() {
         l();
         this.cs = null;
-        c.g = 0;
-        c.n = null;
+        c.g2 = 0;
+        c.n2 = null;
         this.ae = false;
         this.cC = false;
         this.aW = false;
@@ -6263,9 +6265,9 @@ public final class k extends a implements Runnable {
         this.dR = null;
         this.v = null;
         this.au = null;
-        a.a = null;
+        a.a5 = null;
         this.ar = null;
-        if (b != null && n.g) {
+        if (b10 != null && n.g12) {
             this.d();
         }
 
@@ -6288,7 +6290,7 @@ public final class k extends a implements Runnable {
             long var1;
             if ((var1 = System.currentTimeMillis()) - this.cw >= 2048L) {
                 if (this.aO) {
-                    if (!cy || b == null || this.A()) {
+                    if (!cy || b10 == null || this.A()) {
                         this.cw = var1;
                         byte var3 = 8;
                         if (cy) {
@@ -6307,11 +6309,11 @@ public final class k extends a implements Runnable {
                                 }
 
                                 if (this.q() < 7 && !cy) {
-                                    var4 = this.fJ + Math.abs(this.gg.nextInt() % this.fC);
-                                    var5 = this.gd + Math.abs(this.gg.nextInt() % this.fV);
+                                    var4 = this.fJ + Math.abs(this.randomGenerator.nextInt() % this.fC);
+                                    var5 = this.gd + Math.abs(this.randomGenerator.nextInt() % this.fV);
                                 } else {
-                                    var4 = Math.abs(this.gg.nextInt() % this.fE);
-                                    var5 = Math.abs(this.gg.nextInt() % this.fX);
+                                    var4 = Math.abs(this.randomGenerator.nextInt() % this.fE);
+                                    var5 = Math.abs(this.randomGenerator.nextInt() % this.fX);
                                 }
 
                                 try {
@@ -7082,15 +7084,15 @@ public final class k extends a implements Runnable {
             var15 = var8 * var6;
             var14 = var7;
             var5 = this.aM - this.dH - var15 - this.cT * 3;
-            var4 = this.e - var7;
+            var4 = this.e10 - var7;
         }
 
-        var1.setClip(0, 0, this.e, this.aM - this.dH);
+        var1.setClip(0, 0, this.e10, this.aM - this.dH);
         var1.setColor(0);
         var1.fillRect(var4, var5, var14, var15);
         var1.setColor(16340729);
         int var11 = this.bx;
-        this.bx = this.c;
+        this.bx = this.c10;
         int var12 = var1.getTranslateY();
         ++var4;
 
@@ -7145,7 +7147,7 @@ public final class k extends a implements Runnable {
         dt = false;
         cZ = true;
         if (dF) {
-            h = false;
+            h10 = false;
         }
 
     }
@@ -7393,7 +7395,7 @@ public final class k extends a implements Runnable {
         int var1 = 0;
 
         try {
-            if (this.c >= 127) {
+            if (this.c10 >= 127) {
                 var1 = j.x.b() / 8;
             }
         } catch (Exception var3) {
@@ -7404,7 +7406,7 @@ public final class k extends a implements Runnable {
 
     private static byte j(int var0, int var1) {
         boolean var2 = false;
-        int var4 = (byte)((f.e ^ 1365) * f.e + (var0 ^ 1365) * var1 + (var1 ^ 1365) * var0);
+        int var4 = (byte)((AssetManager.e1 ^ 1365) * AssetManager.e1 + (var0 ^ 1365) * var1 + (var1 ^ 1365) * var0);
         int var5 = Math.abs(var0 + var1);
 
         for(int var6 = 0; var6 <= var5; ++var6) {
@@ -7463,7 +7465,7 @@ public final class k extends a implements Runnable {
         return var8;
     }
 
-    public final void paint(Graphics var1) {
+    public final void paint(Graphics graphics) {
         if (!eu) {
             try {
                 if (this.dQ < 0) {
@@ -7474,12 +7476,12 @@ public final class k extends a implements Runnable {
                 }
 
                 if (this.dQ <= 0) {
-                    this.g(var1);
+                    this.g(graphics);
                     return;
                 }
 
                 if (this.dP == null) {
-                    this.dP = Image.createImage(this.e, this.c);
+                    this.dP = Image.createImage(this.e10, this.c10);
                 }
 
                 if (this.aN == null) {
@@ -7487,7 +7489,7 @@ public final class k extends a implements Runnable {
                 }
 
                 this.g(this.aN);
-                var1.drawImage(this.dP, 0, 0, 20);
+                graphics.drawImage(this.dP, 0, 0, 20);
             } catch (Exception var3) {
             }
 
@@ -7513,7 +7515,7 @@ public final class k extends a implements Runnable {
         if (!h.a(var1)) {
             try {
                 var1.translate(-var1.getTranslateX(), -var1.getTranslateY());
-                var1.setClip(0, 0, this.e, this.getHeight());
+                var1.setClip(0, 0, this.e10, this.getHeight());
             } catch (Exception var6) {
             }
 
@@ -7522,7 +7524,7 @@ public final class k extends a implements Runnable {
                     try {
                         if (this.dm) {
                             var1.setColor(0);
-                            var1.fillRect(0, 0, this.e, this.c);
+                            var1.fillRect(0, 0, this.e10, this.c10);
                             j.a(var1, r[3][3], false);
                         }
 
@@ -7598,7 +7600,7 @@ public final class k extends a implements Runnable {
                 }
 
                 this.k(var1);
-                var1.setClip(0, 0, this.e, this.c);
+                var1.setClip(0, 0, this.e10, this.c10);
                 if (aR) {
                     j.x.a(var1, "" + this.dk, 1, this.bx - 1 - j.x.b(), 20);
                 }
@@ -7648,13 +7650,13 @@ public final class k extends a implements Runnable {
     }
 
     private static void C(int var0) {
-        if (f.l) {
+        if (AssetManager.l1) {
             if (m.y == null) {
                 boolean var1 = cq;
                 cq = false;
                 aP.aw();
                 cq = var1;
-                m.a(NET_Lizard.c);
+                m.a(NET_Lizard.game);
                 if (m.u == null) {
                     m.a();
                 }
@@ -7940,7 +7942,7 @@ public final class k extends a implements Runnable {
     }
 
     static int f(int var0) {
-        if (cy && !n.b) {
+        if (cy && !n.b12) {
             if (var0 == 1) {
                 var0 = 2;
             } else if (var0 == 2) {
@@ -8003,8 +8005,8 @@ public final class k extends a implements Runnable {
     static final int n() {
         try {
             int var0 = j.x.b() + 2;
-            if (NET_Lizard.c.v()) {
-                int var1 = NET_Lizard.c.getHeight() >> 3;
+            if (NET_Lizard.game.v()) {
+                int var1 = NET_Lizard.game.getHeight() >> 3;
                 if (var0 < var1) {
                     var0 = var1;
                 }
@@ -8140,19 +8142,19 @@ public final class k extends a implements Runnable {
             int var5 = this.fU + 2;
             int var6 = this.fB + 2;
             int var7 = var5 - this.dG;
-            this.bx = this.c - this.dH;
+            this.bx = this.c10 - this.dH;
             this.fY = this.bx - j.x.b();
-            var1.setClip(0, 0, this.e, this.c);
+            var1.setClip(0, 0, this.e10, this.c10);
             var1.setColor(191, 178, 177);
             if (this.R[2][0] < this.ej || this.R[3][0] < this.eg) {
-                var1.fillRect(0, 0, this.e, this.c);
+                var1.fillRect(0, 0, this.e10, this.c10);
             }
 
             var1.setColor(0);
             if (this.dy) {
-                var1.fillRect(0, this.bx, this.e, this.dH);
+                var1.fillRect(0, this.bx, this.e10, this.dH);
                 int var9 = this.bx;
-                this.bx = this.c;
+                this.bx = this.c10;
                 if (!this.ae) {
                     this.d(var1, 132, 3, var9 + this.dI + 1, 6);
                 }
@@ -8160,20 +8162,20 @@ public final class k extends a implements Runnable {
                 this.bx = var9;
                 this.dY = 0 + this.R[2][132];
                 var1.setColor(249, 86, 249);
-                var1.drawLine(0, this.bx, this.e, this.bx);
+                var1.drawLine(0, this.bx, this.e10, this.bx);
                 var1.setColor(105, 35, 105);
-                var1.drawLine(0, this.bx + 1, this.e, this.bx + 1);
+                var1.drawLine(0, this.bx + 1, this.e10, this.bx + 1);
             }
 
             var1.setColor(0);
-            var1.setClip(0, 0, this.e, this.bx);
+            var1.setClip(0, 0, this.e10, this.bx);
             this.a(var1, -1, -1, var6, var7, true, false, false);
             this.a(var1, -1, -1, var6, var7, false, true, false);
             this.l(var1);
             this.j(var1);
             this.a(var1, -1, -1, var6, var7, true, false, true);
             var1.setColor(0);
-            var1.setFont(j.y);
+            var1.setFont(j.defaultFont);
             this.b(var1);
             if (this.ct != null) {
                 this.a(var1, this.ct);
@@ -8193,15 +8195,15 @@ public final class k extends a implements Runnable {
             this.o(var1);
             this.r(var1);
             var1.translate(-var1.getTranslateX(), -var1.getTranslateY());
-            var1.setClip(0, 0, this.e, this.c);
+            var1.setClip(0, 0, this.e10, this.c10);
         }
     }
 
     private final void az() {
-        for(int var1 = 0; var1 < 3 && !this.dD && n.g; ++var1) {
+        for(int var1 = 0; var1 < 3 && !this.dD && n.g12; ++var1) {
             this.f(33, 0, 0, 0);
 
-            while(this.m > 0 && n.g) {
+            while(this.m10 > 0 && n.g12) {
                 this.bK = 1;
                 this.al();
 
@@ -8212,14 +8214,14 @@ public final class k extends a implements Runnable {
             }
         }
 
-        if (this.dD && n.g) {
+        if (this.dD && n.g12) {
             this.aw();
         }
 
-        while(this.dD && n.g) {
+        while(this.dD && n.g12) {
             this.f(33, 0, 0, 0);
 
-            while(this.m > 0 && n.g) {
+            while(this.m10 > 0 && n.g12) {
                 this.bK = 1;
                 this.al();
 
@@ -8273,15 +8275,15 @@ public final class k extends a implements Runnable {
                         boolean var7;
                         if (var2 < 50) {
                             var6 = var5;
-                            var7 = this.i;
+                            var7 = this.i10;
                         } else {
                             if (var2 < 70) {
-                                var5 |= this.i && this.j;
+                                var5 |= this.i10 && this.j10;
                                 break label135;
                             }
 
                             if (var2 < 90) {
-                                var5 |= this.i && this.j && this.k;
+                                var5 |= this.i10 && this.j10 && this.k10;
                                 break label135;
                             }
 
@@ -8290,13 +8292,13 @@ public final class k extends a implements Runnable {
                             }
 
                             var6 = var5;
-                            var7 = this.i && this.j && this.k && this.l;
+                            var7 = this.i10 && this.j10 && this.k10 && this.l10;
                         }
 
                         var5 = var6 | var7;
                     }
 
-                    if (var2 <= 18 && !this.i) {
+                    if (var2 <= 18 && !this.i10) {
                         this.c(8, this.bZ[1][var1] + var3, this.bZ[2][var1] + var4);
                     }
 
@@ -8308,13 +8310,13 @@ public final class k extends a implements Runnable {
         }
 
         if (this.aZ == 0) {
-            this.i = !this.i;
-            if (!this.i) {
-                this.j = !this.j;
-                if (!this.j) {
-                    this.k = !this.k;
-                    if (!this.k) {
-                        this.l = !this.l;
+            this.i10 = !this.i10;
+            if (!this.i10) {
+                this.j10 = !this.j10;
+                if (!this.j10) {
+                    this.k10 = !this.k10;
+                    if (!this.k10) {
+                        this.l10 = !this.l10;
                     }
                 }
             }
@@ -8372,11 +8374,11 @@ public final class k extends a implements Runnable {
                     this.cC = false;
                     this.aW = false;
                     this.aC = true;
-                    this.ft = var3 > 0;
+                    this.victory = var3 > 0;
                     this.dZ = -1;
                     if (cy) {
-                        if (this.ft) {
-                            this.F(f.e);
+                        if (this.victory) {
+                            this.F(AssetManager.e1);
                             this.h(3);
                         } else {
                             this.h(4);
@@ -8384,40 +8386,40 @@ public final class k extends a implements Runnable {
 
                         this.dA = false;
                         this.aM();
-                        b.a();
-                        b.w = null;
-                        n.c = null;
+                        b10.a();
+                        b10.w = null;
+                        n.c12 = null;
                     } else {
-                        if (this.ft) {
-                            this.F(f.e);
-                            f.k = true;
+                        if (this.victory) {
+                            this.F(AssetManager.e1);
+                            AssetManager.k1 = true;
                             this.h(3);
-                            ++f.e;
-                            if (f.e > f.f) {
-                                f.f = f.e;
+                            ++AssetManager.e1;
+                            if (AssetManager.e1 > AssetManager.f1) {
+                                AssetManager.f1 = AssetManager.e1;
                             }
 
-                            if (f.f > bP) {
-                                f.f = bP;
-                                f.e = f.f;
-                                f.c = 0;
-                                f.e = 1;
-                                f.g = 0;
+                            if (AssetManager.f1 > bP) {
+                                AssetManager.f1 = bP;
+                                AssetManager.e1 = AssetManager.f1;
+                                AssetManager.c1 = 0;
+                                AssetManager.e1 = 1;
+                                AssetManager.g1 = 0;
                                 this.aL = true;
                                 this.dA = false;
                             } else {
                                 this.aL = false;
                                 this.dA = true;
                                 this.dA = false;
-                                this.i(f.e);
+                                this.i(AssetManager.e1);
                             }
                         } else {
                             this.h(4);
                             this.dA = true;
                         }
 
-                        if (this.ft && !j.bD) {
-                            f.k = true;
+                        if (this.victory && !j.bD) {
+                            AssetManager.k1 = true;
                         }
 
                         this.dM = true;
@@ -8432,7 +8434,7 @@ public final class k extends a implements Runnable {
         if (this.x[2] != null) {
             int var6 = this.x[2].getWidth();
             int var7 = this.x[2].getHeight() >> 1;
-            int var8 = this.f - (var6 >> 1);
+            int var8 = this.f10 - (var6 >> 1);
             int var9 = 0;
             Image var10 = this.x[2];
             if (var5) {
@@ -8444,7 +8446,7 @@ public final class k extends a implements Runnable {
 
             var1.setClip(var8, var2, var6, var7);
             var1.drawImage(var10, var8, var2 - var9, 20);
-            var1.setClip(0, 0, this.e, this.c);
+            var1.setClip(0, 0, this.e10, this.c10);
             if (d(var8, var2, var6, var7) && ds) {
                 if (var5) {
                     this.G(56);
@@ -8452,7 +8454,7 @@ public final class k extends a implements Runnable {
                     this.G(50);
                 }
 
-                h = false;
+                h10 = false;
             }
 
         } else {
@@ -8466,7 +8468,7 @@ public final class k extends a implements Runnable {
                 var2 -= var3;
             }
 
-            j.a(var1, this.f, var2, var3 << 1, var3, var5);
+            j.a(var1, this.f10, var2, var3 << 1, var3, var5);
         }
     }
 
@@ -8529,17 +8531,17 @@ public final class k extends a implements Runnable {
             var1.translate(-var2, -var3);
             int var4 = this.bx;
             this.bx = this.aM;
-            var1.setClip(0, this.fT, this.e, this.aM);
+            var1.setClip(0, this.fT, this.e10, this.aM);
             if (!this.z && !this.ae) {
                 if (this.dB && !this.aC && !this.ae && !this.cC && this.ff != 122 && this.ff != 121 && !this.aY && !this.fi && !this.fk) {
-                    this.d(var1, 142, this.e - this.R[2][142], this.fT + this.aM - this.dH - this.R[3][142], 20);
+                    this.d(var1, 142, this.e10 - this.R[2][142], this.fT + this.aM - this.dH - this.R[3][142], 20);
                 }
             } else if (this.v != null) {
                 if (this.ae) {
                     var1.drawImage(this.v, -(this.v.getWidth() >> 1), this.fT + this.aM - this.v.getHeight(), 20);
                 }
 
-                var1.drawImage(this.v, this.e - (this.v.getWidth() >> 1), this.fT + this.aM - this.v.getHeight(), 20);
+                var1.drawImage(this.v, this.e10 - (this.v.getWidth() >> 1), this.fT + this.aM - this.v.getHeight(), 20);
             }
 
             this.bx = var4;
@@ -8587,7 +8589,7 @@ public final class k extends a implements Runnable {
 
             try {
                 byte[] var7;
-                if ((var7 = f.n.a("cufr", -1)) != null && var7.length > 0) {
+                if ((var7 = AssetManager.instanceHandler.readDataChunkFromFile("cufr", -1)) != null && var7.length > 0) {
                     var8 = 0;
 
                     for(var9 = 0; var9 < this.bu * 4; ++var9) {
@@ -8604,8 +8606,8 @@ public final class k extends a implements Runnable {
         int var14 = (this.ch[0][var1] - 1) * 4 + var6;
         var8 = var4 * this.ej + this.ch[3][var1] + this.ek + this.an[0][var14];
         var9 = var5 * this.eg + this.ch[4][var1] + this.eh + this.an[1][var14];
-        boolean var15 = var8 > 0 && var8 < this.e && var9 > 0 && var9 < this.bx;
-        boolean var11 = var2 > 0 && var2 < this.e && var3 > 0 && var3 < this.bx;
+        boolean var15 = var8 > 0 && var8 < this.e10 && var9 > 0 && var9 < this.bx;
+        boolean var11 = var2 > 0 && var2 < this.e10 && var3 > 0 && var3 < this.bx;
         if (var15 || var11) {
             for(int var12 = 0; var12 < this.cU; ++var12) {
                 if (this.bY[0][var12] <= 0) {
@@ -8690,13 +8692,13 @@ public final class k extends a implements Runnable {
     }
 
     private final void c(Graphics var1, int var2, int var3, int var4, int var5) {
-        var1.setClip(0, 0, this.e, this.bx);
+        var1.setClip(0, 0, this.e10, this.bx);
         boolean var10 = false;
         boolean var11 = false;
         int var13 = 0 + this.cm;
         int var14 = 0 + this.cn;
-        int var8 = var4 + this.gg.nextInt() % 5;
-        int var9 = var5 + this.gg.nextInt() % 5;
+        int var8 = var4 + this.randomGenerator.nextInt() % 5;
+        int var9 = var5 + this.randomGenerator.nextInt() % 5;
         this.a(var1, 89, var2 + var13, var3 + var14, false, true);
         this.a(var1, 90, var8 + var13, var9 + var14, false, true);
     }
@@ -8752,11 +8754,11 @@ public final class k extends a implements Runnable {
         int var2 = this.getHeight();
         int var3 = this.bS;
         boolean var4 = false;
-        var1.setClip(0, 0, this.e, var2);
+        var1.setClip(0, 0, this.e10, var2);
         int var5 = var2;
         if (this.cr != null && this.cr.aZ != null) {
             var5 = var2 - j.bM - this.cr.aZ.getHeight();
-            var1.drawImage(this.cr.aZ, this.f, var5, 17);
+            var1.drawImage(this.cr.aZ, this.f10, var5, 17);
         }
 
         int var6;
@@ -8770,25 +8772,25 @@ public final class k extends a implements Runnable {
             }
 
             var13 = (var2 - (this.bk.getHeight() + var6) >> 1) - j.A.b();
-            var1.setClip(0, 0, this.e, var2);
-            var1.drawImage(this.bk, this.f, var13, 17);
-            var1.setClip(0, var13 + this.fq - this.fr, this.e, this.fr);
-            var1.drawImage(this.bl, this.f, var13, 17);
-            var1.setClip(0, 0, this.e, var2);
+            var1.setClip(0, 0, this.e10, var2);
+            var1.drawImage(this.bk, this.f10, var13, 17);
+            var1.setClip(0, var13 + this.fq - this.fr, this.e10, this.fr);
+            var1.drawImage(this.bl, this.f10, var13, 17);
+            var1.setClip(0, 0, this.e10, var2);
             j.a(var1, j.A, (var5 - (var13 + this.bk.getHeight()) >> 1) + var13 + this.bk.getHeight());
             if (this.bm != null) {
-                var1.drawImage(this.bm, this.f, var13 + this.bk.getHeight() + this.bm.getHeight(), 17);
+                var1.drawImage(this.bm, this.f10, var13 + this.bk.getHeight() + this.bm.getHeight(), 17);
             } else {
-                j.A.a(var1, r[1][0], this.f, var13 + this.bk.getHeight() + j.A.b(), 17);
+                j.A.a(var1, r[1][0], this.f10, var13 + this.bk.getHeight() + j.A.b(), 17);
             }
         } else {
             int var7 = (var13 = (var6 = var2 - j.A.b() * 2) - var3 * 2) - var3;
             if (this.bJ == 0) {
-                a.a(var1, 0, var7, this.e, var2 - var7, 0, 128);
+                a.a(var1, 0, var7, this.e10, var2 - var7, 0, 128);
             }
 
             j.a(var1, j.A, var6);
-            var1.setClip(0, 0, this.e, var2);
+            var1.setClip(0, 0, this.e10, var2);
             var1.setColor(0, 188, 204);
             var1.fillRect(this.fN, var13, this.fq, var3);
             var1.setColor(0, 85, 99);
@@ -8828,7 +8830,7 @@ public final class k extends a implements Runnable {
                 var3 += this.R[4][var6];
                 var4 += this.R[5][var6];
                 int var7 = this.bx;
-                int var8 = this.e;
+                int var8 = this.e10;
                 if (var5 != 20) {
                     var7 += this.R[3][var6];
                     var8 += this.R[2][var6];
@@ -8856,8 +8858,8 @@ public final class k extends a implements Runnable {
                             }
                         }
 
-                        if (var9 > this.e - var3) {
-                            var9 = this.e - var3;
+                        if (var9 > this.e10 - var3) {
+                            var9 = this.e10 - var3;
                         }
 
                         if (var10 > this.bx - var4) {
@@ -9158,7 +9160,7 @@ public final class k extends a implements Runnable {
     }
 
     private final void o(Graphics var1) {
-        int var5 = j.x.b() - j.x.f + 4 + 2;
+        int var5 = j.x.b() - j.x.f3 + 4 + 2;
 
         try {
             if (this.R != null && var5 < this.R[3][130] + 2) {
@@ -9168,7 +9170,7 @@ public final class k extends a implements Runnable {
         }
 
         this.dJ = var5;
-        if (!this.cC && d(0, 0, this.f, var5) && !this.fi && !this.cC && this.eA - this.eD > 500L) {
+        if (!this.cC && d(0, 0, this.f10, var5) && !this.fi && !this.cC && this.eA - this.eD > 500L) {
             this.x(48);
             aV();
             this.eD = this.eA;
@@ -9176,17 +9178,17 @@ public final class k extends a implements Runnable {
 
         try {
             var1.translate(-var1.getTranslateX(), -var1.getTranslateY());
-            this.c = this.getHeight();
+            this.c10 = this.getHeight();
             int var8 = this.bx;
-            this.bx = this.c;
-            var1.setClip(0, 0, this.e, this.c);
-            int var9 = var5 - 1 - (j.x.b() - j.x.f) >> 1;
+            this.bx = this.c10;
+            var1.setClip(0, 0, this.e10, this.c10);
+            int var9 = var5 - 1 - (j.x.b() - j.x.f3) >> 1;
             var1.setColor(0);
-            var1.fillRect(0, 0, this.e, var5);
+            var1.fillRect(0, 0, this.e10, var5);
             var1.setColor(j.z);
             String var10 = String.valueOf(this.cv[1]);
             int var11 = j.x.a(var10);
-            int var12 = this.e - 2 - var11;
+            int var12 = this.e10 - 2 - var11;
             j.x.a(var1, var10, var12, var9, 20);
             var12 -= 3;
             this.d(var1, 130, var12 - this.R[2][130], var5 - 0 - this.R[3][130] >> 1, 20);
@@ -9213,15 +9215,15 @@ public final class k extends a implements Runnable {
             var12 = 2 + this.R[2][131] + 2;
             j.x.a(var1, this.eB, var12, var9, 20);
             var1.setColor(249, 86, 249);
-            var1.fillRect(0, var5 - 1, this.e, 1);
+            var1.fillRect(0, var5 - 1, this.e10, 1);
             var1.setColor(105, 35, 105);
-            var1.fillRect(0, var5 - 2, this.e, 1);
+            var1.fillRect(0, var5 - 2, this.e10, 1);
             var1.translate(-var1.getTranslateX(), -var1.getTranslateY() + var5);
             this.bx = var8;
         } catch (Exception var14) {
         }
 
-        this.c = this.getHeight() - var5;
+        this.c10 = this.getHeight() - var5;
     }
 
     private final void a(Graphics var1, int var2, int var3, int var4, boolean var5, boolean var6, boolean var7) {
@@ -9270,8 +9272,8 @@ public final class k extends a implements Runnable {
                     var13 = this.bx - var4;
                 }
 
-                if (var3 + var12 > this.e) {
-                    var12 = this.e - var3;
+                if (var3 + var12 > this.e10) {
+                    var12 = this.e10 - var3;
                 }
 
                 if (var12 > 0 && var13 > 0 && var3 > -var12 && var4 > -var13) {
@@ -9291,7 +9293,7 @@ public final class k extends a implements Runnable {
     }
 
     final int q() {
-        return Math.abs(this.gg.nextInt() % 100);
+        return Math.abs(this.randomGenerator.nextInt() % 100);
     }
 
     private final void b(Graphics var1, int var2) {
@@ -9316,6 +9318,7 @@ public final class k extends a implements Runnable {
         aK = false;
         h.a(this, j.x);
         j.p = h.b(j.p);
+        // TODO: Check the failure
         if (h.a()) {
             NET_Lizard.a();
         } else {
@@ -9324,33 +9327,33 @@ public final class k extends a implements Runnable {
             this.aQ = new c(this);
 
             try {
-                r = f.n.e(a(this.aH[3]));
+                r = AssetManager.instanceHandler.e(a(this.aH[3]));
                 cR = false;
-            } catch (Exception var31) {
+            } catch (Exception ignore) {
             }
 
             try {
-                bQ = f.n.e(a(this.aH[5]));
+                bQ = AssetManager.instanceHandler.e(a(this.aH[5]));
             } catch (Exception var30) {
                 bQ = null;
             }
 
             if (this.v == null) {
                 try {
-                    this.v = f.a(a(this.aH[6]));
+                    this.v = AssetManager.readImageFromFilePNG(a(this.aH[6]));
                 } catch (Exception var29) {
                 }
             }
 
             for(int var1 = 0; var1 < this.x.length; ++var1) {
                 try {
-                    this.x[var1] = f.a(a(this.aH[7]) + var1 + a(this.aH[8]));
+                    this.x[var1] = AssetManager.readImageFromFilePNG(a(this.aH[7]) + var1 + a(this.aH[8]));
                 } catch (Exception var28) {
                 }
             }
 
-            f.a();
-            if (f.a[12] == 7) {
+            AssetManager.a();
+            if (AssetManager.a1[12] == 7) {
                 j.p = false;
             }
 
@@ -9360,7 +9363,7 @@ public final class k extends a implements Runnable {
             this.ai();
 
             try {
-                f.a(a(this.aH[9]));
+                AssetManager.readImageFromFilePNG(a(this.aH[9]));
             } catch (Exception var27) {
             }
 
@@ -9380,7 +9383,7 @@ public final class k extends a implements Runnable {
             long var9 = 0L;
 
             while(this.S) {
-                if (f.e >= 0) {
+                if (AssetManager.e1 >= 0) {
                     this.an();
                 }
 
@@ -9446,7 +9449,7 @@ public final class k extends a implements Runnable {
                             }
 
                             if (!h.e()) {
-                                if (f.e > 0 && this.ch != null && !h.f()) {
+                                if (AssetManager.e1 > 0 && this.ch != null && !h.f()) {
                                     this.aB();
                                 }
 
@@ -9480,7 +9483,7 @@ public final class k extends a implements Runnable {
                                     break;
                                 }
 
-                                if (f.e >= 0 && this.ch != null && !h.f()) {
+                                if (AssetManager.e1 >= 0 && this.ch != null && !h.f()) {
                                     this.a();
                                 } else {
                                     long var13 = System.currentTimeMillis();
@@ -9510,7 +9513,7 @@ public final class k extends a implements Runnable {
             }
 
             this.ev = false;
-            c.e = false;
+            c.e2 = false;
             if (!aK) {
                 this.aw();
 
@@ -9519,12 +9522,12 @@ public final class k extends a implements Runnable {
                 } catch (Exception var22) {
                 }
 
-                if (b != null && n.g) {
+                if (b10 != null && n.g12) {
                     this.d();
                 }
 
-                f.k = true;
-                f.b();
+                AssetManager.k1 = true;
+                AssetManager.b();
                 NET_Lizard.a();
             }
         }
@@ -9606,7 +9609,7 @@ public final class k extends a implements Runnable {
                 }
 
                 var1[8] = 1;
-                var1[9] = (byte)f.e;
+                var1[9] = (byte) AssetManager.e1;
                 int var3 = 112;
 
                 byte[] var4;
@@ -9683,7 +9686,7 @@ public final class k extends a implements Runnable {
                 var1[var3] = this.D;
                 ++var3;
                 var1[var3] = 0;
-                if (this.aQ != null && this.aQ.h) {
+                if (this.aQ != null && this.aQ.h2) {
                     var1[var3] = 1;
                 }
 
@@ -9721,8 +9724,8 @@ public final class k extends a implements Runnable {
                     ++var3;
                 }
 
-                f.g = f.e;
-                f.c = 1;
+                AssetManager.g1 = AssetManager.e1;
+                AssetManager.c1 = 1;
             } catch (Exception var15) {
             }
         }
@@ -9732,71 +9735,71 @@ public final class k extends a implements Runnable {
         if (cy && !this.aC) {
             this.aD();
         } else {
-            byte[] var1 = f.a;
+            byte[] var1 = AssetManager.a1;
             if (cy) {
                 var1 = null;
             }
 
             this.g(var1);
-            f.b();
+            AssetManager.b();
         }
     }
 
     private void aD() {
         byte[] var1 = N;
-        if (!n.b) {
+        if (!n.b12) {
             var1 = null;
         }
 
         this.g(var1);
         if (var1 != null) {
-            f.a(this.cJ, var1);
+            AssetManager.clearRecordStoreAndWriteRecord(this.cJ, var1);
         }
 
     }
 
     private static void aE() {
-        f.b();
+        AssetManager.b();
     }
 
     private final void F(int var1) {
         boolean var2 = false;
         int var7 = 64 + var1 * 2;
         int var3;
-        if ((var3 = f.a[var7]) < 0) {
+        if ((var3 = AssetManager.a1[var7]) < 0) {
             var3 += 256;
         }
 
         int var4;
-        if ((var4 = f.a[var7 + 1]) < 0) {
+        if ((var4 = AssetManager.a1[var7 + 1]) < 0) {
             var4 += 256;
         }
 
         int var5 = var3 * 60 + var4;
         int var6 = this.eF * 60 + this.eL;
         if (var5 == 0 || var6 < var5) {
-            f.a[var7] = (byte)this.eF;
-            f.a[var7 + 1] = (byte)this.eL;
+            AssetManager.a1[var7] = (byte)this.eF;
+            AssetManager.a1[var7 + 1] = (byte)this.eL;
         }
 
     }
 
     private final void aF() {
         this.o((Graphics)null);
-        this.fD = this.e / this.ej;
-        this.fW = (this.c - this.dH) / this.eg;
+        this.fD = this.e10 / this.ej;
+        this.fW = (this.c10 - this.dH) / this.eg;
         this.fB = this.fD;
         this.fU = this.fW;
         this.bv = 0;
         this.bw = 0;
-        if (this.fB * this.ej < this.e) {
+        if (this.fB * this.ej < this.e10) {
             ++this.fB;
-            this.bv = this.e - this.fD * this.ej;
+            this.bv = this.e10 - this.fD * this.ej;
         }
 
-        if (this.fU * this.eg < this.c - this.dH) {
+        if (this.fU * this.eg < this.c10 - this.dH) {
             ++this.fU;
-            this.bw = this.c - this.dH - this.fW * this.eg;
+            this.bw = this.c10 - this.dH - this.fW * this.eg;
         }
 
         this.fC = this.fD;
@@ -9937,11 +9940,11 @@ public final class k extends a implements Runnable {
             av = 0;
         }
 
-        if (f.n.d("/w0.png") <= 0 && f.n.d("/l13.png") <= 0) {
+        if (AssetManager.instanceHandler.getFileSize("/w0.png") <= 0 && AssetManager.instanceHandler.getFileSize("/l13.png") <= 0) {
             aw = 0;
         }
 
-        if (f.n.d("/l14.png") <= 0) {
+        if (AssetManager.instanceHandler.getFileSize("/l14.png") <= 0) {
             cQ = true;
         }
 
@@ -10393,12 +10396,12 @@ public final class k extends a implements Runnable {
                     }
 
                     ++var3;
-                    if (var3 >= 4 && this.m >= aj) {
+                    if (var3 >= 4 && this.m10 >= aj) {
                         break;
                     }
                 }
 
-                this.bK = this.m;
+                this.bK = this.m10;
             } catch (Exception var14) {
             }
         }
@@ -10416,7 +10419,7 @@ public final class k extends a implements Runnable {
 
         int var2;
         int var3;
-        while(!n.g || !this.er) {
+        while(!n.g12 || !this.er) {
             var2 = this.br;
             if (cq && this.cr != null) {
                 var2 = this.cr.N;
@@ -10431,38 +10434,38 @@ public final class k extends a implements Runnable {
                 break;
             }
 
-            if (this.aC && !n.g) {
+            if (this.aC && !n.g12) {
                 break;
             }
 
-            if (n.g && n.r && n.g) {
+            if (n.g12 && n.r && n.g12) {
                 for(var3 = 0; var3 < ac.length; ++var3) {
                     ac[var3] = 0;
                 }
 
-                for(int var4 = 0; var4 < b.i.length; ++var4) {
-                    b.i[var4] = 0;
+                for(int var4 = 0; var4 < b10.i12.length; ++var4) {
+                    b10.i12[var4] = 0;
                 }
 
-                b.i[0] = 127;
+                b10.i12[0] = 127;
 
-                for(int var5 = 0; var5 < b.i.length; ++var5) {
-                    b.i[var5] = 127;
+                for(int var5 = 0; var5 < b10.i12.length; ++var5) {
+                    b10.i12[var5] = 127;
                 }
 
-                if (b.h[0] == 127) {
+                if (b10.h12[0] == 127) {
                     this.er = true;
-                    ai = b.h.length;
+                    ai = b10.h12.length;
 
-                    for(int var6 = 0; var6 < b.h.length; ++var6) {
-                        if (b.h[var6] != 127) {
+                    for(int var6 = 0; var6 < b10.h12.length; ++var6) {
+                        if (b10.h12[var6] != 127) {
                             ai = var6;
                             break;
                         }
                     }
                 }
 
-                if (n.g && b.h[0] == 125 && n.b) {
+                if (n.g12 && b10.h12[0] == 125 && n.b12) {
                     this.d();
                     break;
                 }
@@ -10488,10 +10491,10 @@ public final class k extends a implements Runnable {
             this.aa();
         }
 
-        b.h[0] = 0;
+        b10.h12[0] = 0;
 
-        for(var2 = 0; var2 < b.h.length; ++var2) {
-            b.h[var2] = 0;
+        for(var2 = 0; var2 < b10.h12.length; ++var2) {
+            b10.h12[var2] = 0;
         }
 
         ac[0] = 0;
@@ -10500,9 +10503,9 @@ public final class k extends a implements Runnable {
             ac[var3] = 0;
         }
 
-        if (n.g && ai < dz && !this.aC) {
+        if (n.g12 && ai < dz && !this.aC) {
             this.f(20, 0, 0, 0);
-            if (!n.b) {
+            if (!n.b12) {
                 this.f(21, 0, 0, 0);
                 this.bn = true;
             }
@@ -10510,8 +10513,8 @@ public final class k extends a implements Runnable {
             this.bK = 1;
         }
 
-        if (n.g && !this.aC) {
-            while(this.m > 0 && n.g) {
+        if (n.g12 && !this.aC) {
+            while(this.m10 > 0 && n.g12) {
                 this.bK = 1;
                 this.al();
 
@@ -10523,7 +10526,7 @@ public final class k extends a implements Runnable {
 
             this.f(19, this.ej, 0, 0);
 
-            while(this.m > 0 && n.g) {
+            while(this.m10 > 0 && n.g12) {
                 this.bK = 1;
                 this.al();
 
@@ -10534,15 +10537,15 @@ public final class k extends a implements Runnable {
             }
         }
 
-        if (n.g && !this.aC && this.cx) {
+        if (n.g12 && !this.aC && this.cx) {
             this.aW();
         }
 
-        if (n.g && !this.aC && !this.cx && !n.b) {
+        if (n.g12 && !this.aC && !this.cx && !n.b12) {
             this.az();
         }
 
-        if (n.g && !this.aC && n.b) {
+        if (n.g12 && !this.aC && n.b12) {
             byte var11 = 0;
             if (ax) {
                 var11 = 1;
@@ -10562,9 +10565,9 @@ public final class k extends a implements Runnable {
     }
 
     public static final void b(int var0, boolean var1) {
-        if (f.e >= 1 || var0 >= bI) {
+        if (AssetManager.e1 >= 1 || var0 >= bI) {
             if (var1 || var0 < bI) {
-                if (f.l) {
+                if (AssetManager.l1) {
                     if (m.y == null) {
                         boolean var2 = cq;
                         cq = false;
@@ -10574,9 +10577,9 @@ public final class k extends a implements Runnable {
                     }
 
                     if (du) {
-                        m.a = 0;
+                        m.a11 = 0;
                     } else {
-                        m.a = -1;
+                        m.a11 = -1;
                     }
 
                     if (var1) {
@@ -10687,7 +10690,7 @@ public final class k extends a implements Runnable {
             j.br = null;
         }
 
-        if (this.ft && j.br == null) {
+        if (this.victory && j.br == null) {
             this.dA = true;
         }
 
@@ -10697,8 +10700,8 @@ public final class k extends a implements Runnable {
         if (cy) {
             if (!n.s) {
                 this.c(0);
-                n.b = true;
-                b.b();
+                n.b12 = true;
+                b10.b();
             } else {
                 this.c(5);
             }
@@ -10886,7 +10889,7 @@ public final class k extends a implements Runnable {
 
     private static void aS() {
         for(int var0 = 1; var0 <= 100; ++var0) {
-            if (f.n.d("ll" + var0) <= 0) {
+            if (AssetManager.instanceHandler.getFileSize("ll" + var0) <= 0) {
                 bP = var0 - 1;
                 return;
             }
@@ -10901,7 +10904,7 @@ public final class k extends a implements Runnable {
             try {
                 Class.forName("com.nokia.mid.ui.DirectUtils");
                 Class.forName("com.nokia.mid.ui.DirectGraphics");
-                if (a.a == null) {
+                if (a.a5 == null) {
                     this.cF = 40;
                 }
             } catch (Exception var2) {
@@ -10912,7 +10915,7 @@ public final class k extends a implements Runnable {
     }
 
     static final boolean b(int var0, int var1, int var2, int var3) {
-        return h && fF >= var0 && fF < var0 + var2 && fZ >= var1 && fZ < var1 + var3;
+        return h10 && fF >= var0 && fF < var0 + var2 && fZ >= var1 && fZ < var1 + var3;
     }
 
     static final boolean c(int var0, int var1, int var2, int var3) {
@@ -10920,7 +10923,7 @@ public final class k extends a implements Runnable {
     }
 
     static final boolean d(int var0, int var1, int var2, int var3) {
-        return h && ds && fG >= var0 && fG < var0 + var2 && ga >= var1 && ga < var1 + var3;
+        return h10 && ds && fG >= var0 && fG < var0 + var2 && ga >= var1 && ga < var1 + var3;
     }
 
     final boolean v() {
@@ -10970,7 +10973,7 @@ public final class k extends a implements Runnable {
     }
 
     private static void aV() {
-        h = false;
+        h10 = false;
         cZ = false;
         dF = false;
         ds = false;
@@ -10994,7 +10997,7 @@ public final class k extends a implements Runnable {
             }
 
             if (var2) {
-                h = true;
+                h10 = true;
                 cZ = false;
                 dF = false;
                 ds = true;
@@ -11008,14 +11011,14 @@ public final class k extends a implements Runnable {
         }
 
         if (var2) {
-            NET_Lizard.c.fc = true;
+            NET_Lizard.game.fc = true;
         }
 
         if (var3) {
             dt = true;
             eK = System.currentTimeMillis();
             if (cZ) {
-                h = false;
+                h10 = false;
                 return;
             }
 
@@ -11081,8 +11084,8 @@ public final class k extends a implements Runnable {
 
     private final void p(Graphics var1) {
         if (this.v != null) {
-            var1.setClip(0, 0, this.e, this.getHeight());
-            a.a(var1, 0, this.getHeight() - this.v.getHeight(), this.e, this.v.getHeight(), 0, 192);
+            var1.setClip(0, 0, this.e10, this.getHeight());
+            a.a(var1, 0, this.getHeight() - this.v.getHeight(), this.e10, this.v.getHeight(), 0, 192);
             var1.drawImage(this.v, -(this.v.getWidth() >> 1), this.getHeight() - this.v.getHeight(), 20);
         }
 
@@ -11092,14 +11095,14 @@ public final class k extends a implements Runnable {
         this.aw();
         this.f(23, 0, 0, 0);
 
-        for(int var2 = 0; var2 < N.length && n.g; var2 += 32) {
+        for(int var2 = 0; var2 < N.length && n.g12; var2 += 32) {
             int var3 = 32;
             if (var2 + 32 > N.length) {
                 var3 = N.length - var2;
             }
 
             if (!this.f(22, 0, var2, var3)) {
-                while(this.m > 0 && n.g) {
+                while(this.m10 > 0 && n.g12) {
                     this.bK = 1;
                     this.al();
 
@@ -11113,7 +11116,7 @@ public final class k extends a implements Runnable {
             }
         }
 
-        while(this.m > 0 && n.g) {
+        while(this.m10 > 0 && n.g12) {
             this.bK = 1;
             this.al();
 
@@ -11125,7 +11128,7 @@ public final class k extends a implements Runnable {
 
         this.f(23, 1, 0, 0);
 
-        while(this.m > 0 && n.g) {
+        while(this.m10 > 0 && n.g12) {
             this.bK = 1;
             this.al();
 
@@ -11158,34 +11161,34 @@ public final class k extends a implements Runnable {
 
     private final void a(Graphics var1, String var2) {
         if (!this.ae) {
-            var1.setFont(j.y);
+            var1.setFont(j.defaultFont);
             int var3 = j.x.b() + 3;
             if (this.dy) {
                 var3 = this.dH;
             }
 
-            int var4 = this.c - var3;
-            var1.setClip(0, 0, this.e, this.c);
+            int var4 = this.c10 - var3;
+            var1.setClip(0, 0, this.e10, this.c10);
             boolean var5 = false;
-            int var11 = var3 - (j.x.b() - j.x.f) >> 1;
+            int var11 = var3 - (j.x.b() - j.x.f3) >> 1;
             ++var11;
-            int var6 = this.e;
+            int var6 = this.e10;
             if (this.ff == 121) {
                 try {
                     String var7 = "" + this.bZ[9][this.A];
-                    int var8 = this.e - 2 - j.x.a(var7);
+                    int var8 = this.e10 - 2 - j.x.a(var7);
                     if (this.w != null) {
                         int var9;
                         if (this.w[0] != null) {
                             var8 -= this.w[0].getWidth() + 1;
-                            var9 = j.x.b() - j.x.f - this.w[0].getHeight() >> 1;
+                            var9 = j.x.b() - j.x.f3 - this.w[0].getHeight() >> 1;
                             ++var9;
-                            var1.drawImage(this.w[0], this.e - 1 - this.w[0].getWidth(), var4 + var11 + var9, 20);
+                            var1.drawImage(this.w[0], this.e10 - 1 - this.w[0].getWidth(), var4 + var11 + var9, 20);
                         }
 
                         var6 = var8;
                         if (this.w[1] != null) {
-                            var9 = j.x.b() - j.x.f - this.w[1].getHeight() >> 1;
+                            var9 = j.x.b() - j.x.f3 - this.w[1].getHeight() >> 1;
                             ++var9;
                             var1.drawImage(this.w[1], var8 - 2 - this.w[1].getWidth(), var4 + var11 + var9, 20);
                             var6 = var8 - 2 - this.w[1].getWidth();
@@ -11451,7 +11454,7 @@ public final class k extends a implements Runnable {
         } else if (this.a(var1, var2, var3, var4, var5) && this.bM >= 0) {
             int var7;
             int var8;
-            if ((var8 = (var7 = var6 >> 1) + Math.abs(this.gg.nextInt() % (var6 - var7))) < 1) {
+            if ((var8 = (var7 = var6 >> 1) + Math.abs(this.randomGenerator.nextInt() % (var6 - var7))) < 1) {
                 var8 = 1;
             }
 
@@ -11523,7 +11526,7 @@ public final class k extends a implements Runnable {
     }
 
     final boolean w() {
-        if (cy && b == null) {
+        if (cy && b10 == null) {
             return false;
         } else {
             return !cy || this.A();
@@ -11653,7 +11656,7 @@ public final class k extends a implements Runnable {
     }
 
     private boolean M(int var1) {
-        if (cy && b == null) {
+        if (cy && b10 == null) {
             return false;
         } else {
             return cy && !this.A() && var1 == 1;
@@ -11713,7 +11716,7 @@ public final class k extends a implements Runnable {
     }
 
     static void y() {
-        if (f.o && fe) {
+        if (AssetManager.o && fe) {
             try {
                 m.e();
                 return;
@@ -11735,7 +11738,7 @@ public final class k extends a implements Runnable {
                     var1 = 130;
                 }
 
-                if (f.o) {
+                if (AssetManager.o) {
                     try {
                         m.c(var1);
                     } catch (Exception var3) {
@@ -11751,7 +11754,7 @@ public final class k extends a implements Runnable {
     private final void q(Graphics var1) {
         try {
             int var2 = j.x.b() + this.av();
-            var1.setFont(j.y);
+            var1.setFont(j.defaultFont);
             boolean var3 = false;
             boolean var4 = false;
             int var5 = 0;
@@ -11764,23 +11767,23 @@ public final class k extends a implements Runnable {
             int var8 = var2 * var7;
             int var9 = this.fp + 6;
             int var10 = var8 + 7;
-            int var18 = this.e - this.fp >> 1;
+            int var18 = this.e10 - this.fp >> 1;
             var18 += 6;
-            int var17 = this.c - var8 >> 1;
+            int var17 = this.c10 - var8 >> 1;
             if (var18 - 4 < 0) {
                 var18 = 4;
             }
 
-            if (var18 + this.fp > this.e) {
-                var18 = this.e - this.fp;
+            if (var18 + this.fp > this.e10) {
+                var18 = this.e10 - this.fp;
             }
 
             if (var17 - 4 < 0) {
                 var17 = 4;
             }
 
-            if (var17 + var8 > this.c) {
-                var17 = this.c - var8;
+            if (var17 + var8 > this.c10) {
+                var17 = this.c10 - var8;
             }
 
             int var11 = var18 - 1 - 3;
@@ -11844,7 +11847,7 @@ public final class k extends a implements Runnable {
                         ++var4;
                     }
 
-                    int var11 = this.e - this.bo[var4].getWidth() >> 1;
+                    int var11 = this.e10 - this.bo[var4].getWidth() >> 1;
                     int var12 = this.bx - this.bo[var4].getHeight();
                     if (var1 != null) {
                         var1.setClip(var11, var12, this.bo[var4].getWidth(), this.bo[var4].getHeight());

@@ -1,4 +1,8 @@
 package javax.microedition.pim;
 
-public class PIMException {
+public class PIMException extends RuntimeException {
+    @Override
+    public String getMessage() {
+        return super.getMessage();
+    }
 }

@@ -6,84 +6,84 @@
 import javax.microedition.midlet.MIDlet;
 
 public final class NET_Lizard extends MIDlet {
-    static NET_Lizard a;
-    static int b = 0;
-    static k c;
-    static boolean d = true;
+    static NET_Lizard app;
+    static int appState = 0;
+    static k game;
+    static boolean d_nl = true;
 
     public NET_Lizard() {
-        a = this;
-        if (f.n == null) {
-            f.d();
+        app = this;
+        if (AssetManager.instanceHandler == null) {
+            AssetManager.createInstance();
         }
 
-        if (c == null) {
-            c = new k();
+        if (game == null) {
+            game = new k();
         }
 
     }
 
-    public final void destroyApp(boolean var1) {
-        if (d) {
+    public final void destroyApp(boolean unconditional) {
+        if (d_nl) {
             try {
-                c.S = false;
-            } catch (Exception var8) {
+                game.S = false;
+            } catch (Exception ignore) {
             }
 
             try {
-                c.cr.n = false;
-            } catch (Exception var7) {
+                game.cr.n9 = false;
+            } catch (Exception ignore) {
             }
 
             try {
-                c.e = false;
-            } catch (Exception var6) {
+                c.e2 = false;
+            } catch (Exception ignore) {
             }
 
             try {
                 m.c();
-            } catch (Exception var5) {
+            } catch (Exception ignore) {
             }
 
             try {
-                if (k.b != null && n.g) {
-                    c.d();
+                if (k.b10 != null && n.g12) {
+                    game.d();
                 }
-            } catch (Exception var4) {
+            } catch (Exception ignore) {
             }
         }
 
-        f.c();
+        AssetManager.destroyInstance();
 
         try {
-            c.ez = null;
-        } catch (Exception var3) {
+            game.ez = null;
+        } catch (Exception ignore) {
         }
 
-        c = null;
-        b = 0;
+        game = null;
+        appState = 0;
         this.notifyDestroyed();
     }
 
     public final void pauseApp() {
-        b = 2;
+        appState = 2;
         this.notifyPaused();
     }
 
     public static void a() {
-        d = false;
-        a.destroyApp(true);
-        a.notifyDestroyed();
-        a = null;
+        d_nl = false;
+        app.destroyApp(true);
+        app.notifyDestroyed();
+        app = null;
     }
 
     public final void startApp() {
-        if (b == 0) {
+        if (appState == 0) {
             k.cq = true;
-            c.j();
+            game.runGameThread();
         }
 
-        b = 1;
-        d = true;
+        appState = 1;
+        d_nl = true;
     }
 }

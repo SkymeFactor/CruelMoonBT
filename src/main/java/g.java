@@ -10,19 +10,20 @@ import javax.microedition.pim.PIM;
 import javax.microedition.pim.PIMException;
 import javax.microedition.pim.UnsupportedFieldException;
 
+// Contacts manager
 public final class g {
-    int a = 0;
-    String[] b;
-    String[] c;
+    int a6 = 0;
+    String[] b6;
+    String[] c6;
 
     public g(h var1) {
     }
 
     public final String[] a() {
-        this.a = 0;
+        this.a6 = 0;
         String[] var2 = null;
-        this.c = new String[255];
-        this.b = new String[255];
+        this.c6 = new String[255];
+        this.b6 = new String[255];
         var2 = new String[255];
         ContactList[] var3 = null;
         boolean var4 = true;
@@ -81,8 +82,8 @@ public final class g {
 
                         try {
                             while(true) {
-                                if (this.a < 255) {
-                                    if (this.a >= 254) {
+                                if (this.a6 < 255) {
+                                    if (this.a6 >= 254) {
                                         return var2;
                                     }
 
@@ -95,28 +96,28 @@ public final class g {
                                     }
 
                                     if (var9 == null) {
-                                        if (this.a >= 254) {
+                                        if (this.a6 >= 254) {
                                             return var2;
                                         }
 
-                                        if (this.a < 255) {
-                                            var2[this.a] = "bad_end";
+                                        if (this.a6 < 255) {
+                                            var2[this.a6] = "bad_end";
                                         }
                                     } else {
                                         int var10 = var9.countValues(115);
-                                        if (this.a >= 254) {
+                                        if (this.a6 >= 254) {
                                             return var2;
                                         }
 
-                                        for(int var11 = 0; var11 < var10 && this.a < 255; ++var11) {
-                                            if (this.a >= 254) {
+                                        for(int var11 = 0; var11 < var10 && this.a6 < 255; ++var11) {
+                                            if (this.a6 >= 254) {
                                                 return var2;
                                             }
 
                                             try {
-                                                this.c[this.a] = var9.getString(115, var11);
-                                                var2[this.a] = this.c[this.a];
-                                                this.b[this.a] = "";
+                                                this.c6[this.a6] = var9.getString(115, var11);
+                                                var2[this.a6] = this.c6[this.a6];
+                                                this.b6[this.a6] = "";
                                                 String var12 = null;
 
                                                 try {
@@ -183,24 +184,24 @@ public final class g {
                                                 }
 
                                                 if (var12 != null && var12.length() > 0) {
-                                                    this.b[this.a] = var12;
-                                                    var2[this.a] = var12 + ": " + var2[this.a];
+                                                    this.b6[this.a6] = var12;
+                                                    var2[this.a6] = var12 + ": " + var2[this.a6];
                                                 }
 
-                                                ++this.a;
-                                                if (this.a >= 254) {
+                                                ++this.a6;
+                                                if (this.a6 >= 254) {
                                                     return var2;
                                                 }
                                             } catch (Exception var23) {
                                             }
 
-                                            if (this.a >= 254) {
+                                            if (this.a6 >= 254) {
                                                 return var2;
                                             }
                                         }
 
-                                        if (this.a < var2.length) {
-                                            if (this.a >= 254) {
+                                        if (this.a6 < var2.length) {
+                                            if (this.a6 >= 254) {
                                                 return var2;
                                             }
                                             continue;
@@ -208,7 +209,7 @@ public final class g {
                                     }
                                 }
 
-                                if (this.a >= 254) {
+                                if (this.a6 >= 254) {
                                     return var2;
                                 }
                                 break;
@@ -223,7 +224,7 @@ public final class g {
                     var2 = null;
                 }
 
-                if (this.a >= 254) {
+                if (this.a6 >= 254) {
                     break;
                 }
             }

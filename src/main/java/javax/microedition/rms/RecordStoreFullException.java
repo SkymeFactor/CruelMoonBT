@@ -1,4 +1,4 @@
 package javax.microedition.rms;
 
-public class RecordStoreFullException {
+public class RecordStoreFullException extends RecordStoreException {
 }

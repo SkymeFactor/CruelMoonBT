@@ -9,10 +9,10 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 public class a extends Canvas {
-    static int[] a;
-    private static boolean b = true;
-    private static boolean c = false;
-    private static boolean d = false;
+    static int[] a5;
+    private static boolean apiCheckRequired = true;
+    private static boolean nokiaApiEnabled = false;
+    private static boolean siemensApiEnabled = false;
 
     public a() {
         this.setFullScreenMode(true);
@@ -25,8 +25,8 @@ public class a extends Canvas {
         var1 += var7;
         var2 += var8;
         int var10 = 2880;
-        if (a != null && 2880 < a.length) {
-            var10 = a.length;
+        if (a5 != null && 2880 < a5.length) {
+            var10 = a5.length;
         }
 
         boolean var11 = true;
@@ -34,18 +34,18 @@ public class a extends Canvas {
         int var12;
         try {
             var12 = var5 + (var6 << 24);
-            if (Display.getDisplay(NET_Lizard.a).numAlphaLevels() > 2) {
+            if (Display.getDisplay(NET_Lizard.app).numAlphaLevels() > 2) {
                 int var14;
-                if (a == null || a.length != var10 || a[0] != var12) {
-                    if (a == null || a.length != var10) {
-                        if (a != null) {
-                            a = null;
+                if (a5 == null || a5.length != var10 || a5[0] != var12) {
+                    if (a5 == null || a5.length != var10) {
+                        if (a5 != null) {
+                            a5 = null;
                         }
 
-                        a = new int[var10];
+                        a5 = new int[var10];
                     }
 
-                    int[] var13 = a;
+                    int[] var13 = a5;
 
                     for(var14 = 0; var14 < var13.length; ++var14) {
                         var13[var14] = var12;
@@ -81,7 +81,7 @@ public class a extends Canvas {
                         var0.setClip(var17, var18, var3, var4);
 
                         for(int var19 = var18; var19 < var18 + var4; var19 += 8) {
-                            var0.drawRGB(a, 0, 360, 0, var19, 360, 8, true);
+                            var0.drawRGB(a5, 0, 360, 0, var19, 360, 8, true);
                         }
                     }
 
@@ -115,111 +115,99 @@ public class a extends Canvas {
         return 360;
     }
 
-    static final int a(int var0) {
-        int var1 = var0;
-        switch(var0) {
+    static final int standardizeKeyCodes(int keyCode) {
+        int originalKeyCode = keyCode;
+        switch(keyCode) {
             case -203:
             case -22:
             case -7:
             case -4:
-            case 22:
-                var0 = -7;
-                break;
+            case 22: keyCode = -7; break;
             case -202:
             case -21:
             case -6:
             case -1:
-            case 21:
-                var0 = -6;
+            case 21: keyCode = -6; break;
         }
 
-        if (b) {
-            b = false;
+        if (apiCheckRequired) {
+            apiCheckRequired = false;
 
             try {
                 Class.forName("com.siemens.mp.media.control.VolumeControl");
-                d = true;
-            } catch (Exception var5) {
+                siemensApiEnabled = true;
+            } catch (Exception ignore) {
             }
 
             try {
                 Class.forName("com.nokia.mid.ui.FullCanvas");
-                c = true;
-            } catch (Exception var4) {
+                nokiaApiEnabled = true;
+            } catch (Exception ignore) {
             }
 
             try {
                 Class.forName("com.samsung.util.AudioClip");
-                c = true;
-            } catch (Exception var3) {
+                nokiaApiEnabled = true;
+            } catch (Exception ignore) {
             }
         }
 
-        if (d) {
-            if (var0 == -1) {
+        if (siemensApiEnabled) {
+            if (keyCode == -1) {
                 return -6;
             }
 
-            if (var0 == -4) {
+            if (keyCode == -4) {
                 return -7;
             }
         }
 
-        if (c) {
-            if (var0 == -6) {
+        if (nokiaApiEnabled) {
+            if (keyCode == -6) {
                 return -6;
             }
 
-            if (var0 == -7) {
+            if (keyCode == -7) {
                 return -7;
             }
 
-            if (var0 == 10) {
+            if (keyCode == 10) {
                 return -5;
             }
         }
 
         try {
-            if (var0 != 42 & var0 != 35 && (var0 < 48 || var0 > 57)) {
-                switch(NET_Lizard.c.getGameAction(var1)) {
-                    case 1:
-                        var0 = -1;
-                        break;
-                    case 2:
-                        var0 = -3;
+            if (keyCode != KEY_STAR & keyCode != KEY_POUND && (keyCode < KEY_NUM0 || keyCode > KEY_NUM9)) {
+                switch(NET_Lizard.game.getGameAction(originalKeyCode)) {
+                    case UP: keyCode = -1; break;
+                    case LEFT: keyCode = -3;
                     case 3:
                     case 4:
                     case 7:
-                    default:
-                        break;
-                    case 5:
-                        var0 = -4;
-                        break;
-                    case 6:
-                        var0 = -2;
-                        break;
-                    case 8:
-                        var0 = -5;
+                    default: break;
+                    case RIGHT: keyCode = -4; break;
+                    case DOWN: keyCode = -2; break;
+                    case FIRE: keyCode = -5; break;
                 }
             }
-        } catch (Exception var6) {
+        } catch (Exception ignore) {
         }
 
-        return var0;
+        return keyCode;
     }
 
     static final Image a(Image var0, int var1) {
         try {
             Image var2;
-            if ((var2 = f.a("/z" + var1 + ".png")) != null) {
+            if ((var2 = AssetManager.readImageFromFilePNG("/z" + var1 + ".png")) != null) {
                 return var2;
             }
-        } catch (Exception var3) {
+        } catch (Exception ignore) {
         }
 
         return Image.createImage(var0, 0, 0, var0.getWidth(), var0.getHeight(), 2);
     }
 
-    public void paint(Graphics var1) {
+    public void paint(Graphics graphics) {
     }
 }
