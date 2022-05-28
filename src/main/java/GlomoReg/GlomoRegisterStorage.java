@@ -16,92 +16,92 @@ import javax.microedition.rms.RecordStoreFullException;
 import javax.microedition.rms.RecordStoreNotOpenException;
 
 public final class GlomoRegisterStorage {
-    public static boolean a = true;
+    public static boolean storeModificationTime = true;
 
     public GlomoRegisterStorage() {
     }
 
-    public static final int a() {
+    public static final int getCurrentRegionIndex() {
         return (Integer) getRecordOfTypeSafe("generalInfo", 1, Integer.valueOf(-1));
     }
 
-    public static final int a(int var0) {
-        return (Integer) setRecordInRecordStore((String)"generalInfo", 1, Integer.valueOf(var0));
+    public static final int setCurrentRegionIndex(int regionIndex) {
+        return (Integer) setRecordInRecordStore((String)"generalInfo", 1, Integer.valueOf(regionIndex));
     }
 
-    public static final long b() {
+    public static final long getRegistrationKey() {
         return (Long) getRecordOfTypeSafe("generalInfo", 7, Long.valueOf(0L));
     }
 
-    public static final long a(long var0) {
-        return (Long) setRecordInRecordStore((String)"generalInfo", 7, Long.valueOf(var0));
+    public static final long setRegistrationKey(long key) {
+        return (Long) setRecordInRecordStore((String)"generalInfo", 7, Long.valueOf(key));
     }
 
-    public static final long c() {
+    public static final long getModificationTime() {
         return (Long) getRecordOfTypeSafe("generalInfo", 2, Long.valueOf(0L));
     }
 
-    public static final long b(long var0) {
-        return (Long) pushDataToRecordStore("generalInfo", 2, Long.valueOf(var0), false);
+    public static final long setModificationTime(long time) {
+        return (Long) pushDataToRecordStore("generalInfo", 2, Long.valueOf(time), false);
     }
 
-    private static long n() {
-        return b(System.currentTimeMillis());
+    private static long setCurrentModificationTime() {
+        return setModificationTime(System.currentTimeMillis());
     }
 
-    public static final long d() {
-        return (Long) setRecordInRecordStore((String)"generalInfo", 3, Long.valueOf(e() + 1L));
+    public static final long updateRunsCount() {
+        return (Long) setRecordInRecordStore((String)"generalInfo", 3, Long.valueOf(getRunsCount() + 1L));
     }
 
-    public static final long e() {
+    public static final long getRunsCount() {
         return (Long) getRecordOfTypeSafe("generalInfo", 3, 0L);
     }
 
-    public static final String f() {
+    public static final String setPlatformName() {
         return (String) setRecordInRecordStore((String)"generalInfo", 4, System.getProperty("microedition.platform"));
     }
 
-    public static final String g() {
+    public static final String getPlatformName() {
         return (String) getRecordOfTypeSafe("generalInfo", 4, new String(""));
     }
 
-    public static final long h() {
+    public static final long getSubscriptionKey() {
         return (Long) getRecordOfTypeSafe("generalInfo", 12, Long.valueOf(0L));
     }
 
-    public static final long c(long var0) {
+    public static final long setSubscriptionKey(long var0) {
         return (Long) setRecordInRecordStore((String)"generalInfo", 12, Long.valueOf(var0));
     }
 
-    public static final String a(String var0) {
+    public static final String setClientEnteredKey(String var0) {
         return (String) setRecordInRecordStore((String)"generalInfo", 6, new String(var0));
     }
 
-    public static final String i() {
+    public static final String getClientEnteredKey() {
         return (String) getRecordOfTypeSafe("generalInfo", 6, new String(""));
     }
 
-    public static final int j() {
+    public static final int getSubscriptionStatus() {
         return (Integer) getRecordOfTypeSafe("generalInfo", 13, Integer.valueOf(0));
     }
 
-    public static final int b(int var0) {
+    public static final int setSubscriptionStatus(int var0) {
         return (Integer) setRecordInRecordStore((String)"generalInfo", 13, Integer.valueOf(var0));
     }
 
-    public static final long k() {
+    public static final long getSubscriptionExpireTime() {
         return (Long) getRecordOfTypeSafe("generalInfo", 9, Long.valueOf(0L));
     }
 
-    public static final long d(long var0) {
-        return (Long) setRecordInRecordStore((String)"generalInfo", 9, Long.valueOf(var0));
+    public static final long setSubscriptionExpireTime(long time) {
+        return (Long) setRecordInRecordStore((String)"generalInfo", 9, Long.valueOf(time));
     }
 
-    public static final int c(int var0) {
-        return (Integer) setRecordInRecordStore((String)"generalInfo", 10, Integer.valueOf(var0));
+    public static final int setSubscriptionType(int subscribeType) {
+        return (Integer) setRecordInRecordStore((String)"generalInfo", 10, Integer.valueOf(subscribeType));
     }
 
-    public static final int l() {
+    public static final int getSubscriptionType() {
         return (Integer) getRecordOfTypeSafe("generalInfo", 10, Integer.valueOf(-1));
     }
 
@@ -151,7 +151,7 @@ public final class GlomoRegisterStorage {
 
     private static Object pushDataToRecordStore(String recordStoreName, int recordId, Object value, boolean rememberTime) {
         RecordStore myRecordStore = null;
-        long completionLevel = -1L;
+        long completionStatus = -1L;
         long oldNumRecords = 0L;
         long newNumRecords = 0L;
 
@@ -165,7 +165,7 @@ public final class GlomoRegisterStorage {
                 oldNumRecords = (long)myRecordStore.getNumRecords();
                 reserveRecordStoreSpace(recordId, myRecordStore);
                 newNumRecords = (long)myRecordStore.getNumRecords();
-                completionLevel = -2L;
+                completionStatus = -2L;
                 ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
                 DataOutputStream dataStream = new DataOutputStream(byteStream);
                 if (value.getClass().getName().compareTo("java.lang.Integer") == 0) {
@@ -180,40 +180,42 @@ public final class GlomoRegisterStorage {
                     dataStream.writeUTF((String)value);
                 }
 
-                completionLevel = -3L;
+                completionStatus = -3L;
                 dataStream.flush();
                 byteStream.flush();
-                completionLevel = -4L;
+                completionStatus = -4L;
                 byte[] recordData = byteStream.toByteArray();
-                completionLevel = -5L;
+                completionStatus = -5L;
                 myRecordStore.setRecord(recordId, recordData, 0, recordData.length);
-                completionLevel = -6L;
+                completionStatus = -6L;
                 dataStream.close();
                 byteStream.close();
-            } catch (RecordStoreNotOpenException var20) {
-                completionLevel += -10L;
-            } catch (InvalidRecordIDException var21) {
-                completionLevel += -20L;
-            } catch (RecordStoreFullException var22) {
-                completionLevel += -30L;
-            } catch (RecordStoreException var23) {
-                completionLevel += -40L;
-            } catch (SecurityException var24) {
-                completionLevel += -50L;
-            } catch (Exception var25) {
-                completionLevel += -60L;
-                var25.printStackTrace();
+            } catch (RecordStoreNotOpenException ignore) {
+                completionStatus += -10L;
+            } catch (InvalidRecordIDException ignore) {
+                completionStatus += -20L;
+            } catch (RecordStoreFullException ignore) {
+                completionStatus += -30L;
+            } catch (RecordStoreException ignore) {
+                completionStatus += -40L;
+            } catch (SecurityException ignore) {
+                completionStatus += -50L;
+            } catch (Exception e) {
+                completionStatus += -60L;
+                e.printStackTrace();
             }
 
-            if (completionLevel <= -10L && value.getClass().getName().compareTo("java.lang.Long") == 0) {
-                value = Long.valueOf((completionLevel * 1000L - oldNumRecords) * 1000L - newNumRecords);
+            // In case of success set value to decimal in format (completion, numOld, numNew).
+            // Example: -6 007 008
+            if (completionStatus <= -10L && value.getClass().getName().compareTo("java.lang.Long") == 0) {
+                value = Long.valueOf((completionStatus * 1000L - oldNumRecords) * 1000L - newNumRecords);
             }
         } finally {
             closeRecordStore(myRecordStore);
         }
 
-        if (rememberTime && a) {
-            n();
+        if (rememberTime && storeModificationTime) {
+            setCurrentModificationTime();
         }
 
         return value;
