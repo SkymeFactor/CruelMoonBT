@@ -83,66 +83,72 @@ public final class GlomoConfigLoader {
         return Math.abs(randomGenerator.nextInt()) % (maxValue - minValue) + minValue;
     }
 
-    public static final long a(int var0) {
-        if (var0 != 0) {
+    public static final long generateRandomKey(int minValue) {
+        if (minValue != 0) {
             return 0L;
         } else {
-            Integer.parseInt(e.a.f());
-            var0 = 1;
-            int var1 = 9;
+            Integer.parseInt(GlomoConfigManager.distributor.getSmsKeyVersion());
+            minValue = 1;
+            int maxValue = 9;
 
-            for(int var2 = 0; var2 < 5; ++var2) {
-                var0 *= 10;
-                var1 = var1 * 10 + 9;
+            for(int i = 0; i < 5; ++i) {
+                minValue *= 10;                 // value: 100 000
+                maxValue = maxValue * 10 + 9;   // value: 999 999
             }
 
-            return (long) getRandomInRange(var0, var1);
+            return (long) getRandomInRange(minValue, maxValue);
         }
     }
 
-    public static final String a(int var0, String var1, long var2) {
+    public static final String a(int type, String smsPrefix, long clientKey) {
         boolean var4 = false;
-        if (e.b() > 1) {
-            Integer.parseInt(e.a.f());
+        if (GlomoConfigManager.getConfigVersionInt() > 1) {
+            Integer.parseInt(GlomoConfigManager.distributor.getSmsKeyVersion());
             boolean var11 = false;
-            String var6;
-            String var7 = (var6 = e.a.b()).substring(0, 2);
-            var6 = var6.substring(2, 5);
-            String var10 = b(a((var2 != 0L ? var2 : a(0)) * 10000L + Long.parseLong(var6) * 10L + (long)(var0 % 10), 7), 2);
+            String subDistIdHi;
+            String subDistIdLo = (subDistIdHi = GlomoConfigManager.distributor.getSubDistID()).substring(0, 2);
+            subDistIdHi = subDistIdHi.substring(2, 5);
+            String var10 = b(convertKeyToString(
+                    (clientKey != 0L ? clientKey :
+                    generateRandomKey(0)) * 10000L + Long.parseLong(subDistIdHi) * 10L + (long)(type % 10),
+                    7
+            ), 2);
 
             try {
                 var4 = Long.parseLong(var10) == 0L;
-            } catch (Exception var8) {
+            } catch (Exception ignore) {
             }
 
-            return var4 ? "" : var1 + var7 + var10 + e.c().substring(0, 1);
+            return var4 ? "" : smsPrefix + subDistIdLo + var10 + GlomoConfigManager.getSmsKeyVersion().substring(0, 1);
         } else {
-            String var5 = b(a((var2 != 0L ? var2 : a(0)) * 10000L + Long.parseLong(e.a.a()) * 10L + (long)(var0 % 10), 7), 2);
+            String var5 = b(convertKeyToString((clientKey != 0L ? clientKey : generateRandomKey(0)) * 10000L + Long.parseLong(GlomoConfigManager.distributor.getDistID()) * 10L + (long)(type % 10), 7), 2);
 
             try {
                 var4 = Long.parseLong(var5) == 0L;
-            } catch (Exception var9) {
+            } catch (Exception ignore) {
             }
 
-            return var4 ? "" : var1 + var5 + e.c().substring(0, 1);
+            return var4 ? "" : smsPrefix + var5 + GlomoConfigManager.getSmsKeyVersion().substring(0, 1);
         }
     }
 
-    private static byte[] a(byte[] var0, int var1) {
-        byte[] var2 = new byte[var0.length];
+    /// TODO: Might be encryption's decoding
+    private static byte[] a(byte[] input, int var1) {
+        byte[] output = new byte[input.length];
         if (var1 == 0) {
-            for(var1 = 0; var1 < var0.length; ++var1) {
-                var2[(var1 + 5) % var0.length] = (byte)(37 ^ var0[var1]);
+            for(var1 = 0; var1 < input.length; ++var1) {
+                output[(var1 + 5) % input.length] = (byte)(37 ^ input[var1]);
             }
 
-            for(var1 = 0; var1 < var0.length; ++var1) {
-                var2[var1] ^= var2[(var1 + 2) % var0.length];
+            for(var1 = 0; var1 < input.length; ++var1) {
+                output[var1] ^= output[(var1 + 2) % input.length];
             }
         }
 
-        return var2;
+        return output;
     }
 
+    // TODO: Potentially a hash function
     private static byte[] a(String var0) {
         if (var0.length() % 2 == 1) {
             var0 = var0 + "0";
@@ -168,37 +174,37 @@ public final class GlomoConfigLoader {
         return hexString.toString();
     }
 
-    private static String b(String var0, int var1) {
-        if (var0.length() == 0) {
-            return var0;
+    private static String b(String clientKey, int var1) {
+        if (clientKey.length() == 0) {
+            return clientKey;
         } else if (var1 == 0) {
-            return new String(a(var0.getBytes(), var1));
+            return new String(a(clientKey.getBytes(), var1));
         } else if (var1 == 1) {
-            return convertToHexString(a((byte[])a(var0), 0));
-        } else if (var1 == 2 && var0.length() > 2) {
-            StringBuffer var3 = new StringBuffer(var0.substring(0, 2));
+            return convertToHexString(a((byte[])a(clientKey), 0));
+        } else if (var1 == 2 && clientKey.length() > 2) {
+            StringBuffer var3 = new StringBuffer(clientKey.substring(0, 2));
 
-            for(int var2 = 0; var2 < var0.length() - 2; ++var2) {
-                var3.append(var0.charAt(2 + (var2 + alphaNumericChars.indexOf(var0.charAt(1))) % (var0.length() - 2)));
+            for(int i = 0; i < clientKey.length() - 2; ++i) {
+                var3.append(clientKey.charAt(2 + (i + alphaNumericChars.indexOf(clientKey.charAt(1))) % (clientKey.length() - 2)));
             }
 
             return var3.toString();
         } else {
-            return var0;
+            return clientKey;
         }
     }
 
-    private static String a(long var0, int var2) {
-        StringBuffer var3;
-        for(var3 = new StringBuffer(""); var0 > 0L; var0 /= 36L) {
-            var3.append(alphaNumericChars.charAt((int)(var0 % 36L)));
+    private static String convertKeyToString(long key, int minLength) {
+        StringBuffer output;
+        for(output = new StringBuffer(""); key > 0L; key /= 36L) {
+            output.append(alphaNumericChars.charAt((int)(key % 36L)));
         }
 
-        while(var3.length() < var2) {
-            var3.append("0");
+        while(output.length() < minLength) {
+            output.append("0");
         }
 
-        return var3.toString();
+        return output.toString();
     }
 
     public static String decodeString(String dataBuffer, int var1) {
