@@ -3,7 +3,9 @@
 // (powered by FernFlower decompiler)
 //
 
-import GlomoReg.GlomoOption;
+import GlomoReg.GlomoConfigManager;
+import GlomoReg.GlomoRegStarter;
+import GlomoReg.GlomoRegion;
 import java.io.InputStream;
 import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
@@ -31,7 +33,7 @@ public final class h {
     static int o;
     static int p;
     static int q;
-    static int r;
+    static int glomoRegionIndex;
     static boolean s;
     static boolean t;
     static long u;
@@ -90,10 +92,10 @@ public final class h {
     int at;
     static int[][] au;
     static Player av;
-    private static GlomoReg.i aU;
+    private static GlomoRegStarter glomoRegStarter;
     static byte[] aw;
     static int ax;
-    static String ay = "rendz_1";
+    static String registerStorageRendz1 = "rendz_1";
     static h az;
     static boolean aA;
     int aB;
@@ -102,7 +104,7 @@ public final class h {
     static int aE;
     static int aF;
     static int aG;
-    static int aH;
+    static int subscriptionType;
     static boolean aI;
     static String[][] aJ;
     static int aK;
@@ -126,7 +128,7 @@ public final class h {
         binaryStringMIDletVendor = new int[]{1296647276, 1702112598, 1701733487, 1912602624};           // MIDlet-Vendor
         binaryStringNetLizard = new int[]{1313166368, 1281981025, 1919156224};                          // NET Lizard
         binaryStringMIDletName = new int[]{1296647276, 1702112590, 1634559232};                         // MIDlet-Name
-        // contains: ", /icons/ico.png, NET_Lizard"
+        // Next line contains: ", /icons/ico.png, NET_Lizard"
         binaryStringIconPathAndMidletClass = new int[]{740306793, 1668247155, 795435887, 779120231, 740314693, 1415531625, 2053206628};
         isRunning = true;
         R = new int[70];
@@ -289,37 +291,38 @@ public final class h {
         return var1;
     }
 
-    private static final void b(String var0, byte[] var1) {
+    // TODO: name is temporary
+    private static final void writeDataToRendz1(String rendz1Name, byte[] data) {
         try {
-            RecordStore var2;
-            if ((var2 = RecordStore.openRecordStore(var0, true)).getNumRecords() == 1) {
-                var2.closeRecordStore();
+            RecordStore rendz1;
+            if ((rendz1 = RecordStore.openRecordStore(rendz1Name, true)).getNumRecords() == 1) {
+                rendz1.closeRecordStore();
                 if (RecordStore.listRecordStores() != null) {
-                    RecordStore.deleteRecordStore(var0);
+                    RecordStore.deleteRecordStore(rendz1Name);
                 }
 
-                var2 = RecordStore.openRecordStore(var0, true);
+                rendz1 = RecordStore.openRecordStore(rendz1Name, true);
             }
 
-            var2.addRecord(var1, 0, var1.length);
-            var2.closeRecordStore();
-        } catch (Exception var4) {
+            rendz1.addRecord(data, 0, data.length);
+            rendz1.closeRecordStore();
+        } catch (Exception ignore) {
         }
     }
 
-    private static final String b(String var0) {
-        if (var0 != null) {
-            while(var0.length() > 0 && var0.charAt(0) == ' ') {
-                var0 = var0.substring(1, var0.length());
+    private static final String trimLeadAndTrailingSpaces(String str) {
+        if (str != null) {
+            while(str.length() > 0 && str.charAt(0) == ' ') {
+                str = str.substring(1, str.length());
             }
 
-            while(var0.length() > 0 && var0.charAt(var0.length() - 1) == ' ') {
-                var0 = var0.substring(0, var0.length() - 1);
+            while(str.length() > 0 && str.charAt(str.length() - 1) == ' ') {
+                str = str.substring(0, str.length() - 1);
             }
 
-            return var0;
+            return str;
         } else {
-            return var0;
+            return str;
         }
     }
 
@@ -567,7 +570,7 @@ public final class h {
         this.aa = false;
         ah = 0;
         if (this.ab) {
-            if (aU.a(ac)) {
+            if (glomoRegStarter.validateClientKey(ac)) {
                 d(12);
                 return;
             }
@@ -864,8 +867,8 @@ public final class h {
     }
 
     private final void a(boolean var1, String var2) {
-        this.aC = GlomoReg.i.g();
-        this.aB = GlomoReg.i.g();
+        this.aC = GlomoRegStarter.getRegisterSizeKey();
+        this.aB = GlomoRegStarter.getRegisterSizeKey();
         if (!var1) {
             this.aC = 5;
             this.aB = 20;
@@ -947,7 +950,8 @@ public final class h {
         ah = 0;
     }
 
-    private static String decodeBinaryString(int[] encodedString) {
+    // TODO: make private
+    public static String decodeBinaryString(int[] encodedString) {
         String decodedString = new String();
 
         for(int i = 0; i < encodedString.length; ++i) {
@@ -1040,7 +1044,7 @@ public final class h {
                     if (ao == 45) {
                         d(42);
                     } else {
-                        if (ao == 0 && GlomoReg.i.b().a() >= 0) {
+                        if (ao == 0 && GlomoRegStarter.getRegionPolicyManager().getId() >= 0) {
                             d(ap);
                             break;
                         }
@@ -1060,18 +1064,18 @@ public final class h {
                 case 53:
                     switch(ao) {
                         case 0:
-                            if (aU.a(r)) {
+                            if (glomoRegStarter.initGlomoConfigManager(glomoRegionIndex)) {
                                 d(ap);
                             }
                             break;
                         case 3:
-                            if (r == 0) {
+                            if (glomoRegionIndex == 0) {
                                 d(15);
-                            } else if (r == 1) {
+                            } else if (glomoRegionIndex == 1) {
                                 az.a(true, (String)null);
-                            } else if (r == 2) {
+                            } else if (glomoRegionIndex == 2) {
                                 d(0);
-                            } else if (r == 3) {
+                            } else if (glomoRegionIndex == 3) {
                                 d(27);
                             }
                             break;
@@ -1086,7 +1090,7 @@ public final class h {
                             return true;
                         case 15:
                             try {
-                                if (aU.d()) {
+                                if (glomoRegStarter.d()) {
                                     d(6);
                                 } else {
                                     d(9);
@@ -1096,33 +1100,33 @@ public final class h {
                             }
                             break;
                         case 42:
-                            if (r == 0) {
+                            if (glomoRegionIndex == 0) {
                                 d(45);
-                            } else if (r == 1) {
+                            } else if (glomoRegionIndex == 1) {
                                 az.a(false, (String)null);
                                 am = null;
                             }
                             break;
                         case 45:
-                            ac = y[r];
+                            ac = y[glomoRegionIndex];
                             am = null;
                             ah = 0;
                             ak = false;
                             break;
                         case 51:
-                            if (r == 0) {
+                            if (glomoRegionIndex == 0) {
                                 d(54);
-                            } else if (r == 1) {
+                            } else if (glomoRegionIndex == 1) {
                                 az.a(true, (String)null);
-                            } else if (r == 2) {
+                            } else if (glomoRegionIndex == 2) {
                                 d(0);
                             }
                             break;
                         case 54:
                             try {
                                 boolean var0;
-                                if (var0 = GlomoReg.i.d(aH) == aH) {
-                                    var0 = aU.sendSms(GlomoReg.e.b.b(aH), aU.b(aH));
+                                if (var0 = GlomoRegStarter.setSubscriptionType(subscriptionType) == subscriptionType) {
+                                    var0 = glomoRegStarter.sendSms(GlomoConfigManager.regionPolicyManager.getSubscriptionPhoneNumber(subscriptionType), glomoRegStarter.b(subscriptionType));
                                 }
 
                                 if (var0) {
@@ -1150,16 +1154,16 @@ public final class h {
                 case -2:
                 case 56:
                     try {
-                        if (r < aJ[1].length - 1) {
-                            ++r;
+                        if (glomoRegionIndex < aJ[1].length - 1) {
+                            ++glomoRegionIndex;
                         }
                     } catch (Exception var3) {
                     }
                     break;
                 case -1:
                 case 50:
-                    if (r > 0) {
-                        --r;
+                    if (glomoRegionIndex > 0) {
+                        --glomoRegionIndex;
                     }
             }
 
@@ -1227,23 +1231,23 @@ public final class h {
             N = M;
         }
 
-        int var1 = GlomoReg.i.b().a();
-        Vector var2 = GlomoReg.i.a();
+        int regionPolicyId = GlomoRegStarter.getRegionPolicyManager().getId();
+        Vector availableRegions = GlomoRegStarter.getAvailableRegions();
         if (ao == 3 || ao == 51) {
             ap = ao;
         }
 
-        if ((var0 == 3 || var0 == 51) && var1 < 0) {
+        if ((var0 == 3 || var0 == 51) && regionPolicyId < 0) {
             ap = var0;
             var0 = 0;
         }
 
         if (var0 == 54) {
             try {
-                GlomoReg.i.c(1);
-                aH = 5;
+                GlomoRegStarter.setSubscriptionStatus(1);
+                subscriptionType = 5;
                 String var3;
-                if ((var3 = GlomoReg.i.b().b(aH)) == null || var3.length() < 1) {
+                if ((var3 = GlomoRegStarter.getRegionPolicyManager().getSubscriptionPhoneNumber(subscriptionType)) == null || var3.length() < 1) {
                     var0 = 60;
                 }
             } catch (Exception var17) {
@@ -1252,17 +1256,18 @@ public final class h {
             }
         }
 
-        int var18 = var2.size();
+        int numRegions = availableRegions.size();
 
-        for(int var5 = 0; var5 < var18; ++var5) {
-            var2.elementAt(var5);
+        // What for ???
+        for(int i = 0; i < numRegions; ++i) {
+            availableRegions.elementAt(i);
         }
 
         S[ao] = aD;
-        R[ao] = r;
+        R[ao] = glomoRegionIndex;
         ao = var0;
         aD = S[var0];
-        r = R[var0];
+        glomoRegionIndex = R[var0];
         aJ = null;
         aJ = new String[3][];
         String var7 = "";
@@ -1272,15 +1277,15 @@ public final class h {
                 if (var0 == 15) {
                     try {
                         if (var8 == 0) {
-                            var7 = var7 + " " + GlomoReg.i.b().c();
+                            var7 = var7 + " " + GlomoRegStarter.getRegionPolicyManager().getRegistrationPhoneNumber();
                         }
 
                         if (var8 == 1) {
-                            var7 = var7 + " " + aU.c();
+                            var7 = var7 + " " + glomoRegStarter.c();
                         }
 
                         if (var8 == 2) {
-                            var7 = var7 + '\r' + GlomoReg.i.b().d();
+                            var7 = var7 + '\r' + GlomoRegStarter.getRegionPolicyManager().getRegistrationPrice();
                         }
                     } catch (Exception var16) {
                     }
@@ -1289,15 +1294,15 @@ public final class h {
                 if (var0 == 54) {
                     try {
                         if (var8 == 0) {
-                            var7 = var7 + " " + GlomoReg.i.b().b(aH);
+                            var7 = var7 + " " + GlomoRegStarter.getRegionPolicyManager().getSubscriptionPhoneNumber(subscriptionType);
                         }
 
                         if (var8 == 1) {
-                            var7 = var7 + " " + aU.b(aH);
+                            var7 = var7 + " " + glomoRegStarter.b(subscriptionType);
                         }
 
                         if (var8 == 2) {
-                            var7 = var7 + '\r' + GlomoReg.i.b().c(aH);
+                            var7 = var7 + '\r' + GlomoRegStarter.getRegionPolicyManager().getSubscriptionPrice(subscriptionType);
                         }
                     } catch (Exception var15) {
                     }
@@ -1306,7 +1311,7 @@ public final class h {
                 if (var0 == 27) {
                     try {
                         if (var8 == 0) {
-                            var7 = var7 + '\r' + " " + aU.c();
+                            var7 = var7 + '\r' + " " + glomoRegStarter.c();
                         }
                     } catch (Exception var14) {
                     }
@@ -1318,7 +1323,7 @@ public final class h {
             }
         }
 
-        int var10;
+        int i;
         if (var0 == 3 || var0 == 51) {
             String var9 = "";
 
@@ -1327,9 +1332,9 @@ public final class h {
             } catch (Exception var13) {
             }
 
-            for(var10 = 0; var10 < var18; ++var10) {
-                if (((GlomoOption)var2.elementAt(var10)).c() == var1) {
-                    aJ[0] = new String[]{var7 = var9 + ((GlomoOption)var2.elementAt(var10)).a()};
+            for(i = 0; i < numRegions; ++i) {
+                if (((GlomoRegion)availableRegions.elementAt(i)).getId() == regionPolicyId) {
+                    aJ[0] = new String[]{var7 = var9 + ((GlomoRegion)availableRegions.elementAt(i)).getCountryName()};
                 }
             }
         }
@@ -1343,15 +1348,15 @@ public final class h {
         aJ[1] = z[var0 + 1];
         int var19;
         if (var0 == 0) {
-            aJ[1] = new String[var18];
+            aJ[1] = new String[numRegions];
 
-            for(var19 = 0; var19 < var18; ++var19) {
-                aJ[1][var19] = ((GlomoOption)var2.elementAt(var19)).a();
+            for(var19 = 0; var19 < numRegions; ++var19) {
+                aJ[1][var19] = ((GlomoRegion)availableRegions.elementAt(var19)).getCountryName();
             }
 
-            for(var10 = 0; var10 < var18; ++var10) {
-                if (((GlomoOption)var2.elementAt(var10)).c() == var1) {
-                    r = var10;
+            for(i = 0; i < numRegions; ++i) {
+                if (((GlomoRegion)availableRegions.elementAt(i)).getId() == regionPolicyId) {
+                    glomoRegionIndex = i;
                 }
             }
         }
@@ -1368,8 +1373,8 @@ public final class h {
                 var19 = aE;
                 aJ[1] = new String[var19];
 
-                for(var10 = 0; var10 < var19; ++var10) {
-                    aJ[1][var10] = w[var10];
+                for(i = 0; i < var19; ++i) {
+                    aJ[1][i] = w[i];
                 }
 
                 return;
@@ -1381,7 +1386,7 @@ public final class h {
     }
 
     private static final void n() {
-        aw = a(ay, aw);
+        aw = a(registerStorageRendz1, aw);
         ag = aw[7];
     }
 
@@ -1502,7 +1507,7 @@ public final class h {
 
     private static final void r() {
         aw[7] = (byte)ag;
-        b(ay, aw);
+        writeDataToRendz1(registerStorageRendz1, aw);
     }
 
     private static boolean s() {
@@ -1542,7 +1547,7 @@ public final class h {
 
     static final String c() {
         String var0 = null;
-        return (var0 = GlomoReg.i.f()) != null && var0.length() > 0 ? var0 : null;
+        return (var0 = GlomoRegStarter.getMoreGamesLink()) != null && var0.length() > 0 ? var0 : null;
     }
 
     private static String[] a(String var0, i var1, int var2, boolean var3, boolean var4) {
@@ -1660,16 +1665,16 @@ public final class h {
         return var1;
     }
 
-    private static final boolean a(String var0, String var1) {
-        if (var0 != null && var1 != null || var0 == null && var1 == null) {
-            if (var0 == null && var1 == null) {
+    private static final boolean cmpStrings(String strLeft, String strRight) {
+        if (strLeft != null && strRight != null || strLeft == null && strRight == null) {
+            if (strLeft == null && strRight == null) {
                 return true;
-            } else if (var0 != null && var1 != null) {
-                if (var0.length() != var1.length()) {
+            } else if (strLeft != null && strRight != null) {
+                if (strLeft.length() != strRight.length()) {
                     return false;
                 } else {
-                    for(int var2 = 0; var2 < var0.length(); ++var2) {
-                        if (var0.charAt(var2) != var1.charAt(var2)) {
+                    for(int var2 = 0; var2 < strLeft.length(); ++var2) {
+                        if (strLeft.charAt(var2) != strRight.charAt(var2)) {
                             return false;
                         }
                     }
@@ -1711,51 +1716,57 @@ public final class h {
         return var0;
     }
 
-    private static boolean e(boolean var0) {
-        String var1 = null;
+    private static boolean checkMidletNameMismatch(boolean isError) {
+        String midletName = null;
 
         try {
-            var1 = NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletName));
-        } catch (Exception var3) {
-        }
-
-        var1 = b(var1);
-        if (!var0) {
-            try {
-                if (var1 == null || var1.length() < 1 || !a(var1, decodeBinaryString(binaryStringMoonBT))) {
-                    var0 = true;
-                }
-            } catch (Exception var4) {
-                var0 = true;
-            }
-        }
-
-        return var0;
-    }
-
-    private static boolean f(boolean var0) {
-        String var1 = null;
-
-        try {
-            var1 = NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletVendor));
+            midletName = NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletName));
         } catch (Exception ignore) {
         }
 
-        var1 = b(var1);
-        if (!var0) {
+        midletName = trimLeadAndTrailingSpaces(midletName);
+        if (!isError) {
             try {
-                if (var1 == null || var1.length() < 1 || !a(var1, decodeBinaryString(binaryStringNetLizard))) {
-                    var0 = true;
+                if (midletName == null ||
+                    midletName.length() < 1 ||
+                    !cmpStrings(midletName, decodeBinaryString(binaryStringMoonBT))
+                ) {
+                    isError = true;
                 }
             } catch (Exception var4) {
-                var0 = true;
+                isError = true;
             }
         }
 
-        return var0;
+        return isError;
     }
 
-    static final boolean b(boolean var0) {
+    private static boolean checkMidletVendorMismatch(boolean isError) {
+        String midletVendor = null;
+
+        try {
+            midletVendor = NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletVendor));
+        } catch (Exception ignore) {
+        }
+
+        midletVendor = trimLeadAndTrailingSpaces(midletVendor);
+        if (!isError) {
+            try {
+                if (midletVendor == null ||
+                    midletVendor.length() < 1 ||
+                    !cmpStrings(midletVendor, decodeBinaryString(binaryStringNetLizard))
+                ) {
+                    isError = true;
+                }
+            } catch (Exception e) {
+                isError = true;
+            }
+        }
+
+        return isError;
+    }
+
+    static final boolean b(boolean isError) {
         n();
         if (verifyAppProperties()) {
             isRunning = false;
@@ -1765,18 +1776,18 @@ public final class h {
                 A = AssetManager.instanceHandler.e(decodeBinaryString(binaryStringDem));
                 if (A == null || A[0] == null || A[0].length <= 0) {
                     isRunning = false;
-                    var0 = true;
+                    isError = true;
                 }
-            } catch (Exception var3) {
+            } catch (Exception e) {
                 isRunning = false;
-                var0 = true;
+                isError = true;
             }
 
             try {
                 z = AssetManager.instanceHandler.e("dem3");
                 if (z == null || z[0] == null || z[0].length <= 0) {
                     isRunning = false;
-                    var0 = true;
+                    isError = true;
                 }
             } catch (Exception var2) {
                 isRunning = false;
@@ -1788,33 +1799,33 @@ public final class h {
                 J = true;
             } else {
                 J = false;
-                // TODO: uncomment and remove false
-                if (f(var0) || e(var0)) {
+                if (checkMidletVendorMismatch(isError) || checkMidletNameMismatch(isError)) {
                     isRunning = false;
                     return true;
                 }
             }
 
-            if (!var0) {
-                var0 = !aU.e();
+            if (!isError) {
+                glomoRegStarter = new GlomoRegStarter(NET_Lizard.app);
+                isError = !glomoRegStarter.checkActivation();
             }
 
             d(0);
-            if (var0 = d(var0)) {
-                var0 |= s();
+            if (isError = d(isError)) {
+                isError |= s();
             } else {
                 aK <<= 1;
             }
 
-            if (var0) {
-                var0 |= c(true);
+            if (isError) {
+                isError |= c(true);
             }
 
-            if (var0) {
+            if (isError) {
                 d(new String());
             }
 
-            return var0;
+            return isError;
         }
     }
 
@@ -1822,17 +1833,20 @@ public final class h {
         //return false;
         // TODO: uncomment
         try {
-            String properties = GlomoReg.i.verifyMidlet(NET_Lizard.app, new String[]{decodeBinaryString(binaryStringMoonBT) +
-                    decodeBinaryString(binaryStringIconPathAndMidletClass)});
+            String issues = GlomoRegStarter.verifyMidlet(
+                    NET_Lizard.app,
+                    new String[]{decodeBinaryString(binaryStringMoonBT) +
+                                 decodeBinaryString(binaryStringIconPathAndMidletClass)}
+            );
 
             if ((NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletVendor)) != null ||
                  NET_Lizard.app.getAppProperty(decodeBinaryString(binaryStringMIDletName)) != null) &&
-                 properties != null && properties.length() > 0
+                 issues != null && issues.length() > 0
             ) {
-                System.out.println(properties);
+                System.out.println(issues);
                 return true;
             } else {
-                aU = new GlomoReg.i(NET_Lizard.app);
+                glomoRegStarter = new GlomoRegStarter(NET_Lizard.app);
                 return false;
             }
         } catch (Throwable e) {
@@ -1844,10 +1858,10 @@ public final class h {
         try {
             try {
                 return f7.hasPointerEvents();
-            } catch (Exception var2) {
+            } catch (Exception e) {
                 return false;
             }
-        } catch (Throwable var3) {
+        } catch (Throwable any) {
             return false;
         }
     }
@@ -2116,12 +2130,12 @@ public final class h {
                             aD = 0;
                         }
 
-                        if (aD > r) {
-                            aD = r;
+                        if (aD > glomoRegionIndex) {
+                            aD = glomoRegionIndex;
                         }
 
-                        if (r - aD > var5 - 1) {
-                            aD = r - (var5 - 1);
+                        if (glomoRegionIndex - aD > var5 - 1) {
+                            aD = glomoRegionIndex - (var5 - 1);
                         }
 
                         var13 = var26;
@@ -2130,13 +2144,13 @@ public final class h {
 
                         for(var15 = 0; var14 < aJ[1].length && var15 < var5; ++var14) {
                             var16 = var25 - (var13 - (M.b() - M.f8) >> 1);
-                            if (k.d(0, var16, e7, var13) && r != var14) {
-                                r = var14;
+                            if (k.d(0, var16, e7, var13) && glomoRegionIndex != var14) {
+                                glomoRegionIndex = var14;
                             }
 
                             if (k.c(0, var16, e7, var13)) {
-                                if (r != var14) {
-                                    r = var14;
+                                if (glomoRegionIndex != var14) {
+                                    glomoRegionIndex = var14;
                                 }
 
                                 ah = 53;
@@ -2149,14 +2163,14 @@ public final class h {
                             }
 
                             var18 = e7 - 2 * var17;
-                            if (var14 == r) {
+                            if (var14 == glomoRegionIndex) {
                                 var0.setColor(n7);
                                 var0.fillRect(var17, var16, var18, var13);
                                 var0.setColor(l7);
                                 var0.drawRect(var17, var16, var18 - 1, var13 - 1);
                             }
 
-                            a(var0, N, aJ[1][var14], var17 + 2, 0, var18 - 4, d7, var14 == r, e7 >> 1, var25, 17);
+                            a(var0, N, aJ[1][var14], var17 + 2, 0, var18 - 4, d7, var14 == glomoRegionIndex, e7 >> 1, var25, 17);
                             var25 += var26;
                             ++var15;
                         }

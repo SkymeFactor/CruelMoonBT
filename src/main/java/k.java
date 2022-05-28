@@ -452,11 +452,11 @@ public final class k extends a implements Runnable {
         this.aO = false;
         this.S = false;
         this.x = new Image[4];
-        int[] var10000 = new int[]{1296389185, 759778886, 793592142, 1229342035, 1412320582};
-        var10000 = new int[]{1399874915, 1768319331, 1635019119, 1845493760};
-        var10000 = new int[]{1296647248, 758263344};
-        var10000 = new int[]{1684368640};
-        var10000 = new int[]{1819934720};
+        int[] var10000 = new int[]{1296389185, 759778886, 793592142, 1229342035, 1412320582};   // META-INF/MANIFEST.MF
+        var10000 = new int[]{1399874915, 1768319331, 1635019119, 1845493760};                   // Specification
+        var10000 = new int[]{1296647248, 758263344};                                            // MIDP-2.0
+        var10000 = new int[]{1684368640};                                                       // dem
+        var10000 = new int[]{1819934720};                                                       // lz
         this.aH = new byte[][]{{99, 102, 50}, {102, 110, 116, 50}, {50}, {115, 116}, {116, 108, 107}, {110, 109}, {47, 97, 114, 46, 112, 110, 103}, {47, 97, 114}, {46, 112, 110, 103}, {47, 122, 118, 122, 46, 112, 110, 103}, {46, 106, 112, 103}, {47, 108}, {47, 117}, {99, 99, 51}, {99, 117, 51}, {109, 117, 97}, {47, 105, 108, 49, 46, 112, 110, 103}, {47, 105, 108, 50, 46, 112, 110, 103}, {47, 105, 108, 51, 46, 112, 110, 103}, {47, 105, 108, 108, 46, 112, 110, 103}, {47, 105, 108, 119, 46, 112, 110, 103}, {47, 101, 108, 48, 46, 112, 110, 103}, {47, 101, 108, 49, 46, 112, 110, 103}, {47, 105, 108, 108, 119, 46, 112, 110, 103}};
         this.fw = 0;
         this.fO = 0;
@@ -3143,6 +3143,7 @@ public final class k extends a implements Runnable {
         }
     }
 
+    // TODO: decode byte array to String
     static final String a(byte[] var0) {
         char[] var1 = new char[var0.length];
 
@@ -3576,9 +3577,9 @@ public final class k extends a implements Runnable {
         this.ad = 0;
     }
 
-    final void j() {
+    final void runGameThread() {
         Display.getDisplay(NET_Lizard.app).setCurrent(this);
-        aP = NET_Lizard.c_nl;
+        aP = NET_Lizard.game;
         this.S = true;
         if (this.ez == null) {
             this.ez = new Thread(this);
@@ -4145,7 +4146,7 @@ public final class k extends a implements Runnable {
 
     protected final void keyPressed(int var1) {
         try {
-            var1 = a.a(var1);
+            var1 = a.standardizeKeyCodes(var1);
         } catch (Exception var3) {
         }
 
@@ -4215,7 +4216,7 @@ public final class k extends a implements Runnable {
 
     protected final void keyReleased(int var1) {
         try {
-            var1 = a.a(var1);
+            var1 = a.standardizeKeyCodes(var1);
         } catch (Exception var3) {
         }
 
@@ -7464,7 +7465,7 @@ public final class k extends a implements Runnable {
         return var8;
     }
 
-    public final void paint(Graphics var1) {
+    public final void paint(Graphics graphics) {
         if (!eu) {
             try {
                 if (this.dQ < 0) {
@@ -7475,7 +7476,7 @@ public final class k extends a implements Runnable {
                 }
 
                 if (this.dQ <= 0) {
-                    this.g(var1);
+                    this.g(graphics);
                     return;
                 }
 
@@ -7488,7 +7489,7 @@ public final class k extends a implements Runnable {
                 }
 
                 this.g(this.aN);
-                var1.drawImage(this.dP, 0, 0, 20);
+                graphics.drawImage(this.dP, 0, 0, 20);
             } catch (Exception var3) {
             }
 
@@ -7655,7 +7656,7 @@ public final class k extends a implements Runnable {
                 cq = false;
                 aP.aw();
                 cq = var1;
-                m.a(NET_Lizard.c_nl);
+                m.a(NET_Lizard.game);
                 if (m.u == null) {
                     m.a();
                 }
@@ -8004,8 +8005,8 @@ public final class k extends a implements Runnable {
     static final int n() {
         try {
             int var0 = j.x.b() + 2;
-            if (NET_Lizard.c_nl.v()) {
-                int var1 = NET_Lizard.c_nl.getHeight() >> 3;
+            if (NET_Lizard.game.v()) {
+                int var1 = NET_Lizard.game.getHeight() >> 3;
                 if (var0 < var1) {
                     var0 = var1;
                 }
@@ -9317,6 +9318,7 @@ public final class k extends a implements Runnable {
         aK = false;
         h.a(this, j.x);
         j.p = h.b(j.p);
+        // TODO: Check the failure
         if (h.a()) {
             NET_Lizard.a();
         } else {
@@ -9327,7 +9329,7 @@ public final class k extends a implements Runnable {
             try {
                 r = AssetManager.instanceHandler.e(a(this.aH[3]));
                 cR = false;
-            } catch (Exception var31) {
+            } catch (Exception ignore) {
             }
 
             try {
@@ -11009,7 +11011,7 @@ public final class k extends a implements Runnable {
         }
 
         if (var2) {
-            NET_Lizard.c_nl.fc = true;
+            NET_Lizard.game.fc = true;
         }
 
         if (var3) {
