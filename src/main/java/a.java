@@ -10,9 +10,9 @@ import javax.microedition.lcdui.Image;
 
 public class a extends Canvas {
     static int[] a5;
-    private static boolean b5 = true;
-    private static boolean c5 = false;
-    private static boolean d5 = false;
+    private static boolean apiCheckRequired = true;
+    private static boolean nokiaApiEnabled = false;
+    private static boolean siemensApiEnabled = false;
 
     public a() {
         this.setFullScreenMode(true);
@@ -115,102 +115,85 @@ public class a extends Canvas {
         return 360;
     }
 
-    static final int a(int var0) {
-        int var1 = var0;
-        switch(var0) {
+    static final int standardizeKeyCodes(int keyCode) {
+        int originalKeyCode = keyCode;
+        switch(keyCode) {
             case -203:
             case -22:
             case -7:
             case -4:
-            case 22:
-                var0 = -7;
-                break;
+            case 22: keyCode = -7; break;
             case -202:
             case -21:
             case -6:
             case -1:
-            case 21:
-                var0 = -6;
+            case 21: keyCode = -6; break;
         }
 
-        if (b5) {
-            b5 = false;
+        if (apiCheckRequired) {
+            apiCheckRequired = false;
 
             try {
                 Class.forName("com.siemens.mp.media.control.VolumeControl");
-                d5 = true;
-            } catch (Exception var5) {
+                siemensApiEnabled = true;
+            } catch (Exception ignore) {
             }
 
             try {
                 Class.forName("com.nokia.mid.ui.FullCanvas");
-                c5 = true;
-            } catch (Exception var4) {
+                nokiaApiEnabled = true;
+            } catch (Exception ignore) {
             }
 
             try {
                 Class.forName("com.samsung.util.AudioClip");
-                c5 = true;
-            } catch (Exception var3) {
+                nokiaApiEnabled = true;
+            } catch (Exception ignore) {
             }
         }
 
-        if (d5) {
-            if (var0 == -1) {
+        if (siemensApiEnabled) {
+            if (keyCode == -1) {
                 return -6;
             }
 
-            if (var0 == -4) {
+            if (keyCode == -4) {
                 return -7;
             }
         }
 
-        if (c5) {
-            if (var0 == -6) {
+        if (nokiaApiEnabled) {
+            if (keyCode == -6) {
                 return -6;
             }
 
-            if (var0 == -7) {
+            if (keyCode == -7) {
                 return -7;
             }
 
-            if (var0 == 10) {
+            if (keyCode == 10) {
                 return -5;
             }
         }
 
-        // Additional Game Actions:
-        // 42 - KEY_STAR
-        // 35 - KEY_POUND
-        // 48 - KEY_NUM0
-        // 57 - KEY_NUM9
         try {
-            if (var0 != 42 & var0 != 35 && (var0 < 48 || var0 > 57)) {
-                switch(NET_Lizard.c_nl.getGameAction(var1)) {
-                    case 1: // UP
-                        var0 = -1;
-                        break;
-                    case 2: // LEFT
-                        var0 = -3;
+            if (keyCode != KEY_STAR & keyCode != KEY_POUND && (keyCode < KEY_NUM0 || keyCode > KEY_NUM9)) {
+                switch(NET_Lizard.game.getGameAction(originalKeyCode)) {
+                    case UP: keyCode = -1; break;
+                    case LEFT: keyCode = -3;
                     case 3:
                     case 4:
                     case 7:
-                    default:
-                        break;
-                    case 5: // RIGHT
-                        var0 = -4;
-                        break;
-                    case 6: // DOWN
-                        var0 = -2;
-                        break;
-                    case 8: // FIRE
-                        var0 = -5;
+                    default: break;
+                    case RIGHT: keyCode = -4; break;
+                    case DOWN: keyCode = -2; break;
+                    case FIRE: keyCode = -5; break;
                 }
             }
-        } catch (Exception var6) {
+        } catch (Exception ignore) {
         }
 
-        return var0;
+        return keyCode;
     }
 
     static final Image a(Image var0, int var1) {
@@ -225,6 +208,6 @@ public class a extends Canvas {
         return Image.createImage(var0, 0, 0, var0.getWidth(), var0.getHeight(), 2);
     }
 
-    public void paint(Graphics var1) {
+    public void paint(Graphics graphics) {
     }
 }
