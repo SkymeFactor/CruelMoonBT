@@ -32,7 +32,7 @@ public final class AssetManager {
 
     static {
         d1 = k.bO;
-        recordStorageMNMc = k.cI;
+        recordStorageMNMc = k.stringMNMc;
         f1 = 1;
         l1 = false;
         o = true;
@@ -44,7 +44,7 @@ public final class AssetManager {
         k1 = false;
         j1 = true;
         binaryStringComNokiaUIFullCanvas = new int[]{1668246830, 1852795753, 1630432617, 1680766313, 776369516, 1816355182, 1986097920};
-        binaryStringPNG = new int[]{779120231};
+        binaryStringPNG = new int[]{779120231};     // PNG
         alphaBlendingEnabled = 0;
     }
 
@@ -264,8 +264,8 @@ public final class AssetManager {
         return data;
     }
 
-    private static int a(int var0, int var1) {
-        return var0 / var1;
+    private static int div(int divisible, int divisor) {
+        return divisible / divisor;
     }
 
     static final String unifyFilename(String filename) {
@@ -367,14 +367,14 @@ public final class AssetManager {
     }
 
     private String[][] b(String var1, int var2) {
-        String[] var3 = null;
-        String[][] var4 = new String[(var3 = a(this.f(var1), (d)null, 0, false, false)).length][];
+        String[] levelsTitles = null;   // TODO: fix wrong name
+        String[][] var4 = new String[(levelsTitles = a(this.f(var1), (d)null, 0, false, false)).length][];
 
-        for(int var6 = 0; var6 < var4.length; ++var6) {
-            if (var3[var6] != null) {
+        for(int i = 0; i < var4.length; ++i) {
+            if (levelsTitles[i] != null) {
                 String var7;
                 int var8;
-                if ((var8 = (var7 = var3[var6]).length()) > 256) {
+                if ((var8 = (var7 = levelsTitles[i]).length()) > 256) {
                     var8 = 256;
                 }
 
@@ -395,8 +395,8 @@ public final class AssetManager {
                     }
                 }
 
-                var4[var6] = new String[var10];
-                System.arraycopy(var9, 0, var4[var6], 0, var10);
+                var4[i] = new String[var10];
+                System.arraycopy(var9, 0, var4[i], 0, var10);
             }
         }
 
@@ -404,7 +404,7 @@ public final class AssetManager {
     }
 
     public final String[][] e(String var1) {
-        return this.b((String)var1, 61);
+        return this.b((String)var1, 61);    // ASCII 61 is the space
     }
 
     protected final byte[] readDataChunkFromFile(String filename, int dataLength) {
@@ -461,35 +461,35 @@ public final class AssetManager {
     }
 
     // TODO: some job done, continue
-    private String a(String var1, char var2) {
-        int var3 = this.getFileSize(var1);
+    private String a(String filename, char var2) {
+        int fileSize = this.getFileSize(filename);
         String var4 = new String();
         byte[] textAssetBin;
-        if ((textAssetBin = this.readDataChunkFromFile(var1, var3)) != null && textAssetBin.length > 0) {
+        if ((textAssetBin = this.readDataChunkFromFile(filename, fileSize)) != null && textAssetBin.length > 0) {
             if (textAssetBin.length > 1 && textAssetBin[0] == 59 && textAssetBin[1] == 67) {
                 textAssetBin = decryptDataMethodA(textAssetBin, default_salt);
             } else if (textAssetBin.length > 1 && textAssetBin[0] == -101 && textAssetBin[1] == -101) {
                 textAssetBin = decryptDataMethodA(textAssetBin, default_salt);
             }
 
-            byte var6 = 0;
+            byte descriptorLength = 0;
             if (textAssetBin.length >= 1 && textAssetBin[0] == 95) {
                 // Game asset discovered (ascii char 95 is '_')
-                var6 = 2;
+                descriptorLength = 2;
             }
 
             if (textAssetBin.length >= 2 && textAssetBin[0] == -1 && textAssetBin[1] == -2) {
                 return readTextAssetFromBinary(textAssetBin);
             } else {
-                int var7 = var6;
+                int var7 = descriptorLength;
                 boolean var8 = false;
                 int var9;
-                int var10 = (var9 = textAssetBin.length - var6) + var6;
+                int var10 = (var9 = textAssetBin.length - descriptorLength) + descriptorLength;
 
-                for(int var11 = var6; var11 < var10; ++var11) {
+                for(int var11 = descriptorLength; var11 < var10; ++var11) {
                     if (textAssetBin[var11] == 0) {
-                        var9 = var11 - var6;
-                        var3 = var11;
+                        var9 = var11 - descriptorLength;
+                        fileSize = var11;
                         break;
                     }
                 }
@@ -498,14 +498,14 @@ public final class AssetManager {
 
                 int var16;
                 for(int var13 = 0; var13 < var9; ++var13) {
-                    if ((var16 = textAssetBin[var13 + var6]) < 0) {
+                    if ((var16 = textAssetBin[var13 + descriptorLength]) < 0) {
                         var16 += 256;
                     }
 
                     var12[var13] = (char)var16;
                 }
 
-                for(; var7 < var3; ++var7) {
+                for(; var7 < fileSize; ++var7) {
                     if ((var16 = textAssetBin[var7]) < 0) {
                         var16 += 256;
                     }
@@ -515,16 +515,16 @@ public final class AssetManager {
                     }
 
                     if (var16 == var2) {
-                        var12[var7 - var6] = ' ';
+                        var12[var7 - descriptorLength] = ' ';
                     }
 
                     if (var16 < 10) {
-                        var12[var7 - var6] = ' ';
+                        var12[var7 - descriptorLength] = ' ';
                     }
 
                     if (var16 >= 192 && var16 <= 255) {
                         var16 += 848;
-                        var12[var7 - var6] = (char)var16;
+                        var12[var7 - descriptorLength] = (char)var16;
                     }
                 }
 
@@ -684,7 +684,7 @@ public final class AssetManager {
                     int var16 = 0;
 
                     for(var17 = 0; var17 < var8; ++var17) {
-                        if ((var18 = a((var17 + 1) * var1, var8) - 1) < 0) {
+                        if ((var18 = div((var17 + 1) * var1, var8) - 1) < 0) {
                             var18 = 0;
                         }
 
@@ -705,7 +705,7 @@ public final class AssetManager {
                             long var24 = 0L;
                             long var26 = 0L;
                             if (var19 <= 1 || var19 == 2 && var16 > 0) {
-                                var16 = var29 = a(256 * (var17 + 1) * var1, var8) & 255;
+                                var16 = var29 = div(256 * (var17 + 1) * var1, var8) & 255;
                                 var30 = var18;
                                 var31 = var1 * var11 + var18;
                                 var32 = var0[var31];
@@ -741,7 +741,7 @@ public final class AssetManager {
                                     }
 
                                     if (var28 == var18) {
-                                        var16 = var32 = a(256 * (var17 + 1) * var1, var8) & 255;
+                                        var16 = var32 = div(256 * (var17 + 1) * var1, var8) & 255;
                                         var33 = var0[var29];
                                         if (var28 < var1 - 1) {
                                             ++var28;
@@ -813,7 +813,7 @@ public final class AssetManager {
                     var17 = 0;
 
                     for(var18 = 0; var18 < var4; ++var18) {
-                        if ((var19 = a((var18 + 1) * var9, var4) - 1) < 0) {
+                        if ((var19 = div((var18 + 1) * var9, var4) - 1) < 0) {
                             var19 = 0;
                         }
 
@@ -859,7 +859,7 @@ public final class AssetManager {
                                     }
 
                                     if (var29 == var19) {
-                                        var17 = var33 = a(256 * (var18 + 1) * var9, var4) & 255;
+                                        var17 = var33 = div(256 * (var18 + 1) * var9, var4) & 255;
                                         var34 = var36[var30];
                                         if (var29 < var9 - 1) {
                                             ++var29;
@@ -913,7 +913,7 @@ public final class AssetManager {
                                     var37[var18 * var3 + var12] = (int)(-16777216L | var21 << 16 | var23 << 8 | var25);
                                 }
                             } else {
-                                var17 = var30 = a(256 * (var18 + 1) * var9, var4) & 255;
+                                var17 = var30 = div(256 * (var18 + 1) * var9, var4) & 255;
                                 var31 = var19;
                                 var32 = var8 * var19 + var12;
                                 var33 = var36[var32];

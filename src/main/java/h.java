@@ -96,7 +96,7 @@ public final class h {
     static byte[] aw;
     static int ax;
     static String registerStorageRendz1 = "rendz_1";
-    static h az;
+    static h instanceHandler;
     static boolean aA;
     int aB;
     int aC;
@@ -242,12 +242,12 @@ public final class h {
     }
 
     public static h a(k var0, d var1) {
-        if (az != null && P != null) {
-            return az;
+        if (instanceHandler != null && P != null) {
+            return instanceHandler;
         } else {
-            h var2;
-            az = var2 = new h(var0);
-            return var2;
+            h newInstance;
+            instanceHandler = newInstance = new h(var0);
+            return newInstance;
         }
     }
 
@@ -370,7 +370,7 @@ public final class h {
             }
 
             if (am != null) {
-                az.m();
+                instanceHandler.m();
                 if (ah != 0) {
                     long var6 = System.currentTimeMillis();
                     if ((aS || aT) && var6 - aL >= 88L && (aS || var6 - timeStamp >= 500L)) {
@@ -564,7 +564,7 @@ public final class h {
             }
         }
 
-        az.c(var18);
+        instanceHandler.c(var18);
     }
 
     private final char c(int var1) {
@@ -1037,8 +1037,8 @@ public final class h {
     }
 
     private static boolean k() {
-        if (az.aa) {
-            az.j();
+        if (instanceHandler.aa) {
+            instanceHandler.j();
             return false;
         } else if (am == null) {
             return false;
@@ -1081,7 +1081,7 @@ public final class h {
                             if (glomoRegionIndex == 0) {
                                 d(15);
                             } else if (glomoRegionIndex == 1) {
-                                az.a(true, (String)null);
+                                instanceHandler.a(true, (String)null);
                             } else if (glomoRegionIndex == 2) {
                                 d(0);
                             } else if (glomoRegionIndex == 3) {
@@ -1112,7 +1112,7 @@ public final class h {
                             if (glomoRegionIndex == 0) {
                                 d(45);
                             } else if (glomoRegionIndex == 1) {
-                                az.a(false, (String)null);
+                                instanceHandler.a(false, (String)null);
                                 am = null;
                             }
                             break;
@@ -1126,7 +1126,7 @@ public final class h {
                             if (glomoRegionIndex == 0) {
                                 d(54);
                             } else if (glomoRegionIndex == 1) {
-                                az.a(true, (String)null);
+                                instanceHandler.a(true, (String)null);
                             } else if (glomoRegionIndex == 2) {
                                 d(0);
                             }
@@ -1349,7 +1349,7 @@ public final class h {
         }
 
         if (var7 != null && var7.length() > 0) {
-            aJ[0] = az.a(var7, N, e7 - N.a(" "), true);
+            aJ[0] = instanceHandler.a(var7, N, e7 - N.a(" "), true);
         } else {
             aJ[0] = new String[]{""};
         }
@@ -1378,7 +1378,7 @@ public final class h {
             } catch (Exception var12) {
             }
 
-            if (az.readDummyContacts()) {
+            if (instanceHandler.readDummyContacts()) {
                 var19 = numContacts;
                 aJ[1] = new String[var19];
 
@@ -1933,7 +1933,7 @@ public final class h {
     }
 
     static boolean f() {
-        return am != null || az.aa;
+        return am != null || instanceHandler.aa;
     }
 
     static final boolean a(Graphics var0) {
@@ -1943,8 +1943,8 @@ public final class h {
             var0.setColor(m7);
             var0.setClip(0, aP, e7, Q);
             var0.fillRect(0, aP, e7, Q);
-            if (az.aa) {
-                az.b(var0);
+            if (instanceHandler.aa) {
+                instanceHandler.b(var0);
                 return true;
             } else {
                 int var1 = 0;
