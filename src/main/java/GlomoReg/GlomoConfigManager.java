@@ -39,7 +39,7 @@ public final class GlomoConfigManager {
 
     private static String[] getGlomoConfig() {
         if (config == null) {
-            config = GlomoConfigLoader.readGlomoConfigFile(appHandler, "/glomo.cfg");
+            config = GlomoHelper.readGlomoConfigFile(appHandler, "/glomo.cfg");
             configUsageCounter = 0;
         }
 
@@ -84,7 +84,7 @@ public final class GlomoConfigManager {
     }
 
     private static String readCurrentConfigVersion() {
-        configVersion = GlomoConfigLoader.splitString(";", getGlomoConfig()[0])[0];
+        configVersion = GlomoHelper.splitString(";", getGlomoConfig()[0])[0];
         releaseGlomoConfig();
         return configVersion;
     }
@@ -102,7 +102,7 @@ public final class GlomoConfigManager {
     }
 
     public static final boolean checkAppCountryPropertiesAreSet() {
-        return GlomoConfigLoader.getMidletPropertySafe(appHandler, "c_0_code").compareTo("") != 0 ||
-               GlomoConfigLoader.getMidletPropertySafe(appHandler, "c_0_name").compareTo("") != 0;
+        return GlomoHelper.getMidletPropertySafe(appHandler, "c_0_code").compareTo("") != 0 ||
+               GlomoHelper.getMidletPropertySafe(appHandler, "c_0_name").compareTo("") != 0;
     }
 }

@@ -39,7 +39,7 @@ public class GlomoOptionStorage {
     }
 
     public final String getMidletProperty(String property) {
-        return GlomoConfigLoader.getMidletPropertySafe(this.appHandler, property);
+        return GlomoHelper.getMidletPropertySafe(this.appHandler, property);
     }
 
     public final void putOptions(String[] opts, String[] values) {

@@ -12,12 +12,12 @@ import java.io.InputStream;
 import java.util.Random;
 import javax.microedition.midlet.MIDlet;
 
-public final class GlomoConfigLoader {
+public final class GlomoHelper {
     private static final Random randomGenerator = new Random();
     private static final String hexadecimalChars = "0123456789ABCDEF";
     private static final String alphaNumericChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    public GlomoConfigLoader() {
+    public GlomoHelper() {
     }
 
     public static final String[] splitString(String separator, String data) {

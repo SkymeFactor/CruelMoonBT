@@ -91,11 +91,11 @@ public final class GlomoRegStarter {
 
         long registrationKey = GlomoRegisterStorage.getRegistrationKey();
         String var4;
-        if ((var4 = GlomoConfigLoader.a(
+        if ((var4 = GlomoHelper.a(
                     0,
                     GlomoConfigManager.regionPolicyManager.getSmsPrefix(),
                     registrationKey != 0L ? registrationKey : GlomoRegisterStorage.setRegistrationKey(
-                                    GlomoConfigLoader.generateRandomKey(0))
+                                    GlomoHelper.generateRandomKey(0))
             )
         ).compareTo("") == 0) {
             this.b = 1;
@@ -117,12 +117,12 @@ public final class GlomoRegStarter {
 
         long subscriptionKey = GlomoRegisterStorage.getSubscriptionKey();
         String var4;
-        return ((var4 = GlomoConfigLoader.a(
+        return ((var4 = GlomoHelper.a(
                 subscribeType,
                 GlomoConfigManager.regionPolicyManager.getSubscriptionPrefix(subscribeType),
                 subscriptionKey != 0L ? subscriptionKey :
                         GlomoRegisterStorage.setSubscriptionKey(
-                                GlomoConfigLoader.generateRandomKey(0)
+                                GlomoHelper.generateRandomKey(0)
                         )
         )).compareTo("") == 0 ? "" : var4 + (var1.compareTo("") == 0 ? "" : GlomoConfigManager.distributor.getTailSeparator() + var1)).toLowerCase();
     }
@@ -182,7 +182,7 @@ public final class GlomoRegStarter {
 
         try {
             isRegistered = Long.parseLong(
-                    GlomoConfigLoader.decodeString(GlomoRegisterStorage.getClientEnteredKey(), 0)
+                    GlomoHelper.decodeString(GlomoRegisterStorage.getClientEnteredKey(), 0)
             ) == GlomoRegisterStorage.getRegistrationKey() ? true : true;   // TODO: remove temporary true
         } catch (Exception ignored) {
         }
@@ -199,7 +199,7 @@ public final class GlomoRegStarter {
 
         try {
             isSubscribed = Long.parseLong(
-                    GlomoConfigLoader.decodeString(GlomoRegisterStorage.getClientEnteredKey(), 0)
+                    GlomoHelper.decodeString(GlomoRegisterStorage.getClientEnteredKey(), 0)
             ) == GlomoRegisterStorage.getSubscriptionKey();
         } catch (Exception ignore) {
         }
