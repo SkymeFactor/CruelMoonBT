@@ -5,8 +5,10 @@ import GlomoReg.GlomoRegionPolicyManager;
 import javax.imageio.ImageIO;
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Display;
+import javax.microedition.lcdui.Graphics;
 import javax.microedition.midlet.MIDlet;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +27,7 @@ public class Main {
             JFrame frame = new JFrame("MoonBT");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.add(canvas);
+            frame.addKeyListener(canvas.keyListener);
             frame.setIconImage(icon.getImage());
             frame.pack();
             frame.setVisible(true);
@@ -44,27 +47,25 @@ public class Main {
             myMidlet.startApp();
         });
 
-        // Congrats my work
-        System.out.println("Awesome work!");
-        //System.out.println(h.decodeBinaryString(new int[]{1819934720}));
-        try {
-            BufferedImage img = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/Decoded/img/li0.png"));
-            //myCanvas.getGraphics().drawImage(img, 0, 0, null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            // Intention is to wait the thread initialization
-            Thread.sleep(100);
-        } catch (InterruptedException ignore) {
-        }
-        //System.out.println(GlomoRegStarter.getAvailableRegions());
-        //for (Object it: GlomoRegStarter.getAvailableRegions()) {
-        //    System.out.println(((GlomoRegion)it).getCountryName());
-        //}
+        System.out.println("[ INFO ]: Game has been launched");
 
-        /*for (String str: GlomoConfigLoader.readGlomoConfigFile(myMidlet, "/glomo.cfg"))
-            System.out.println(str);*/
+        // System.out.println(h.decodeBinaryString(new int[]{1819934720}));
+        // try {
+        //     BufferedImage img = ImageIO.read(new File(System.getProperty("user.dir") + "/src/main/resources/Decoded/img/li0.png"));
+        //     myCanvas.getGraphics().drawImage(img, 0, 0, null);
+        //        // Intention is to wait the thread initialization
+        //        Thread.sleep(100);
+        //        System.out.println(GlomoRegStarter.getAvailableRegions());
+        //        for (Object it: GlomoRegStarter.getAvailableRegions()) {
+        //            System.out.println(((GlomoRegion)it).getCountryName());
+        //        }
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
+        //
+        // for (String str: GlomoConfigLoader.readGlomoConfigFile(myMidlet, "/glomo.cfg"))
+        //     System.out.println(str);
+
         return;
     }
 }

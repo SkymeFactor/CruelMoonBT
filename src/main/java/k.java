@@ -128,7 +128,7 @@ public final class k extends a implements Runnable {
     Image bl;
     Image bm;
     boolean bn;
-    Image[] bo;     // TODO: Rename to sidePanelIcons
+    Image[] sidePanelIcons;
     int bp;
     boolean bq;
     int br;
@@ -2587,22 +2587,22 @@ public final class k extends a implements Runnable {
             return;
         }
 
-        if (this.bo == null) {
-            this.bo = new Image[12];
+        if (this.sidePanelIcons == null) {
+            this.sidePanelIcons = new Image[12];
         }
 
         if (this.cN == null) {
-            this.cN = new boolean[this.bo.length];
+            this.cN = new boolean[this.sidePanelIcons.length];
         }
 
-        for(int var1 = 0; var1 < this.bo.length; ++var1) {
-            if (this.bo[var1] == null && !this.cN[var1]) {
+        for(int var1 = 0; var1 < this.sidePanelIcons.length; ++var1) {
+            if (this.sidePanelIcons[var1] == null && !this.cN[var1]) {
                 try {
-                    this.bo[var1] = AssetManager.readImageFromFilePNG("/mm" + var1 + ".png");
+                    this.sidePanelIcons[var1] = AssetManager.readImageFromFilePNG("/mm" + var1 + ".png");
                 } catch (Exception var3) {
                 }
 
-                if (this.bo[var1] == null) {
+                if (this.sidePanelIcons[var1] == null) {
                     this.cN[var1] = true;
                 }
             }
@@ -7493,7 +7493,9 @@ public final class k extends a implements Runnable {
         return var8;
     }
 
-    public final void paint(Graphics graphics) {
+    @Override
+    public void paint(java.awt.Graphics g) {
+        Graphics graphics = new Graphics(g);
         if (!eu) {
             try {
                 if (this.dQ < 0) {
@@ -11857,12 +11859,12 @@ public final class k extends a implements Runnable {
 
                     if (!this.cC) {
                         if (var1 != null) {
-                            var1.setClip(0, 0, this.bo[var4].getWidth(), this.bo[var4].getHeight());
-                            var1.drawImage(this.bo[var4], 0 - (this.dV[0] * this.bo[var4].getWidth() >> 2), 0, 20);
+                            var1.setClip(0, 0, this.sidePanelIcons[var4].getWidth(), this.sidePanelIcons[var4].getHeight());
+                            var1.drawImage(this.sidePanelIcons[var4], 0 - (this.dV[0] * this.sidePanelIcons[var4].getWidth() >> 2), 0, 20);
                         }
 
                         var4 = (var4 >> 1 << 1) + 1;
-                        if (var1 == null && d(0, 0 + var5, this.bo[var4].getWidth(), this.bo[var4].getHeight()) && !this.fi) {
+                        if (var1 == null && d(0, 0 + var5, this.sidePanelIcons[var4].getWidth(), this.sidePanelIcons[var4].getHeight()) && !this.fi) {
                             this.x(48);
                             this.cO = true;
                             aV();
@@ -11875,16 +11877,16 @@ public final class k extends a implements Runnable {
                         ++var4;
                     }
 
-                    int var11 = this.e10 - this.bo[var4].getWidth() >> 1;
-                    int var12 = this.bx - this.bo[var4].getHeight();
+                    int var11 = this.e10 - this.sidePanelIcons[var4].getWidth() >> 1;
+                    int var12 = this.bx - this.sidePanelIcons[var4].getHeight();
                     if (var1 != null) {
-                        var1.setClip(var11, var12, this.bo[var4].getWidth(), this.bo[var4].getHeight());
-                        var1.drawImage(this.bo[var4], var11, var12 + (this.dV[1] * this.bo[var4].getHeight() >> 2), 20);
+                        var1.setClip(var11, var12, this.sidePanelIcons[var4].getWidth(), this.sidePanelIcons[var4].getHeight());
+                        var1.drawImage(this.sidePanelIcons[var4], var11, var12 + (this.dV[1] * this.sidePanelIcons[var4].getHeight() >> 2), 20);
                     }
 
                     var4 = (var4 >> 1 << 1) + 1;
-                    var12 = this.bx - this.bo[var4].getHeight();
-                    if (var1 == null && d(var11, var12 + var5, this.bo[var4].getWidth(), this.bo[var4].getHeight())) {
+                    var12 = this.bx - this.sidePanelIcons[var4].getHeight();
+                    if (var1 == null && d(var11, var12 + var5, this.sidePanelIcons[var4].getWidth(), this.sidePanelIcons[var4].getHeight())) {
                         this.x(42);
                         this.cO = true;
                         aV();

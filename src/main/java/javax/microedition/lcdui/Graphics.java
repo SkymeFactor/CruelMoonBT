@@ -1,24 +1,41 @@
 package javax.microedition.lcdui;
 
 import java.awt.*;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 
 public class Graphics {
+
+    public final static int HCENTER = 1;
+    public final static int VCENTER = 2;
+    public final static int LEFT = 4;
+    public final static int RIGHT = 8;
+    public final static int TOP = 16;
+    public final static int BOTTOM = 32;
+    public final static int BASELINE = 64;
+
     private final java.awt.Graphics graphics;
+    private final java.awt.font.FontRenderContext frc;
+    private int translateX, translateY;
 
     public Graphics(java.awt.Graphics graphics) {
         this.graphics = graphics;
+        frc = new FontRenderContext(new AffineTransform(), false, false);
     }
 
     public int getTranslateX() {
-        return 0;
+        return translateX;
     }
 
     public int getTranslateY() {
-        return 0;
+        return translateY;
     }
 
     public void translate(int x, int y) {
         graphics.translate(x, y);
+        translateX = x;
+        translateY = y;
     }
 
     public int getClipX() {
@@ -65,6 +82,9 @@ public class Graphics {
     }
 
     public void drawImage(Image img, int x, int y, int anchor) {
+        x = getAnchorX(x, img.getWidth(), anchor);
+        y = getAnchorY(y, img.getHeight(), anchor);
+
         graphics.drawImage(img.awtImage, x, y, null);
     }
 
@@ -77,6 +97,37 @@ public class Graphics {
     }
 
     public void drawChar(char character, int x, int y, int anchor) {
+        Rectangle2D bounds = graphics.getFont().getStringBounds(String.valueOf(character), frc);
+        x = getAnchorX(x, (int) bounds.getWidth(), anchor);
+        y = getAnchorY(y, (int) bounds.getHeight(), anchor) + (int) (bounds.getHeight());
+
         graphics.drawString(String.valueOf(character), x, y);
     }
+
+    private static int getAnchorX(int x, int size, int anchor) {
+        if ((anchor & 4) != 0) {
+            return x;
+        }
+        if ((anchor & 8) != 0) {
+            return x - size;
+        }
+        if ((anchor & 1) != 0) {
+            return x - size / 2;
+        }
+        throw new RuntimeException("unknown anchor = " + anchor);
+    }
+
+    private static int getAnchorY(int y, int size, int anchor) {
+        if ((anchor & 16) != 0) {
+            return y;
+        }
+        if ((anchor & 32) != 0) {
+            return y - size;
+        }
+        if ((anchor & 2) != 0) {
+            return y - size / 2;
+        }
+        throw new RuntimeException("unknown anchor = " + anchor);
+    }
+
 }

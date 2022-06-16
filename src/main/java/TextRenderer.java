@@ -4,16 +4,6 @@ import javax.microedition.lcdui.Graphics;
 
 public final class TextRenderer {
 
-    public static final int BOTTOM_LEFT = 8;
-    public static final int BOTTOM_CENTER = 17;
-    public static final int BOTTOM_RIGHT = 20;
-    public static final int TOP_LEFT = 40;
-    public static final int TOP_CENTER = 33;
-    public static final int TOP_RIGHT = 36;
-    public static final int CENTER_LEFT = 10;
-    public static final int CENTER = 3;
-    public static final int CENTER_RIGHT = 6;
-
     int fontHeight;
     int shadowColor = -1;
     Font defaultFont;
@@ -34,19 +24,19 @@ public final class TextRenderer {
         int[] newOrigin = new int[2];  // Zeroed by default
         int xOffset = this.fontHeight + this.shadowHeight;
         int yOffset = this.getSubstringWidth(str, offset, length);
-        if ((align & 32) > 0) {
+        if ((align & Graphics.BOTTOM) > 0) {
             newOrigin[1] -= xOffset;
         }
 
-        if ((align & 2) > 0) {
+        if ((align & Graphics.VCENTER) > 0) {
             newOrigin[1] -= xOffset >> 1;
         }
 
-        if ((align & 8) > 0) {
+        if ((align & Graphics.RIGHT) > 0) {
             newOrigin[0] -= yOffset;
         }
 
-        if ((align & 1) > 0) {
+        if ((align & Graphics.HCENTER) > 0) {
             newOrigin[0] -= yOffset >> 1;
         }
 
@@ -96,7 +86,7 @@ public final class TextRenderer {
         int xAligned = x;
         int yAligned = y + this.fontHeight;
         String str = "" + symbol;
-        if (align != 0 && align != TOP_RIGHT) {
+        if (align != 0 && align != (Graphics.TOP | Graphics.LEFT)) {
             int[] origin = this.getAlignedOrigin((String)str, (int)align, 0, 1);
             xAligned = x + origin[0];
             yAligned += origin[1];
@@ -112,7 +102,7 @@ public final class TextRenderer {
     private void drawSubstringAligned(Graphics graphics, String str, int offset, int length, int x, int y, int align) {
         int xAligned = x;
         int yAligned = y + this.fontHeight;
-        if (align != 0 && align != TOP_RIGHT) {
+        if (align != 0 && align != (Graphics.TOP | Graphics.LEFT)) {
             int[] origin = this.getAlignedOrigin(str, align, offset, length);
             xAligned = x + origin[0];
             yAligned += origin[1];

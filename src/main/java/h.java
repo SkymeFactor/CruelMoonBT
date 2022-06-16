@@ -441,8 +441,8 @@ public final class h {
                 var0.setColor(o);
                 var0.fillRect(0, var4, screenWidth, var3);
                 var4 += var3 - (M.getTextHeight() - M.shadowHeight) >> 1;
-                M.drawTextAligned(var0, var2, 4, var4, TextRenderer.TOP_RIGHT);
-                M.drawTextAligned(var0, var1, screenWidth - M.getTextWidth(var1) - 3, var4, TextRenderer.TOP_RIGHT);
+                M.drawTextAligned(var0, var2, 4, var4, Graphics.TOP | Graphics.LEFT);
+                M.drawTextAligned(var0, var1, screenWidth - M.getTextWidth(var1) - 3, var4, Graphics.TOP | Graphics.LEFT);
             }
 
             return var3;
@@ -736,7 +736,13 @@ public final class h {
                                 var37 = 'C';
                             }
 
-                            M.drawSymbolAligned(var1, var37, var12 + var32 * var6 + (var6 - (M.getSymbolWidth(var37) - M.shadowWidth) >> 1), var13 + var31 * var7 + var15, TextRenderer.TOP_RIGHT);
+                            M.drawSymbolAligned(
+                                    var1,
+                                    var37,
+                                    var12 + var32 * var6 + (var6 - (M.getSymbolWidth(var37) - M.shadowWidth) >> 1),
+                                    var13 + var31 * var7 + var15,
+                                    Graphics.TOP | Graphics.LEFT
+                            );
                         }
 
                         ++var5;
@@ -783,7 +789,7 @@ public final class h {
             }
         }
 
-        M.drawTextAligned(var1, var2, screenWidth - this.W.getTextWidth(var2) >> 1, var3 + var7, TextRenderer.TOP_RIGHT);
+        M.drawTextAligned(var1, var2, screenWidth - this.W.getTextWidth(var2) >> 1, var3 + var7, Graphics.TOP | Graphics.LEFT);
         return var3 + var8 + 4 + 1;
     }
 
@@ -1841,8 +1847,6 @@ public final class h {
     }
 
     private static boolean verifyAppProperties() {
-        //return false;
-        // TODO: uncomment
         try {
             String issues = GlomoRegStarter.verifyMidlet(
                     NET_Lizard.app,
@@ -2004,7 +2008,7 @@ public final class h {
                         }
 
                         for(int var8 = 0; var8 < aJ[0].length; ++var8) {
-                            N.drawTextAligned(var0, aJ[0][var8], screenWidth >> 1, var25, TextRenderer.TOP_CENTER);
+                            N.drawTextAligned(var0, aJ[0][var8], screenWidth >> 1, var25, Graphics.TOP | Graphics.HCENTER);
                             var25 += var26;
                         }
                     }
@@ -2181,7 +2185,19 @@ public final class h {
                                 var0.drawRect(var17, var16, var18 - 1, var13 - 1);
                             }
 
-                            a(var0, N, aJ[1][var14], var17 + 2, 0, var18 - 4, screenHeight, var14 == glomoRegionIndex, screenWidth >> 1, var25, TextRenderer.TOP_CENTER);
+                            a(
+                                    var0,
+                                    N,
+                                    aJ[1][var14],
+                                    var17 + 2,
+                                    0,
+                                    var18 - 4,
+                                    screenHeight,
+                                    var14 == glomoRegionIndex,
+                                    screenWidth >> 1,
+                                    var25,
+                                    Graphics.TOP | Graphics.HCENTER
+                            );
                             var25 += var26;
                             ++var15;
                         }
@@ -2250,7 +2266,7 @@ public final class h {
 
             var1.drawTextAligned(var0, var21, var8, var9, var10);
         } else {
-            var1.drawTextAligned(var0, var2, var3 - aG, var9, TextRenderer.TOP_RIGHT);
+            var1.drawTextAligned(var0, var2, var3 - aG, var9, Graphics.TOP | Graphics.LEFT);
             aG += var20;
             if (aG >= var18) {
                 aG = -var5;
