@@ -8,7 +8,7 @@ import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
-public class a extends Canvas {
+public abstract class a extends Canvas {
     static int[] a5;
     private static boolean apiCheckRequired = true;
     private static boolean nokiaApiEnabled = false;

@@ -6,10 +6,14 @@ public class Font {
     }
 
     public int getHeight() {
-        return 0;
+        java.awt.Font font = new java.awt.Font("TimesRoman", java.awt.Font.PLAIN, 16);
+        java.awt.Canvas c = new java.awt.Canvas();
+        return c.getFontMetrics(font).getHeight();
     }
 
     public int charWidth(char ch) {
-        return 0;
+        java.awt.Font font = new java.awt.Font("TimesRoman", java.awt.Font.PLAIN, 16);
+        java.awt.Canvas c = new java.awt.Canvas();
+        return c.getFontMetrics(font).charWidth(ch);
     }
 }

@@ -12,12 +12,12 @@ import java.io.InputStream;
 import java.util.Random;
 import javax.microedition.midlet.MIDlet;
 
-public final class GlomoConfigLoader {
+public final class GlomoHelper {
     private static final Random randomGenerator = new Random();
     private static final String hexadecimalChars = "0123456789ABCDEF";
     private static final String alphaNumericChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    public GlomoConfigLoader() {
+    public GlomoHelper() {
     }
 
     public static final String[] splitString(String separator, String data) {
@@ -132,16 +132,19 @@ public final class GlomoConfigLoader {
         }
     }
 
-    /// TODO: Might be encryption's decoding
-    private static byte[] a(byte[] input, int var1) {
+    /// TODO: Might be encryption's encoding
+    private static byte[] a(byte[] input, int index) {
         byte[] output = new byte[input.length];
-        if (var1 == 0) {
-            for(var1 = 0; var1 < input.length; ++var1) {
-                output[(var1 + 5) % input.length] = (byte)(37 ^ input[var1]);
+        if (index == 0) {
+            // Fill output with array shifted by 5
+            // Each element of input is: 37 ^ element
+            for(index = 0; index < input.length; ++index) {
+                output[(index + 5) % input.length] = (byte)(37 ^ input[index]);
             }
 
-            for(var1 = 0; var1 < input.length; ++var1) {
-                output[var1] ^= output[(var1 + 2) % input.length];
+            // Shifted by 2 xor with the same output array
+            for(index = 0; index < input.length; ++index) {
+                output[index] ^= output[(index + 2) % input.length];
             }
         }
 

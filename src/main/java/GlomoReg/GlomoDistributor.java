@@ -17,7 +17,7 @@ public final class GlomoDistributor extends GlomoOptionStorage {
                 "RegisterSizeKeyType1", "RegisterSizeKeyType2", "RegisterSizeKeyType3", "RegisterSizeKeyType4",
                 "TailSeparator", "SmsKeyVersion"
         };
-        String[] jadProperties = GlomoConfigLoader.splitString(
+        String[] jadProperties = GlomoHelper.splitString(
                 ",",
                 ",id,chId,name,glink,glinkTtl,mglink,mglinkTtl,pflag,gflag,kszReg,kszBns,kszSub1," +
                      "kszSub2,kszSub3,kszSub4,tailSepar,smsKeyVer"
@@ -171,7 +171,7 @@ public final class GlomoDistributor extends GlomoOptionStorage {
     private void setDistPropertiesFromConfigStrings(String[] config, int strIdxFrom, int strIdxTo) {
         for(int i = strIdxFrom; i < strIdxTo && i < config.length; ++i) {
             String[] stringTokens;
-            if ((stringTokens = GlomoConfigLoader.splitString(";", config[i])).length > 1) {
+            if ((stringTokens = GlomoHelper.splitString(";", config[i])).length > 1) {
                 this.setDistProperties(stringTokens);
             }
         }

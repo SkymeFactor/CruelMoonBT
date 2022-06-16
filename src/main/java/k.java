@@ -4,6 +4,7 @@
 //
 
 import java.util.Random;
+import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -102,7 +103,7 @@ public final class k extends a implements Runnable {
     int aM;
     Graphics aN;
     boolean aO;
-    static k aP;
+    static k instanceHandler;
     c aQ;
     static boolean aR = false;
     static boolean aS = false;
@@ -127,7 +128,7 @@ public final class k extends a implements Runnable {
     Image bl;
     Image bm;
     boolean bn;
-    Image[] bo;
+    Image[] sidePanelIcons;
     int bp;
     boolean bq;
     int br;
@@ -200,7 +201,7 @@ public final class k extends a implements Runnable {
     int cF;
     int cG;
     boolean cH;
-    static String cI = "MNMc";
+    static String stringMNMc = "MNMc";
     String cJ;
     int cK;
     int cL;
@@ -457,7 +458,32 @@ public final class k extends a implements Runnable {
         var10000 = new int[]{1296647248, 758263344};                                            // MIDP-2.0
         var10000 = new int[]{1684368640};                                                       // dem
         var10000 = new int[]{1819934720};                                                       // lz
-        this.aH = new byte[][]{{99, 102, 50}, {102, 110, 116, 50}, {50}, {115, 116}, {116, 108, 107}, {110, 109}, {47, 97, 114, 46, 112, 110, 103}, {47, 97, 114}, {46, 112, 110, 103}, {47, 122, 118, 122, 46, 112, 110, 103}, {46, 106, 112, 103}, {47, 108}, {47, 117}, {99, 99, 51}, {99, 117, 51}, {109, 117, 97}, {47, 105, 108, 49, 46, 112, 110, 103}, {47, 105, 108, 50, 46, 112, 110, 103}, {47, 105, 108, 51, 46, 112, 110, 103}, {47, 105, 108, 108, 46, 112, 110, 103}, {47, 105, 108, 119, 46, 112, 110, 103}, {47, 101, 108, 48, 46, 112, 110, 103}, {47, 101, 108, 49, 46, 112, 110, 103}, {47, 105, 108, 108, 119, 46, 112, 110, 103}};
+        this.aH = new byte[][]{
+                {99, 102, 50},                                  // "cf2"
+                {102, 110, 116, 50},                            // "fnt2"
+                {50},                                           // "2"
+                {115, 116},                                     // "st"
+                {116, 108, 107},                                // "tlk"
+                {110, 109},                                     // "nm"
+                {47, 97, 114, 46, 112, 110, 103},               // "/ar.png"
+                {47, 97, 114},                                  // "/ar"
+                {46, 112, 110, 103},                            // ".png"
+                {47, 122, 118, 122, 46, 112, 110, 103},         // "/zvz.png"
+                {46, 106, 112, 103},                            // ".jpg"
+                {47, 108},                                      // "/l"
+                {47, 117},                                      // "/u"
+                {99, 99, 51},                                   // "cc3"
+                {99, 117, 51},                                  // "cu3"
+                {109, 117, 97},                                 // "mua"
+                {47, 105, 108, 49, 46, 112, 110, 103},          // "/il1.png"
+                {47, 105, 108, 50, 46, 112, 110, 103},          // "/il2.png"
+                {47, 105, 108, 51, 46, 112, 110, 103},          // "/il3.png"
+                {47, 105, 108, 108, 46, 112, 110, 103},         // "/ill.png"
+                {47, 105, 108, 119, 46, 112, 110, 103},         // "/ilw.png"
+                {47, 101, 108, 48, 46, 112, 110, 103},          // "/el0.png"
+                {47, 101, 108, 49, 46, 112, 110, 103},          // "/el1.png"
+                {47, 105, 108, 108, 119, 46, 112, 110, 103}     // "/illw.png"
+        };
         this.fw = 0;
         this.fO = 0;
         this.dq = 0;
@@ -552,7 +578,7 @@ public final class k extends a implements Runnable {
         this.X = 1;
         this.dZ = -1;
         this.eY = false;
-        this.cJ = cI + "m";
+        this.cJ = stringMNMc + "m";
         this.D = 0;
         this.cx = false;
         this.aV = 0;
@@ -2402,8 +2428,8 @@ public final class k extends a implements Runnable {
         this.fq = this.e10 - 2 * this.fN;
         if (this.bk == null || this.bl == null) {
             try {
-                this.bk = AssetManager.readImageFromFilePNG(a(this.aH[16]));
-                this.bl = AssetManager.readImageFromFilePNG(a(this.aH[17]));
+                this.bk = AssetManager.readImageFromFilePNG(byteArrayToString(this.aH[16]));
+                this.bl = AssetManager.readImageFromFilePNG(byteArrayToString(this.aH[17]));
             } catch (Exception var4) {
                 this.bk = null;
                 this.bl = null;
@@ -2412,7 +2438,7 @@ public final class k extends a implements Runnable {
 
         if (this.bm == null) {
             try {
-                this.bm = AssetManager.readImageFromFilePNG(a(this.aH[18]));
+                this.bm = AssetManager.readImageFromFilePNG(byteArrayToString(this.aH[18]));
             } catch (Exception var3) {
             }
         }
@@ -2460,7 +2486,7 @@ public final class k extends a implements Runnable {
             }
 
             this.r(var1);
-            this.S();
+            this.loadExplosions();
         }
     }
 
@@ -2561,22 +2587,22 @@ public final class k extends a implements Runnable {
             return;
         }
 
-        if (this.bo == null) {
-            this.bo = new Image[12];
+        if (this.sidePanelIcons == null) {
+            this.sidePanelIcons = new Image[12];
         }
 
         if (this.cN == null) {
-            this.cN = new boolean[this.bo.length];
+            this.cN = new boolean[this.sidePanelIcons.length];
         }
 
-        for(int var1 = 0; var1 < this.bo.length; ++var1) {
-            if (this.bo[var1] == null && !this.cN[var1]) {
+        for(int var1 = 0; var1 < this.sidePanelIcons.length; ++var1) {
+            if (this.sidePanelIcons[var1] == null && !this.cN[var1]) {
                 try {
-                    this.bo[var1] = AssetManager.readImageFromFilePNG("/mm" + var1 + ".png");
+                    this.sidePanelIcons[var1] = AssetManager.readImageFromFilePNG("/mm" + var1 + ".png");
                 } catch (Exception var3) {
                 }
 
-                if (this.bo[var1] == null) {
+                if (this.sidePanelIcons[var1] == null) {
                     this.cN[var1] = true;
                 }
             }
@@ -2635,16 +2661,16 @@ public final class k extends a implements Runnable {
         }
     }
 
-    private final void S() {
+    private final void loadExplosions() {
         if (this.cW == null) {
             this.cW = new Image[16];
         }
 
         try {
-            Image var1 = AssetManager.readImageFromFilePNG("/l11.png");
-            this.cW[11] = var1;
-            this.cW[12] = a.a(var1, 0);
-        } catch (Exception var2) {
+            Image explosions = AssetManager.readImageFromFilePNG("/l11.png");
+            this.cW[11] = explosions;
+            this.cW[12] = a.a(explosions, 0);
+        } catch (Exception ignore) {
         }
     }
 
@@ -3143,15 +3169,14 @@ public final class k extends a implements Runnable {
         }
     }
 
-    // TODO: decode byte array to String
-    static final String a(byte[] var0) {
-        char[] var1 = new char[var0.length];
+    static final String byteArrayToString(byte[] data) {
+        char[] str = new char[data.length];
 
-        for(int var2 = 0; var2 < var1.length; ++var2) {
-            var1[var2] = (char)var0[var2];
+        for(int i = 0; i < str.length; ++i) {
+            str[i] = (char)data[i];
         }
 
-        return new String(var1);
+        return new String(str);
     }
 
     private static void a(Graphics var0, int var1, int var2, int var3, int var4) {
@@ -3180,16 +3205,16 @@ public final class k extends a implements Runnable {
 
                 try {
                     try {
-                        String var6 = "ils";
+                        String endBattleBackgroundFilename = "ils";
                         if (this.victory) {
-                            var6 = "iwn";
+                            endBattleBackgroundFilename = "iwn";
                         }
 
-                        this.aA = AssetManager.readImageFromFilePNG("/" + var6 + ".png");
+                        this.aA = AssetManager.readImageFromFilePNG("/" + endBattleBackgroundFilename + ".png");
 
                         try {
                             this.aA = AssetManager.a(this.aA);
-                        } catch (OutOfMemoryError var16) {
+                        } catch (OutOfMemoryError ignore) {
                         }
 
                         if (this.aA != null && this.aA.getWidth() != this.e10 && this.aA.getHeight() != var3) {
@@ -3579,7 +3604,7 @@ public final class k extends a implements Runnable {
 
     final void runGameThread() {
         Display.getDisplay(NET_Lizard.app).setCurrent(this);
-        aP = NET_Lizard.game;
+        instanceHandler = NET_Lizard.game;
         this.S = true;
         if (this.ez == null) {
             this.ez = new Thread(this);
@@ -4097,14 +4122,14 @@ public final class k extends a implements Runnable {
         return new int[]{var2, var3};
     }
 
-    static final String a(int[] var0) {
-        char[] var1 = new char[var0.length];
+    static final String intArrayToString(int[] data) {
+        char[] str = new char[data.length];
 
-        for(int var2 = 0; var2 < var1.length; ++var2) {
-            var1[var2] = (char)var0[var2];
+        for(int i = 0; i < str.length; ++i) {
+            str[i] = (char)data[i];
         }
 
-        return new String(var1);
+        return new String(str);
     }
 
     private static byte v(int var0) {
@@ -4116,85 +4141,88 @@ public final class k extends a implements Runnable {
         return (byte)var1;
     }
 
-    private final int w(int var1) {
-        if (var1 == -1) {
-            var1 = 50;
+    private final int w(int keyCode) {
+        if (keyCode == -1) {
+            keyCode = Canvas.KEY_NUM2;
         }
 
-        if (var1 == -2) {
-            var1 = 56;
+        if (keyCode == -2) {
+            keyCode = Canvas.KEY_NUM8;
         }
 
-        if (var1 == -3) {
-            var1 = 52;
+        if (keyCode == -3) {
+            keyCode = Canvas.KEY_NUM4;
         }
 
-        if (var1 == -4) {
-            var1 = 54;
+        if (keyCode == -4) {
+            keyCode = Canvas.KEY_NUM6;
         }
 
-        if (var1 == -6 || var1 == -5) {
-            var1 = 53;
+        if (keyCode == -6 || keyCode == -5) {
+            keyCode = Canvas.KEY_NUM5;
         }
 
-        if (var1 == -7) {
-            var1 = this.d10;
+        if (keyCode == -7) {
+            keyCode = this.d10;
         }
 
-        return var1;
+        return keyCode;
     }
 
-    protected final void keyPressed(int var1) {
+    protected final void keyPressed(int keyCode) {
         try {
-            var1 = a.standardizeKeyCodes(var1);
+            keyCode = a.standardizeKeyCodes(keyCode);
         } catch (Exception var3) {
         }
 
         this.cu = false;
         this.bN = false;
-        if (!h.a(var1)) {
+        if (!h.a(keyCode)) {
             if (cq) {
                 if (this.cr != null) {
-                    this.cr.a(var1);
+                    this.cr.a(keyCode);
                 }
 
             } else {
-                if (var1 == -1) {
-                    var1 = 50;
+                if (keyCode == -1) {
+                    keyCode = Canvas.KEY_NUM2;
                 }
 
-                if (var1 == -2) {
-                    var1 = 56;
+                if (keyCode == -2) {
+                    keyCode = Canvas.KEY_NUM8;
                 }
 
-                if (var1 == -3) {
-                    var1 = 52;
+                if (keyCode == -3) {
+                    keyCode = Canvas.KEY_NUM4;
                 }
 
-                if (var1 == -4) {
-                    var1 = 54;
+                if (keyCode == -4) {
+                    keyCode = Canvas.KEY_NUM6;
                 }
 
-                if (var1 == -6 || var1 == -5) {
-                    var1 = 53;
+                if (keyCode == -6 || keyCode == -5) {
+                    keyCode = Canvas.KEY_NUM5;
                 }
 
-                if (var1 == -7) {
-                    var1 = this.d10;
+                if (keyCode == -7) {
+                    keyCode = this.d10;
                 }
 
                 boolean var2 = false;
-                if (var1 != 53 && var1 != 42 && var1 != this.d10 && var1 != 48 && !this.ae && !this.cC && !this.aW) {
+                if (keyCode != Canvas.KEY_NUM5 && keyCode != Canvas.KEY_STAR
+                        && keyCode != this.d10 && keyCode != Canvas.KEY_NUM0
+                        && !this.ae && !this.cC && !this.aW
+                ) {
                     this.bq = true;
                 } else {
                     this.bq = false;
                 }
 
-                this.a(var1, this.cb);
-                this.a(var1, this.ca);
+                this.a(keyCode, this.cb);
+                this.a(keyCode, this.ca);
                 this.dl = System.currentTimeMillis();
                 this.by = false;
-                this.br = var1;
+                this.br = keyCode;
             }
         }
     }
@@ -7465,7 +7493,9 @@ public final class k extends a implements Runnable {
         return var8;
     }
 
-    public final void paint(Graphics graphics) {
+    @Override
+    public void paint(java.awt.Graphics g) {
+        Graphics graphics = new Graphics(g);
         if (!eu) {
             try {
                 if (this.dQ < 0) {
@@ -7654,7 +7684,7 @@ public final class k extends a implements Runnable {
             if (m.y == null) {
                 boolean var1 = cq;
                 cq = false;
-                aP.aw();
+                instanceHandler.aw();
                 cq = var1;
                 m.a(NET_Lizard.game);
                 if (m.u == null) {
@@ -9316,7 +9346,7 @@ public final class k extends a implements Runnable {
     public final void run() {
         this.S = true;
         aK = false;
-        h.a(this, j.x);
+        h.getInstance(this, j.x);
         j.p = h.b(j.p);
         // TODO: Check the failure
         if (h.a()) {
@@ -9327,27 +9357,27 @@ public final class k extends a implements Runnable {
             this.aQ = new c(this);
 
             try {
-                r = AssetManager.instanceHandler.e(a(this.aH[3]));
+                r = AssetManager.instanceHandler.e(byteArrayToString(this.aH[3]));
                 cR = false;
             } catch (Exception ignore) {
             }
 
             try {
-                bQ = AssetManager.instanceHandler.e(a(this.aH[5]));
+                bQ = AssetManager.instanceHandler.e(byteArrayToString(this.aH[5]));
             } catch (Exception var30) {
                 bQ = null;
             }
 
             if (this.v == null) {
                 try {
-                    this.v = AssetManager.readImageFromFilePNG(a(this.aH[6]));
+                    this.v = AssetManager.readImageFromFilePNG(byteArrayToString(this.aH[6]));
                 } catch (Exception var29) {
                 }
             }
 
             for(int var1 = 0; var1 < this.x.length; ++var1) {
                 try {
-                    this.x[var1] = AssetManager.readImageFromFilePNG(a(this.aH[7]) + var1 + a(this.aH[8]));
+                    this.x[var1] = AssetManager.readImageFromFilePNG(byteArrayToString(this.aH[7]) + var1 + byteArrayToString(this.aH[8]));
                 } catch (Exception var28) {
                 }
             }
@@ -9363,7 +9393,7 @@ public final class k extends a implements Runnable {
             this.ai();
 
             try {
-                AssetManager.readImageFromFilePNG(a(this.aH[9]));
+                AssetManager.readImageFromFilePNG(byteArrayToString(this.aH[9]));
             } catch (Exception var27) {
             }
 
@@ -10571,9 +10601,9 @@ public final class k extends a implements Runnable {
                     if (m.y == null) {
                         boolean var2 = cq;
                         cq = false;
-                        aP.aw();
+                        instanceHandler.aw();
                         cq = var2;
-                        m.a(aP);
+                        m.a(instanceHandler);
                     }
 
                     if (du) {
@@ -11829,12 +11859,12 @@ public final class k extends a implements Runnable {
 
                     if (!this.cC) {
                         if (var1 != null) {
-                            var1.setClip(0, 0, this.bo[var4].getWidth(), this.bo[var4].getHeight());
-                            var1.drawImage(this.bo[var4], 0 - (this.dV[0] * this.bo[var4].getWidth() >> 2), 0, 20);
+                            var1.setClip(0, 0, this.sidePanelIcons[var4].getWidth(), this.sidePanelIcons[var4].getHeight());
+                            var1.drawImage(this.sidePanelIcons[var4], 0 - (this.dV[0] * this.sidePanelIcons[var4].getWidth() >> 2), 0, 20);
                         }
 
                         var4 = (var4 >> 1 << 1) + 1;
-                        if (var1 == null && d(0, 0 + var5, this.bo[var4].getWidth(), this.bo[var4].getHeight()) && !this.fi) {
+                        if (var1 == null && d(0, 0 + var5, this.sidePanelIcons[var4].getWidth(), this.sidePanelIcons[var4].getHeight()) && !this.fi) {
                             this.x(48);
                             this.cO = true;
                             aV();
@@ -11847,16 +11877,16 @@ public final class k extends a implements Runnable {
                         ++var4;
                     }
 
-                    int var11 = this.e10 - this.bo[var4].getWidth() >> 1;
-                    int var12 = this.bx - this.bo[var4].getHeight();
+                    int var11 = this.e10 - this.sidePanelIcons[var4].getWidth() >> 1;
+                    int var12 = this.bx - this.sidePanelIcons[var4].getHeight();
                     if (var1 != null) {
-                        var1.setClip(var11, var12, this.bo[var4].getWidth(), this.bo[var4].getHeight());
-                        var1.drawImage(this.bo[var4], var11, var12 + (this.dV[1] * this.bo[var4].getHeight() >> 2), 20);
+                        var1.setClip(var11, var12, this.sidePanelIcons[var4].getWidth(), this.sidePanelIcons[var4].getHeight());
+                        var1.drawImage(this.sidePanelIcons[var4], var11, var12 + (this.dV[1] * this.sidePanelIcons[var4].getHeight() >> 2), 20);
                     }
 
                     var4 = (var4 >> 1 << 1) + 1;
-                    var12 = this.bx - this.bo[var4].getHeight();
-                    if (var1 == null && d(var11, var12 + var5, this.bo[var4].getWidth(), this.bo[var4].getHeight())) {
+                    var12 = this.bx - this.sidePanelIcons[var4].getHeight();
+                    if (var1 == null && d(var11, var12 + var5, this.sidePanelIcons[var4].getWidth(), this.sidePanelIcons[var4].getHeight())) {
                         this.x(42);
                         this.cO = true;
                         aV();

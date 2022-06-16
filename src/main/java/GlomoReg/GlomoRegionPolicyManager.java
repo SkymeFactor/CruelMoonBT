@@ -49,7 +49,7 @@ public final class GlomoRegionPolicyManager extends GlomoOptionStorage {
         }
 
         if (!configsDescription.contains("JAD_1")) {
-            configsDescription.put("JAD_1", GlomoConfigLoader.splitString(",", jad1));
+            configsDescription.put("JAD_1", GlomoHelper.splitString(",", jad1));
         }
 
         if (!configsDescription.contains("CFG_2")) {
@@ -57,7 +57,7 @@ public final class GlomoRegionPolicyManager extends GlomoOptionStorage {
         }
 
         if (!configsDescription.contains("JAD_2")) {
-            configsDescription.put("JAD_2", GlomoConfigLoader.splitString(",", jad2));
+            configsDescription.put("JAD_2", GlomoHelper.splitString(",", jad2));
         }
 
         this.setId("-1");
@@ -473,7 +473,7 @@ public final class GlomoRegionPolicyManager extends GlomoOptionStorage {
         clearCountriesMapping();
 
         for(int i = 1; i < configs.length; ++i) {
-            String[] cfg = GlomoConfigLoader.splitString(";", configs[i]);
+            String[] cfg = GlomoHelper.splitString(";", configs[i]);
             rpMgr.setConfigProperties(i, cfg);
             if (cfg.length > 1) {
                 performCountryMapping(this.copyRegionFromOther(rpMgr, rpMgr.getId()));
@@ -507,7 +507,7 @@ public final class GlomoRegionPolicyManager extends GlomoOptionStorage {
         if (id < configs.length && id >= 0) {
             GlomoRegionPolicyManager other;
             (other = new GlomoRegionPolicyManager()).setMidletHandler(this.appHandler);
-            other.setConfigProperties(id, GlomoConfigLoader.splitString(";", configs[id]));
+            other.setConfigProperties(id, GlomoHelper.splitString(";", configs[id]));
             return other;
         } else {
             return null;

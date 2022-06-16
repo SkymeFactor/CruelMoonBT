@@ -28,6 +28,7 @@ public final class e {
         ++d4;
     }
 
+    // Clean-up
     private static void a() {
         c4 = null;
         a4 = null;
