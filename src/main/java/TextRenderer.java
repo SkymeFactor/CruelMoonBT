@@ -4,12 +4,12 @@ import javax.microedition.lcdui.Graphics;
 
 public final class TextRenderer {
 
-    public static final int TOP_LEFT = 8;
-    public static final int TOP_CENTER = 17;
-    public static final int TOP_RIGHT = 20;
-    public static final int BOTTOM_LEFT = 40;
-    public static final int BOTTOM_CENTER = 33;
-    public static final int BOTTOM_RIGHT = 36;
+    public static final int BOTTOM_LEFT = 8;
+    public static final int BOTTOM_CENTER = 17;
+    public static final int BOTTOM_RIGHT = 20;
+    public static final int TOP_LEFT = 40;
+    public static final int TOP_CENTER = 33;
+    public static final int TOP_RIGHT = 36;
     public static final int CENTER_LEFT = 10;
     public static final int CENTER = 3;
     public static final int CENTER_RIGHT = 6;

@@ -68,7 +68,8 @@ public class Graphics {
         graphics.drawImage(img.awtImage, x, y, null);
     }
 
-    public void setFont(Font y) {
+    public void setFont(Font fnt) {
+        graphics.setFont(new java.awt.Font("TimesRoman", java.awt.Font.PLAIN, 16));
     }
 
     public void drawLine(int x1, int y1, int x2, int y2) {
@@ -76,5 +77,6 @@ public class Graphics {
     }
 
     public void drawChar(char character, int x, int y, int anchor) {
+        graphics.drawString(String.valueOf(character), x, y);
     }
 }
