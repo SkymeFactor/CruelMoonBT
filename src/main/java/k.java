@@ -128,7 +128,7 @@ public final class k extends a implements Runnable {
     Image bl;
     Image bm;
     boolean bn;
-    Image[] bo;
+    Image[] bo;     // TODO: Rename to sidePanelIcons
     int bp;
     boolean bq;
     int br;
@@ -9344,7 +9344,7 @@ public final class k extends a implements Runnable {
     public final void run() {
         this.S = true;
         aK = false;
-        h.a(this, j.x);
+        h.getInstance(this, j.x);
         j.p = h.b(j.p);
         // TODO: Check the failure
         if (h.a()) {

@@ -19,8 +19,8 @@ public final class h {
     static int[] binaryStringDem;
     static int[] binaryStringDmc;
     static int[] c7;
-    static int d7;
-    static int e7;
+    static int screenHeight;
+    static int screenWidth;
     static k f7;
     static boolean isRunning;  // Perhaps, the name can change
     static boolean h7;
@@ -54,8 +54,8 @@ public final class h {
     static boolean J;
     static boolean K;
     boolean L = false;
-    static i M;
-    static i N;
+    static TextRenderer M;
+    static TextRenderer N;
     static String[] O;
     static k P;
     static int Q;
@@ -64,7 +64,7 @@ public final class h {
     int T;
     int U;
     int V;
-    i W;
+    TextRenderer W;
     int X;
     int Y;
     String Z;
@@ -142,9 +142,9 @@ public final class h {
         l7 = 0;
         n7 = 37916;
         o = 822017;
-        k7 = b(0);
+        k7 = doNothingWithColor(0);
         aP = 0;
-        Q = d7;
+        Q = screenHeight;
         aD = 0;
         ag = 0;
         ax = 16;
@@ -170,8 +170,8 @@ public final class h {
                 }                                                           // javax.wireless.messaging.Message
         };
         I = 3;
-        H = e7 - 4;
-        C = d7 - 10 - I;
+        H = screenWidth - 4;
+        C = screenHeight - 10 - I;
         F = 2;
         var10000 = new int[]{1296647276, 1702112595, 761491300, 1694498816};                            // MIDlet-S-code
         var10000 = new int[]{1869753968, 1852243968};                                                   // or.png
@@ -197,8 +197,8 @@ public final class h {
     }
 
     private h(k var1) {
-        this.U = e7 / 2;
-        this.T = d7 / 2;
+        this.U = screenWidth / 2;
+        this.T = screenHeight / 2;
         this.X = 6;
         this.Y = 5;
         this.aC = 6;
@@ -207,26 +207,27 @@ public final class h {
         this.pimSupported = -1;
         f7 = var1;
         P = var1;
-        e7 = P.getWidth();
-        d7 = P.getHeight();
-        Q = d7;
+        screenWidth = P.getWidth();
+        screenHeight = P.getHeight();
+        Q = screenHeight;
         aI = this.u();
         if (M == null) {
-            M = i.a();
+            M = TextRenderer.getInstance();
         }
 
-        M.b8 = 0;
-        M.d8 = b(16777215);
-        if (e7 >= 240) {
-            M.e8 = 2;
+        M.shadowColor = 0;
+        M.primaryColor = doNothingWithColor(16777215);     // White
+        if (screenWidth >= 240) {
+            M.shadowWidth = 2;
         }
 
-        H = e7 - 4;
-        C = d7 - 10 - I;
+        H = screenWidth - 4;
+        C = screenHeight - 10 - I;
     }
 
-    private static int b(int var0) {
-        return var0;
+    // Why does such a thing even exist???
+    private static int doNothingWithColor(int argb) {
+        return argb;
     }
 
     private final void a(String var1) {
@@ -241,7 +242,7 @@ public final class h {
         }
     }
 
-    public static h a(k var0, d var1) {
+    public static h getInstance(k var0, d var1) {
         if (instanceHandler != null && P != null) {
             return instanceHandler;
         } else {
@@ -430,18 +431,18 @@ public final class h {
 
     private static final int a(Graphics var0, String var1, String var2) {
         try {
-            int var3 = M.b() - M.f8 + 4;
+            int var3 = M.getTextHeight() - M.shadowHeight + 4;
             if (aI) {
                 var3 = var3 * 14 >> 3;
             }
 
-            int var4 = d7 - var3;
+            int var4 = screenHeight - var3;
             if (var0 != null) {
                 var0.setColor(o);
-                var0.fillRect(0, var4, e7, var3);
-                var4 += var3 - (M.b() - M.f8) >> 1;
-                M.a(var0, var2, 4, var4, 20);
-                M.a(var0, var1, e7 - M.a(var1) - 3, var4, 20);
+                var0.fillRect(0, var4, screenWidth, var3);
+                var4 += var3 - (M.getTextHeight() - M.shadowHeight) >> 1;
+                M.drawTextAligned(var0, var2, 4, var4, TextRenderer.TOP_RIGHT);
+                M.drawTextAligned(var0, var1, screenWidth - M.getTextWidth(var1) - 3, var4, TextRenderer.TOP_RIGHT);
             }
 
             return var3;
@@ -463,11 +464,11 @@ public final class h {
         aA = false;
         String var0 = toString(c7);
         am = null;
-        s = d7 < 127;
-        H = e7 - 8;
-        C = d7 - 5 - 2 * I - (N.b() + F);
+        s = screenHeight < 127;
+        H = screenWidth - 8;
+        C = screenHeight - 5 - 2 * I - (N.getTextHeight() + F);
         if (!s) {
-            C -= 2 * (N.b() + F);
+            C -= 2 * (N.getTextHeight() + F);
         }
 
         String[] var3 = new String[3];
@@ -590,7 +591,7 @@ public final class h {
     }
 
     private final void b(Graphics var1) {
-        int var2 = M.b();
+        int var2 = M.getTextHeight();
 
         try {
             String var3 = "";
@@ -610,14 +611,14 @@ public final class h {
         } catch (Exception var40) {
         }
 
-        var1.setClip(0, 0, e7, d7);
+        var1.setClip(0, 0, screenWidth, screenHeight);
         int var41 = this.U;
         int var42 = this.T;
         int var5 = this.ad;
-        int var6 = this.W.a('Щ');
-        int var7 = this.W.b() - this.W.f8 + 2;
+        int var6 = this.W.getSymbolWidth('Щ');
+        int var7 = this.W.getTextHeight() - this.W.shadowHeight + 2;
         ++var6;
-        if (d7 < 176) {
+        if (screenHeight < 176) {
             ++var7;
         }
 
@@ -633,9 +634,9 @@ public final class h {
             var7 = var10;
         }
 
-        int var12 = e7 - this.X * var6 >> 1;
+        int var12 = screenWidth - this.X * var6 >> 1;
         int var13;
-        if ((var13 = var8 + (d7 - var8 - var7 - 4 - this.Y * var7 >> 1)) < var8) {
+        if ((var13 = var8 + (screenHeight - var8 - var7 - 4 - this.Y * var7 >> 1)) < var8) {
             var13 = var8;
         }
 
@@ -651,13 +652,13 @@ public final class h {
         int var21 = var13 - 3 >> 1;
         boolean var22 = false;
         int var43 = 1 + p();
-        if (var21 < var43 + M.b() + 5) {
-            var21 = var43 + M.b() + 5;
+        if (var21 < var43 + M.getTextHeight() + 5) {
+            var21 = var43 + M.getTextHeight() + 5;
         }
 
         this.a(var1, this.Z, var43, false);
         int var24 = this.a(var1, ac, var21, true);
-        var1.setClip(0, 0, e7, d7);
+        var1.setClip(0, 0, screenWidth, screenHeight);
         if (var11 < o()) {
             var11 = o();
         }
@@ -666,9 +667,9 @@ public final class h {
             var11 = var2;
         }
 
-        int var26 = d7 - var11 - var24 - 4 - var15;
+        int var26 = screenHeight - var11 - var24 - 4 - var15;
         int var27 = this.Y;
-        int var28 = (var28 = M.b() - M.f8) + (var28 >> 1);
+        int var28 = (var28 = M.getTextHeight() - M.shadowHeight) + (var28 >> 1);
         int var29;
         if ((var29 = var26 / this.Y) < var7 && var26 < var18 && var29 >= var28) {
             var7 = var29;
@@ -696,10 +697,10 @@ public final class h {
         int var19 = var12 - var14;
         var17 += var14 + var14;
         int var20;
-        var13 = (var20 = var24 + (d7 - var24 - var11 - 2 - var18 >> 1)) + (var15 >> 1);
+        var13 = (var20 = var24 + (screenHeight - var24 - var11 - 2 - var18 >> 1)) + (var15 >> 1);
         var1.setColor(j7);
         var1.drawRect(var19, var20, var17 - 1, var18 - 1);
-        var1.setClip(0, 0, e7, d7);
+        var1.setClip(0, 0, screenWidth, screenHeight);
         var29 = 0;
         int var30 = 0;
 
@@ -707,7 +708,7 @@ public final class h {
             ++var30;
             if (var30 >= 5 || this.af <= var29 + var27 - 1) {
                 var13 -= var29 * var7;
-                var15 = var7 - (M.b() - M.f8) >> 1;
+                var15 = var7 - (M.getTextHeight() - M.shadowHeight) >> 1;
 
                 for(int var31 = 0; var31 < this.Y; ++var31) {
                     for(int var32 = 0; var32 < this.X; ++var32) {
@@ -735,7 +736,7 @@ public final class h {
                                 var37 = 'C';
                             }
 
-                            M.a(var1, var37, var12 + var32 * var6 + (var6 - (M.a(var37) - M.e8) >> 1), var13 + var31 * var7 + var15, 20);
+                            M.drawSymbolAligned(var1, var37, var12 + var32 * var6 + (var6 - (M.getSymbolWidth(var37) - M.shadowWidth) >> 1), var13 + var31 * var7 + var15, TextRenderer.TOP_RIGHT);
                         }
 
                         ++var5;
@@ -746,7 +747,7 @@ public final class h {
                 }
 
                 var1.setColor(j7);
-                var1.drawRect(0, 0, e7 - 1, d7 - 1);
+                var1.drawRect(0, 0, screenWidth - 1, screenHeight - 1);
                 return;
             }
 
@@ -756,33 +757,33 @@ public final class h {
 
     private final int a(Graphics var1, String var2, int var3, boolean var4) {
         int var5;
-        if ((var5 = this.W.a(var2)) < e7 / 3) {
-            var5 = e7 / 3;
+        if ((var5 = this.W.getTextWidth(var2)) < screenWidth / 3) {
+            var5 = screenWidth / 3;
         }
 
-        int var6 = e7 - var5 >> 1;
+        int var6 = screenWidth - var5 >> 1;
         int var7 = 1;
-        int var8 = this.W.b() - this.W.f8 + 2;
+        int var8 = this.W.getTextHeight() - this.W.shadowHeight + 2;
         if (var4) {
-            var1.setClip(0, 0, e7, d7);
+            var1.setClip(0, 0, screenWidth, screenHeight);
             ++var8;
-            if (e7 >= 240) {
+            if (screenWidth >= 240) {
                 ++var8;
             }
 
-            var7 = var8 + 2 - (this.W.b() - this.W.f8) >> 1;
+            var7 = var8 + 2 - (this.W.getTextHeight() - this.W.shadowHeight) >> 1;
             var1.setColor(l7);
             var1.drawRect(var6 - 5 - 1, var3 - 1, var5 + 10 - 1 - 1 + 2, var8 + 2 - 1 + 2);
             var1.setColor(n7);
             var1.drawRect(var6 - 5 - 2, var3 - 2, var5 + 10 - 1 - 1 + 4, var8 + 2 - 1 + 4);
         } else {
             ++var8;
-            if (e7 >= 240) {
+            if (screenWidth >= 240) {
                 ++var8;
             }
         }
 
-        M.a(var1, var2, e7 - this.W.a(var2) >> 1, var3 + var7, 20);
+        M.drawTextAligned(var1, var2, screenWidth - this.W.getTextWidth(var2) >> 1, var3 + var7, TextRenderer.TOP_RIGHT);
         return var3 + var8 + 4 + 1;
     }
 
@@ -855,7 +856,7 @@ public final class h {
                 }
             } else if (!this.ab & ac.length() > 0 || this.c(var5) != ' ') {
                 int var6 = this.U;
-                if (ac != null && ac.length() > 0 && (M.a(ac + "  ") > var6 || ac.length() >= this.aB)) {
+                if (ac != null && ac.length() > 0 && (M.getTextWidth(ac + "  ") > var6 || ac.length() >= this.aB)) {
                     ac = ac.substring(0, ac.length() - 1);
                 }
 
@@ -883,8 +884,8 @@ public final class h {
             this.aB = 20;
         }
 
-        this.U = e7 - 4 - (e7 >> 4);
-        this.T = d7 - 4 - (d7 >> 4);
+        this.U = screenWidth - 4 - (screenWidth >> 4);
+        this.T = screenHeight - 4 - (screenHeight >> 4);
         if (M == null) {
             M = N;
         }
@@ -918,7 +919,7 @@ public final class h {
             this.X = 1;
         }
 
-        int var4 = this.W.a('W') + 2;
+        int var4 = this.W.getSymbolWidth('W') + 2;
         if (this.X * var4 > this.U) {
             this.X = this.U / var4;
         }
@@ -1201,7 +1202,7 @@ public final class h {
             if (this.L) {
                 int var1 = a((Graphics)null, "", "");
                 int var2;
-                if ((var2 = M.b() + 2) < o()) {
+                if ((var2 = M.getTextHeight() + 2) < o()) {
                     var2 = o();
                 }
 
@@ -1209,12 +1210,12 @@ public final class h {
                     var2 = var1;
                 }
 
-                if (k.d(0, d7 - var2, e7 / 3, var2)) {
+                if (k.d(0, screenHeight - var2, screenWidth / 3, var2)) {
                     ah = 53;
                     a(53);
                 }
 
-                if (k.d(e7 - e7 / 3, d7 - var2, e7 / 3, var2)) {
+                if (k.d(screenWidth - screenWidth / 3, screenHeight - var2, screenWidth / 3, var2)) {
                     ah = 35;
                     a(35);
                 }
@@ -1235,7 +1236,7 @@ public final class h {
 
     private static final void d(int var0) {
         aP = 0;
-        Q = d7;
+        Q = screenHeight;
         if (N == null) {
             N = M;
         }
@@ -1349,7 +1350,7 @@ public final class h {
         }
 
         if (var7 != null && var7.length() > 0) {
-            aJ[0] = instanceHandler.a(var7, N, e7 - N.a(" "), true);
+            aJ[0] = instanceHandler.a(var7, N, screenWidth - N.getTextWidth(" "), true);
         } else {
             aJ[0] = new String[]{""};
         }
@@ -1452,7 +1453,7 @@ public final class h {
         }
 
         try {
-            av.setLoopCount(e7 + d7);
+            av.setLoopCount(screenWidth + screenHeight);
         } catch (Exception var6) {
         }
 
@@ -1476,7 +1477,7 @@ public final class h {
     }
 
     private static int o() {
-        return d7 - (aP + Q);
+        return screenHeight - (aP + Q);
     }
 
     private static int p() {
@@ -1559,7 +1560,7 @@ public final class h {
         return (var0 = GlomoRegStarter.getMoreGamesLink()) != null && var0.length() > 0 ? var0 : null;
     }
 
-    private static String[] a(String var0, i var1, int var2, boolean var3, boolean var4) {
+    private static String[] a(String var0, TextRenderer var1, int var2, boolean var3, boolean var4) {
         int var5;
         String[] var6 = new String[var5 = var0.length()];
         boolean var7 = false;
@@ -1583,7 +1584,7 @@ public final class h {
 
             int var21;
             if (var3) {
-                var21 = var1.a(var10);
+                var21 = var1.getSymbolWidth(var10);
             } else {
                 var21 = 5;
             }
@@ -1627,7 +1628,7 @@ public final class h {
                     var15 = var14 + var12;
                     var8 = 0;
                     if (var18 < var5 && var18 + 1 > var15) {
-                        var8 = var1.a(var0.substring(var15, var18 + 1));
+                        var8 = var1.getTextWidth(var0.substring(var15, var18 + 1));
                     }
                 }
 
@@ -1661,7 +1662,7 @@ public final class h {
         return var20;
     }
 
-    private String[] a(String var1, i var2, int var3, boolean var4) {
+    private String[] a(String var1, TextRenderer var2, int var3, boolean var4) {
         return a(var1, var2, var3, var4, true);
     }
 
@@ -1793,6 +1794,7 @@ public final class h {
             }
 
             try {
+                // TODO: rename z
                 z = AssetManager.instanceHandler.e("dem3");
                 if (z == null || z[0] == null || z[0].length <= 0) {
                     isRunning = false;
@@ -1820,7 +1822,7 @@ public final class h {
             }
 
             d(0);
-            if (isError = d(isError)) {
+            if (isError = d(isError)) {   // Actually does nothing because there is no dmc file
                 isError |= s();
             } else {
                 aK <<= 1;
@@ -1941,8 +1943,8 @@ public final class h {
             return false;
         } else {
             var0.setColor(m7);
-            var0.setClip(0, aP, e7, Q);
-            var0.fillRect(0, aP, e7, Q);
+            var0.setClip(0, aP, screenWidth, Q);
+            var0.fillRect(0, aP, screenWidth, Q);
             if (instanceHandler.aa) {
                 instanceHandler.b(var0);
                 return true;
@@ -1968,14 +1970,14 @@ public final class h {
                 }
 
                 int var25 = aP + 2;
-                if (e7 >= 240) {
+                if (screenWidth >= 240) {
                     ++var25;
                 }
 
                 if (aJ == null) {
                     return true;
                 } else {
-                    int var26 = N.b();
+                    int var26 = N.getTextHeight();
                     int var4;
                     int var5;
                     int var6;
@@ -1996,13 +1998,13 @@ public final class h {
                         }
 
                         var6 += 6;
-                        var7 = ((d7 - var5 - var6 >> 1) - var4 >> 1) * 3 >> 3;
+                        var7 = ((screenHeight - var5 - var6 >> 1) - var4 >> 1) * 3 >> 3;
                         if (var25 < var7) {
                             var25 = var7;
                         }
 
                         for(int var8 = 0; var8 < aJ[0].length; ++var8) {
-                            N.a(var0, aJ[0][var8], e7 >> 1, var25, 17);
+                            N.drawTextAligned(var0, aJ[0][var8], screenWidth >> 1, var25, TextRenderer.TOP_CENTER);
                             var25 += var26;
                         }
                     }
@@ -2011,8 +2013,8 @@ public final class h {
                     var25 += 3 * var26 >> 3;
                     if (aJ[1] != null && aJ[1].length > 0) {
                         var5 = aJ[1].length;
-                        var26 = N.b() - N.f8 + 4;
-                        if (d7 >= 320) {
+                        var26 = N.getTextHeight() - N.shadowHeight + 4;
+                        if (screenHeight >= 320) {
                             var26 += 2;
                         }
 
@@ -2028,9 +2030,9 @@ public final class h {
                         var7 = Q - var1 - var25 - 4;
                         boolean var27 = var5 > 1;
                         int var9 = 3;
-                        if (e7 >= 240) {
+                        if (screenWidth >= 240) {
                             ++var9;
-                        } else if (e7 <= 128) {
+                        } else if (screenWidth <= 128) {
                             --var9;
                         }
 
@@ -2039,7 +2041,7 @@ public final class h {
                             var7 -= 2 * var1;
                         }
 
-                        if (e7 >= 240) {
+                        if (screenWidth >= 240) {
                             var7 -= 2;
                         }
 
@@ -2065,12 +2067,12 @@ public final class h {
                             var15 = -1;
                             var16 = 2;
                             var0.setColor(i7);
-                            var0.fillRect(0, var25 - var1, e7, var1);
-                            var0.fillRect(0, var25 + var10, e7, var1);
+                            var0.fillRect(0, var25 - var1, screenWidth, var1);
+                            var0.fillRect(0, var25 + var10, screenWidth, var1);
                             var0.setColor(k7);
-                            var0.drawRect(1, var25 - var1, e7 - 3, var1 - 1);
-                            var0.drawRect(1, var25 + var10, e7 - 3, var1 - 1);
-                            if (k.c(0, var25 - var1, e7, var1)) {
+                            var0.drawRect(1, var25 - var1, screenWidth - 3, var1 - 1);
+                            var0.drawRect(1, var25 + var10, screenWidth - 3, var1 - 1);
+                            if (k.c(0, var25 - var1, screenWidth, var1)) {
                                 ak = true;
                                 ah = 50;
                                 aS = true;
@@ -2079,7 +2081,7 @@ public final class h {
                                 timeStamp = System.currentTimeMillis();
                             }
 
-                            if (k.c(0, var25 + var10, e7, var1)) {
+                            if (k.c(0, var25 + var10, screenWidth, var1)) {
                                 ak = true;
                                 ah = 56;
                                 aS = true;
@@ -2089,7 +2091,7 @@ public final class h {
                             }
 
                             var0.setColor(p);
-                            var17 = e7 >> 1;
+                            var17 = screenWidth >> 1;
                             var18 = 1;
                             int var19 = var25 - var1 + var13;
 
@@ -2148,16 +2150,16 @@ public final class h {
                         }
 
                         var13 = var26;
-                        var25 += var26 - (M.b() - M.f8) >> 1;
+                        var25 += var26 - (M.getTextHeight() - M.shadowHeight) >> 1;
                         var14 = aD;
 
                         for(var15 = 0; var14 < aJ[1].length && var15 < var5; ++var14) {
-                            var16 = var25 - (var13 - (M.b() - M.f8) >> 1);
-                            if (k.d(0, var16, e7, var13) && glomoRegionIndex != var14) {
+                            var16 = var25 - (var13 - (M.getTextHeight() - M.shadowHeight) >> 1);
+                            if (k.d(0, var16, screenWidth, var13) && glomoRegionIndex != var14) {
                                 glomoRegionIndex = var14;
                             }
 
-                            if (k.c(0, var16, e7, var13)) {
+                            if (k.c(0, var16, screenWidth, var13)) {
                                 if (glomoRegionIndex != var14) {
                                     glomoRegionIndex = var14;
                                 }
@@ -2167,11 +2169,11 @@ public final class h {
                             }
 
                             var17 = 3;
-                            if (e7 >= 240) {
+                            if (screenWidth >= 240) {
                                 ++var17;
                             }
 
-                            var18 = e7 - 2 * var17;
+                            var18 = screenWidth - 2 * var17;
                             if (var14 == glomoRegionIndex) {
                                 var0.setColor(n7);
                                 var0.fillRect(var17, var16, var18, var13);
@@ -2179,13 +2181,13 @@ public final class h {
                                 var0.drawRect(var17, var16, var18 - 1, var13 - 1);
                             }
 
-                            a(var0, N, aJ[1][var14], var17 + 2, 0, var18 - 4, d7, var14 == glomoRegionIndex, e7 >> 1, var25, 17);
+                            a(var0, N, aJ[1][var14], var17 + 2, 0, var18 - 4, screenHeight, var14 == glomoRegionIndex, screenWidth >> 1, var25, TextRenderer.TOP_CENTER);
                             var25 += var26;
                             ++var15;
                         }
 
                         var0.setColor(j7);
-                        var0.drawRect(0, 0, e7 - 1, d7 - 1);
+                        var0.drawRect(0, 0, screenWidth - 1, screenHeight - 1);
                         return true;
                     } else {
                         return true;
@@ -2195,7 +2197,7 @@ public final class h {
         }
     }
 
-    private static void a(Graphics var0, i var1, String var2, int var3, int var4, int var5, int var6, boolean var7, int var8, int var9, int var10) {
+    private static void a(Graphics var0, TextRenderer var1, String var2, int var3, int var4, int var5, int var6, boolean var7, int var8, int var9, int var10) {
         int var11 = var0.getClipX();
         int var12 = var0.getClipY();
         int var13 = var0.getClipWidth();
@@ -2222,21 +2224,21 @@ public final class h {
 
         var0.setClip(var15, var16, var5, var6);
         String var17 = "...";
-        int var18 = var1.a(var2) - var1.e8;
-        int var19 = var1.a(var17) - var1.e8;
+        int var18 = var1.getTextWidth(var2) - var1.shadowWidth;
+        int var19 = var1.getTextWidth(var17) - var1.shadowWidth;
         int var20;
-        if ((var20 = var1.a('A') * 6 >> 3) < 1) {
+        if ((var20 = var1.getSymbolWidth('A') * 6 >> 3) < 1) {
             var20 = 1;
         }
 
         if (var18 <= var5 - 2) {
-            var1.a(var0, var2, var8, var9, var10);
+            var1.drawTextAligned(var0, var2, var8, var9, var10);
         } else if (!var7) {
             String var21 = null;
             int var22 = 0;
 
             for(int var23 = 0; var23 < var2.length(); ++var23) {
-                if ((var22 += var1.a(var2.charAt(var23))) >= var5 - var19) {
+                if ((var22 += var1.getSymbolWidth(var2.charAt(var23))) >= var5 - var19) {
                     var21 = var2.substring(0, var23) + var17;
                     break;
                 }
@@ -2246,9 +2248,9 @@ public final class h {
                 var21 = var2;
             }
 
-            var1.a(var0, var21, var8, var9, var10);
+            var1.drawTextAligned(var0, var21, var8, var9, var10);
         } else {
-            var1.a(var0, var2, var3 - aG, var9, 20);
+            var1.drawTextAligned(var0, var2, var3 - aG, var9, TextRenderer.TOP_RIGHT);
             aG += var20;
             if (aG >= var18) {
                 aG = -var5;
