@@ -21,18 +21,39 @@ public class Image {
         return new Image(new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB));
     }
 
-    public static Image createImage(byte[] imageData, int imageOffset, int imageLength) {
+    public static Image createImage(byte[] imageData, int imageOffset, int imageLength)
+            throws ArrayIndexOutOfBoundsException, NullPointerException, IllegalArgumentException
+    {
+        if (imageData == null)
+            throw new NullPointerException();
+
+        if (imageOffset < 0
+                || imageOffset > imageData.length
+                || imageLength < 0
+                || imageLength > imageData.length - imageOffset
+        )
+            throw new ArrayIndexOutOfBoundsException();
+
         BufferedImage img = null;
+
         try {
             img = ImageIO.read(new ByteArrayInputStream(imageData));
-        } catch (IOException e) {
+        } catch (Exception e) {
             img = null;
         }
+
+        if (img == null)
+            throw new IllegalArgumentException();
+
         return new Image(img);
     }
 
     public static Image createRGBImage(int[] rgb, int width, int height, boolean processAlpha) {
-        BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage img = new BufferedImage(
+                width, height,
+                //processAlpha ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_INT_RGB
+                BufferedImage.TYPE_INT_ARGB
+        );
         WritableRaster raster = img.getRaster();
         raster.setPixels(0, 0, width, height, rgb);
 
@@ -40,11 +61,11 @@ public class Image {
     }
 
     public int getWidth() {
-        return 0;
+        return awtImage.getWidth(null);
     }
 
     public int getHeight() {
-        return 0;
+        return awtImage.getHeight(null);
     }
 
     public javax.microedition.lcdui.Graphics getGraphics() {
