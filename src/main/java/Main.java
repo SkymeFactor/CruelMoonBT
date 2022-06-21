@@ -1,18 +1,8 @@
-import GlomoReg.GlomoRegStarter;
-import GlomoReg.GlomoRegion;
-import GlomoReg.GlomoRegionPolicyManager;
-
-import javax.imageio.ImageIO;
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Display;
-import javax.microedition.lcdui.Graphics;
 import javax.microedition.midlet.MIDlet;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Hashtable;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class Main {
@@ -43,11 +33,21 @@ public class Main {
             System.setProperty("MIDlet-1", "Moon BT, /icons/ico.png, NET_Lizard");
 
             // Create midlet
+            ActionListener exitListener = actionEvent -> {
+                switch (actionEvent.getActionCommand()) {
+                    case "Destroyed" -> {
+                        System.out.println("[ INFO ]: Game closed");
+                        System.gc();
+                        System.exit(0);
+                    }
+                    case "Paused" -> System.out.println("[ INFO ]: Game paused");
+                }
+            };
             MIDlet myMidlet = new NET_Lizard();
+            myMidlet.addListener(exitListener);
             myMidlet.startApp();
+            System.out.println("[ INFO ]: Game launched");
         });
-
-        System.out.println("[ INFO ]: Game has been launched");
 
         // System.out.println(h.decodeBinaryString(new int[]{1819934720}));
         // try {
@@ -65,7 +65,5 @@ public class Main {
         //
         // for (String str: GlomoConfigLoader.readGlomoConfigFile(myMidlet, "/glomo.cfg"))
         //     System.out.println(str);
-
-        return;
     }
 }
