@@ -5,7 +5,7 @@ import javax.microedition.midlet.MIDlet;
 public class Display {
     public interface IPrepareCanvas {
         void initCanvas(Canvas cnv);
-    };
+    }
 
     private static IPrepareCanvas onPrepareCanvas;
 
@@ -13,12 +13,13 @@ public class Display {
         onPrepareCanvas = callback;
     }
 
+    // TODO: figure out returning the same display
     public static Display getDisplay(MIDlet app) {
         return new Display();
     }
 
     public int numAlphaLevels() {
-        return 2;
+        return 3;
     }
 
     public void vibrate(int duration) {
@@ -26,8 +27,7 @@ public class Display {
 
     public void setCurrent(Displayable nextDisplayable) {
         if (nextDisplayable instanceof Canvas) {
-            Canvas canvas = (Canvas) nextDisplayable;
-            onPrepareCanvas.initCanvas(canvas);
+            onPrepareCanvas.initCanvas((Canvas) nextDisplayable);
         } else {
             System.out.println("[ Error ]: not a canvas displayable type");
         }
