@@ -1,6 +1,6 @@
 package javax.microedition.lcdui;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -8,7 +8,8 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 public abstract class Canvas extends JPanel implements Displayable{
-    private final BufferedImage screen = new BufferedImage(360, 640, BufferedImage.TYPE_INT_ARGB);
+
+    // =================== Key Constants ===================
 
     public static final int FIRE = 8;
     public static final int LEFT = 2;
@@ -31,56 +32,89 @@ public abstract class Canvas extends JPanel implements Displayable{
     public static final int KEY_NUM8 = 56;
     public static final int KEY_NUM9 = 57;
 
+    // =================== Screen options ===================
+
+    private final int defaultWidth = 360;
+    private final int defaultHeight = 640;
+    protected final BufferedImage screen = new BufferedImage(
+            defaultWidth,
+            defaultHeight,
+            BufferedImage.TYPE_INT_ARGB
+    );
+
+    // =================== Painting ===================
+
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(360, 640);
+        return new Dimension(defaultWidth, defaultHeight);
     }
 
-    public int getGameAction(int keyCode) {
-        return keyCode;
+    @Override
+    protected void paintComponent(java.awt.Graphics graphics) {
+        super.paintComponent(graphics);
+        graphics.drawImage(screen, 0, 0, getWidth(), getHeight(), Color.WHITE, null);
     }
 
-    public void setFullScreenMode(boolean mode) {
-    }
+    public abstract void paint(Graphics graphics);
 
     public void repaint() {
         super.repaint();
     }
 
-    public abstract void paint(Graphics graphics);
-
-    @Override
-    protected void paintComponent(java.awt.Graphics graphics) {
-        super.paintComponent(graphics);
-        System.out.println(getWidth() + "" + getHeight());
-        graphics.drawImage(screen, 0, 0, getWidth(), getHeight(), Color.WHITE, null);
+    public void serviceRepaints() {
+        // Was overly used by the game, then changed to be less heavy
+        //super.paintImmediately(0, 0, defaultWidth, defaultHeight);
+        repaint();
     }
 
-    public void serviceRepaints() {
+    // =================== Screen state changing ===================
+
+    public void setFullScreenMode(boolean mode) {}
+    protected void hideNotify() {}
+    protected void showNotify() {}
+
+    // =================== Getters ===================
+
+    public int getGameAction(int keyCode) {
+        return keyCode;
     }
 
     public boolean hasPointerEvents() {
-        return false;
-    }
-
-    protected void hideNotify() {
+        return true;
     }
 
     public boolean isDoubleBuffered() {
-        return false;
+        return super.isDoubleBuffered();
     }
 
-    protected void showNotify() {
+    @Override
+    public String getTitle() {
+        return "Canvas";
     }
 
-    protected abstract void keyPressed(int keyCode);
-    protected abstract void keyReleased(int keyCode);
+    @Override
+    public boolean isShown() {
+        return super.isShowing();
+    }
+
+    @Override
+    public int getWidth() {
+        return screen.getWidth();
+    }
+    @Override
+    public int getHeight() {
+        return screen.getHeight();
+    }
+
+    // =================== Keys handling ===================
+
+    protected void keyPressed(int keyCode) {}
+    protected void keyReleased(int keyCode) {}
+    protected void keyRepeated(int keyCode) {}
 
     public final KeyListener keyListener = new KeyListener() {
-
         @Override
-        public void keyTyped(KeyEvent e) {
-        }
+        public void keyTyped(KeyEvent e) {}
 
         @Override
         public void keyPressed(KeyEvent e) {
@@ -111,10 +145,14 @@ public abstract class Canvas extends JPanel implements Displayable{
                 return javax.microedition.lcdui.Canvas.DOWN;
             case KeyEvent.VK_1:
                 return javax.microedition.lcdui.Canvas.KEY_SOFTKEY1;
-            case KeyEvent.VK_BACK_SPACE:
+            case KeyEvent.VK_BACK_SPACE, KeyEvent.VK_ESCAPE:
                 return javax.microedition.lcdui.Canvas.KEY_SOFTKEY2;
+            case KeyEvent.VK_CONTROL:
+                return javax.microedition.lcdui.Canvas.KEY_NUM0;
+            case KeyEvent.VK_SPACE:
+                return javax.microedition.lcdui.Canvas.KEY_STAR;
             default:
-                System.out.println("unknown keyEvent: " + keyEvent);
+                System.out.println("Unknown keyEvent: " + keyEvent);
                 return 0;
         }
     }
