@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 
 public class Graphics {
 
@@ -17,7 +18,7 @@ public class Graphics {
 
     private final java.awt.Graphics graphics;
     private final java.awt.font.FontRenderContext frc;
-    private int translateX, translateY;
+    private int translateX = 0, translateY = 0;
 
     public Graphics(java.awt.Graphics graphics) {
         this.graphics = graphics;
@@ -34,8 +35,8 @@ public class Graphics {
 
     public void translate(int x, int y) {
         graphics.translate(x, y);
-        translateX = x;
-        translateY = y;
+        translateX += x;
+        translateY += y;
     }
 
     public int getClipX() {
@@ -59,6 +60,15 @@ public class Graphics {
     }
 
     public void drawRGB(int[] rgbData, int offset, int scanLength, int x, int y, int width, int height, boolean processAlpha) {
+        BufferedImage img = new BufferedImage(
+                width, height,
+                processAlpha ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_INT_RGB
+        );
+        img.setRGB(0, 0, width, height, rgbData, offset, scanLength);
+
+        Graphics2D g2d = (Graphics2D) graphics;
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+        g2d.drawImage(img, x, y, null);
     }
 
     public int getColor() {
@@ -105,29 +115,29 @@ public class Graphics {
     }
 
     private static int getAnchorX(int x, int size, int anchor) {
-        if ((anchor & 4) != 0) {
+        if ((anchor & LEFT) != 0) {
             return x;
         }
-        if ((anchor & 8) != 0) {
+        if ((anchor & RIGHT) != 0) {
             return x - size;
         }
-        if ((anchor & 1) != 0) {
+        if ((anchor & HCENTER) != 0) {
             return x - size / 2;
         }
-        throw new RuntimeException("unknown anchor = " + anchor);
+        throw new RuntimeException("Unknown anchor: " + anchor);
     }
 
     private static int getAnchorY(int y, int size, int anchor) {
-        if ((anchor & 16) != 0) {
+        if ((anchor & TOP) != 0) {
             return y;
         }
-        if ((anchor & 32) != 0) {
+        if ((anchor & BOTTOM) != 0) {
             return y - size;
         }
-        if ((anchor & 2) != 0) {
+        if ((anchor & VCENTER) != 0) {
             return y - size / 2;
         }
-        throw new RuntimeException("unknown anchor = " + anchor);
+        throw new RuntimeException("Unknown anchor: " + anchor);
     }
 
 }

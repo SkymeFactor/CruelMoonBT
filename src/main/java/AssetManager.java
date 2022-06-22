@@ -92,7 +92,7 @@ public final class AssetManager {
         if (var6 && !var0.isMutable()) {
             Image var11;
             Graphics var12;
-            (var12 = (var11 = Image.createImage(var3, var4)).getGraphics()).setColor(16777215);
+            (var12 = (var11 = Image.createImage(var3, var4)).getGraphics()).setColor(GameColors.COLOR_WHITE);
             var12.fillRect(0, 0, var3, var4);
             var12.drawImage(var0, -var1, -var2, 20);
             int[] var13 = new int[var3 * var4];
@@ -544,8 +544,7 @@ public final class AssetManager {
         return this.a(var1, ' ');
     }
 
-    // TODO: decide on why I should draw an image on black background
-    static final Image a(Image img) {
+    static final Image addBlackBackground(Image img) {
         if (img == null) {
             return null;
         } else {
@@ -594,9 +593,9 @@ public final class AssetManager {
         return var0;
     }
 
-    private static Image a(Image var0, int var1, int var2, int var3, int var4, int imageWidth, int imageHeight, int var7, boolean processAlpha, boolean var9, int var10) {
+    private static Image a(Image img, int var1, int var2, int var3, int var4, int imageWidth, int imageHeight, int var7, boolean processAlpha, boolean requiresBlending, int var10) {
         boolean alphaBlendingSupported = false;
-        if (var0.isMutable()) {
+        if (img.isMutable()) {
             processAlpha = false;
         }
 
@@ -607,12 +606,12 @@ public final class AssetManager {
             }
         }
 
-        int[] imageDataRGB = a(var0, var1, var2, var3, var4, var7, processAlpha);
+        int[] imageDataRGB = a(img, var1, var2, var3, var4, var7, processAlpha);
         if (imageWidth != var3 || imageHeight != var4) {
-            imageDataRGB = a(imageDataRGB, var3, var4, imageWidth, imageHeight, var9, processAlpha, true);
+            imageDataRGB = a(imageDataRGB, var3, var4, imageWidth, imageHeight, requiresBlending, processAlpha, true);
         }
 
-        if (processAlpha && !alphaBlendingSupported && var9) {
+        if (processAlpha && !alphaBlendingSupported && requiresBlending) {
             // Make alpha blending by hands if not supported
             for(int i = 0; i < imageDataRGB.length; ++i) {
                 int var14;
@@ -1063,7 +1062,7 @@ public final class AssetManager {
             int[] whiteARGB = new int[4];
 
             for(int i = 0; i < whiteARGB.length; ++i) {
-                whiteARGB[i] = -2130706433;  // White color, transparency = 80
+                whiteARGB[i] = -2130706433;  // White color, transparency = 128
             }
 
             Image foreground = Image.createRGBImage(whiteARGB, 2, 2, true);
@@ -1072,7 +1071,7 @@ public final class AssetManager {
             (myGraphics = (background = Image.createImage(2, 2)).getGraphics()).setClip(0, 0, 2, 2);
             myGraphics.setColor(0);
             myGraphics.fillRect(0, 0, 2, 2);
-            myGraphics.drawImage(foreground, 0, 0, 20);
+            myGraphics.drawImage(foreground, 0, 0, Graphics.TOP | Graphics.LEFT);
             int[] blend = new int[4];
             background.getRGB(blend, 0, 2, 0, 0, 2, 2);
 

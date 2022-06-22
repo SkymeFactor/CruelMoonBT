@@ -10,13 +10,13 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 // Game logic + rendering
-public final class k extends a implements Runnable {
+public final class k extends NokiaCanvasWrapper implements Runnable {
     static n b10;
-    int c10;
-    int d10;
-    int e10;
-    int f10;
-    int g10;
+    int screenHeight;
+    int screenWidth;
+    int customSoftKeyCode;
+    int screenWidthHalf;
+    int screenWidthThreeQuarters;
     static boolean h10;
     boolean i10;
     boolean j10;
@@ -27,13 +27,13 @@ public final class k extends a implements Runnable {
     int o;
     int p;
     boolean q;
-    static String[][] r;
-    String[] s;
+    static String[][] screenText;
+    String[] helpMessages;
     int t;
     boolean u;
-    Image v;
+    Image sprSoftkeyButtons;
     Image[] w;
-    Image[] x;
+    Image[] sprArrows;
     boolean y;
     boolean z;
     int A;
@@ -44,7 +44,8 @@ public final class k extends a implements Runnable {
     int F;
     String[] G;
     int H;
-    Image[] I;
+    Image[] sprBluetoothIcons;
+    Image[] sprSidePanelIcons;
     int J;
     int K;
     int L;
@@ -79,7 +80,7 @@ public final class k extends a implements Runnable {
     int ao;
     int ap;
     int aq;
-    Image[] ar;
+    Image[] sprSelectionBounds;
     int as;
     int at;
     Image au;
@@ -88,7 +89,7 @@ public final class k extends a implements Runnable {
     static boolean ax = false;
     boolean ay = false;
     boolean[] az;
-    Image aA;
+    Image endBattlePicture;
     boolean aB;
     boolean aC = false;
     boolean aD = false;
@@ -101,7 +102,7 @@ public final class k extends a implements Runnable {
     static boolean aK;
     boolean aL = false;
     int aM;
-    Graphics aN;
+    Graphics canvasGraphics;
     boolean aO;
     static k instanceHandler;
     c aQ;
@@ -128,7 +129,6 @@ public final class k extends a implements Runnable {
     Image bl;
     Image bm;
     boolean bn;
-    Image[] sidePanelIcons;
     int bp;
     boolean bq;
     int br;
@@ -156,7 +156,7 @@ public final class k extends a implements Runnable {
     boolean bN;
     static int bO = 4096;
     static int bP = 15;
-    static String[][] bQ;
+    static String[][] levelTitles;
     int bR;
     int bS;
     int bT;
@@ -260,9 +260,9 @@ public final class k extends a implements Runnable {
     boolean dM;
     boolean dN;
     boolean dO;
-    Image dP;
+    Image canvasImage;
     int dQ;
-    Image[] dR;
+    Image[] sprUnitShadows;
     static byte dS = 1;
     static int dT;
     int dU;
@@ -291,7 +291,7 @@ public final class k extends a implements Runnable {
     boolean er;
     static boolean es;
     int[] et;
-    static boolean eu;
+    static boolean isLoading;
     boolean ev;
     int[] ew;
     int ex;
@@ -320,7 +320,7 @@ public final class k extends a implements Runnable {
     int eU;
     boolean eV;
     int eW;
-    Image[] eX;
+    Image[] sprUnits;
     boolean eY;
     long eZ;
     boolean fa;
@@ -357,7 +357,8 @@ public final class k extends a implements Runnable {
     static int fF;
     static int fG;
     int fH;
-    int fI;
+    int screenWidthOneThird;
+    int screenHeightOneThird;
     int fJ;
     int fK;
     int fL;
@@ -377,7 +378,6 @@ public final class k extends a implements Runnable {
     static int fZ;
     static int ga;
     int gb;
-    int gc;
     int gd;
     int ge;
     int gf;
@@ -389,7 +389,7 @@ public final class k extends a implements Runnable {
         cq = false;
         eS = false;
         aK = false;
-        eu = true;
+        isLoading = true;
         da = false;
         es = true;
         cS = new boolean[]{false, false, false, false, true, true, true, true, true};
@@ -415,8 +415,8 @@ public final class k extends a implements Runnable {
         this.ei = this.eg / 4;
         this.cm = 0;
         this.cn = 0;
-        this.e10 = this.getWidth();
-        this.c10 = this.getHeight();
+        this.screenWidth = this.getWidth();
+        this.screenHeight = this.getHeight();
         this.ae = false;
         this.Q = false;
         this.P = true;
@@ -432,8 +432,8 @@ public final class k extends a implements Runnable {
         this.cL = 250;
         this.cf = new byte[this.cL + 2][this.cU + 2];
         this.cg = new byte[this.cL + 2][this.cU + 2];
-        this.fD = this.e10 / this.ej;
-        this.fW = this.c10 / this.eg;
+        this.fD = this.screenWidth / this.ej;
+        this.fW = this.screenHeight / this.eg;
         this.fB = this.fD;
         this.fU = this.fW;
         this.fJ = 0;
@@ -449,40 +449,40 @@ public final class k extends a implements Runnable {
         this.randomGenerator = new Random();
         Runtime.getRuntime();
         this.fT = 0;
-        this.aM = this.c10;
+        this.aM = this.screenHeight;
         this.aO = false;
         this.S = false;
-        this.x = new Image[4];
+        this.sprArrows = new Image[4];
         int[] var10000 = new int[]{1296389185, 759778886, 793592142, 1229342035, 1412320582};   // META-INF/MANIFEST.MF
         var10000 = new int[]{1399874915, 1768319331, 1635019119, 1845493760};                   // Specification
         var10000 = new int[]{1296647248, 758263344};                                            // MIDP-2.0
         var10000 = new int[]{1684368640};                                                       // dem
         var10000 = new int[]{1819934720};                                                       // lz
         this.aH = new byte[][]{
-                {99, 102, 50},                                  // "cf2"
-                {102, 110, 116, 50},                            // "fnt2"
-                {50},                                           // "2"
-                {115, 116},                                     // "st"
-                {116, 108, 107},                                // "tlk"
-                {110, 109},                                     // "nm"
-                {47, 97, 114, 46, 112, 110, 103},               // "/ar.png"
-                {47, 97, 114},                                  // "/ar"
-                {46, 112, 110, 103},                            // ".png"
-                {47, 122, 118, 122, 46, 112, 110, 103},         // "/zvz.png"
-                {46, 106, 112, 103},                            // ".jpg"
-                {47, 108},                                      // "/l"
-                {47, 117},                                      // "/u"
-                {99, 99, 51},                                   // "cc3"
-                {99, 117, 51},                                  // "cu3"
-                {109, 117, 97},                                 // "mua"
-                {47, 105, 108, 49, 46, 112, 110, 103},          // "/il1.png"
-                {47, 105, 108, 50, 46, 112, 110, 103},          // "/il2.png"
-                {47, 105, 108, 51, 46, 112, 110, 103},          // "/il3.png"
-                {47, 105, 108, 108, 46, 112, 110, 103},         // "/ill.png"
-                {47, 105, 108, 119, 46, 112, 110, 103},         // "/ilw.png"
-                {47, 101, 108, 48, 46, 112, 110, 103},          // "/el0.png"
-                {47, 101, 108, 49, 46, 112, 110, 103},          // "/el1.png"
-                {47, 105, 108, 108, 119, 46, 112, 110, 103}     // "/illw.png"
+                {99, 102, 50},                                  // 0  "cf2"
+                {102, 110, 116, 50},                            // 1  "fnt2"
+                {50},                                           // 2  "2"
+                {115, 116},                                     // 3  "st"
+                {116, 108, 107},                                // 4  "tlk"
+                {110, 109},                                     // 5  "nm"
+                {47, 97, 114, 46, 112, 110, 103},               // 6  "/ar.png"
+                {47, 97, 114},                                  // 7  "/ar"
+                {46, 112, 110, 103},                            // 8  ".png"
+                {47, 122, 118, 122, 46, 112, 110, 103},         // 9  "/zvz.png"
+                {46, 106, 112, 103},                            // 10 ".jpg"
+                {47, 108},                                      // 11 "/l"
+                {47, 117},                                      // 12 "/u"
+                {99, 99, 51},                                   // 13 "cc3"
+                {99, 117, 51},                                  // 14 "cu3"
+                {109, 117, 97},                                 // 15 "mua"
+                {47, 105, 108, 49, 46, 112, 110, 103},          // 16 "/il1.png"
+                {47, 105, 108, 50, 46, 112, 110, 103},          // 17 "/il2.png"
+                {47, 105, 108, 51, 46, 112, 110, 103},          // 18 "/il3.png"
+                {47, 105, 108, 108, 46, 112, 110, 103},         // 19 "/ill.png"
+                {47, 105, 108, 119, 46, 112, 110, 103},         // 20 "/ilw.png"
+                {47, 101, 108, 48, 46, 112, 110, 103},          // 21 "/el0.png"
+                {47, 101, 108, 49, 46, 112, 110, 103},          // 22 "/el1.png"
+                {47, 105, 108, 108, 119, 46, 112, 110, 103}     // 23"/illw.png"
         };
         this.fw = 0;
         this.fO = 0;
@@ -513,8 +513,8 @@ public final class k extends a implements Runnable {
         this.eU = -1;
         this.eT = -1;
         this.dQ = -1;
-        this.dP = null;
-        this.aN = null;
+        this.canvasImage = null;
+        this.canvasGraphics = null;
         this.eC = 670L;
         this.aJ = false;
         this.U = false;
@@ -552,7 +552,7 @@ public final class k extends a implements Runnable {
         this.bS = 10;
         this.bR = 1000;
         this.fN = 5;
-        this.fq = this.e10 - 2 * this.fN;
+        this.fq = this.screenWidth - 2 * this.fN;
         this.fr = 0;
         this.fs = 0;
         this.bJ = 0;
@@ -561,13 +561,13 @@ public final class k extends a implements Runnable {
         this.fC = this.fB;
         this.fV = this.fU;
         this.W = 1;
-        this.fM = this.e10;
+        this.fM = this.screenWidth;
         this.bf = 0;
         this.ak = 0;
         this.ao = 0;
         this.ap = 0;
         this.cB = -1;
-        this.bx = this.c10;
+        this.bx = this.screenHeight;
         this.aq = 0;
         this.dN = true;
         this.ff = -1;
@@ -597,7 +597,7 @@ public final class k extends a implements Runnable {
         this.bv = 0;
         this.bw = 0;
         this.bN = false;
-        this.d10 = 35;
+        this.customSoftKeyCode = Canvas.KEY_POUND;
         this.bq = false;
         this.br = 0;
         this.cb = new boolean[64];
@@ -610,13 +610,13 @@ public final class k extends a implements Runnable {
         this.t = 22;
         this.bD = 0;
         this.eP = 0L;
-        this.fp = this.e10 * 2 / 3;
-        this.ba = this.c10 * 2 / 3;
-        this.fI = this.e10 - this.fp >> 1;
-        this.gc = this.c10 - this.ba >> 1;
+        this.fp = this.screenWidth * 2 / 3;
+        this.ba = this.screenHeight * 2 / 3;
+        this.screenWidthOneThird = this.screenWidth - this.fp >> 1;
+        this.screenHeightOneThird = this.screenHeight - this.ba >> 1;
         this.en = 0;
-        this.f10 = this.e10 / 2;
-        this.g10 = this.e10 * 3 / 4;
+        this.screenWidthHalf = this.screenWidth / 2;
+        this.screenWidthThreeQuarters = this.screenWidth * 3 / 4;
         this.bn = false;
         this.m10 = 0;
         this.bK = 0;
@@ -628,10 +628,10 @@ public final class k extends a implements Runnable {
         this.dV = new int[2];
         this.ef = new boolean[2];
         this.az = new boolean[2];
-        eu = true;
+        isLoading = true;
         j.init();
-        j.e9 = this.e10;
-        j.a9 = this.c10;
+        j.e9 = this.screenWidth;
+        j.a9 = this.screenHeight;
     }
 
     private boolean A() {
@@ -711,17 +711,17 @@ public final class k extends a implements Runnable {
                             switch(this.bU) {
                                 case 0:
                                     if (!this.q(1, 1) && (this.D & 1) > 0) {
-                                        this.ct = r[4][0];
+                                        this.ct = screenText[4][0];
                                     }
                                     break;
                                 case 1:
                                     if (!this.k(1)) {
-                                        this.ct = r[4][1];
+                                        this.ct = screenText[4][1];
                                     }
                                     break;
                                 case 2:
                                     if (this.aU) {
-                                        this.ct = r[4][2];
+                                        this.ct = screenText[4][2];
                                     }
                             }
                         }
@@ -737,17 +737,17 @@ public final class k extends a implements Runnable {
 
                         if (this.ct == null) {
                             if (var15 > 0 && var15 <= this.cU) {
-                                this.ct = r[6][this.ch[0][var15 - 1]];
+                                this.ct = screenText[6][this.ch[0][var15 - 1]];
                                 this.T = 8;
                             }
 
                             if (var15 >= 64 && var15 - 64 < this.bg) {
-                                this.ct = r[5][this.bZ[0][var15 - 64]];
+                                this.ct = screenText[5][this.bZ[0][var15 - 64]];
                                 this.T = 8;
                             }
                         }
                     } else if (this.q && this.cv[1] < this.ak) {
-                        this.ct = r[4][3];
+                        this.ct = screenText[4][3];
                         this.T = 8;
                     }
                 } catch (Exception var18) {
@@ -1113,18 +1113,18 @@ public final class k extends a implements Runnable {
                 }
             }
 
-            if ((this.aW || this.aY) && (this.fM > this.e10 - var2 || this.aY)) {
+            if ((this.aW || this.aY) && (this.fM > this.screenWidth - var2 || this.aY)) {
                 if (this.aY) {
                     var5 = 7;
                 }
 
                 this.fM += var5;
-                if (this.fM < this.e10 - var2) {
-                    this.fM = this.e10 - var2;
+                if (this.fM < this.screenWidth - var2) {
+                    this.fM = this.screenWidth - var2;
                 }
 
-                if (this.fM >= this.e10) {
-                    this.fM = this.e10;
+                if (this.fM >= this.screenWidth) {
+                    this.fM = this.screenWidth;
                     this.aY = false;
                     this.aW = false;
                 }
@@ -1199,14 +1199,14 @@ public final class k extends a implements Runnable {
     private void a(Graphics var1, d var2) {
         boolean var3 = false;
         var1.translate(-var1.getTranslateX(), -var1.getTranslateY());
-        var1.setClip(0, 0, this.e10, this.c10);
+        var1.setClip(0, 0, this.screenWidth, this.screenHeight);
         int var4;
         int var5;
         if (this.G != null && this.G.length > 0 && (this.bL != 5 && this.bL != 6 || b10 == null || n.s)) {
             var3 = true;
             var4 = var2.b();
             var5 = this.G.length * var4 + 2;
-            a.a(var1, 0, 0, this.e10, var5, 0, 128);
+            NokiaCanvasWrapper.fillRectTransparent(var1, 0, 0, this.screenWidth, var5, 0, 128);
             int var6 = 1;
 
             for(int var7 = 0; var7 < this.G.length; ++var7) {
@@ -1218,7 +1218,7 @@ public final class k extends a implements Runnable {
             }
         }
 
-        if (this.I != null && this.I[0] != null && this.I[1] != null && var3) {
+        if (this.sprBluetoothIcons != null && this.sprBluetoothIcons[0] != null && this.sprBluetoothIcons[1] != null && var3) {
             var4 = 0;
             if (b10 != null) {
                 if (n.g12) {
@@ -1237,10 +1237,10 @@ public final class k extends a implements Runnable {
                 }
             }
 
-            var5 = this.e10 - this.I[var4].getWidth();
+            var5 = this.screenWidth - this.sprBluetoothIcons[var4].getWidth();
             if (var4 == 0 && this.bL == 5) {
                 this.M += this.K;
-                if (this.M >= this.I[var4].getWidth()) {
+                if (this.M >= this.sprBluetoothIcons[var4].getWidth()) {
                     this.K = -Math.abs(this.K);
                     this.M += this.K;
                 }
@@ -1253,8 +1253,8 @@ public final class k extends a implements Runnable {
                 var5 += this.M;
             }
 
-            if (var5 < this.e10) {
-                var1.drawImage(this.I[var4], var5, 0, 20);
+            if (var5 < this.screenWidth) {
+                var1.drawImage(this.sprBluetoothIcons[var4], var5, 0, 20);
             }
         }
 
@@ -1446,24 +1446,24 @@ public final class k extends a implements Runnable {
         this.aU();
     }
 
-    private final void a(Graphics var1) {
+    private final void a(Graphics graphics) {
         int var2 = this.getWidth();
         int var3 = this.getHeight();
-        int var4 = var1.getTranslateX();
-        int var5 = var1.getTranslateY();
-        var1.translate(-var4, -var5);
-        var1.setClip(0, 0, var2, var3);
+        int var4 = graphics.getTranslateX();
+        int var5 = graphics.getTranslateY();
+        graphics.translate(-var4, -var5);
+        graphics.setClip(0, 0, var2, var3);
         d var6 = j.A;
-        String var11 = r[5][0];
+        String var11 = screenText[5][0];
         boolean var12 = false;
-        int var13 = r[2].length;
+        int var13 = screenText[2].length;
         int var7;
         int var8;
         if (this.as <= 0) {
             var12 = true;
 
             for(var7 = 0; var7 < var13; ++var7) {
-                if ((var8 = var6.a(r[2][var7])) > this.as) {
+                if ((var8 = var6.a(screenText[2][var7])) > this.as) {
                     this.as = var8;
                 }
             }
@@ -1479,7 +1479,7 @@ public final class k extends a implements Runnable {
 
         int var15;
         if (var12) {
-            if ((var8 = var6.a(r[11][0] + r[11][1] + "  ")) > this.as) {
+            if ((var8 = var6.a(screenText[11][0] + screenText[11][1] + "  ")) > this.as) {
                 this.as = var8;
             }
 
@@ -1538,8 +1538,8 @@ public final class k extends a implements Runnable {
         int var19 = var3 >> 4;
         int var20 = var3 >> 1;
         int var22 = 5;
-        if (this.x != null && this.x[2] != null) {
-            var22 = this.x[2].getHeight() >> 1;
+        if (this.sprArrows != null && this.sprArrows[2] != null) {
+            var22 = this.sprArrows[2].getHeight() >> 1;
         }
 
         int var21;
@@ -1572,28 +1572,28 @@ public final class k extends a implements Runnable {
 
         var24 += 0;
         int var29 = this.fT + (var3 - var24) / 2;
-        var1.setFont(j.defaultFont);
-        var1.setClip(0, this.fT, var2, var3);
-        int var30 = var1.getColor();
+        graphics.setFont(j.defaultFont);
+        graphics.setClip(0, this.fT, var2, var3);
+        int defaultColor = graphics.getColor();
         int var33 = 5;
-        if (this.x != null && this.x[2] != null) {
-            var33 = this.x[2].getHeight() >> 1;
+        if (this.sprArrows != null && this.sprArrows[2] != null) {
+            var33 = this.sprArrows[2].getHeight() >> 1;
         }
 
         var33 *= 2;
         int var34 = var29 - 7 - 1 - var33;
         int var35 = var29 - 7 + var24 + 7 + 7 - 1 + 1 - var34 + var33;
-        if (this.cr != null && this.cr.f()) {
-            a.a(var1, 0, var34, var2, var35, 0, 128);
+        if (this.cr != null && this.cr.checkIfAlphaBlendingIsSupported()) {
+            NokiaCanvasWrapper.fillRectTransparent(graphics, 0, var34, var2, var35, 0, 128);
         } else if (this.cr != null) {
-            j.a(var1, 0, var34, var2, var35, 0, 128);
+            j.a(graphics, 0, var34, var2, var35, 0, 128);
         }
 
         int var39;
         int var40;
         if (!this.ah) {
-            this.a(var1, var29 - 7 - 1, 5, false, false);
-            this.a(var1, var29 - 7 + var24 + 7 + 7 - 1 + 1, 5, false, true);
+            this.a(graphics, var29 - 7 - 1, 5, false, false);
+            this.a(graphics, var29 - 7 + var24 + 7 + 7 - 1 + 1, 5, false, true);
             int var36 = var29 - 7 - 1;
             int var37 = var29 - 7 + var24 + 7 + 7 - 1 + 1;
             int var38 = var25 + 7 + 7;
@@ -1618,8 +1618,8 @@ public final class k extends a implements Runnable {
             }
         }
 
-        var1.setClip(0, 0, var2, var3);
-        var1.setColor(j.z);
+        graphics.setClip(0, 0, var2, var3);
+        graphics.setColor(j.backgroundColor);
         if (!this.ah) {
             if (this.eo > this.ad) {
                 this.eo = this.ad;
@@ -1688,25 +1688,25 @@ public final class k extends a implements Runnable {
                     var8 = var13 - 3 - 4;
                 }
 
-                var1.setColor(0);
-                var43 = r[2][var8] + var44;
+                graphics.setColor(GameColors.COLOR_BLACK);
+                var43 = screenText[2][var8] + var44;
                 if (this.ah) {
                     var43 = var11;
                 }
 
                 if (var7 == 3 && av > 0) {
-                    var43 = r[2][var13 - 1 - 2 + av];
+                    var43 = screenText[2][var13 - 1 - 2 + av];
                 }
 
                 if (var7 == 4 && ec > 0) {
-                    var43 = r[2][var13 - 1 - 4 + ec];
+                    var43 = screenText[2][var13 - 1 - 4 + ec];
                 }
 
                 if (this.ag && this.Q) {
                     for(int var10 = -1; var10 <= 1; ++var10) {
                         for(int var9 = -1; var9 <= 1; ++var9) {
                             if ((var9 != 0 || var10 != 0) && (!this.P || var9 == 0 || var10 == 0)) {
-                                var6.a(var1, var43, this.f10 - (var6.a(var43) >> 1) + var9, var29 + var10, 20);
+                                var6.a(graphics, var43, this.screenWidthHalf - (var6.a(var43) >> 1) + var9, var29 + var10, 20);
                             }
                         }
                     }
@@ -1722,10 +1722,10 @@ public final class k extends a implements Runnable {
                         ++var42;
                     }
 
-                    var1.setColor(16777215);
-                    var1.fillRect(0, var29 - 2 - 1 + 1 - var42, var2, var6.b() - var6.f3 + 4 + 1 + 2 * var42);
-                    var1.setColor(0);
-                    var1.fillRect(0, var29 - 1 - 1 + 1 - var42, var2, var6.b() - var6.f3 + 2 + 1 + 2 * var42);
+                    graphics.setColor(GameColors.COLOR_WHITE);
+                    graphics.fillRect(0, var29 - 2 - 1 + 1 - var42, var2, var6.b() - var6.f3 + 4 + 1 + 2 * var42);
+                    graphics.setColor(GameColors.COLOR_BLACK);
+                    graphics.fillRect(0, var29 - 1 - 1 + 1 - var42, var2, var6.b() - var6.f3 + 2 + 1 + 2 * var42);
                 }
 
                 var42 = var15 - (j.x.b() - j.x.f3) >> 1;
@@ -1741,14 +1741,14 @@ public final class k extends a implements Runnable {
                     this.G(53);
                 }
 
-                var1.setColor(j.z);
-                var6.a(var1, var43, this.f10 - (var6.a(var43) >> 1), var29, 20);
+                graphics.setColor(j.backgroundColor);
+                var6.a(graphics, var43, this.screenWidthHalf - (var6.a(var43) >> 1), var29, 20);
                 var29 += var15;
                 this.af = var15;
             }
         }
 
-        var43 = r[1][7];
+        var43 = screenText[1][7];
         int var45 = var6.b() - var6.f3 + 4;
         if (this.dJ > 0) {
             var45 = this.dJ - 1;
@@ -1756,12 +1756,12 @@ public final class k extends a implements Runnable {
 
         var42 = var45 - (var6.b() - var6.f3) >> 1;
         if (!cy) {
-            var6.a(var1, var43, this.f10 - (var6.a(var43) >> 1), var42, 20);
+            var6.a(graphics, var43, this.screenWidthHalf - (var6.a(var43) >> 1), var42, 20);
         }
 
-        var1.setColor(var30);
+        graphics.setColor(defaultColor);
         this.ag = false;
-        var1.translate(var4, var5);
+        graphics.translate(var4, var5);
     }
 
     final boolean e() {
@@ -2114,13 +2114,13 @@ public final class k extends a implements Runnable {
     }
 
     final void c(int var1) {
-        int var2;
-        if (this.I == null) {
-            this.I = new Image[2];
+        int i;
+        if (this.sprBluetoothIcons == null) {
+            this.sprBluetoothIcons = new Image[2];
 
-            for(var2 = 0; var2 < this.I.length; ++var2) {
+            for(i = 0; i < this.sprBluetoothIcons.length; ++i) {
                 try {
-                    this.I[var2] = AssetManager.readImageFromFilePNG("/bt" + var2 + ".png");
+                    this.sprBluetoothIcons[i] = AssetManager.readImageFromFilePNG("/bt" + i + ".png");
                 } catch (Exception var5) {
                 }
             }
@@ -2130,15 +2130,15 @@ public final class k extends a implements Runnable {
         if (var1 < 0) {
             this.G = null;
         } else {
-            var2 = var1 + 60;
+            i = var1 + 60;
 
             try {
-                int var3 = this.e10 - 4;
-                if (this.I != null && this.I[0] != null) {
-                    var3 -= this.I[0].getWidth();
+                int var3 = this.screenWidth - 4;
+                if (this.sprBluetoothIcons != null && this.sprBluetoothIcons[0] != null) {
+                    var3 -= this.sprBluetoothIcons[0].getWidth();
                 }
 
-                this.G = AssetManager.instanceHandler.a(r[var2][0], j.x, var3 - 4, true);
+                this.G = AssetManager.instanceHandler.a(screenText[i][0], j.x, var3 - 4, true);
             } catch (Exception var4) {
                 this.G = null;
             }
@@ -2214,31 +2214,32 @@ public final class k extends a implements Runnable {
                 var1 = var3.length / 7;
             }
 
-            int var4 = 0;
+            int idx = 0;
 
             try {
-                for(int var5 = 0; var5 < var1; ++var5) {
-                    for(int var6 = 0; var6 < 7; ++var6) {
-                        this.am[var6][var5] = (short)var3[var4];
-                        ++var4;
-                        if (var4 >= var3.length) {
+                for(int i = 0; i < var1; ++i) {
+                    for(int j = 0; j < 7; ++j) {
+                        this.am[j][i] = (short)var3[idx];
+                        ++idx;
+                        if (idx >= var3.length) {
                             return;
                         }
                     }
 
+                    // Useless actions
                     short[] var10000;
-                    if (this.am[0][var5] < 0) {
+                    if (this.am[0][i] < 0) {
                         var10000 = this.am[0];
-                        var10000[var5] = (short)(var10000[var5] + 256);
+                        var10000[i] = (short)(var10000[i] + 256);
                     }
 
-                    if (this.am[1][var5] < 0) {
+                    if (this.am[1][i] < 0) {
                         var10000 = this.am[1];
-                        var10000[var5] = (short)(var10000[var5] + 256);
+                        var10000[i] = (short)(var10000[i] + 256);
                     }
                 }
 
-            } catch (Exception var7) {
+            } catch (Exception ignore) {
             }
         }
     }
@@ -2424,8 +2425,8 @@ public final class k extends a implements Runnable {
 
     final void g() {
         this.bS = 5;
-        this.fN = this.e10 >> 4;
-        this.fq = this.e10 - 2 * this.fN;
+        this.fN = this.screenWidth >> 4;
+        this.fq = this.screenWidth - 2 * this.fN;
         if (this.bk == null || this.bl == null) {
             try {
                 this.bk = AssetManager.readImageFromFilePNG(byteArrayToString(this.aH[16]));
@@ -2447,7 +2448,7 @@ public final class k extends a implements Runnable {
             this.fq = this.bk.getHeight();
         }
 
-        this.fN = (this.e10 - this.fq) / 2;
+        this.fN = (this.screenWidth - this.fq) / 2;
         this.fs = -10;
         this.fr = 0;
         this.bJ = 0;
@@ -2458,7 +2459,7 @@ public final class k extends a implements Runnable {
             var5 = 0 + this.bC;
         }
 
-        if (this.eX == null) {
+        if (this.sprUnits == null) {
             var5 += this.bt * this.bs;
         }
 
@@ -2491,67 +2492,67 @@ public final class k extends a implements Runnable {
     }
 
     private final void r(int var1) {
-        Image var2 = null;
+        Image currentImage = null;
         short var3 = 0;
         int var5 = 0;
 
-        for(int var6 = 0; var6 < 16; ++var6) {
-            var2 = null;
+        for(int i = 0; i < 16; ++i) {
+            currentImage = null;
 
             try {
-                var2 = AssetManager.readImageFromFilePNG("/l" + var6 + ".png");
+                currentImage = AssetManager.readImageFromFilePNG("/l" + i + ".png");
             } catch (Exception var23) {
             }
 
-            for(int var7 = 0; var7 < var1; ++var7) {
+            for(int j = 0; j < var1; ++j) {
                 try {
-                    short var8 = this.R[0][var7];
-                    short var9 = this.R[1][var7];
-                    short var10 = this.R[2][var7];
-                    short var11 = this.R[3][var7];
+                    short var8 = this.R[0][j];
+                    short var9 = this.R[1][j];
+                    short var10 = this.R[2][j];
+                    short var11 = this.R[3][j];
                     boolean var25 = false;
-                    if ((var3 = this.R[6][var7]) == var6) {
-                        if (var10 > 0 && var11 > 0 && var2 != null) {
-                            if (var6 == 8 || var6 >= 11 || var6 == 10 && av > 0) {
-                                this.cV[var7] = null;
-                                this.cW[var6] = var2;
+                    if ((var3 = this.R[6][j]) == i) {
+                        if (var10 > 0 && var11 > 0 && currentImage != null) {
+                            if (i == 8 || i >= 11 || i == 10 && av > 0) {
+                                this.cV[j] = null;
+                                this.cW[i] = currentImage;
                             } else {
-                                this.cV[var7] = Image.createImage(var10, var11);
-                                Graphics var12 = this.cV[var7].getGraphics();
-                                if (var6 == 10) {
+                                this.cV[j] = Image.createImage(var10, var11);
+                                Graphics var12 = this.cV[j].getGraphics();
+                                if (i == 10) {
                                     int var13 = 1;
                                     int var14 = 1;
 
                                     try {
-                                        var13 = 1 + (this.R[2][var7] - 1) / this.ej;
-                                        var14 = 1 + (this.R[3][var7] - 1) / this.eg;
+                                        var13 = 1 + (this.R[2][j] - 1) / this.ej;
+                                        var14 = 1 + (this.R[3][j] - 1) / this.eg;
                                     } catch (Exception var22) {
                                     }
 
                                     int var15 = var13 * this.ej;
                                     int var16 = var14 * this.eg;
-                                    int var18 = this.R[2][var7] - var15 >> 1;
+                                    int var18 = this.R[2][j] - var15 >> 1;
 
-                                    for(int var20 = this.R[3][var7] - var16 >> 1; var20 < this.R[3][var7]; var20 += this.R[3][0]) {
-                                        for(int var21 = var18; var21 < this.R[2][var7]; var21 += this.R[2][0]) {
+                                    for(int var20 = this.R[3][j] - var16 >> 1; var20 < this.R[3][j]; var20 += this.R[3][0]) {
+                                        for(int var21 = var18; var21 < this.R[2][j]; var21 += this.R[2][0]) {
                                             var12.drawImage(this.cV[0], var21, var20, 20);
                                         }
                                     }
                                 }
 
-                                var12.drawImage(var2, -var8, -var9, 20);
+                                var12.drawImage(currentImage, -var8, -var9, Graphics.TOP | Graphics.LEFT);
                             }
                         } else {
-                            this.cV[var7] = null;
+                            this.cV[j] = null;
                         }
 
-                        if (this.dX != null && !this.dX[var7]) {
-                            this.cV[var7] = null;
+                        if (this.dX != null && !this.dX[j]) {
+                            this.cV[j] = null;
                         }
                     }
                 } catch (Exception var24) {
-                    this.cV[var7] = null;
-                    System.out.println("Err obg=" + var7 + " a=" + var6 + " an=" + var3 + " " + var24);
+                    this.cV[j] = null;
+                    System.out.println("Err obg=" + j + " a=" + i + " an=" + var3 + " " + var24);
                 }
 
                 ++var5;
@@ -2566,8 +2567,8 @@ public final class k extends a implements Runnable {
 
     private void P() {
         try {
-            if (this.s == null) {
-                this.s = AssetManager.instanceHandler.a(AssetManager.instanceHandler.f("tlk"), j.x, this.e10, false);
+            if (this.helpMessages == null) {
+                this.helpMessages = AssetManager.instanceHandler.a(AssetManager.instanceHandler.f("tlk"), j.x, this.screenWidth, false);
             }
 
         } catch (Exception var2) {
@@ -2587,22 +2588,22 @@ public final class k extends a implements Runnable {
             return;
         }
 
-        if (this.sidePanelIcons == null) {
-            this.sidePanelIcons = new Image[12];
+        if (this.sprSidePanelIcons == null) {
+            this.sprSidePanelIcons = new Image[12];
         }
 
         if (this.cN == null) {
-            this.cN = new boolean[this.sidePanelIcons.length];
+            this.cN = new boolean[this.sprSidePanelIcons.length];
         }
 
-        for(int var1 = 0; var1 < this.sidePanelIcons.length; ++var1) {
-            if (this.sidePanelIcons[var1] == null && !this.cN[var1]) {
+        for(int var1 = 0; var1 < this.sprSidePanelIcons.length; ++var1) {
+            if (this.sprSidePanelIcons[var1] == null && !this.cN[var1]) {
                 try {
-                    this.sidePanelIcons[var1] = AssetManager.readImageFromFilePNG("/mm" + var1 + ".png");
+                    this.sprSidePanelIcons[var1] = AssetManager.readImageFromFilePNG("/mm" + var1 + ".png");
                 } catch (Exception var3) {
                 }
 
-                if (this.sidePanelIcons[var1] == null) {
+                if (this.sprSidePanelIcons[var1] == null) {
                     this.cN[var1] = true;
                 }
             }
@@ -2610,48 +2611,50 @@ public final class k extends a implements Runnable {
 
     }
 
-    private final void R() {
+    private final void loadUnits() {
         this.M();
-        if (this.eX == null) {
-            if (this.dR != null) {
-                this.dR = null;
+        if (this.sprUnits == null) {
+            if (this.sprUnitShadows != null) {
+                this.sprUnitShadows = null;
             }
 
-            this.eX = new Image[this.bt];
-            this.dR = new Image[this.bt];
-            boolean var5 = false;
+            this.sprUnits = new Image[this.bt];
+            this.sprUnitShadows = new Image[this.bt];
+            boolean alphaBlendingSupported = false;
 
             try {
                 try {
-                    var5 = Display.getDisplay(NET_Lizard.app).numAlphaLevels() > 2;
-                } catch (Exception var13) {
+                    alphaBlendingSupported = Display.getDisplay(NET_Lizard.app).numAlphaLevels() > 2;
+                } catch (Exception ignore) {
                 }
-            } catch (Throwable var14) {
+            } catch (Throwable ignore) {
             }
 
-            for(int var3 = 0; var3 < this.bt; ++var3) {
+            for(int i = 0; i < this.bt; ++i) {
                 try {
-                    this.eX[var3] = AssetManager.readImageFromFilePNG("/u" + var3 + ".png");
-                } catch (Exception var12) {
+                    this.sprUnits[i] = AssetManager.readImageFromFilePNG("/u" + i + ".png");
+                } catch (Exception ignore) {
                 }
 
-                if (this.eX[var3] != null && av > 0 && var5) {
-                    if (var3 >> 1 << 1 == var3) {
+                if (this.sprUnits[i] != null && av > 0 && alphaBlendingSupported) {
+                    // Consider adding new shadows for even indices only
+                    if (i >> 1 << 1 == i) {
                         try {
-                            this.dR[var3] = AssetManager.readImageFromFilePNG("/w" + var3 + ".png");
-                        } catch (Exception var11) {
+                            this.sprUnitShadows[i] = AssetManager.readImageFromFilePNG("/w" + i + ".png");
+                        } catch (Exception ignore) {
                         }
+                    // Otherwise, just copying the previous
                     } else {
-                        this.dR[var3] = this.dR[var3 - 1];
+                        this.sprUnitShadows[i] = this.sprUnitShadows[i - 1];
                     }
                 } else {
-                    this.dR[var3] = null;
+                    this.sprUnitShadows[i] = null;
                 }
 
-                for(int var4 = 0; var4 < this.bs; ++var4) {
+                for(int j = 0; j < this.bs; ++j) {
                     try {
                         boolean var6 = false;
-                    } catch (Exception var10) {
+                    } catch (Exception ignore) {
                     }
 
                     this.p();
@@ -2669,7 +2672,7 @@ public final class k extends a implements Runnable {
         try {
             Image explosions = AssetManager.readImageFromFilePNG("/l11.png");
             this.cW[11] = explosions;
-            this.cW[12] = a.a(explosions, 0);
+            this.cW[12] = NokiaCanvasWrapper.a(explosions, 0);
         } catch (Exception ignore) {
         }
     }
@@ -2908,7 +2911,7 @@ public final class k extends a implements Runnable {
     private final void b(Graphics var1) {
         if (!this.ae) {
             if (this.ff != 122 && this.ff != 121 && !this.aY) {
-                int var2 = var1.getColor();
+                int defaultColor = var1.getColor();
                 boolean var4 = false;
                 int var5;
                 int var6;
@@ -2930,10 +2933,10 @@ public final class k extends a implements Runnable {
                             var17 = var15;
                         }
 
-                        var1.setColor(0);
+                        var1.setColor(GameColors.COLOR_BLACK);
                         if (!this.c(var1, var16, var17, Math.abs(var7 - var5) + this.ej, Math.abs(var15 - var6) + this.eg, 0)) {
                             var1.drawRect(var16 + 1, var17 + 1, Math.abs(var7 - var5) + this.ej, Math.abs(var15 - var6) + this.eg);
-                            var1.setColor(255, 255, 50);
+                            var1.setColor(GameColors.COLOR_YELLOW);
                             var1.drawRect(var16, var17, Math.abs(var7 - var5) + this.ej, Math.abs(var15 - var6) + this.eg);
                         }
 
@@ -2971,14 +2974,14 @@ public final class k extends a implements Runnable {
                             c.a(var1, var5 + this.R[4][var7] + (this.bd * this.ej >> 1), var6 + this.R[5][var7] + (this.be * this.eg >> 1));
                         }
 
-                        var1.setColor(0);
+                        var1.setColor(GameColors.COLOR_BLACK);
 
                         for(int var3 = 0; var3 < 2; ++var3) {
                             if (var3 == 1) {
                                 if (this.bi) {
-                                    var1.setColor(0, 255, 0);
+                                    var1.setColor(GameColors.COLOR_LIME);
                                 } else {
-                                    var1.setColor(255, 0, 0);
+                                    var1.setColor(GameColors.COLOR_RED);
                                 }
                             }
 
@@ -2996,9 +2999,9 @@ public final class k extends a implements Runnable {
                             this.ct = null;
                             if (this.ct == null) {
                                 if (this.cM) {
-                                    this.a(var1, r[4][8]);
+                                    this.a(var1, screenText[4][8]);
                                 } else {
-                                    this.a(var1, r[4][6]);
+                                    this.a(var1, screenText[4][6]);
                                 }
                             }
                         }
@@ -3040,7 +3043,7 @@ public final class k extends a implements Runnable {
                     this.b(var1, var7, var5 + this.cm, var6 + this.cn);
                 }
 
-                var1.setColor(var2);
+                var1.setColor(defaultColor);
             } else {
                 this.e(var1);
             }
@@ -3189,19 +3192,19 @@ public final class k extends a implements Runnable {
     }
 
     private final void c(Graphics var1) {
-        var1.setClip(0, this.fT, this.e10, this.aM);
+        var1.setClip(0, this.fT, this.screenWidth, this.aM);
     }
 
-    private final void d(Graphics var1) {
+    private final void drawEndBattleScreen(Graphics graphics) {
         int var3;
         int var4 = var3 = this.getHeight();
-        var1.setClip(0, this.fT, this.e10, var4);
-        var1.setColor(0);
+        graphics.setClip(0, this.fT, this.screenWidth, var4);
+        graphics.setColor(GameColors.COLOR_BLACK);
 
         try {
-            if (this.aA == null) {
+            if (this.endBattlePicture == null) {
                 this.cV = null;
-                this.eX = null;
+                this.sprUnits = null;
 
                 try {
                     try {
@@ -3210,32 +3213,32 @@ public final class k extends a implements Runnable {
                             endBattleBackgroundFilename = "iwn";
                         }
 
-                        this.aA = AssetManager.readImageFromFilePNG("/" + endBattleBackgroundFilename + ".png");
+                        this.endBattlePicture = AssetManager.readImageFromFilePNG("/" + endBattleBackgroundFilename + ".png");
 
                         try {
-                            this.aA = AssetManager.a(this.aA);
+                            this.endBattlePicture = AssetManager.addBlackBackground(this.endBattlePicture);
                         } catch (OutOfMemoryError ignore) {
                         }
 
-                        if (this.aA != null && this.aA.getWidth() != this.e10 && this.aA.getHeight() != var3) {
+                        if (this.endBattlePicture != null && this.endBattlePicture.getWidth() != this.screenWidth && this.endBattlePicture.getHeight() != var3) {
                             try {
-                                this.aA = AssetManager.a(this.aA, 0, 0, this.aA.getWidth(), this.aA.getHeight(), this.e10, var3, 0, false, true);
+                                this.endBattlePicture = AssetManager.a(this.endBattlePicture, 0, 0, this.endBattlePicture.getWidth(), this.endBattlePicture.getHeight(), this.screenWidth, var3, 0, false, true);
                             } catch (OutOfMemoryError var15) {
                             }
                         }
                     } catch (Exception var17) {
-                        this.aA = null;
-                        this.aA = Image.createImage(1, 1);
+                        this.endBattlePicture = null;
+                        this.endBattlePicture = Image.createImage(1, 1);
                     }
                 } catch (OutOfMemoryError var18) {
-                    this.aA = null;
-                    this.aA = Image.createImage(1, 1);
+                    this.endBattlePicture = null;
+                    this.endBattlePicture = Image.createImage(1, 1);
                 }
 
                 this.aG = var3 - (var3 >> 2);
                 this.aF = 0;
                 if (!this.aL) {
-                    var1.fillRect(0, 0, this.e10, var3);
+                    graphics.fillRect(0, 0, this.screenWidth, var3);
                 }
 
                 if (!this.aL) {
@@ -3244,30 +3247,30 @@ public final class k extends a implements Runnable {
 
                 for(int var20 = 1; var20 < this.ch[0].length; ++var20) {
                     this.ch[0][var20] = 0;
-                    this.ch[1][var20] = Math.abs(this.randomGenerator.nextInt() % this.e10);
+                    this.ch[1][var20] = Math.abs(this.randomGenerator.nextInt() % this.screenWidth);
                     this.ch[2][var20] = Math.abs(this.randomGenerator.nextInt() % var4);
                     this.ch[13][var20] = this.randomGenerator.nextInt() % this.ek >> 1;
                     this.ch[14][var20] = 2 + Math.abs(this.randomGenerator.nextInt() % this.eh);
                 }
             }
 
-            int var7 = this.f10;
-            var1.setColor(0);
-            var1.fillRect(0, 0, this.e10, var3);
-            if (this.aA != null && this.aA.getWidth() > 1) {
-                var1.drawImage(this.aA, this.f10, var3 >> 1, 3);
+            int var7 = this.screenWidthHalf;
+            graphics.setColor(GameColors.COLOR_BLACK);
+            graphics.fillRect(0, 0, this.screenWidth, var3);
+            if (this.endBattlePicture != null && this.endBattlePicture.getWidth() > 1) {
+                graphics.drawImage(this.endBattlePicture, this.screenWidthHalf, var3 >> 1, 3);
             }
 
-            var1.setColor(178, 1, 1);   // Color allies
+            graphics.setColor(GameColors.COLOR_ALLY);
             if (this.victory) {
-                var1.setColor(1, 89, 198);  // Color enemies
+                graphics.setColor(GameColors.COLOR_ENEMY);
             }
 
             d var8;
             int var9 = (var8 = j.x).b() - var8.f3 + 4;
-            if (this.cr != null && this.cr.f() && this.bT > 0) {
+            if (this.cr != null && this.cr.checkIfAlphaBlendingIsSupported() && this.bT > 0) {
                 if (this.bT > 0 && this.bT <= 255) {
-                    a.a(var1, 0, 0, this.e10, var3, 0, this.bT);
+                    NokiaCanvasWrapper.fillRectTransparent(graphics, 0, 0, this.screenWidth, var3, 0, this.bT);
                 }
 
                 this.bT -= 16;
@@ -3289,17 +3292,17 @@ public final class k extends a implements Runnable {
 
             int var10 = this.aG - (this.aF >> 1);
             if (this.aF > 0) {
-                var1.setColor(0, 247, 255); // Cyan
+                graphics.setColor(GameColors.COLOR_CYAN); // 0 247 255
                 boolean var11 = false;
-                var1.fillRect(0, var10 - 1, this.e10, 1);
-                var1.fillRect(0, var10 + this.aF, this.e10, 1);
-                a.a(var1, 0, var10, this.e10, this.aF, 0, 128);
+                graphics.fillRect(0, var10 - 1, this.screenWidth, 1);
+                graphics.fillRect(0, var10 + this.aF, this.screenWidth, 1);
+                NokiaCanvasWrapper.fillRectTransparent(graphics, 0, var10, this.screenWidth, this.aF, 0, 128);
             }
 
             if (this.aL) {
                 for(int var21 = 1; var21 < 20; ++var21) {
                     if (this.ch[13][var21] != 0 || this.ch[14][var21] != 0) {
-                        this.d(var1, 122, this.ch[1][var21], this.ch[2][var21] + this.fT, 3);
+                        this.d(graphics, 122, this.ch[1][var21], this.ch[2][var21] + this.fT, 3);
                         int[] var10000 = this.ch[1];
                         var10000[var21] += this.ch[13][var21];
                         var10000 = this.ch[2];
@@ -3316,35 +3319,35 @@ public final class k extends a implements Runnable {
 
                         if (this.ch[1][var21] < 0) {
                             var10000 = this.ch[1];
-                            var10000[var21] += this.e10;
+                            var10000[var21] += this.screenWidth;
                         }
 
-                        if (this.ch[1][var21] > this.e10) {
+                        if (this.ch[1][var21] > this.screenWidth) {
                             var10000 = this.ch[1];
-                            var10000[var21] -= this.e10;
+                            var10000[var21] -= this.screenWidth;
                         }
                     }
                 }
             }
 
-            int var12 = 0;
+            int endBattleMessageId = 0;
             if (this.victory) {
-                var12 = 1;
+                endBattleMessageId = 1;
                 if (this.aL) {
-                    ++var12;
+                    ++endBattleMessageId;
                 }
             }
 
-            String var13 = r[3][var12];
-            int var14 = 4 + var8.a(var13);
+            String endBattleMessage = screenText[3][endBattleMessageId];
+            int var14 = 4 + var8.a(endBattleMessage);
             var7 -= var14 >> 1;
-            var1.setColor(0);
-            var1.setFont(j.defaultFont);
+            graphics.setColor(GameColors.COLOR_BLACK);
+            graphics.setFont(j.defaultFont);
             if (this.aF > var8.b() - var8.f3) {
-                var8.a(var1, var13, var7 + 2, var10 + (this.aF - (var8.b() - var8.f3) >> 1), 20);
+                var8.a(graphics, endBattleMessage, var7 + 2, var10 + (this.aF - (var8.b() - var8.f3) >> 1), 20);
             }
 
-            if (c(0, 0, this.e10, this.getHeight())) {
+            if (c(0, 0, this.screenWidth, this.getHeight())) {
                 this.x(53);
             }
 
@@ -3356,7 +3359,7 @@ public final class k extends a implements Runnable {
         int var4 = this.ej;
         int var5 = this.eg;
         if (this.aT()) {
-            a.a(var1, var2, var3, var4, var5, 0, 128);
+            NokiaCanvasWrapper.fillRectTransparent(var1, var2, var3, var4, var5, 0, 128);
         } else {
             int var8 = var1.getTranslateX();
             int var9 = var1.getTranslateY();
@@ -3422,7 +3425,7 @@ public final class k extends a implements Runnable {
                     var1.drawRGB(this.aI, 0, var4, var2, var3, var4, var5, true);
                 }
             } catch (Exception var18) {
-                a.a5 = null;
+                NokiaCanvasWrapper.transparentRegionData = null;
             }
 
             var1.translate(var8, var9);
@@ -3538,7 +3541,7 @@ public final class k extends a implements Runnable {
 
             try {
                 String var2 = null;
-                var2 = new String(this.s[var1]);
+                var2 = new String(this.helpMessages[var1]);
 
                 int var5;
                 try {
@@ -3554,12 +3557,12 @@ public final class k extends a implements Runnable {
                 } catch (Exception var9) {
                 }
 
-                if ((var5 = j.x.a(var2) / 3) < this.f10) {
-                    var5 = this.f10;
+                if ((var5 = j.x.a(var2) / 3) < this.screenWidthHalf) {
+                    var5 = this.screenWidthHalf;
                 }
 
-                if (var5 > this.g10) {
-                    var5 = this.g10;
+                if (var5 > this.screenWidthThreeQuarters) {
+                    var5 = this.screenWidthThreeQuarters;
                 }
 
                 this.cs = AssetManager.instanceHandler.a(var2, j.x, var5, true);
@@ -3593,10 +3596,10 @@ public final class k extends a implements Runnable {
 
     final void i() {
         l();
-        a.a5 = null;
-        this.eX = null;
-        this.dR = null;
-        this.ar = null;
+        NokiaCanvasWrapper.transparentRegionData = null;
+        this.sprUnits = null;
+        this.sprUnitShadows = null;
+        this.sprSelectionBounds = null;
         cq = false;
         this.aJ = false;
         this.ad = 0;
@@ -4163,7 +4166,7 @@ public final class k extends a implements Runnable {
         }
 
         if (keyCode == -7) {
-            keyCode = this.d10;
+            keyCode = this.customSoftKeyCode;
         }
 
         return keyCode;
@@ -4171,7 +4174,7 @@ public final class k extends a implements Runnable {
 
     protected final void keyPressed(int keyCode) {
         try {
-            keyCode = a.standardizeKeyCodes(keyCode);
+            keyCode = NokiaCanvasWrapper.standardizeKeyCodes(keyCode);
         } catch (Exception var3) {
         }
 
@@ -4205,12 +4208,12 @@ public final class k extends a implements Runnable {
                 }
 
                 if (keyCode == -7) {
-                    keyCode = this.d10;
+                    keyCode = this.customSoftKeyCode;
                 }
 
                 boolean var2 = false;
                 if (keyCode != Canvas.KEY_NUM5 && keyCode != Canvas.KEY_STAR
-                        && keyCode != this.d10 && keyCode != Canvas.KEY_NUM0
+                        && keyCode != this.customSoftKeyCode && keyCode != Canvas.KEY_NUM0
                         && !this.ae && !this.cC && !this.aW
                 ) {
                     this.bq = true;
@@ -4244,7 +4247,7 @@ public final class k extends a implements Runnable {
 
     protected final void keyReleased(int var1) {
         try {
-            var1 = a.standardizeKeyCodes(var1);
+            var1 = NokiaCanvasWrapper.standardizeKeyCodes(var1);
         } catch (Exception var3) {
         }
 
@@ -4344,10 +4347,10 @@ public final class k extends a implements Runnable {
                             }
 
                             this.cV = null;
-                            this.eX = null;
+                            this.sprUnits = null;
                             this.g();
                             this.O();
-                            this.R();
+                            this.loadUnits();
 
                             for(int var1 = 0; var1 <= this.fX; ++var1) {
                                 for(int var2 = 0; var2 <= this.fE; ++var2) {
@@ -4476,7 +4479,7 @@ public final class k extends a implements Runnable {
             }
 
         } else if (this.aC) {
-            if (this.aE && (this.br == 53 || this.br == this.d10)) {
+            if (this.aE && (this.br == 53 || this.br == this.customSoftKeyCode)) {
                 if (j.p) {
                     h.d();
                     h.G = 8L;
@@ -4506,7 +4509,7 @@ public final class k extends a implements Runnable {
             }
 
         } else {
-            if ((this.fi || this.fk) && (this.br == 53 || this.br == this.d10)) {
+            if ((this.fi || this.fk) && (this.br == 53 || this.br == this.customSoftKeyCode)) {
                 if (!this.fi) {
                     return;
                 }
@@ -4515,7 +4518,7 @@ public final class k extends a implements Runnable {
             }
 
             boolean var2 = (this.br == 53 && this.cC && this.ff > this.cU && this.ff < 100) | (this.br == 53 && this.cC && this.ff >= 123);
-            if (this.br == this.d10 || var2) {
+            if (this.br == this.customSoftKeyCode || var2) {
                 if (this.ff >= 0) {
                     if (this.ff == 123) {
                         try {
@@ -5149,18 +5152,18 @@ public final class k extends a implements Runnable {
                         }
                     }
 
-                    if (this.cs != null && c(0, var7, this.e10, var8)) {
+                    if (this.cs != null && c(0, var7, this.screenWidth, var8)) {
                         var2 = false;
                         this.G(53);
                     } else if (this.aO && this.dB) {
-                        if (this.cC && c(0, var7, this.e10, var8)) {
+                        if (this.cC && c(0, var7, this.screenWidth, var8)) {
                             var2 = false;
-                            this.G(this.d10);
-                        } else if (!this.cC && !this.ae && this.cs == null && (this.ff == 122 || this.ff == 121) && c(0, var7, this.e10, var8)) {
+                            this.G(this.customSoftKeyCode);
+                        } else if (!this.cC && !this.ae && this.cs == null && (this.ff == 122 || this.ff == 121) && c(0, var7, this.screenWidth, var8)) {
                             var2 = false;
-                            this.G(this.d10);
+                            this.G(this.customSoftKeyCode);
                         } else if (!this.cC && !this.ae && this.cs == null) {
-                            if (d(0, var7, this.e10, var8)) {
+                            if (d(0, var7, this.screenWidth, var8)) {
                                 this.fy = (this.fJ * this.ej + fF - this.cm) / this.ej;
                                 this.fQ = (this.gd * this.eg + fZ - this.cn - var7) / this.eg;
                                 if (this.ff >= 123) {
@@ -5187,7 +5190,7 @@ public final class k extends a implements Runnable {
                                 this.fR = this.fQ;
                                 this.fA = this.fy;
                                 this.fS = this.fQ;
-                            } else if ((this.ff > this.cU && this.ff < 100 || this.ff >= 123) && b(0, var7, this.e10, var8)) {
+                            } else if ((this.ff > this.cU && this.ff < 100 || this.ff >= 123) && b(0, var7, this.screenWidth, var8)) {
                                 this.fy = (this.fJ * this.ej + fF - this.cm) / this.ej;
                                 this.fQ = (this.gd * this.eg + fZ - this.cn - var7) / this.eg;
                                 if (this.ff >= 123) {
@@ -5216,7 +5219,7 @@ public final class k extends a implements Runnable {
                                 this.fS = this.fQ;
                             }
 
-                            if (c(0, var7, this.e10, var8)) {
+                            if (c(0, var7, this.screenWidth, var8)) {
                                 var2 = false;
                                 this.fy = (this.fJ * this.ej + fF - this.cm) / this.ej;
                                 this.fQ = (this.gd * this.eg + fZ - this.cn - var7) / this.eg;
@@ -5270,12 +5273,12 @@ public final class k extends a implements Runnable {
                     }
 
                     (new StringBuffer()).append("").append(fF).append(" ").append(fZ).toString();
-                    if (d(this.e10 / 3, var1 - var3, this.e10 / 3, var3)) {
+                    if (d(this.screenWidth / 3, var1 - var3, this.screenWidth / 3, var3)) {
                         this.x(this.br = 42);
                         this.eD = this.eA;
                     }
 
-                    if (d(0, var1 - var3, this.e10 / 3, var3)) {
+                    if (d(0, var1 - var3, this.screenWidth / 3, var3)) {
                         this.x(this.br = 53);
                         this.eD = this.eA;
                     }
@@ -5284,7 +5287,7 @@ public final class k extends a implements Runnable {
                         var3 = this.dH;
                     }
 
-                    if (d(this.e10 - this.e10 / 3, var1 - var3, this.e10 / 3, var3)) {
+                    if (d(this.screenWidth - this.screenWidth / 3, var1 - var3, this.screenWidth / 3, var3)) {
                         this.x(this.br = 35);
                         this.eD = this.eA;
                         this.eD = this.eA;
@@ -6031,7 +6034,7 @@ public final class k extends a implements Runnable {
         c.g2 = 0;
         c.n2 = null;
         this.bT = 255;
-        this.aA = null;
+        this.endBattlePicture = null;
         this.dA = false;
         this.dM = true;
         this.aC = false;
@@ -6042,7 +6045,7 @@ public final class k extends a implements Runnable {
         this.aF = 0;
         this.aG = 0;
         this.eO = 0L;
-        this.aA = null;
+        this.endBattlePicture = null;
         this.fi = false;
         this.cC = false;
         this.D = 0;
@@ -6053,7 +6056,7 @@ public final class k extends a implements Runnable {
         this.Z = 0;
         this.cK = 0;
         this.cT = -this.eg;
-        this.v = null;
+        this.sprSoftkeyButtons = null;
         this.au = null;
         this.ff = -1;
         this.fH = -1;
@@ -6144,7 +6147,7 @@ public final class k extends a implements Runnable {
             this.a(0, 0, var5, var6, var4, 15, 128);
             this.O();
             this.dX = null;
-            this.R();
+            this.loadUnits();
             if (!ey && this.ak()) {
                 this.aI();
             }
@@ -6167,9 +6170,9 @@ public final class k extends a implements Runnable {
             this.dI = 0;
             this.dy = true;
             this.K();
-            if (this.v == null) {
+            if (this.sprSoftkeyButtons == null) {
                 try {
-                    this.v = AssetManager.readImageFromFilePNG("/ar.png");
+                    this.sprSoftkeyButtons = AssetManager.readImageFromFilePNG("/ar.png");
                 } catch (Exception var20) {
                 }
             }
@@ -6181,14 +6184,14 @@ public final class k extends a implements Runnable {
                 }
             }
 
-            if (this.ar == null) {
-                this.ar = new Image[8];
+            if (this.sprSelectionBounds == null) {
+                this.sprSelectionBounds = new Image[8];
             }
 
-            for(int var11 = 0; var11 < this.ar.length; ++var11) {
-                if (this.ar[var11] == null) {
+            for(int var11 = 0; var11 < this.sprSelectionBounds.length; ++var11) {
+                if (this.sprSelectionBounds[var11] == null) {
                     try {
-                        this.ar[var11] = AssetManager.readImageFromFilePNG("/crv" + var11 + ".png");
+                        this.sprSelectionBounds[var11] = AssetManager.readImageFromFilePNG("/crv" + var11 + ".png");
                     } catch (Exception var18) {
                     }
                 }
@@ -6224,7 +6227,7 @@ public final class k extends a implements Runnable {
             this.ge = this.gd;
             if (this.bR <= 0) {
                 this.bJ = 0;
-                this.bR = this.e10;
+                this.bR = this.screenWidth;
             }
 
             while(this.bJ < this.bR) {
@@ -6289,12 +6292,12 @@ public final class k extends a implements Runnable {
         this.cC = false;
         this.aW = false;
         this.cV = null;
-        this.eX = null;
-        this.dR = null;
-        this.v = null;
+        this.sprUnits = null;
+        this.sprUnitShadows = null;
+        this.sprSoftkeyButtons = null;
         this.au = null;
-        a.a5 = null;
-        this.ar = null;
+        NokiaCanvasWrapper.transparentRegionData = null;
+        this.sprSelectionBounds = null;
         if (b10 != null && n.g12) {
             this.d();
         }
@@ -6405,9 +6408,9 @@ public final class k extends a implements Runnable {
             --var12;
         }
 
-        var1.setColor(0);
+        var1.setColor(GameColors.COLOR_BLACK);
         var1.fillRect(var6, var24, var4, var23 + 1);
-        var1.setColor(16340729);
+        var1.setColor(GameColors.COLOR_MAGENTA);
         int var13 = var1.getTranslateY();
 
         for(int var14 = var11; var14 < var12; ++var14) {
@@ -6456,8 +6459,8 @@ public final class k extends a implements Runnable {
 
                 try {
                     if (this.bZ[12][this.A] > 0 && var15 != this.bZ[8][this.A]) {
-                        if (this.cr != null && this.cr.f()) {
-                            a.a(var1, var6, var24, var4, var5, 0, 128);
+                        if (this.cr != null && this.cr.checkIfAlphaBlendingIsSupported()) {
+                            NokiaCanvasWrapper.fillRectTransparent(var1, var6, var24, var4, var5, 0, 128);
                         } else if (this.cr != null) {
                             j.a(var1, var6, var24, var4, var5, 0, 128);
                         }
@@ -6476,19 +6479,19 @@ public final class k extends a implements Runnable {
                             this.ak = this.j(var15 + 64);
                             if (!this.p(var15, 1)) {
                                 var1.drawLine(var6 + 1, var24 + 1, var6 + var4 - 2, var24 + 1 + var5 - 3);
-                                this.a(var1, r[4][4]);
+                                this.a(var1, screenText[4][4]);
                                 this.bf = -1;
                             } else {
-                                this.a(var1, r[5][var15] + " " + this.ak + "$");
+                                this.a(var1, screenText[5][var15] + " " + this.ak + "$");
                             }
                         } else {
                             this.ak = this.j(var15);
                             if (bF[var15 - 1][0] <= 0) {
                                 var1.drawLine(var6 + 1, var24 + 1, var6 + var4 - 2, var24 + 1 + var5 - 3);
-                                this.a(var1, r[4][4]);
+                                this.a(var1, screenText[4][4]);
                                 this.bf = -1;
                             } else {
-                                this.a(var1, r[6][var15] + " " + this.ak + "$");
+                                this.a(var1, screenText[6][var15] + " " + this.ak + "$");
                             }
                         }
                     } catch (Exception var21) {
@@ -7112,15 +7115,15 @@ public final class k extends a implements Runnable {
             var15 = var8 * var6;
             var14 = var7;
             var5 = this.aM - this.dH - var15 - this.cT * 3;
-            var4 = this.e10 - var7;
+            var4 = this.screenWidth - var7;
         }
 
-        var1.setClip(0, 0, this.e10, this.aM - this.dH);
-        var1.setColor(0);
+        var1.setClip(0, 0, this.screenWidth, this.aM - this.dH);
+        var1.setColor(GameColors.COLOR_BLACK);
         var1.fillRect(var4, var5, var14, var15);
-        var1.setColor(16340729);
+        var1.setColor(GameColors.COLOR_MAGENTA);
         int var11 = this.bx;
-        this.bx = this.c10;
+        this.bx = this.screenHeight;
         int var12 = var1.getTranslateY();
         ++var4;
 
@@ -7423,7 +7426,7 @@ public final class k extends a implements Runnable {
         int var1 = 0;
 
         try {
-            if (this.c10 >= 127) {
+            if (this.screenHeight >= 127) {
                 var1 = j.x.b() / 8;
             }
         } catch (Exception var3) {
@@ -7496,7 +7499,7 @@ public final class k extends a implements Runnable {
     @Override
     public void paint(java.awt.Graphics g) {
         Graphics graphics = new Graphics(g);
-        if (!eu) {
+        if (!isLoading) {
             try {
                 if (this.dQ < 0) {
                     this.dQ = 0;
@@ -7510,16 +7513,16 @@ public final class k extends a implements Runnable {
                     return;
                 }
 
-                if (this.dP == null) {
-                    this.dP = Image.createImage(this.e10, this.c10);
+                if (this.canvasImage == null) {
+                    this.canvasImage = Image.createImage(this.screenWidth, this.screenHeight);
                 }
 
-                if (this.aN == null) {
-                    this.aN = this.dP.getGraphics();
+                if (this.canvasGraphics == null) {
+                    this.canvasGraphics = this.canvasImage.getGraphics();
                 }
 
-                this.g(this.aN);
-                graphics.drawImage(this.dP, 0, 0, 20);
+                this.g(this.canvasGraphics);
+                graphics.drawImage(this.canvasImage, 0, 0, Graphics.TOP | Graphics.LEFT);
             } catch (Exception var3) {
             }
 
@@ -7527,7 +7530,7 @@ public final class k extends a implements Runnable {
     }
 
     private void g(Graphics var1) {
-        if (!eu) {
+        if (!isLoading) {
             this.h(var1);
             l();
             if (cy) {
@@ -7541,11 +7544,11 @@ public final class k extends a implements Runnable {
         }
     }
 
-    private void h(Graphics var1) {
-        if (!h.a(var1)) {
+    private void h(Graphics graphics) {
+        if (!h.a(graphics)) {
             try {
-                var1.translate(-var1.getTranslateX(), -var1.getTranslateY());
-                var1.setClip(0, 0, this.e10, this.getHeight());
+                graphics.translate(-graphics.getTranslateX(), -graphics.getTranslateY());
+                graphics.setClip(0, 0, this.screenWidth, this.getHeight());
             } catch (Exception var6) {
             }
 
@@ -7553,17 +7556,17 @@ public final class k extends a implements Runnable {
                 if (this.ev || this.dn || this.dm) {
                     try {
                         if (this.dm) {
-                            var1.setColor(0);
-                            var1.fillRect(0, 0, this.e10, this.c10);
-                            j.a(var1, r[3][3], false);
+                            graphics.setColor(GameColors.COLOR_BLACK);
+                            graphics.fillRect(0, 0, this.screenWidth, this.screenHeight);
+                            j.a(graphics, screenText[3][3], false);
                         }
 
                         if (this.ev) {
-                            j.a(var1);
+                            j.a(graphics);
                         }
 
                         if (this.dn) {
-                            j.a(var1, r[1][6], false);
+                            j.a(graphics, screenText[1][6], false);
                         }
                     } catch (Exception var5) {
                     }
@@ -7577,13 +7580,13 @@ public final class k extends a implements Runnable {
                 }
 
                 if (this.dE) {
-                    this.n(var1);
+                    this.n(graphics);
                     return;
                 }
 
                 if (cq && !this.aO) {
                     try {
-                        this.cr.b(var1);
+                        this.cr.b(graphics);
                         return;
                     } catch (Exception var3) {
                         return;
@@ -7596,50 +7599,50 @@ public final class k extends a implements Runnable {
 
                 this.z = false;
                 if (this.dB) {
-                    this.i(var1);
+                    this.i(graphics);
                     if (this.cC || this.cE) {
-                        this.f(var1);
+                        this.f(graphics);
                     }
 
                     if (this.fi || this.fk) {
                         try {
-                            this.aQ.a(var1);
+                            this.aQ.a(graphics);
                         } catch (Exception var4) {
                         }
                     }
                 }
 
                 if (this.cs != null) {
-                    this.q(var1);
+                    this.q(graphics);
                 }
 
                 if (this.ae) {
-                    this.a(var1);
+                    this.a(graphics);
                 }
 
                 if (this.aC) {
-                    this.d(var1);
+                    this.drawEndBattleScreen(graphics);
                 }
 
                 if (this.aD) {
-                    this.c(var1);
+                    this.c(graphics);
                 }
 
                 if (this.aE) {
-                    this.p(var1);
+                    this.drawAcceptButton(graphics);
                 }
 
-                this.k(var1);
-                var1.setClip(0, 0, this.e10, this.c10);
+                this.k(graphics);
+                graphics.setClip(0, 0, this.screenWidth, this.screenHeight);
                 if (aR) {
-                    j.x.a(var1, "" + this.dk, 1, this.bx - 1 - j.x.b(), 20);
+                    j.x.a(graphics, "" + this.dk, 1, this.bx - 1 - j.x.b(), 20);
                 }
             } catch (Exception var8) {
             }
 
             if (cq && this.aO) {
                 try {
-                    this.cr.b(var1);
+                    this.cr.b(graphics);
                     return;
                 } catch (Exception var7) {
                 }
@@ -8087,12 +8090,12 @@ public final class k extends a implements Runnable {
                         if (var8) {
                             if (s() && this.ci != null) {
                                 if (this.ci[var11][var12] == 0) {
-                                    var1.setColor(0);
+                                    var1.setColor(GameColors.COLOR_BLACK);
                                     var1.fillRect(var9 * this.ej + this.cm, var10 * this.eg + this.cn, this.ej, this.eg);
                                 }
 
                                 if (this.ci[var11][var12] == 127) {
-                                    var1.setColor(0);
+                                    var1.setColor(GameColors.COLOR_BLACK);
                                     this.a(var1, var9 * this.ej + this.cm, var10 * this.eg + this.cn);
                                 }
                             }
@@ -8156,7 +8159,7 @@ public final class k extends a implements Runnable {
                             }
                         }
                     } else {
-                        var1.setColor(0);
+                        var1.setColor(GameColors.COLOR_BLACK);
                         var1.fillRect(var9 * this.ej + this.cm, var10 * this.eg + this.cn, this.ej, this.eg);
                     }
                 }
@@ -8172,39 +8175,39 @@ public final class k extends a implements Runnable {
             int var5 = this.fU + 2;
             int var6 = this.fB + 2;
             int var7 = var5 - this.dG;
-            this.bx = this.c10 - this.dH;
+            this.bx = this.screenHeight - this.dH;
             this.fY = this.bx - j.x.b();
-            var1.setClip(0, 0, this.e10, this.c10);
-            var1.setColor(191, 178, 177);
+            var1.setClip(0, 0, this.screenWidth, this.screenHeight);
+            var1.setColor(GameColors.COLOR_BEIGE);  // 191 178 177
             if (this.R[2][0] < this.ej || this.R[3][0] < this.eg) {
-                var1.fillRect(0, 0, this.e10, this.c10);
+                var1.fillRect(0, 0, this.screenWidth, this.screenHeight);
             }
 
-            var1.setColor(0);
+            var1.setColor(GameColors.COLOR_BLACK);
             if (this.dy) {
-                var1.fillRect(0, this.bx, this.e10, this.dH);
+                var1.fillRect(0, this.bx, this.screenWidth, this.dH);
                 int var9 = this.bx;
-                this.bx = this.c10;
+                this.bx = this.screenHeight;
                 if (!this.ae) {
                     this.d(var1, 132, 3, var9 + this.dI + 1, 6);
                 }
 
                 this.bx = var9;
                 this.dY = 0 + this.R[2][132];
-                var1.setColor(249, 86, 249);
-                var1.drawLine(0, this.bx, this.e10, this.bx);
-                var1.setColor(105, 35, 105);
-                var1.drawLine(0, this.bx + 1, this.e10, this.bx + 1);
+                var1.setColor(GameColors.COLOR_MAGENTA);
+                var1.drawLine(0, this.bx, this.screenWidth, this.bx);
+                var1.setColor(GameColors.COLOR_PURPLE);
+                var1.drawLine(0, this.bx + 1, this.screenWidth, this.bx + 1);
             }
 
-            var1.setColor(0);
-            var1.setClip(0, 0, this.e10, this.bx);
+            var1.setColor(GameColors.COLOR_BLACK);
+            var1.setClip(0, 0, this.screenWidth, this.bx);
             this.a(var1, -1, -1, var6, var7, true, false, false);
             this.a(var1, -1, -1, var6, var7, false, true, false);
             this.l(var1);
             this.j(var1);
             this.a(var1, -1, -1, var6, var7, true, false, true);
-            var1.setColor(0);
+            var1.setColor(GameColors.COLOR_BLACK);
             var1.setFont(j.defaultFont);
             this.b(var1);
             if (this.ct != null) {
@@ -8225,7 +8228,7 @@ public final class k extends a implements Runnable {
             this.o(var1);
             this.r(var1);
             var1.translate(-var1.getTranslateX(), -var1.getTranslateY());
-            var1.setClip(0, 0, this.e10, this.c10);
+            var1.setClip(0, 0, this.screenWidth, this.screenHeight);
         }
     }
 
@@ -8461,12 +8464,12 @@ public final class k extends a implements Runnable {
     }
 
     private final void a(Graphics var1, int var2, int var3, boolean var4, boolean var5) {
-        if (this.x[2] != null) {
-            int var6 = this.x[2].getWidth();
-            int var7 = this.x[2].getHeight() >> 1;
-            int var8 = this.f10 - (var6 >> 1);
+        if (this.sprArrows[2] != null) {
+            int var6 = this.sprArrows[2].getWidth();
+            int var7 = this.sprArrows[2].getHeight() >> 1;
+            int var8 = this.screenWidthHalf - (var6 >> 1);
             int var9 = 0;
-            Image var10 = this.x[2];
+            Image var10 = this.sprArrows[2];
             if (var5) {
                 var9 = var7;
                 var2 += 0;
@@ -8476,7 +8479,7 @@ public final class k extends a implements Runnable {
 
             var1.setClip(var8, var2, var6, var7);
             var1.drawImage(var10, var8, var2 - var9, 20);
-            var1.setClip(0, 0, this.e10, this.c10);
+            var1.setClip(0, 0, this.screenWidth, this.screenHeight);
             if (d(var8, var2, var6, var7) && ds) {
                 if (var5) {
                     this.G(56);
@@ -8498,7 +8501,7 @@ public final class k extends a implements Runnable {
                 var2 -= var3;
             }
 
-            j.a(var1, this.f10, var2, var3 << 1, var3, var5);
+            j.a(var1, this.screenWidthHalf, var2, var3 << 1, var3, var5);
         }
     }
 
@@ -8554,43 +8557,43 @@ public final class k extends a implements Runnable {
 
     }
 
-    private final void k(Graphics var1) {
+    private final void k(Graphics graphics) {
         try {
-            int var2 = var1.getTranslateX();
-            int var3 = var1.getTranslateY();
-            var1.translate(-var2, -var3);
+            int translateX = graphics.getTranslateX();
+            int translateY = graphics.getTranslateY();
+            graphics.translate(-translateX, -translateY);
             int var4 = this.bx;
             this.bx = this.aM;
-            var1.setClip(0, this.fT, this.e10, this.aM);
+            graphics.setClip(0, this.fT, this.screenWidth, this.aM);
             if (!this.z && !this.ae) {
                 if (this.dB && !this.aC && !this.ae && !this.cC && this.ff != 122 && this.ff != 121 && !this.aY && !this.fi && !this.fk) {
-                    this.d(var1, 142, this.e10 - this.R[2][142], this.fT + this.aM - this.dH - this.R[3][142], 20);
+                    this.d(graphics, 142, this.screenWidth - this.R[2][142], this.fT + this.aM - this.dH - this.R[3][142], 20);
                 }
-            } else if (this.v != null) {
+            } else if (this.sprSoftkeyButtons != null) {
                 if (this.ae) {
-                    var1.drawImage(this.v, -(this.v.getWidth() >> 1), this.fT + this.aM - this.v.getHeight(), 20);
+                    graphics.drawImage(this.sprSoftkeyButtons, -(this.sprSoftkeyButtons.getWidth() >> 1), this.fT + this.aM - this.sprSoftkeyButtons.getHeight(), Graphics.TOP | Graphics.LEFT);
                 }
 
-                var1.drawImage(this.v, this.e10 - (this.v.getWidth() >> 1), this.fT + this.aM - this.v.getHeight(), 20);
+                graphics.drawImage(this.sprSoftkeyButtons, this.screenWidth - (this.sprSoftkeyButtons.getWidth() >> 1), this.fT + this.aM - this.sprSoftkeyButtons.getHeight(), Graphics.TOP | Graphics.LEFT);
             }
 
             this.bx = var4;
-            var1.translate(var2, var3);
+            graphics.translate(translateX, translateY);
         } catch (Exception var6) {
         }
     }
 
-    private static void a(Graphics var0, int var1, int var2, int var3, int var4, int var5) {
-        int var7 = var0.getColor();
-        var0.setColor(0);
-        var0.fillRect(var3, var4, var5, 4);
-        var0.setColor(var1);
-        if (var2 > 100) {
-            var2 = 100;
+    private static void drawProgressBar(Graphics graphics, int color, int amount, int x, int y, int width) {
+        int defaultColor = graphics.getColor();
+        graphics.setColor(GameColors.COLOR_BLACK);
+        graphics.fillRect(x, y, width, 4);
+        graphics.setColor(color);
+        if (amount > 100) {
+            amount = 100;
         }
 
-        var0.fillRect(var3 + 1, var4 + 1, (var5 - 2) * var2 / 100, 2);
-        var0.setColor(var7);
+        graphics.fillRect(x + 1, y + 1, (width - 2) * amount / 100, 2);
+        graphics.setColor(defaultColor);
     }
 
     private final void l(Graphics var1) {
@@ -8636,8 +8639,8 @@ public final class k extends a implements Runnable {
         int var14 = (this.ch[0][var1] - 1) * 4 + var6;
         var8 = var4 * this.ej + this.ch[3][var1] + this.ek + this.an[0][var14];
         var9 = var5 * this.eg + this.ch[4][var1] + this.eh + this.an[1][var14];
-        boolean var15 = var8 > 0 && var8 < this.e10 && var9 > 0 && var9 < this.bx;
-        boolean var11 = var2 > 0 && var2 < this.e10 && var3 > 0 && var3 < this.bx;
+        boolean var15 = var8 > 0 && var8 < this.screenWidth && var9 > 0 && var9 < this.bx;
+        boolean var11 = var2 > 0 && var2 < this.screenWidth && var3 > 0 && var3 < this.bx;
         if (var15 || var11) {
             for(int var12 = 0; var12 < this.cU; ++var12) {
                 if (this.bY[0][var12] <= 0) {
@@ -8702,9 +8705,9 @@ public final class k extends a implements Runnable {
                     }
 
                 } else {
-                    int var22 = 16711680;
+                    int healthBarColor = GameColors.COLOR_RED;
                     if (f(this.bZ[5][var2]) != 1) {
-                        var22 = 8447;
+                        healthBarColor = GameColors.COLOR_BLUE;
                     }
 
                     if (this.ay || var16) {
@@ -8712,7 +8715,7 @@ public final class k extends a implements Runnable {
                             this.c(var1, var2, var17, var18);
                         }
 
-                        a(var1, var22, this.bZ[10][var2], var17, var18 - 1, this.bZ[3][var2] * this.ej - 2);
+                        drawProgressBar(var1, healthBarColor, this.bZ[10][var2], var17, var18 - 1, this.bZ[3][var2] * this.ej - 2);
                     }
 
                 }
@@ -8722,7 +8725,7 @@ public final class k extends a implements Runnable {
     }
 
     private final void c(Graphics var1, int var2, int var3, int var4, int var5) {
-        var1.setClip(0, 0, this.e10, this.bx);
+        var1.setClip(0, 0, this.screenWidth, this.bx);
         boolean var10 = false;
         boolean var11 = false;
         int var13 = 0 + this.cm;
@@ -8745,6 +8748,7 @@ public final class k extends a implements Runnable {
                 this.repaint();
                 this.serviceRepaints();
                 this.dE = false;
+                // TODO: here the loading bar is disappearing
 
                 try {
                     Thread.sleep(1L);
@@ -8784,11 +8788,11 @@ public final class k extends a implements Runnable {
         int var2 = this.getHeight();
         int var3 = this.bS;
         boolean var4 = false;
-        var1.setClip(0, 0, this.e10, var2);
+        var1.setClip(0, 0, this.screenWidth, var2);
         int var5 = var2;
         if (this.cr != null && this.cr.aZ != null) {
             var5 = var2 - j.bM - this.cr.aZ.getHeight();
-            var1.drawImage(this.cr.aZ, this.f10, var5, 17);
+            var1.drawImage(this.cr.aZ, this.screenWidthHalf, var5, 17);
         }
 
         int var6;
@@ -8802,25 +8806,26 @@ public final class k extends a implements Runnable {
             }
 
             var13 = (var2 - (this.bk.getHeight() + var6) >> 1) - j.A.b();
-            var1.setClip(0, 0, this.e10, var2);
-            var1.drawImage(this.bk, this.f10, var13, 17);
-            var1.setClip(0, var13 + this.fq - this.fr, this.e10, this.fr);
-            var1.drawImage(this.bl, this.f10, var13, 17);
-            var1.setClip(0, 0, this.e10, var2);
+            var1.setClip(0, 0, this.screenWidth, var2);
+            var1.drawImage(this.bk, this.screenWidthHalf, var13, 17);
+            var1.setClip(0, var13 + this.fq - this.fr, this.screenWidth, this.fr);
+            var1.drawImage(this.bl, this.screenWidthHalf, var13, 17);
+            var1.setClip(0, 0, this.screenWidth, var2);
             j.a(var1, j.A, (var5 - (var13 + this.bk.getHeight()) >> 1) + var13 + this.bk.getHeight());
             if (this.bm != null) {
-                var1.drawImage(this.bm, this.f10, var13 + this.bk.getHeight() + this.bm.getHeight(), 17);
+                var1.drawImage(this.bm, this.screenWidthHalf, var13 + this.bk.getHeight() + this.bm.getHeight(), 17);
             } else {
-                j.A.a(var1, r[1][0], this.f10, var13 + this.bk.getHeight() + j.A.b(), 17);
+                j.A.a(var1, screenText[1][0], this.screenWidthHalf, var13 + this.bk.getHeight() + j.A.b(), 17);
             }
         } else {
             int var7 = (var13 = (var6 = var2 - j.A.b() * 2) - var3 * 2) - var3;
             if (this.bJ == 0) {
-                a.a(var1, 0, var7, this.e10, var2 - var7, 0, 128);
+                NokiaCanvasWrapper.fillRectTransparent(var1, 0, var7, this.screenWidth, var2 - var7, 0, 128);
             }
 
+            // TODO: find out where it's used (looks like a loading bar)
             j.a(var1, j.A, var6);
-            var1.setClip(0, 0, this.e10, var2);
+            var1.setClip(0, 0, this.screenWidth, var2);
             var1.setColor(0, 188, 204);
             var1.fillRect(this.fN, var13, this.fq, var3);
             var1.setColor(0, 85, 99);
@@ -8829,16 +8834,16 @@ public final class k extends a implements Runnable {
             b(var1, this.fN, var13, this.fr, var3);
             this.u = !this.u;
             if (this.u) {
-                var1.setColor(0);
+                var1.setColor(GameColors.COLOR_BLACK);
             } else {
-                var1.setColor(16777215);
+                var1.setColor(GameColors.COLOR_WHITE);
             }
 
             if (this.bJ >= this.bR) {
                 e(var1, 1, var2 - 2, 5);
             }
 
-            var1.setColor(13, 144, 0);
+            var1.setColor(GameColors.COLOR_GREEN);
         }
     }
 
@@ -8860,7 +8865,7 @@ public final class k extends a implements Runnable {
                 var3 += this.R[4][var6];
                 var4 += this.R[5][var6];
                 int var7 = this.bx;
-                int var8 = this.e10;
+                int var8 = this.screenWidth;
                 if (var5 != 20) {
                     var7 += this.R[3][var6];
                     var8 += this.R[2][var6];
@@ -8888,8 +8893,8 @@ public final class k extends a implements Runnable {
                             }
                         }
 
-                        if (var9 > this.e10 - var3) {
-                            var9 = this.e10 - var3;
+                        if (var9 > this.screenWidth - var3) {
+                            var9 = this.screenWidth - var3;
                         }
 
                         if (var10 > this.bx - var4) {
@@ -8953,9 +8958,9 @@ public final class k extends a implements Runnable {
             var4 -= 6;
 
             for(int var12 = 0; var12 < var8; ++var12) {
-                var1.setColor(0);
+                var1.setColor(GameColors.COLOR_BLACK);
                 var1.fillRect(var3, var4, 9, 5);
-                var1.setColor(65280);
+                var1.setColor(GameColors.COLOR_LIME);
                 if (var12 <= var9) {
                     var1.fillRect(var3 + 1, var4 + 1, 7, 3);
                 }
@@ -8977,12 +8982,13 @@ public final class k extends a implements Runnable {
         this.d(var1, var2, var11, var12);
     }
 
-    private final boolean a(Graphics var1, int var2, int var3, int var4, int var5, boolean var6, boolean var7, int var8, int var9) {
+    // TODO: responsible for drawing units
+    private final boolean a(Graphics graphics, int var2, int var3, int var4, int var5, boolean drawShadows, boolean var7, int var8, int var9) {
         boolean var10 = false;
-        int var11 = var1.getClipX();
-        int var12 = var1.getClipY();
-        int var13 = var1.getClipWidth();
-        int var14 = var1.getClipHeight();
+        int defaultClipX = graphics.getClipX();
+        int defaultClipY = graphics.getClipY();
+        int defaultClipWidth = graphics.getClipWidth();
+        int defaultClipHeight = graphics.getClipHeight();
 
         try {
             int var15 = 0;
@@ -9014,7 +9020,7 @@ public final class k extends a implements Runnable {
             int var24;
             int var25;
             int var26;
-            if (var6 && this.dR[var15] != null) {
+            if (drawShadows && this.sprUnitShadows[var15] != null) {
                 var4 += var18;
                 if (var7) {
                     var4 -= (var18 >> 1) + (var18 >> 2);
@@ -9025,27 +9031,27 @@ public final class k extends a implements Runnable {
                 var24 = this.am[3][var2];
                 var25 = var3;
                 var26 = var4;
-                if (var3 < var11) {
-                    var23 -= var11 - var3;
-                    var25 = var11;
+                if (var3 < defaultClipX) {
+                    var23 -= defaultClipX - var3;
+                    var25 = defaultClipX;
                 }
 
-                if (var4 < var12) {
-                    var24 -= var12 - var4;
-                    var26 = var12;
+                if (var4 < defaultClipY) {
+                    var24 -= defaultClipY - var4;
+                    var26 = defaultClipY;
                 }
 
-                if (var25 + var23 > var11 + var13) {
-                    var23 = var11 + var13 - var25;
+                if (var25 + var23 > defaultClipX + defaultClipWidth) {
+                    var23 = defaultClipX + defaultClipWidth - var25;
                 }
 
-                if (var26 + var24 > var12 + var14) {
-                    var24 = var12 + var14 - var26;
+                if (var26 + var24 > defaultClipY + defaultClipHeight) {
+                    var24 = defaultClipY + defaultClipHeight - var26;
                 }
 
                 if (var23 > 0 && var24 > 0) {
-                    var1.setClip(var25, var26, var23, var24);
-                    var1.drawImage(this.dR[var15], var3 - this.am[0][var2], var4 - this.am[1][var2], 20);
+                    graphics.setClip(var25, var26, var23, var24);
+                    graphics.drawImage(this.sprUnitShadows[var15], var3 - this.am[0][var2], var4 - this.am[1][var2], 20);
                 }
 
                 var10 = true;
@@ -9056,32 +9062,32 @@ public final class k extends a implements Runnable {
             var24 = this.am[3][var2];
             var25 = var3;
             var26 = var4;
-            if (var3 < var11) {
-                var23 -= var11 - var3;
-                var25 = var11;
+            if (var3 < defaultClipX) {
+                var23 -= defaultClipX - var3;
+                var25 = defaultClipX;
             }
 
-            if (var4 < var12) {
-                var24 -= var12 - var4;
-                var26 = var12;
+            if (var4 < defaultClipY) {
+                var24 -= defaultClipY - var4;
+                var26 = defaultClipY;
             }
 
-            if (var25 + var23 > var11 + var13) {
-                var23 = var11 + var13 - var25;
+            if (var25 + var23 > defaultClipX + defaultClipWidth) {
+                var23 = defaultClipX + defaultClipWidth - var25;
             }
 
-            if (var26 + var24 > var12 + var14) {
-                var24 = var12 + var14 - var26;
+            if (var26 + var24 > defaultClipY + defaultClipHeight) {
+                var24 = defaultClipY + defaultClipHeight - var26;
             }
 
             if (var23 > 0 && var24 > 0) {
-                var1.setClip(var25, var26, var23, var24);
-                var1.drawImage(this.eX[var15], var3 - this.am[0][var2], var4 - this.am[1][var2], 20);
+                graphics.setClip(var25, var26, var23, var24);
+                graphics.drawImage(this.sprUnits[var15], var3 - this.am[0][var2], var4 - this.am[1][var2], Graphics.TOP | Graphics.LEFT);
             }
-        } catch (Exception var22) {
+        } catch (Exception ignore) {
         }
 
-        var1.setClip(var11, var12, var13, var14);
+        graphics.setClip(defaultClipX, defaultClipY, defaultClipWidth, defaultClipHeight);
         return var10;
     }
 
@@ -9133,7 +9139,7 @@ public final class k extends a implements Runnable {
                         var10 += this.bs;
                     }
 
-                    if (var5 <= 2 && (this.dR == null || this.dR[this.am[6][var10]] == null)) {
+                    if (var5 <= 2 && (this.sprUnitShadows == null || this.sprUnitShadows[this.am[6][var10]] == null)) {
                         var18 = var10;
                         var10 = (2 * (var5 - 1) + f(var6) - 1) * this.bs + 13;
                         this.e(var1, var10, var14 + this.am[4][var10], var4 + this.eg - 2 + this.am[5][var10], 33);
@@ -9148,9 +9154,9 @@ public final class k extends a implements Runnable {
                     var18 = this.ej - 2;
                     int var19 = var3 + 1;
                     int var20 = var4 + 2 - 4 + var11;
-                    int var21 = 16711680;
+                    int var21 = GameColors.COLOR_RED;
                     if (f(this.ch[8][var2]) != 1) {
-                        var21 = 8447;
+                        var21 = GameColors.COLOR_BLUE;
                     }
 
                     if (this.ch[0][var2] <= 2) {
@@ -9173,14 +9179,16 @@ public final class k extends a implements Runnable {
                         var20 -= 7;
                     }
 
-                    a(var1, var21, var24, var19, var20, var18);
+                    // Draw health points
+                    drawProgressBar(var1, var21, var24, var19, var20, var18);
                     if (this.ch[0][var2] == this.bb || this.ch[0][var2] == 8) {
                         int var22 = this.ch[27][var2];
                         if (this.ch[0][var2] == 8) {
                             var22 = var22 * 100 / 8;
                         }
 
-                        a(var1, 65280, var22, var19, var20 - 5, var18);
+                        // Draw ready status
+                        drawProgressBar(var1, GameColors.COLOR_LIME, var22, var19, var20 - 5, var18);
                     }
                 }
 
@@ -9200,7 +9208,7 @@ public final class k extends a implements Runnable {
         }
 
         this.dJ = var5;
-        if (!this.cC && d(0, 0, this.f10, var5) && !this.fi && !this.cC && this.eA - this.eD > 500L) {
+        if (!this.cC && d(0, 0, this.screenWidthHalf, var5) && !this.fi && !this.cC && this.eA - this.eD > 500L) {
             this.x(48);
             aV();
             this.eD = this.eA;
@@ -9208,17 +9216,17 @@ public final class k extends a implements Runnable {
 
         try {
             var1.translate(-var1.getTranslateX(), -var1.getTranslateY());
-            this.c10 = this.getHeight();
+            this.screenHeight = this.getHeight();
             int var8 = this.bx;
-            this.bx = this.c10;
-            var1.setClip(0, 0, this.e10, this.c10);
+            this.bx = this.screenHeight;
+            var1.setClip(0, 0, this.screenWidth, this.screenHeight);
             int var9 = var5 - 1 - (j.x.b() - j.x.f3) >> 1;
-            var1.setColor(0);
-            var1.fillRect(0, 0, this.e10, var5);
-            var1.setColor(j.z);
+            var1.setColor(GameColors.COLOR_BLACK);
+            var1.fillRect(0, 0, this.screenWidth, var5);
+            var1.setColor(j.backgroundColor);
             String var10 = String.valueOf(this.cv[1]);
             int var11 = j.x.a(var10);
-            int var12 = this.e10 - 2 - var11;
+            int var12 = this.screenWidth - 2 - var11;
             j.x.a(var1, var10, var12, var9, 20);
             var12 -= 3;
             this.d(var1, 130, var12 - this.R[2][130], var5 - 0 - this.R[3][130] >> 1, 20);
@@ -9244,16 +9252,16 @@ public final class k extends a implements Runnable {
             this.d(var1, 131, 2, var5 - 2 - this.R[3][131] >> 1, 20);
             var12 = 2 + this.R[2][131] + 2;
             j.x.a(var1, this.eB, var12, var9, 20);
-            var1.setColor(249, 86, 249);
-            var1.fillRect(0, var5 - 1, this.e10, 1);
-            var1.setColor(105, 35, 105);
-            var1.fillRect(0, var5 - 2, this.e10, 1);
+            var1.setColor(GameColors.COLOR_MAGENTA);
+            var1.fillRect(0, var5 - 1, this.screenWidth, 1);
+            var1.setColor(GameColors.COLOR_PURPLE);
+            var1.fillRect(0, var5 - 2, this.screenWidth, 1);
             var1.translate(-var1.getTranslateX(), -var1.getTranslateY() + var5);
             this.bx = var8;
         } catch (Exception var14) {
         }
 
-        this.c10 = this.getHeight() - var5;
+        this.screenHeight = this.getHeight() - var5;
     }
 
     private final void a(Graphics var1, int var2, int var3, int var4, boolean var5, boolean var6, boolean var7) {
@@ -9302,8 +9310,8 @@ public final class k extends a implements Runnable {
                     var13 = this.bx - var4;
                 }
 
-                if (var3 + var12 > this.e10) {
-                    var12 = this.e10 - var3;
+                if (var3 + var12 > this.screenWidth) {
+                    var12 = this.screenWidth - var3;
                 }
 
                 if (var12 > 0 && var13 > 0 && var3 > -var12 && var4 > -var13) {
@@ -9357,27 +9365,27 @@ public final class k extends a implements Runnable {
             this.aQ = new c(this);
 
             try {
-                r = AssetManager.instanceHandler.e(byteArrayToString(this.aH[3]));
+                screenText = AssetManager.instanceHandler.e(byteArrayToString(this.aH[3]));
                 cR = false;
             } catch (Exception ignore) {
             }
 
             try {
-                bQ = AssetManager.instanceHandler.e(byteArrayToString(this.aH[5]));
+                levelTitles = AssetManager.instanceHandler.e(byteArrayToString(this.aH[5]));
             } catch (Exception var30) {
-                bQ = null;
+                levelTitles = null;
             }
 
-            if (this.v == null) {
+            if (this.sprSoftkeyButtons == null) {
                 try {
-                    this.v = AssetManager.readImageFromFilePNG(byteArrayToString(this.aH[6]));
+                    this.sprSoftkeyButtons = AssetManager.readImageFromFilePNG(byteArrayToString(this.aH[6]));
                 } catch (Exception var29) {
                 }
             }
 
-            for(int var1 = 0; var1 < this.x.length; ++var1) {
+            for(int var1 = 0; var1 < this.sprArrows.length; ++var1) {
                 try {
-                    this.x[var1] = AssetManager.readImageFromFilePNG(byteArrayToString(this.aH[7]) + var1 + byteArrayToString(this.aH[8]));
+                    this.sprArrows[var1] = AssetManager.readImageFromFilePNG(byteArrayToString(this.aH[7]) + var1 + byteArrayToString(this.aH[8]));
                 } catch (Exception var28) {
                 }
             }
@@ -9388,7 +9396,7 @@ public final class k extends a implements Runnable {
             }
 
             this.aO = false;
-            eu = false;
+            isLoading = false;
             aS();
             this.ai();
 
@@ -9397,7 +9405,7 @@ public final class k extends a implements Runnable {
             } catch (Exception var27) {
             }
 
-            eu = false;
+            isLoading = false;
             j.al = true;
             if (cq) {
                 this.dM = false;
@@ -9816,20 +9824,20 @@ public final class k extends a implements Runnable {
 
     private final void aF() {
         this.o((Graphics)null);
-        this.fD = this.e10 / this.ej;
-        this.fW = (this.c10 - this.dH) / this.eg;
+        this.fD = this.screenWidth / this.ej;
+        this.fW = (this.screenHeight - this.dH) / this.eg;
         this.fB = this.fD;
         this.fU = this.fW;
         this.bv = 0;
         this.bw = 0;
-        if (this.fB * this.ej < this.e10) {
+        if (this.fB * this.ej < this.screenWidth) {
             ++this.fB;
-            this.bv = this.e10 - this.fD * this.ej;
+            this.bv = this.screenWidth - this.fD * this.ej;
         }
 
-        if (this.fU * this.eg < this.c10 - this.dH) {
+        if (this.fU * this.eg < this.screenHeight - this.dH) {
             ++this.fU;
-            this.bw = this.c10 - this.dH - this.fW * this.eg;
+            this.bw = this.screenHeight - this.dH - this.fW * this.eg;
         }
 
         this.fC = this.fD;
@@ -9966,7 +9974,7 @@ public final class k extends a implements Runnable {
             this.cr = new j(this);
         }
 
-        if (this.cr != null && !this.cr.f()) {
+        if (this.cr != null && !this.cr.checkIfAlphaBlendingIsSupported()) {
             av = 0;
         }
 
@@ -9984,9 +9992,9 @@ public final class k extends a implements Runnable {
 
     }
 
-    private final void a(int var1, boolean[] var2) {
-        if ((var1 = this.w(var1)) >= 0 && var2 != null && var1 < var2.length) {
-            var2[var1] = true;
+    private final void a(int i, boolean[] var2) {
+        if ((i = this.w(i)) >= 0 && var2 != null && i < var2.length) {
+            var2[i] = true;
         }
 
     }
@@ -10691,13 +10699,13 @@ public final class k extends a implements Runnable {
         j.br = null;
 
         try {
-            if (this.s == null) {
+            if (this.helpMessages == null) {
                 this.P();
             }
 
             int var3 = var1 - 1 + 27;
-            if (this.s != null && var3 < this.s.length) {
-                j.br = " " + '\r' + this.s[var3];
+            if (this.helpMessages != null && var3 < this.helpMessages.length) {
+                j.br = " " + '\r' + this.helpMessages[var3];
             }
 
             if (j.br != null && j.br.length() < 5) {
@@ -10741,7 +10749,7 @@ public final class k extends a implements Runnable {
     private final boolean c(Graphics var1, int var2, int var3, int var4, int var5, int var6) {
         try {
             int var7 = var6 * 2;
-            if (this.ar != null && this.ar[0 + var7] != null && this.ar[1 + var7] != null) {
+            if (this.sprSelectionBounds != null && this.sprSelectionBounds[0 + var7] != null && this.sprSelectionBounds[1 + var7] != null) {
                 int var8 = var1.getClipX();
                 int var9 = var1.getClipY();
                 int var10 = var1.getClipWidth();
@@ -10760,7 +10768,7 @@ public final class k extends a implements Runnable {
                 int var19;
                 for(int var14 = 0; var14 < 2; ++var14) {
                     var15 = var4;
-                    var16 = this.ar[0 + var7].getHeight();
+                    var16 = this.sprSelectionBounds[0 + var7].getHeight();
                     var17 = var2;
                     var18 = var13;
                     if (var2 < var8) {
@@ -10784,8 +10792,8 @@ public final class k extends a implements Runnable {
                     if (var15 > 0 && var16 > 0) {
                         var1.setClip(var17, var18, var15, var16);
 
-                        for(var19 = var2 + var12; var19 < var2 + var4; var19 += this.ar[0 + var7].getWidth()) {
-                            var1.drawImage(this.ar[0 + var7], var19, var13, 20);
+                        for(var19 = var2 + var12; var19 < var2 + var4; var19 += this.sprSelectionBounds[0 + var7].getWidth()) {
+                            var1.drawImage(this.sprSelectionBounds[0 + var7], var19, var13, Graphics.TOP | Graphics.LEFT);
                         }
                     }
 
@@ -10795,7 +10803,7 @@ public final class k extends a implements Runnable {
                 var15 = var2;
 
                 for(var16 = 0; var16 < 2; ++var16) {
-                    var17 = this.ar[1 + var7].getWidth();
+                    var17 = this.sprSelectionBounds[1 + var7].getWidth();
                     var18 = var5;
                     var19 = var15;
                     int var20 = var3;
@@ -10820,8 +10828,8 @@ public final class k extends a implements Runnable {
                     if (var17 > 0 && var18 > 0) {
                         var1.setClip(var19, var20, var17, var18);
 
-                        for(int var21 = var3 + var12; var21 < var3 + var5; var21 += this.ar[1 + var7].getHeight()) {
-                            var1.drawImage(this.ar[1 + var7], var15, var21, 20);
+                        for(int var21 = var3 + var12; var21 < var3 + var5; var21 += this.sprSelectionBounds[1 + var7].getHeight()) {
+                            var1.drawImage(this.sprSelectionBounds[1 + var7], var15, var21, 20);
                         }
                     }
 
@@ -10888,14 +10896,14 @@ public final class k extends a implements Runnable {
 
                     if (var3) {
                         this.fi = false;
-                        this.ct = r[4][9];
+                        this.ct = screenText[4][9];
                         this.T = 1;
                         return;
                     }
 
                     if (!this.k(1)) {
                         this.fi = false;
-                        this.ct = r[4][10];
+                        this.ct = screenText[4][10];
                         this.T = 1;
                     }
                     break;
@@ -10934,7 +10942,7 @@ public final class k extends a implements Runnable {
             try {
                 Class.forName("com.nokia.mid.ui.DirectUtils");
                 Class.forName("com.nokia.mid.ui.DirectGraphics");
-                if (a.a5 == null) {
+                if (NokiaCanvasWrapper.transparentRegionData == null) {
                     this.cF = 40;
                 }
             } catch (Exception var2) {
@@ -11112,11 +11120,11 @@ public final class k extends a implements Runnable {
         return var1;
     }
 
-    private final void p(Graphics var1) {
-        if (this.v != null) {
-            var1.setClip(0, 0, this.e10, this.getHeight());
-            a.a(var1, 0, this.getHeight() - this.v.getHeight(), this.e10, this.v.getHeight(), 0, 192);
-            var1.drawImage(this.v, -(this.v.getWidth() >> 1), this.getHeight() - this.v.getHeight(), 20);
+    private final void drawAcceptButton(Graphics graphics) {
+        if (this.sprSoftkeyButtons != null) {
+            graphics.setClip(0, 0, this.screenWidth, this.getHeight());
+            NokiaCanvasWrapper.fillRectTransparent(graphics, 0, this.getHeight() - this.sprSoftkeyButtons.getHeight(), this.screenWidth, this.sprSoftkeyButtons.getHeight(), 0, 192);
+            graphics.drawImage(this.sprSoftkeyButtons, -(this.sprSoftkeyButtons.getWidth() >> 1), this.getHeight() - this.sprSoftkeyButtons.getHeight(), Graphics.TOP | Graphics.LEFT);
         }
 
     }
@@ -11197,23 +11205,23 @@ public final class k extends a implements Runnable {
                 var3 = this.dH;
             }
 
-            int var4 = this.c10 - var3;
-            var1.setClip(0, 0, this.e10, this.c10);
+            int var4 = this.screenHeight - var3;
+            var1.setClip(0, 0, this.screenWidth, this.screenHeight);
             boolean var5 = false;
             int var11 = var3 - (j.x.b() - j.x.f3) >> 1;
             ++var11;
-            int var6 = this.e10;
+            int var6 = this.screenWidth;
             if (this.ff == 121) {
                 try {
                     String var7 = "" + this.bZ[9][this.A];
-                    int var8 = this.e10 - 2 - j.x.a(var7);
+                    int var8 = this.screenWidth - 2 - j.x.a(var7);
                     if (this.w != null) {
                         int var9;
                         if (this.w[0] != null) {
                             var8 -= this.w[0].getWidth() + 1;
                             var9 = j.x.b() - j.x.f3 - this.w[0].getHeight() >> 1;
                             ++var9;
-                            var1.drawImage(this.w[0], this.e10 - 1 - this.w[0].getWidth(), var4 + var11 + var9, 20);
+                            var1.drawImage(this.w[0], this.screenWidth - 1 - this.w[0].getWidth(), var4 + var11 + var9, 20);
                         }
 
                         var6 = var8;
@@ -11797,30 +11805,30 @@ public final class k extends a implements Runnable {
             int var8 = var2 * var7;
             int var9 = this.fp + 6;
             int var10 = var8 + 7;
-            int var18 = this.e10 - this.fp >> 1;
+            int var18 = this.screenWidth - this.fp >> 1;
             var18 += 6;
-            int var17 = this.c10 - var8 >> 1;
+            int var17 = this.screenHeight - var8 >> 1;
             if (var18 - 4 < 0) {
                 var18 = 4;
             }
 
-            if (var18 + this.fp > this.e10) {
-                var18 = this.e10 - this.fp;
+            if (var18 + this.fp > this.screenWidth) {
+                var18 = this.screenWidth - this.fp;
             }
 
             if (var17 - 4 < 0) {
                 var17 = 4;
             }
 
-            if (var17 + var8 > this.c10) {
-                var17 = this.c10 - var8;
+            if (var17 + var8 > this.screenHeight) {
+                var17 = this.screenHeight - var8;
             }
 
             int var11 = var18 - 1 - 3;
             int var12 = var17 - 4;
-            var1.setColor(0);
-            a.a(var1, var11, var12, var9, var10, 0, 180);
-            var1.setColor(16777215);
+            var1.setColor(GameColors.COLOR_BLACK);
+            NokiaCanvasWrapper.fillRectTransparent(var1, var11, var12, var9, var10, 0, 180);
+            var1.setColor(GameColors.COLOR_WHITE);
             var1.drawRect(var11, var12, var9, var10);
 
             for(int var15 = this.en; var15 < this.cs.length && var5 < var6; ++var15) {
@@ -11859,12 +11867,12 @@ public final class k extends a implements Runnable {
 
                     if (!this.cC) {
                         if (var1 != null) {
-                            var1.setClip(0, 0, this.sidePanelIcons[var4].getWidth(), this.sidePanelIcons[var4].getHeight());
-                            var1.drawImage(this.sidePanelIcons[var4], 0 - (this.dV[0] * this.sidePanelIcons[var4].getWidth() >> 2), 0, 20);
+                            var1.setClip(0, 0, this.sprSidePanelIcons[var4].getWidth(), this.sprSidePanelIcons[var4].getHeight());
+                            var1.drawImage(this.sprSidePanelIcons[var4], 0 - (this.dV[0] * this.sprSidePanelIcons[var4].getWidth() >> 2), 0, 20);
                         }
 
                         var4 = (var4 >> 1 << 1) + 1;
-                        if (var1 == null && d(0, 0 + var5, this.sidePanelIcons[var4].getWidth(), this.sidePanelIcons[var4].getHeight()) && !this.fi) {
+                        if (var1 == null && d(0, 0 + var5, this.sprSidePanelIcons[var4].getWidth(), this.sprSidePanelIcons[var4].getHeight()) && !this.fi) {
                             this.x(48);
                             this.cO = true;
                             aV();
@@ -11877,16 +11885,16 @@ public final class k extends a implements Runnable {
                         ++var4;
                     }
 
-                    int var11 = this.e10 - this.sidePanelIcons[var4].getWidth() >> 1;
-                    int var12 = this.bx - this.sidePanelIcons[var4].getHeight();
+                    int var11 = this.screenWidth - this.sprSidePanelIcons[var4].getWidth() >> 1;
+                    int var12 = this.bx - this.sprSidePanelIcons[var4].getHeight();
                     if (var1 != null) {
-                        var1.setClip(var11, var12, this.sidePanelIcons[var4].getWidth(), this.sidePanelIcons[var4].getHeight());
-                        var1.drawImage(this.sidePanelIcons[var4], var11, var12 + (this.dV[1] * this.sidePanelIcons[var4].getHeight() >> 2), 20);
+                        var1.setClip(var11, var12, this.sprSidePanelIcons[var4].getWidth(), this.sprSidePanelIcons[var4].getHeight());
+                        var1.drawImage(this.sprSidePanelIcons[var4], var11, var12 + (this.dV[1] * this.sprSidePanelIcons[var4].getHeight() >> 2), 20);
                     }
 
                     var4 = (var4 >> 1 << 1) + 1;
-                    var12 = this.bx - this.sidePanelIcons[var4].getHeight();
-                    if (var1 == null && d(var11, var12 + var5, this.sidePanelIcons[var4].getWidth(), this.sidePanelIcons[var4].getHeight())) {
+                    var12 = this.bx - this.sprSidePanelIcons[var4].getHeight();
+                    if (var1 == null && d(var11, var12 + var5, this.sprSidePanelIcons[var4].getWidth(), this.sprSidePanelIcons[var4].getHeight())) {
                         this.x(42);
                         this.cO = true;
                         aV();

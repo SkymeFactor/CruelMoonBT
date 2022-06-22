@@ -1918,7 +1918,7 @@ public final class c implements Runnable {
         } catch (Exception var16) {
         }
 
-        var1.setClip(0, 0, this.Q.e10, this.Q.bx);
+        var1.setClip(0, 0, this.Q.screenWidth, this.Q.bx);
     }
 
     private static void n() {
