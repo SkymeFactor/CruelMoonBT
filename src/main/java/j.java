@@ -21,7 +21,7 @@ public final class j {
     int j9 = -1;
     int k9;
     boolean l9;
-    Image m9;
+    Image starSkyPicture;
     boolean n9;
     int o;
     static boolean p = false;
@@ -34,16 +34,16 @@ public final class j {
     static boolean w;
     static d x;
     static Font defaultFont;
-    static int z = 0;
+    static int backgroundColor = GameColors.COLOR_BLACK;
     static d A;
     static boolean B;
     boolean C;
     int D;
     int E;
     int F;
-    Image G;
-    Image H;
-    Image I;
+    Image menuBackgroundPicture;
+    Image loadingPicture;
+    Image I;            // Always null
     Image[] introPictures;
     int[][] K;
     boolean L;
@@ -53,7 +53,7 @@ public final class j {
     boolean P;
     boolean Q;
     boolean R;
-    Image S;
+    Image S;            // Unknown file knp.png
     boolean T;
     boolean U;
     boolean V;
@@ -63,8 +63,8 @@ public final class j {
     boolean Z;
     boolean aa;
     int ab;
-    static Image ac;
-    static Image ad;
+    static Image ac;    // Unknown file or_f.png
+    static Image levelLoadingPicture;
     Image[] ae;
     int[][] af;
     int ag;
@@ -96,14 +96,14 @@ public final class j {
     boolean ax;
     int[][] ay;
     String[] az;
-    String[] aA;
+    String[] menuTextItems;
     int aB;
     byte[][] menuGraphicsFilenames;
     boolean aD = true;
     int aE = 10;
-    Image aF;
-    Image aG;
-    Image[] aH;
+    Image aF;           // Unknown file mi.png
+    Image aG;           // Unknown file mi1.png
+    Image[] aH;         // Unknown file mi*.png
     boolean aI;
     int aJ;
     int aK;
@@ -121,14 +121,14 @@ public final class j {
     int aW = 0;
     String[] aX;
     d aY;
-    Image aZ;
+    Image aZ;           // Unknown file nl.png
     static boolean ba = true;
     long bb;
     int bc;
-    Image bd;
-    Image be;
+    Image splashScreenPicture;
+    Image be;           // Unknown file or_f.png
     int bf;
-    Image bg;
+    Image bg;           // Unknown file p.png
     long bh;
     long bi;
     long bj;
@@ -150,7 +150,7 @@ public final class j {
     int[] bz;
     boolean bA;
     long bB;
-    int bC;
+    int alphaBlendingSupported;
     static boolean bD;
     boolean bE = false;
     int bF;
@@ -242,7 +242,7 @@ public final class j {
         this.V = false;
         this.h9 = 15;
         this.aQ = 11;
-        this.bC = -1;
+        this.alphaBlendingSupported = -1;
         this.bA = false;
         this.by = false;
         this.bz = new int[10];
@@ -265,7 +265,7 @@ public final class j {
             }
 
             try {
-                this.H = AssetManager.readImageFromFilePNG(k.byteArrayToString(this.menuGraphicsFilenames[10]));
+                this.loadingPicture = AssetManager.readImageFromFilePNG(k.byteArrayToString(this.menuGraphicsFilenames[10]));
             } catch (Exception var10) {
             }
 
@@ -298,7 +298,7 @@ public final class j {
             }
 
             this.ar = (short) e9;
-            this.H = null;
+            this.loadingPicture = null;
         } catch (Exception var12) {
         }
 
@@ -315,20 +315,20 @@ public final class j {
 
         try {
             try {
-                this.bd = AssetManager.readImageFromFileSafe(k.byteArrayToString(this.menuGraphicsFilenames[11]));
+                this.splashScreenPicture = AssetManager.readImageFromFileSafe(k.byteArrayToString(this.menuGraphicsFilenames[11]));
             } catch (OutOfMemoryError var10) {
             }
 
             try {
-                if (this.bd != null) {
-                    this.bd = AssetManager.a(this.bd);
+                if (this.splashScreenPicture != null) {
+                    this.splashScreenPicture = AssetManager.addBlackBackground(this.splashScreenPicture);
                 }
             } catch (OutOfMemoryError var9) {
             }
 
             try {
-                if (this.bd != null && (this.bd.getWidth() != e9 || this.bd.getHeight() != a9)) {
-                    this.bd = AssetManager.a(this.bd, 0, 0, this.bd.getWidth(), this.bd.getHeight(), e9, a9, 0, false, true);
+                if (this.splashScreenPicture != null && (this.splashScreenPicture.getWidth() != e9 || this.splashScreenPicture.getHeight() != a9)) {
+                    this.splashScreenPicture = AssetManager.a(this.splashScreenPicture, 0, 0, this.splashScreenPicture.getWidth(), this.splashScreenPicture.getHeight(), e9, a9, 0, false, true);
                 }
             } catch (OutOfMemoryError var13) {
             }
@@ -351,7 +351,7 @@ public final class j {
 
             this.j9 = 0;
             this.bf = 0;
-            if (this.bd != null || this.be != null) {
+            if (this.splashScreenPicture != null || this.be != null) {
                 this.t();
             }
 
@@ -425,7 +425,7 @@ public final class j {
         i9.aO = var2;
         k.cq = var3;
         this.be = null;
-        this.bd = null;
+        this.splashScreenPicture = null;
         this.N = 0;
         this.U = false;
         this.T = true;
@@ -502,7 +502,7 @@ public final class j {
             }
 
             try {
-                var3 = AssetManager.a(var3);
+                var3 = AssetManager.addBlackBackground(var3);
             } catch (OutOfMemoryError ignore) {
             }
 
@@ -526,7 +526,7 @@ public final class j {
     }
 
     private final void b(String filename, Image img) {
-        this.G = null;
+        this.menuBackgroundPicture = null;
 
         try {
             Thread.sleep(7L);
@@ -534,24 +534,25 @@ public final class j {
         }
 
         try {
-            this.G = a(filename, img);
+            this.menuBackgroundPicture = a(filename, img);
         } catch (Exception ignore) {
         }
 
-        if (this.G == null) {
+        if (this.menuBackgroundPicture == null) {
             this.j9 = 0;
         }
 
     }
 
+    // TODO: records displaying, perhaps
     private static String k() {
         String var1 = null;
-        var1 = k.r[12][3] + '\r';
+        var1 = k.screenText[12][3] + '\r';
 
         for(int var2 = 1; var2 <= k.bP; ++var2) {
             String var3;
-            if (k.bQ != null) {
-                if ((var3 = new String(k.bQ[var2][0])).length() > 2) {
+            if (k.levelTitles != null) {
+                if ((var3 = new String(k.levelTitles[var2][0])).length() > 2) {
                     for(int var4 = 2; var4 < var3.length(); ++var4) {
                         if (var3.charAt(var4) >= '0' && var3.charAt(var4) <= '9') {
                             var3 = var3.substring(0, var4);
@@ -560,7 +561,7 @@ public final class j {
                     }
                 }
             } else {
-                var3 = new String(k.r[1][1] + var2);
+                var3 = new String(k.screenText[1][1] + var2);
             }
 
             String[] var7 = new String[]{"", ""};
@@ -586,8 +587,8 @@ public final class j {
     }
 
     private final void l() {
-        this.G = null;
-        this.G = j();
+        this.menuBackgroundPicture = null;
+        this.menuBackgroundPicture = j();
     }
 
     static void a(Graphics var0, int var1, int var2, int var3, int var4, int var5, int var6) {
@@ -666,7 +667,7 @@ public final class j {
             }
 
             try {
-                this.introPictures[0] = AssetManager.a(this.introPictures[0]);
+                this.introPictures[0] = AssetManager.addBlackBackground(this.introPictures[0]);
             } catch (OutOfMemoryError ignore) {
             }
 
@@ -761,7 +762,7 @@ public final class j {
         } catch (OutOfMemoryError outOfMemoryError) {
         }
 
-        this.m9 = null;
+        this.starSkyPicture = null;
         this.ay = null;
         this.introPictures = null;
         this.K = null;
@@ -817,7 +818,7 @@ public final class j {
         this.T = true;
         if (this.ak) {
             this.p();
-        } else if (this.aA != null) {
+        } else if (this.menuTextItems != null) {
             if ((this.s || this.t) && k.b10 != null) {
                 if (this.N == -7 || this.N == 35) {
                     i9.d();
@@ -925,7 +926,7 @@ public final class j {
                                     return;
                                 }
 
-                                if (this.as == this.aA.length - 5 - 1 && this.d9 != null) {
+                                if (this.as == this.menuTextItems.length - 5 - 1 && this.d9 != null) {
                                     try {
                                         NET_Lizard.app.platformRequest(this.d9);
                                         this.n9 = false;
@@ -938,19 +939,19 @@ public final class j {
                                     }
                                 }
 
-                                if (this.as == this.aA.length - 5) {
+                                if (this.as == this.menuTextItems.length - 5) {
                                     this.aU = 8;
                                     this.d();
                                     return;
                                 }
 
-                                if (this.as == this.aA.length - 4) {
+                                if (this.as == this.menuTextItems.length - 4) {
                                     this.c(2);
                                     return;
                                 }
 
-                                if (this.as != this.aA.length - 3 && this.as != this.aA.length - 2) {
-                                    if (this.as == this.aA.length - 1) {
+                                if (this.as != this.menuTextItems.length - 3 && this.as != this.menuTextItems.length - 2) {
+                                    if (this.as == this.menuTextItems.length - 1) {
                                         this.c(7);
                                         return;
                                     }
@@ -958,12 +959,12 @@ public final class j {
                                     return;
                                 }
 
-                                if (this.as == this.aA.length - 3) {
+                                if (this.as == this.menuTextItems.length - 3) {
                                     this.c(10);
                                     return;
                                 }
 
-                                this.aU = this.as - (this.aA.length - 3);
+                                this.aU = this.as - (this.menuTextItems.length - 3);
                                 this.d();
                                 return;
                             case 2:
@@ -1199,7 +1200,7 @@ public final class j {
                         }
                     case -2:
                     case 56:
-                        if (this.as < this.aA.length - 1) {
+                        if (this.as < this.menuTextItems.length - 1) {
                             ++this.as;
                             if (this.aW == this.aw) {
                                 ++this.bv;
@@ -1224,7 +1225,7 @@ public final class j {
                                 --this.bv;
                             }
                         } else {
-                            this.as = this.aA.length - 1;
+                            this.as = this.menuTextItems.length - 1;
                             this.bv = this.as - (this.Y - 1);
                         }
 
@@ -1392,11 +1393,11 @@ public final class j {
             case -5:
             case 53:
                 this.w();
-                if (this.bE && this.aJ == 0 && this.aA != null) {
+                if (this.bE && this.aJ == 0 && this.menuTextItems != null) {
                     var1 = this.as;
-                    var2 = this.aA.length;
+                    var2 = this.menuTextItems.length;
                     this.c(this.aJ);
-                    this.as = var1 + this.aA.length - var2;
+                    this.as = var1 + this.menuTextItems.length - var2;
                 }
             default:
                 return;
@@ -1458,8 +1459,8 @@ public final class j {
                             this.bv = 0;
                         }
 
-                        if (this.bv > this.aA.length - this.Y) {
-                            this.bv = this.aA.length - this.Y;
+                        if (this.bv > this.menuTextItems.length - this.Y) {
+                            this.bv = this.menuTextItems.length - this.Y;
                         }
 
                         if (this.bv != 0 && var5 != 0) {
@@ -1566,7 +1567,7 @@ public final class j {
             String[] var3;
             int var6;
             try {
-                if ((var3 = k.r[10 + var1 + 30]) != null && var3.length > 0 && var3[0].length() > 1 && var3[0].charAt(0) > ' ') {
+                if ((var3 = k.screenText[10 + var1 + 30]) != null && var3.length > 0 && var3[0].length() > 1 && var3[0].charAt(0) > ' ') {
                     String var4 = "";
                     boolean var5 = false;
 
@@ -1595,14 +1596,14 @@ public final class j {
             int var14;
             if (var1 != 5) {
                 String[] var13;
-                var3 = new String[(var13 = k.r[10 + var1 + this.bn]).length];
+                var3 = new String[(var13 = k.screenText[10 + var1 + this.bn]).length];
 
                 for(var14 = 0; var14 < var3.length; ++var14) {
                     var3[var14] = var13[var14];
                 }
 
                 if (p && var1 == 0 && ba) {
-                    var3[1] = k.r[34][0];
+                    var3[1] = k.screenText[34][0];
                 }
 
                 int var7;
@@ -1753,11 +1754,11 @@ public final class j {
                 var3 = new String[var14];
 
                 for(var6 = 0; var6 < var14; ++var6) {
-                    var3[var6] = k.r[14][0] + String.valueOf(var6 + 1);
+                    var3[var6] = k.screenText[14][0] + String.valueOf(var6 + 1);
 
                     try {
-                        if (k.bQ != null && var6 + 1 < k.bQ.length) {
-                            var3[var6] = k.bQ[var6 + 1][0];
+                        if (k.levelTitles != null && var6 + 1 < k.levelTitles.length) {
+                            var3[var6] = k.levelTitles[var6 + 1][0];
                         }
                     } catch (Exception var10) {
                     }
@@ -1782,7 +1783,7 @@ public final class j {
                 var2 = 1;
             }
 
-            this.aA = var3;
+            this.menuTextItems = var3;
             this.aJ = var1;
             this.as = var2;
             this.bv = 0;
@@ -1794,32 +1795,32 @@ public final class j {
         this.C();
     }
 
-    public static final void a(Graphics var0, String var1, boolean var2) {
-        var0.setClip(0, 0, e9, a9);
-        var0.setColor(0);
-        var0.fillRect(0, 0, e9, a9);
+    public static final void a(Graphics graphics, String var1, boolean useLoadingPicture) {
+        graphics.setClip(0, 0, e9, a9);
+        graphics.setColor(0);
+        graphics.fillRect(0, 0, e9, a9);
         boolean var3 = false;
         boolean var4 = false;
         int var6 = x.b() + 3;
         int var23 = 2;
-        if (var2) {
+        if (useLoadingPicture) {
             boolean var7 = true;
-            if (a9 > 100 && var2) {
+            if (a9 > 100 && useLoadingPicture) {
                 try {
                     try {
                         try {
-                            if (ad == null) {
-                                ad = AssetManager.readImageFromFileSafe(k.byteArrayToString(NET_Lizard.game.cr.menuGraphicsFilenames[16]));
-                                if (ad != null) {
+                            if (levelLoadingPicture == null) {
+                                levelLoadingPicture = AssetManager.readImageFromFileSafe(k.byteArrayToString(NET_Lizard.game.cr.menuGraphicsFilenames[16]));
+                                if (levelLoadingPicture != null) {
                                     try {
-                                        ad = AssetManager.a(ad);
+                                        levelLoadingPicture = AssetManager.addBlackBackground(levelLoadingPicture);
                                     } catch (OutOfMemoryError var17) {
                                     }
                                 }
 
-                                if (ad != null && (ad.getWidth() != e9 || ad.getHeight() != a9)) {
+                                if (levelLoadingPicture != null && (levelLoadingPicture.getWidth() != e9 || levelLoadingPicture.getHeight() != a9)) {
                                     try {
-                                        ad = AssetManager.a(ad, 0, 0, ad.getWidth(), ad.getHeight(), e9, a9, 0, false, true);
+                                        levelLoadingPicture = AssetManager.a(levelLoadingPicture, 0, 0, levelLoadingPicture.getWidth(), levelLoadingPicture.getHeight(), e9, a9, 0, false, true);
                                     } catch (OutOfMemoryError var16) {
                                     }
                                 }
@@ -1828,18 +1829,18 @@ public final class j {
                         }
 
                         try {
-                            if (ad == null && !u) {
-                                ad = AssetManager.readImageFromFileSafe(k.byteArrayToString(NET_Lizard.game.cr.menuGraphicsFilenames[16]));
-                                if (ad != null) {
+                            if (levelLoadingPicture == null && !u) {
+                                levelLoadingPicture = AssetManager.readImageFromFileSafe(k.byteArrayToString(NET_Lizard.game.cr.menuGraphicsFilenames[16]));
+                                if (levelLoadingPicture != null) {
                                     try {
-                                        ad = AssetManager.a(ad);
+                                        levelLoadingPicture = AssetManager.addBlackBackground(levelLoadingPicture);
                                     } catch (OutOfMemoryError var15) {
                                     }
                                 }
 
-                                if (ad != null && (ad.getWidth() != e9 || ad.getHeight() != a9)) {
+                                if (levelLoadingPicture != null && (levelLoadingPicture.getWidth() != e9 || levelLoadingPicture.getHeight() != a9)) {
                                     try {
-                                        ad = AssetManager.a(ad, 0, 0, ad.getWidth(), ad.getHeight(), e9, a9, 0, false, true);
+                                        levelLoadingPicture = AssetManager.a(levelLoadingPicture, 0, 0, levelLoadingPicture.getWidth(), levelLoadingPicture.getHeight(), e9, a9, 0, false, true);
                                     } catch (OutOfMemoryError var14) {
                                     }
                                 }
@@ -1847,27 +1848,30 @@ public final class j {
                         } catch (Exception var18) {
                         }
 
-                        if (ad != null) {
-                            var0.drawImage(ad, f9, b9, 3);
-                            int var8 = ad.getWidth() / 18;
+                        if (levelLoadingPicture != null) {
+                            // Draw loading picture itself
+                            graphics.drawImage(levelLoadingPicture, f9, b9, Graphics.HCENTER | Graphics.VCENTER);
+                            // Draw squares denoting the mission areas
+                            int rectSize = levelLoadingPicture.getWidth() / 18;
                             i9.ab = AssetManager.e1 * 10;
-                            int var9 = ad.getWidth() * 2 / 3;
-                            int var10 = i9.c() * (var9 - var8) / 100;
-                            int var11 = i9.c() * (var9 - var8) / 100;
-                            var10 = var10 - (var9 >> 1) + (e9 >> 1);
-                            var11 = var11 - (var9 >> 1) + (a9 >> 1);
-                            var0.setColor(16711680);
-                            var0.drawRect(var10, var11, var8, var8);
-                            var10 += var8 * 2;
-                            var11 -= var8 * 2;
-                            var0.setColor(255);
-                            var0.drawRect(var10, var11, var8, var8);
+                            int var9 = levelLoadingPicture.getWidth() * 2 / 3;
+                            int rectX = i9.c() * (var9 - rectSize) / 100;
+                            int rectY = i9.c() * (var9 - rectSize) / 100;
+                            rectX = rectX - (var9 >> 1) + (e9 >> 1);
+                            rectY = rectY - (var9 >> 1) + (a9 >> 1);
+                            graphics.setColor(GameColors.COLOR_RED);
+                            graphics.drawRect(rectX, rectY, rectSize, rectSize);
+                            rectX += rectSize * 2;
+                            rectY -= rectSize * 2;
+                            graphics.setColor(GameColors.COLOR_BLUE);
+                            graphics.drawRect(rectX, rectY, rectSize, rectSize);
+                            //i9.dE = true;
                         }
 
                         var7 = false;
                         if (!k.C) {
                             ac = null;
-                            ad = null;
+                            levelLoadingPicture = null;
                         }
 
                         return;
@@ -1884,13 +1888,13 @@ public final class j {
                     }
 
                     var23 = a9 - ac.getHeight() >> 1;
-                    var0.drawImage(ac, f9, var23, 17);
+                    graphics.drawImage(ac, f9, var23, 17);
                     if ((var23 += ac.getHeight() + 3) < b9 - var6) {
                         var23 = b9 - var6;
                     }
 
                     ac = null;
-                    ad = null;
+                    levelLoadingPicture = null;
                 } catch (Exception var13) {
                 }
             }
@@ -1898,31 +1902,31 @@ public final class j {
             var23 = b9 + var6;
         }
 
-        var0.setColor(z);
-        var0.setFont(defaultFont);
+        graphics.setColor(backgroundColor);
+        graphics.setFont(defaultFont);
 
         for(int var24 = 0; var24 < 1; ++var24) {
             if (var24 == 1) {
                 var23 += var6;
-                var1 = k.r[1][1] + String.valueOf(AssetManager.e1);
+                var1 = k.screenText[1][1] + String.valueOf(AssetManager.e1);
                 if (AssetManager.e1 < 1 || k.cq) {
                     var1 = "";
                 }
             }
 
             int var22 = e9 - x.a(var1) >> 1;
-            if (var2 || var24 < 1) {
-                x.a(var0, var1, var22, var23, 20);
+            if (useLoadingPicture || var24 < 1) {
+                x.a(graphics, var1, var22, var23, 20);
             }
         }
 
-        if (!var2) {
+        if (!useLoadingPicture) {
             try {
                 boolean var25 = false;
             } catch (Exception var12) {
             }
 
-            var0.setClip(0, 0, e9, a9);
+            graphics.setClip(0, 0, e9, a9);
         }
 
         if (!k.C) {
@@ -1932,18 +1936,18 @@ public final class j {
     }
 
     public static final void a(Graphics var0) {
-        a(var0, k.r[1][0], true);
+        a(var0, k.screenText[1][0], true);
     }
 
     public static final void a(Graphics var0, d var1, int var2) {
         try {
             if (AssetManager.e1 > 0) {
-                if (k.bQ != null) {
-                    var1.a(var0, k.bQ[AssetManager.e1][0], f9, var2, 17);
+                if (k.levelTitles != null) {
+                    var1.a(var0, k.levelTitles[AssetManager.e1][0], f9, var2, 17);
                     return;
                 }
 
-                var1.a(var0, k.r[1][1] + AssetManager.e1, f9, var2, 3);
+                var1.a(var0, k.screenText[1][1] + AssetManager.e1, f9, var2, 3);
             }
 
         } catch (Exception var4) {
@@ -1963,7 +1967,7 @@ public final class j {
         long var1 = 55L;
         long var3 = 900L;
         int var11;
-        if (!this.f()) {
+        if (!this.checkIfAlphaBlendingIsSupported()) {
             this.ap = 0;
         } else {
             for(; this.ap > 0; this.ap -= var11) {
@@ -2068,28 +2072,28 @@ public final class j {
 
             } else {
                 if (var1 != null) {
-                    if (this.bd != null) {
-                        var1.drawImage(this.bd, f9 + this.bf, 0, 17);
+                    if (this.splashScreenPicture != null) {
+                        var1.drawImage(this.splashScreenPicture, f9 + this.bf, 0, 17);
                     }
 
                     if (this.be != null) {
                         var1.drawImage(this.be, f9 - this.bf, a9 - this.be.getHeight(), 17);
                     }
 
-                    if ((this.bd != null || this.be != null) && this.ap > 0) {
-                        k.a(var1, 0, 0, e9, a9, this.aq, this.ap);
+                    if ((this.splashScreenPicture != null || this.be != null) && this.ap > 0) {
+                        k.fillRectTransparent(var1, 0, 0, e9, a9, this.aq, this.ap);
                         return;
                     }
 
-                    if (this.bd != null || this.be != null) {
+                    if (this.splashScreenPicture != null || this.be != null) {
                         this.f(var1);
                     }
 
-                    if (this.bd != null && i9.v != null && this.bm) {
-                        var1.drawImage(i9.v, -(i9.v.getWidth() >> 1), a9 - i9.v.getHeight(), 20);
+                    if (this.splashScreenPicture != null && i9.sprSoftkeyButtons != null && this.bm) {
+                        var1.drawImage(i9.sprSoftkeyButtons, -(i9.sprSoftkeyButtons.getWidth() >> 1), a9 - i9.sprSoftkeyButtons.getHeight(), 20);
                     }
 
-                    if (this.bd != null) {
+                    if (this.splashScreenPicture != null) {
                         return;
                     }
 
@@ -2112,7 +2116,7 @@ public final class j {
                             var2 = A;
                         }
 
-                        if (this.aA != null) {
+                        if (this.menuTextItems != null) {
                             if (i9.cs == null && this.n9) {
                                 int var3 = 2;
                                 if (e9 >= 240) {
@@ -2154,8 +2158,8 @@ public final class j {
                                     var39 = 1;
                                 }
 
-                                if (var39 > this.aA.length) {
-                                    var39 = this.aA.length;
+                                if (var39 > this.menuTextItems.length) {
+                                    var39 = this.menuTextItems.length;
                                 }
 
                                 int var38 = a9 - (var5 + var6) * var39 >> 1;
@@ -2165,8 +2169,8 @@ public final class j {
                                 }
 
                                 if (var1 != null) {
-                                    if (this.G != null) {
-                                        var1.drawImage(this.G, f9, b9, 3);
+                                    if (this.menuBackgroundPicture != null) {
+                                        var1.drawImage(this.menuBackgroundPicture, f9, b9, 3);
                                     } else if (!i9.aO) {
                                         var1.setColor(8355711);
                                         var1.fillRect(0, 0, e9, a9);
@@ -2181,14 +2185,14 @@ public final class j {
                                     if ((var16 = (var15 = this.aX.length * var2.b()) + 4) > 0) {
                                         if (var1 != null) {
                                             var1.setColor(0);
-                                            if (this.f()) {
-                                                k.a(var1, 0, 0, e9, var16, 0, 128);
+                                            if (this.checkIfAlphaBlendingIsSupported()) {
+                                                k.fillRectTransparent(var1, 0, 0, e9, var16, 0, 128);
                                             } else {
                                                 a(var1, 0, 0, e9, var16, 0, 128);
                                             }
 
-                                            if (this.f()) {
-                                                k.a(var1, 0, a9 - var16, e9, var16, 0, 128);
+                                            if (this.checkIfAlphaBlendingIsSupported()) {
+                                                k.fillRectTransparent(var1, 0, a9 - var16, e9, var16, 0, 128);
                                             } else {
                                                 a(var1, 0, a9 - var16, e9, var16, 0, 128);
                                             }
@@ -2214,8 +2218,8 @@ public final class j {
 
                                 var40 = 5;
                                 if (this.aJ != 3) {
-                                    if (i9.x[2] != null) {
-                                        var40 = i9.x[2].getHeight() >> 1;
+                                    if (i9.sprArrows[2] != null) {
+                                        var40 = i9.sprArrows[2].getHeight() >> 1;
                                     }
                                 } else {
                                     var40 = 0;
@@ -2235,21 +2239,21 @@ public final class j {
                                         var23 = 0;
                                     }
 
-                                    var21[0] = k.r[8][var23];
+                                    var21[0] = k.screenText[8][var23];
                                     var21[1] = "" + m.K + "%";
                                     var23 = 1;
                                     if (k.du) {
                                         var23 = 0;
                                     }
 
-                                    var21[2] = k.r[19][var23];
+                                    var21[2] = k.screenText[19][var23];
                                     var23 = 1;
                                     if (k.fe) {
                                         if (AssetManager.o) {
                                             var23 = 0;
                                         }
 
-                                        var21[3] = k.r[8][var23];
+                                        var21[3] = k.screenText[8][var23];
                                     } else {
                                         var21[2] = "";
                                     }
@@ -2266,13 +2270,13 @@ public final class j {
                                         ++var42;
                                     }
 
-                                    var21[0] = k.r[1][var42];
+                                    var21[0] = k.screenText[1][var42];
                                     var42 = 0;
                                     if (!k.ax) {
                                         ++var42;
                                     }
 
-                                    var21[1] = k.r[8][var42];
+                                    var21[1] = k.screenText[8][var42];
                                 }
 
                                 int var24;
@@ -2280,8 +2284,8 @@ public final class j {
                                 if (this.aD) {
                                     var41 = 1;
 
-                                    for(var24 = 0; var24 < this.aA.length; ++var24) {
-                                        var20 = this.aA[var24];
+                                    for(var24 = 0; var24 < this.menuTextItems.length; ++var24) {
+                                        var20 = this.menuTextItems[var24];
                                         if (this.aJ == 2 && var24 < var21.length) {
                                             var20 = var20 + var21[var24];
                                         }
@@ -2313,7 +2317,7 @@ public final class j {
                                 this.aW = -1;
                                 if (this.aF != null) {
                                     this.aE = this.aF.getWidth();
-                                    int var25 = this.bI - 64 * this.aA.length;
+                                    int var25 = this.bI - 64 * this.menuTextItems.length;
                                     this.bH -= 64;
                                     if (this.bH < var25) {
                                         this.bH = var25;
@@ -2325,8 +2329,8 @@ public final class j {
                                 boolean var27 = true;
 
                                 int var30;
-                                for(int var28 = 0; var28 < this.aA.length; ++var28) {
-                                    var20 = this.aA[var28];
+                                for(int var28 = 0; var28 < this.menuTextItems.length; ++var28) {
+                                    var20 = this.menuTextItems[var28];
                                     if (this.aJ == 2 && var28 < var21.length) {
                                         var20 = var20 + var21[var28];
                                     }
@@ -2345,9 +2349,9 @@ public final class j {
                                         var41 = var37;
                                         ++var8;
                                         var30 = var6 >> 1;
-                                        if (this.f()) {
+                                        if (this.checkIfAlphaBlendingIsSupported()) {
                                             if (var1 != null) {
-                                                k.a(var1, 0, var37 - var30, e9, var5 + var6, 0, 128);
+                                                k.fillRectTransparent(var1, 0, var37 - var30, e9, var5 + var6, 0, 128);
                                             } else {
                                                 a(var1, 0, var37 - var30, e9, var5 + var6, 0, 128);
                                             }
@@ -2373,7 +2377,7 @@ public final class j {
                                             }
 
                                             if (var1 != null) {
-                                                var1.setColor(z);
+                                                var1.setColor(backgroundColor);
                                             }
 
                                             if (var1 != null) {
@@ -2430,7 +2434,7 @@ public final class j {
                                             }
 
                                             if (var1 != null) {
-                                                var1.setColor(z);
+                                                var1.setColor(backgroundColor);
                                                 var2.a(var1, var20, var15, var37 + var3, 20);
                                             }
                                         }
@@ -2498,21 +2502,21 @@ public final class j {
                                 var43 += a9 - var30;
                                 var1.setColor(0);
                                 boolean var44 = this.aJ != 3 & this.aJ != 0;
-                                String var45 = k.r[11][1];
+                                String var45 = k.screenText[11][1];
                                 if (this.aJ == 0) {
-                                    var45 = k.r[11][5];
+                                    var45 = k.screenText[11][5];
                                 }
 
                                 if (this.S == null) {
                                     boolean var33 = false;
-                                    var1.fillRect(0, a9 - var30 - 0, var2.a(k.r[11][0]) + 4, var30 + 0);
+                                    var1.fillRect(0, a9 - var30 - 0, var2.a(k.screenText[11][0]) + 4, var30 + 0);
                                     int var34 = var2.a(var45) + 3;
                                     if (var44) {
                                         var1.fillRect(e9 - var34, a9 - var30 - 0, var34, var30 + 0);
                                     }
 
                                     var1.setColor(100, 100, 100);
-                                    int var35 = var2.a(k.r[11][0]) + 4;
+                                    int var35 = var2.a(k.screenText[11][0]) + 4;
                                     var1.drawRect(0, a9 - var30 - 0, var35 - 1, var30 - 1 + 0);
                                     if (var44) {
                                         var1.drawRect(e9 - var34, a9 - var30 - 0, var34 - 1, var30 - 1 + 0);
@@ -2523,13 +2527,13 @@ public final class j {
                                     var43 = a9 - this.S.getHeight() + (this.S.getHeight() - var2.b() >> 1);
                                 }
 
-                                this.b(var1, var2, k.r[11][0], 2, var43);
+                                this.b(var1, var2, k.screenText[11][0], 2, var43);
                                 if (var44) {
                                     this.b(var1, var2, var45, e9 - 1, var43);
                                 }
 
-                                var1.setColor(z);
-                                var2.a(var1, k.r[11][0], 2, var43, 20);
+                                var1.setColor(backgroundColor);
+                                var2.a(var1, k.screenText[11][0], 2, var43, 20);
                                 if (var44) {
                                     var2.a(var1, var45, e9 - 1, var43, 24);
                                 }
@@ -2552,11 +2556,11 @@ public final class j {
         }
     }
 
-    private final void c(Graphics var1) {
+    private final void c(Graphics graphics) {
         if (this.introPictures != null) {
             try {
-                var1.setColor(0);
-                var1.fillRect(0, 0, e9, a9);
+                graphics.setColor(0);
+                graphics.fillRect(0, 0, e9, a9);
                 i9.ab = 0;
                 int var2 = a9 - this.introPictures[1].getHeight();
                 int var3 = e9 * var2 / 40;
@@ -2566,15 +2570,15 @@ public final class j {
                     var4 = true;
                 }
 
-                Graphics var5 = var1;
+                Graphics var5 = graphics;
                 int var6;
                 int var7;
-                if (this.m9 != null) {
-                    var1.drawImage(this.m9, 0, 0, 20);
+                if (this.starSkyPicture != null) {
+                    graphics.drawImage(this.starSkyPicture, 0, 0, 20);
                 } else {
                     if (this.l9) {
-                        this.m9 = Image.createImage(e9, var2);
-                        (var5 = this.m9.getGraphics()).setColor(0);
+                        this.starSkyPicture = Image.createImage(e9, var2);
+                        (var5 = this.starSkyPicture.getGraphics()).setColor(GameColors.COLOR_BLACK);
                         var5.fillRect(0, 0, e9, var2);
                     }
 
@@ -2618,8 +2622,8 @@ public final class j {
                         }
                     }
 
-                    if (this.m9 != null) {
-                        var1.drawImage(this.m9, 0, 0, 20);
+                    if (this.starSkyPicture != null) {
+                        graphics.drawImage(this.starSkyPicture, 0, 0, 20);
                     }
                 }
 
@@ -2640,11 +2644,11 @@ public final class j {
 
                         do {
                             if (var7 > -this.introPictures[var6].getWidth()) {
-                                var1.drawImage(this.introPictures[var6], var7, this.K[var6][1], 20);
+                                graphics.drawImage(this.introPictures[var6], var7, this.K[var6][1], 20);
                             }
                         } while((var7 += this.introPictures[var6].getWidth()) < e9);
                     } else if (this.introPictures[var6] != null && this.K[var6][0] > -this.introPictures[var6].getWidth()) {
-                        var1.drawImage(this.introPictures[var6], this.K[var6][0], this.K[var6][1], 20);
+                        graphics.drawImage(this.introPictures[var6], this.K[var6][0], this.K[var6][1], 20);
                     }
                 }
 
@@ -2726,13 +2730,13 @@ public final class j {
             int var20;
             int var21;
             if (var1 != null) {
-                if ((this.G == null || this.G.getWidth() < e9 || this.G.getHeight() < var6) && this.introPictures == null) {
+                if ((this.menuBackgroundPicture == null || this.menuBackgroundPicture.getWidth() < e9 || this.menuBackgroundPicture.getHeight() < var6) && this.introPictures == null) {
                     var1.setColor(0);
                     var1.fillRect(0, 0, e9, var6);
                 }
 
-                if (this.G != null && this.introPictures == null) {
-                    var1.drawImage(this.G, f9, b9, 3);
+                if (this.menuBackgroundPicture != null && this.introPictures == null) {
+                    var1.drawImage(this.menuBackgroundPicture, f9, b9, 3);
                 }
 
                 if (this.ae != null) {
@@ -2771,8 +2775,8 @@ public final class j {
                     }
 
                     var20 = var18 - this.bL;
-                    if (this.f()) {
-                        k.a(var1, 0, var6 - var20 >> 1, e9, var20, 0, 128);
+                    if (this.checkIfAlphaBlendingIsSupported()) {
+                        k.fillRectTransparent(var1, 0, var6 - var20 >> 1, e9, var20, 0, 128);
                     } else {
                         a(var1, 0, var6 - var20 >> 1, e9, var20, 0, 128);
                     }
@@ -2819,7 +2823,7 @@ public final class j {
                 }
 
                 if (this.ae == null) {
-                    var1.setColor(z);
+                    var1.setColor(backgroundColor);
                     var20 = var11 - (var2.b() - var2.f3) >> 1;
                     this.b(var1, var2, this.az[0], 1, var20);
                     var2.a(var1, this.az[0], 1, var20, 20);
@@ -2829,10 +2833,10 @@ public final class j {
                     }
 
                     var20 += var6 - var11;
-                    this.b(var1, var2, k.r[11][2], 1, var20);
-                    var2.a(var1, k.r[11][2], 1, var20, 20);
-                    this.b(var1, var2, k.r[11][var21], e9 - 1, var20);
-                    var2.a(var1, k.r[11][var21], e9 - 1, var20, 24);
+                    this.b(var1, var2, k.screenText[11][2], 1, var20);
+                    var2.a(var1, k.screenText[11][2], 1, var20, 20);
+                    this.b(var1, var2, k.screenText[11][var21], e9 - 1, var20);
+                    var2.a(var1, k.screenText[11][var21], e9 - 1, var20, 24);
                 }
             }
 
@@ -3017,11 +3021,11 @@ public final class j {
             int var4 = (var3 = (var2 = x).b() - var2.f3 + 5) - (var2.b() - var2.f3) >> 1;
             String var5 = "";
             if (this.bF == 1) {
-                var5 = k.r[1][8];
+                var5 = k.screenText[1][8];
 
                 try {
                     if (i9.v()) {
-                        var5 = k.r[1][11];
+                        var5 = k.screenText[1][11];
                     }
                 } catch (Exception var8) {
                 }
@@ -3029,15 +3033,15 @@ public final class j {
 
             int var6;
             if (this.bF == 2) {
-                var5 = k.r[1][2] + k.r[1][5];
-                k.a(var1, 0, a9 - var3, e9, var3, 0, 190);
+                var5 = k.screenText[1][2] + k.screenText[1][5];
+                k.fillRectTransparent(var1, 0, a9 - var3, e9, var3, 0, 190);
                 var6 = a9 - var3;
-                var2.a(var1, k.r[1][3], 2, var6 + var4, 20);
-                var2.a(var1, k.r[1][4], e9 - 1 - 2, var6 + var4, 24);
+                var2.a(var1, k.screenText[1][3], 2, var6 + var4, 20);
+                var2.a(var1, k.screenText[1][4], e9 - 1 - 2, var6 + var4, 24);
             }
 
             var6 = a9 - var3 >> 1;
-            k.a(var1, 0, var6, e9, var3, 0, 190);
+            k.fillRectTransparent(var1, 0, var6, e9, var3, 0, 190);
             var2.a(var1, var5, f9, var6 + var4, 17);
         }
 
@@ -3109,7 +3113,7 @@ public final class j {
                 br = null;
             } else if (this.aU == 3) {
                 boolean var4 = false;
-                var3 = k.r[23][0] + '\r' + k.r[23][1] + this.d9;
+                var3 = k.screenText[23][0] + '\r' + k.screenText[23][1] + this.d9;
             } else if (this.aU == 8) {
                 var3 = k();
             } else {
@@ -3132,7 +3136,7 @@ public final class j {
 
             i9.c(-1);
             this.W = 3;
-            this.G = null;
+            this.menuBackgroundPicture = null;
             this.l();
             this.aa = true;
             this.az = AssetManager.instanceHandler.a(var3, A, e9 - 2 * this.bu - this.bG - this.bK - 1, true);
@@ -3172,7 +3176,7 @@ public final class j {
                 this.af = new int[this.ae.length][2];
                 if (this.ae[0] != null) {
                     try {
-                        this.ae[0] = AssetManager.a(this.ae[0]);
+                        this.ae[0] = AssetManager.addBlackBackground(this.ae[0]);
                     } catch (OutOfMemoryError var7) {
                     }
 
@@ -3211,21 +3215,21 @@ public final class j {
         this.j9 = this.k9;
         if (i9.aO && k.cq) {
             this.j9 = -1;
-            this.G = null;
+            this.menuBackgroundPicture = null;
         } else {
-            if (this.G == null) {
+            if (this.menuBackgroundPicture == null) {
                 this.b(k.byteArrayToString(this.menuGraphicsFilenames[14]), (Image)null);
             }
 
-            if (this.G == null) {
+            if (this.menuBackgroundPicture == null) {
                 this.b(k.byteArrayToString(this.menuGraphicsFilenames[15]), (Image)null);
             }
 
-            if (this.G == null) {
+            if (this.menuBackgroundPicture == null) {
                 this.b(k.byteArrayToString(this.menuGraphicsFilenames[11]), (Image)null);
             }
 
-            if (this.G != null) {
+            if (this.menuBackgroundPicture != null) {
                 this.j9 = this.k9;
             }
 
@@ -3235,26 +3239,26 @@ public final class j {
     }
 
     private final void a(Graphics var1, int var2, int var3, boolean var4, boolean var5) {
-        if (i9.x[2] != null) {
-            int var6 = i9.x[2].getWidth();
-            int var7 = i9.x[2].getHeight() >> 1;
+        if (i9.sprArrows[2] != null) {
+            int var6 = i9.sprArrows[2].getWidth();
+            int var7 = i9.sprArrows[2].getHeight() >> 1;
             int var8 = f9 - (var6 >> 1);
             if (this.aF != null) {
                 var8 = this.aF.getWidth() * 10 / 166 - (var6 >> 1);
             }
 
             int var9 = 0;
-            Image var10 = i9.x[2];
+            Image var10 = i9.sprArrows[2];
             if (var5) {
                 var9 = var7;
                 var2 += this.bw;
-                if (this.Q && i9.x[3] != null) {
-                    var10 = i9.x[3];
+                if (this.Q && i9.sprArrows[3] != null) {
+                    var10 = i9.sprArrows[3];
                 }
             } else {
                 var2 = var2 - var7 - this.bw;
-                if (this.R && i9.x[3] != null) {
-                    var10 = i9.x[3];
+                if (this.R && i9.sprArrows[3] != null) {
+                    var10 = i9.sprArrows[3];
                 }
             }
 
@@ -3520,7 +3524,7 @@ public final class j {
 
     public final void e() {
         this.ax = false;
-        this.bd = null;
+        this.splashScreenPicture = null;
         this.be = null;
         this.NetLizardLogo = null;
         this.j9 = -1;
@@ -3579,7 +3583,7 @@ public final class j {
         }
 
         this.be = null;
-        this.bd = null;
+        this.splashScreenPicture = null;
         this.N = 0;
         this.U = false;
         this.T = true;
@@ -3724,8 +3728,8 @@ public final class j {
         }
 
         if (i9.S && h.G != 1L) {
-            if (ad == null) {
-                ad = j();
+            if (levelLoadingPicture == null) {
+                levelLoadingPicture = j();
             }
 
             i9.g();
@@ -3737,11 +3741,11 @@ public final class j {
 
         this.ae = null;
         k.l();
-        k.a5 = null;
+        k.transparentRegionData = null;
         this.az = null;
-        this.aA = null;
+        this.menuTextItems = null;
         this.NetLizardLogo = null;
-        this.G = null;
+        this.menuBackgroundPicture = null;
         this.aF = null;
         this.aG = null;
         this.aH = null;
@@ -3808,27 +3812,27 @@ public final class j {
         this.i();
     }
 
-    final boolean f() {
-        if (this.bC < 0) {
-            this.bC = 0;
+    final boolean checkIfAlphaBlendingIsSupported() {
+        if (this.alphaBlendingSupported < 0) {
+            this.alphaBlendingSupported = 0;
 
             try {
-                Image var1;
-                Graphics var2;
-                (var2 = (var1 = Image.createImage(1, 1)).getGraphics()).setColor(16777215);
-                var2.fillRect(0, 0, 1, 1);
-                k.a(var2, 0, 0, 1, 1, 0, 127);
-                int[] var3 = new int[1];
-                var1.getRGB(var3, 0, 1, 0, 0, 1, 1);
-                int var4;
-                if ((var4 = var3[0] & 255) > 96 && var4 < 160) {
-                    this.bC = 1;
+                Image img;
+                Graphics imgGraphics;
+                (imgGraphics = (img = Image.createImage(1, 1)).getGraphics()).setColor(GameColors.COLOR_WHITE);
+                imgGraphics.fillRect(0, 0, 1, 1);
+                k.fillRectTransparent(imgGraphics, 0, 0, 1, 1, 0, 127);
+                int[] imgRGB = new int[1];
+                img.getRGB(imgRGB, 0, 1, 0, 0, 1, 1);
+                int pixelColor;
+                if ((pixelColor = imgRGB[0] & 255) > 96 && pixelColor < 160) {
+                    this.alphaBlendingSupported = 1;
                 }
-            } catch (Exception var6) {
+            } catch (Exception ignore) {
             }
         }
 
-        return this.bC > 0;
+        return this.alphaBlendingSupported > 0;
     }
 
     private boolean a(byte[] var1, int var2) {
@@ -4049,14 +4053,14 @@ public final class j {
             var1.fillRect(0, 0, e9, a9);
             if (this.ar < e9) {
                 int var2 = (a9 >> 3) * 3 - (this.NetLizardLogo.getHeight() >> 1);
-                if (this.H == null && this.ar < 0) {
+                if (this.loadingPicture == null && this.ar < 0) {
                     var2 = a9 - this.NetLizardLogo.getHeight() >> 1;
                 }
 
                 var1.drawImage(this.NetLizardLogo, (e9 >> 1) - (this.NetLizardLogo.getWidth() >> 1), var2, 20);
                 if (this.ar >= 0) {
-                    if (this.H != null) {
-                        var1.drawImage(this.H, (e9 >> 1) - (this.H.getWidth() >> 1), a9 - (a9 >> 3) - (this.H.getHeight() >> 1), 20);
+                    if (this.loadingPicture != null) {
+                        var1.drawImage(this.loadingPicture, (e9 >> 1) - (this.loadingPicture.getWidth() >> 1), a9 - (a9 >> 3) - (this.loadingPicture.getHeight() >> 1), 20);
                     }
 
                     var1.setColor(185, 185, 185);
@@ -4082,7 +4086,7 @@ public final class j {
             }
 
             if (this.ap > 0) {
-                k.a(var1, 0, 0, e9, a9, this.aq, this.ap);
+                k.fillRectTransparent(var1, 0, 0, e9, a9, this.aq, this.ap);
             }
 
         } catch (Exception var16) {
