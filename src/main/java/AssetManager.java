@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import java.io.DataInputStream;
 import java.io.InputStream;
 import javax.microedition.lcdui.Display;
@@ -337,7 +332,11 @@ public final class AssetManager {
     }
 
     private static String decodeBinaryString(int[] encodedString) {
-        String decodedString = new String();
+        String str = new String();
+        long byte1 = 255L;
+        long byte2 = 65280L;
+        long byte3 = 16711680L;
+        long byte4 = 4278190080L;
 
         for(int i = 0; i < encodedString.length; ++i) {
             long currentValue;
@@ -345,25 +344,25 @@ public final class AssetManager {
                 currentValue += 4294967296L;
             }
 
-            decodedString = decodedString + (char)((int)((currentValue & 4278190080L) >> 24));
+            str = str + (char)((int)((currentValue & byte4) >> 24));
             byte decodedSymbol;
-            if ((decodedSymbol = (byte)((int)((currentValue & 16711680L) >> 16))) == 0) {
+            if ((decodedSymbol = (byte)((int)((currentValue & byte3) >> 16))) == 0) {
                 break;
             }
 
-            decodedString = decodedString + (char)decodedSymbol;
-            if ((decodedSymbol = (byte)((int)((currentValue & 65280L) >> 8))) == 0) {
+            str = str + (char)decodedSymbol;
+            if ((decodedSymbol = (byte)((int)((currentValue & byte2) >> 8))) == 0) {
                 break;
             }
 
-            decodedString = decodedString + (char)decodedSymbol;
-            if ((decodedSymbol = (byte)((int)(currentValue & 255L))) == 0) {
+            str = str + (char)decodedSymbol;
+            if ((decodedSymbol = (byte)((int)(currentValue & byte1))) == 0) {
                 break;
             }
 
-            decodedString = decodedString + (char)decodedSymbol;
+            str = str + (char)decodedSymbol;
         }
-        return decodedString;
+        return str;
     }
 
     private String[][] b(String var1, int var2) {

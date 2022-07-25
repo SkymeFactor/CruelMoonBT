@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -314,21 +309,21 @@ public final class c implements Runnable {
 
     }
 
-    private static int[] a(Image var0, int var1, int var2, int var3, int var4, int var5) {
-        Image var8 = Image.createImage(var3, var4);
-        Image var9 = Image.createImage(var3, var4);
+    private static int[] a(Image var0, int var1, int var2, int width, int height, int var5) {
+        Image var8 = Image.createImage(width, height);
+        Image var9 = Image.createImage(width, height);
         Graphics var10;
         (var10 = var8.getGraphics()).setColor(0);
-        var10.fillRect(0, 0, var3, var4);
+        var10.fillRect(0, 0, width, height);
         var10.drawImage(var0, -var1, -var2, 20);
         Graphics var11;
-        (var11 = var9.getGraphics()).setColor(16777215);
-        var11.fillRect(0, 0, var3, var4);
+        (var11 = var9.getGraphics()).setColor(GameColors.COLOR_WHITE);
+        var11.fillRect(0, 0, width, height);
         var11.drawImage(var0, -var1, -var2, 20);
-        int[] var12 = new int[var3 * var4];
-        var8.getRGB(var12, 0, var3, 0, 0, var3, var4);
-        int[] var13 = new int[var3 * var4];
-        var9.getRGB(var13, 0, var3, 0, 0, var3, var4);
+        int[] var12 = new int[width * height];
+        var8.getRGB(var12, 0, width, 0, 0, width, height);
+        int[] var13 = new int[width * height];
+        var9.getRGB(var13, 0, width, 0, 0, width, height);
 
         for(int var14 = 0; var14 < var12.length; ++var14) {
             if ((var12[var14] & 16777215) <= 2105376 && (var13[var14] & 16777215) >= 14671839) {
@@ -348,11 +343,11 @@ public final class c implements Runnable {
             var20 = new int[var12.length];
             var18 = 0;
 
-            for(var16 = 0; var16 < var4; ++var16) {
-                var17 = var3 - 1;
+            for(var16 = 0; var16 < height; ++var16) {
+                var17 = width - 1;
 
-                for(var15 = 0; var15 < var3; ++var15) {
-                    var20[var18 * var3 + var17] = var19[var16 * var3 + var15];
+                for(var15 = 0; var15 < width; ++var15) {
+                    var20[var18 * width + var17] = var19[var16 * width + var15];
                     --var17;
                 }
 
@@ -364,13 +359,13 @@ public final class c implements Runnable {
             return var12;
         } else {
             var20 = new int[var12.length];
-            var18 = var4 - 1;
+            var18 = height - 1;
 
-            for(var16 = 0; var16 < var4; ++var16) {
+            for(var16 = 0; var16 < height; ++var16) {
                 var17 = 0;
 
-                for(var15 = 0; var15 < var3; ++var15) {
-                    var20[var18 * var3 + var17] = var19[var16 * var3 + var15];
+                for(var15 = 0; var15 < width; ++var15) {
+                    var20[var18 * width + var17] = var19[var16 * width + var15];
                     ++var17;
                 }
 
