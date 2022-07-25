@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import java.util.Random;
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Display;
@@ -11,7 +6,7 @@ import javax.microedition.lcdui.Image;
 
 // Game logic + rendering
 public final class k extends NokiaCanvasWrapper implements Runnable {
-    static n b10;
+    static BluetoothManager btManager;
     int screenHeight;
     int screenWidth;
     int customSoftKeyCode;
@@ -635,7 +630,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     }
 
     private boolean A() {
-        return n.b12 ^ this.bn;
+        return BluetoothManager.isServer ^ this.bn;
     }
 
     final void a() {
@@ -1202,7 +1197,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
         var1.setClip(0, 0, this.screenWidth, this.screenHeight);
         int var4;
         int var5;
-        if (this.G != null && this.G.length > 0 && (this.bL != 5 && this.bL != 6 || b10 == null || n.s)) {
+        if (this.G != null && this.G.length > 0 && (this.bL != 5 && this.bL != 6 || btManager == null || BluetoothManager.isRunning)) {
             var3 = true;
             var4 = var2.b();
             var5 = this.G.length * var4 + 2;
@@ -1220,10 +1215,10 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
         if (this.sprBluetoothIcons != null && this.sprBluetoothIcons[0] != null && this.sprBluetoothIcons[1] != null && var3) {
             var4 = 0;
-            if (b10 != null) {
-                if (n.g12) {
+            if (btManager != null) {
+                if (BluetoothManager.isConnected) {
                     var4 = 1;
-                } else if ((this.bL == 1 || this.bL == 0) && n.s) {
+                } else if ((this.bL == 1 || this.bL == 0) && BluetoothManager.isRunning) {
                     ++this.J;
                     if (this.J > 3) {
                         this.J = 0;
@@ -1390,13 +1385,13 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     final void d() {
         if (cy) {
             boolean var1 = false;
-            if (b10 != null && n.g12 && !n.b12) {
+            if (btManager != null && BluetoothManager.isConnected && !BluetoothManager.isServer) {
                 long var2 = System.currentTimeMillis();
 
-                while(n.g12) {
-                    if (n.r && n.g12) {
-                        b10.i12[0] = 125;
-                        n.r = false;
+                while(BluetoothManager.isConnected) {
+                    if (BluetoothManager.isAwaitingData && BluetoothManager.isConnected) {
+                        btManager.sendBuffer[0] = 125;
+                        BluetoothManager.isAwaitingData = false;
                         var1 = true;
                     }
 
@@ -1411,9 +1406,9 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 }
             }
 
-            if (b10 != null) {
-                b10.h12[0] = 0;
-                b10.i12[0] = 0;
+            if (btManager != null) {
+                btManager.receiveBuffer[0] = 0;
+                btManager.sendBuffer[0] = 0;
             }
 
             this.F();
@@ -1425,13 +1420,13 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     }
 
     private void F() {
-        if (n.g12) {
+        if (BluetoothManager.isConnected) {
             this.c(3);
         }
 
-        b10.a();
-        b10.w = null;
-        n.c12 = null;
+        btManager.abortConnection();
+        btManager.remoteServerName = null;
+        BluetoothManager.connectionURL = null;
     }
 
     private final void G() {
@@ -1768,11 +1763,11 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
         if (!cy) {
             return false;
         } else {
-            if (!n.s && n.c12 != null) {
-                n.b12 = false;
-                b10.m12 = 0;
-                b10.b();
-                if (!n.b12) {
+            if (!BluetoothManager.isRunning && BluetoothManager.connectionURL != null) {
+                BluetoothManager.isServer = false;
+                btManager.connectionState = 0;
+                btManager.launchInSeparateThread();
+                if (!BluetoothManager.isServer) {
                     if (cq && this.cr != null) {
                         this.cr.N = 0;
                         this.cr.T = true;
@@ -1787,7 +1782,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                         } catch (Exception var2) {
                         }
 
-                        if (b10.m12 == 1) {
+                        if (btManager.connectionState == 1) {
                             if (cq && this.cr != null) {
                                 this.cr.N = 0;
                                 this.cr.T = true;
@@ -1809,14 +1804,14 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                             return false;
                         }
 
-                        if (b10.m12 == -1) {
+                        if (btManager.connectionState == -1) {
                             return false;
                         }
                     }
                 }
             }
 
-            return n.g12;
+            return BluetoothManager.isConnected;
         }
     }
 
@@ -1951,7 +1946,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
     private final void J() {
         if (cy) {
-            if (!n.b12) {
+            if (!BluetoothManager.isServer) {
                 for(int var1 = 0; var1 < this.cU; ++var1) {
                     if (this.ch[0][var1] > 0) {
                         if (this.ch[8][var1] == 1) {
@@ -2244,42 +2239,44 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
         }
     }
 
-    private static void a(String var0) {
-        if (b10 != null && var0 != null && var0.length() > 0) {
-            char[] var1 = new char[var0.length()];
+    private static void changeBtServiceUUID(String uuid) {
+        if (btManager != null && uuid != null && uuid.length() > 0) {
+            char[] hexUUID = new char[uuid.length()];
 
-            for(int var2 = 0; var2 < var1.length; ++var2) {
-                int var3;
-                if ((var3 = var0.charAt(var2)) < 48) {
-                    var3 = 48;
+            // Convert uuid to hexadecimal numeric
+            for(int i = 0; i < hexUUID.length; ++i) {
+                int ch;
+                // Less than 0 ascii
+                if ((ch = uuid.charAt(i)) < 48) {
+                    ch = 48;
+                }
+                // Uppercase letters A-F
+                if (ch >= 65 && ch <= 70) {
+                    ch = ch - 65 + 97;
+                }
+                // Greater than f ascii
+                if (ch > 102) {
+                    ch = 102;
+                }
+                // Other uppercase letters F-a
+                if (ch > 57 && ch < 97) {
+                    ch = 97;
                 }
 
-                if (var3 >= 65 && var3 <= 70) {
-                    var3 = var3 - 65 + 97;
-                }
-
-                if (var3 > 102) {
-                    var3 = 102;
-                }
-
-                if (var3 > 57 && var3 < 97) {
-                    var3 = 97;
-                }
-
-                var1[var2] = (char)var3;
+                hexUUID[i] = (char)ch;
             }
 
-            String var4;
-            if ((var4 = new String(var1)).length() > 32) {
-                var4 = var4.substring(0, 32);
+            String partialUUID;
+            if ((partialUUID = new String(hexUUID)).length() > 32) {
+                partialUUID = partialUUID.substring(0, 32);
             }
 
-            b10.a12 = b10.a12.substring(0, b10.a12.length() - var4.length()) + var4;
+            btManager.serviceUUID = btManager.serviceUUID.substring(0, btManager.serviceUUID.length() - partialUUID.length()) + partialUUID;
         }
     }
 
     final void f() {
-        a("99");
+        changeBtServiceUUID("99");
     }
 
     private final void N() {
@@ -3474,13 +3471,13 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     final boolean h() {
         if (!cy) {
             return false;
-        } else if (!n.s) {
+        } else if (!BluetoothManager.isRunning) {
             this.c(1);
-            n.b12 = false;
-            b10.w = null;
-            n.c12 = null;
-            b10.l12 = true;
-            b10.b();
+            BluetoothManager.isServer = false;
+            btManager.remoteServerName = null;
+            BluetoothManager.connectionURL = null;
+            btManager.isInDiscoveryMode = true;
+            btManager.launchInSeparateThread();
             return true;
         } else {
             this.c(5);
@@ -5579,14 +5576,14 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
     private void al() {
         if (cy) {
-            if (this.aO && this.dB && !n.g12) {
+            if (this.aO && this.dB && !BluetoothManager.isConnected) {
                 this.aD();
                 this.ao();
                 this.c(3);
             }
 
-            if (n.r && n.g12) {
-                if (b10.h12[0] == 125 && n.b12) {
+            if (BluetoothManager.isAwaitingData && BluetoothManager.isConnected) {
+                if (btManager.receiveBuffer[0] == 125 && BluetoothManager.isServer) {
                     this.d();
                     return;
                 }
@@ -5597,7 +5594,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 int var6;
                 try {
                     int var2;
-                    if ((var2 = (var1 = b10.h12).length) > ai) {
+                    if ((var2 = (var1 = btManager.receiveBuffer).length) > ai) {
                         var2 = ai;
                     }
 
@@ -5899,7 +5896,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 }
 
                 try {
-                    var1 = b10.i12;
+                    var1 = btManager.sendBuffer;
                     byte[] var27 = ac;
                     var3 = 0;
                     int var28;
@@ -5976,7 +5973,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 } catch (Exception var24) {
                 }
 
-                n.r = false;
+                BluetoothManager.isAwaitingData = false;
             }
 
         }
@@ -6240,7 +6237,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 this.dE = false;
             }
 
-            if (!cy || n.g12 && this.er) {
+            if (!cy || BluetoothManager.isConnected && this.er) {
                 this.c(-1);
                 this.br = 0;
                 this.aa();
@@ -6298,7 +6295,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
         this.au = null;
         NokiaCanvasWrapper.transparentRegionData = null;
         this.sprSelectionBounds = null;
-        if (b10 != null && n.g12) {
+        if (btManager != null && BluetoothManager.isConnected) {
             this.d();
         }
 
@@ -6321,7 +6318,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             long var1;
             if ((var1 = System.currentTimeMillis()) - this.cw >= 2048L) {
                 if (this.aO) {
-                    if (!cy || b10 == null || this.A()) {
+                    if (!cy || btManager == null || this.A()) {
                         this.cw = var1;
                         byte var3 = 8;
                         if (cy) {
@@ -7975,7 +7972,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     }
 
     static int f(int var0) {
-        if (cy && !n.b12) {
+        if (cy && !BluetoothManager.isServer) {
             if (var0 == 1) {
                 var0 = 2;
             } else if (var0 == 2) {
@@ -8233,10 +8230,10 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     }
 
     private final void az() {
-        for(int var1 = 0; var1 < 3 && !this.dD && n.g12; ++var1) {
+        for(int var1 = 0; var1 < 3 && !this.dD && BluetoothManager.isConnected; ++var1) {
             this.f(33, 0, 0, 0);
 
-            while(this.m10 > 0 && n.g12) {
+            while(this.m10 > 0 && BluetoothManager.isConnected) {
                 this.bK = 1;
                 this.al();
 
@@ -8247,14 +8244,14 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             }
         }
 
-        if (this.dD && n.g12) {
+        if (this.dD && BluetoothManager.isConnected) {
             this.aw();
         }
 
-        while(this.dD && n.g12) {
+        while(this.dD && BluetoothManager.isConnected) {
             this.f(33, 0, 0, 0);
 
-            while(this.m10 > 0 && n.g12) {
+            while(this.m10 > 0 && BluetoothManager.isConnected) {
                 this.bK = 1;
                 this.al();
 
@@ -8419,9 +8416,9 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
                         this.dA = false;
                         this.aM();
-                        b10.a();
-                        b10.w = null;
-                        n.c12 = null;
+                        btManager.abortConnection();
+                        btManager.remoteServerName = null;
+                        BluetoothManager.connectionURL = null;
                     } else {
                         if (this.victory) {
                             this.F(AssetManager.e1);
@@ -9560,7 +9557,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 } catch (Exception var22) {
                 }
 
-                if (b10 != null && n.g12) {
+                if (btManager != null && BluetoothManager.isConnected) {
                     this.d();
                 }
 
@@ -9785,7 +9782,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
     private void aD() {
         byte[] var1 = N;
-        if (!n.b12) {
+        if (!BluetoothManager.isServer) {
             var1 = null;
         }
 
@@ -10457,14 +10454,14 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
         int var2;
         int var3;
-        while(!n.g12 || !this.er) {
+        while(!BluetoothManager.isConnected || !this.er) {
             var2 = this.br;
             if (cq && this.cr != null) {
                 var2 = this.cr.N;
             }
 
-            if (var2 == 35 || var2 == -7 || !n.s) {
-                if (!n.s) {
+            if (var2 == 35 || var2 == -7 || !BluetoothManager.isRunning) {
+                if (!BluetoothManager.isRunning) {
                     this.c(3);
                 } else {
                     this.c(-1);
@@ -10472,43 +10469,43 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 break;
             }
 
-            if (this.aC && !n.g12) {
+            if (this.aC && !BluetoothManager.isConnected) {
                 break;
             }
 
-            if (n.g12 && n.r && n.g12) {
+            if (BluetoothManager.isConnected && BluetoothManager.isAwaitingData && BluetoothManager.isConnected) {
                 for(var3 = 0; var3 < ac.length; ++var3) {
                     ac[var3] = 0;
                 }
 
-                for(int var4 = 0; var4 < b10.i12.length; ++var4) {
-                    b10.i12[var4] = 0;
+                for(int var4 = 0; var4 < btManager.sendBuffer.length; ++var4) {
+                    btManager.sendBuffer[var4] = 0;
                 }
 
-                b10.i12[0] = 127;
+                btManager.sendBuffer[0] = 127;
 
-                for(int var5 = 0; var5 < b10.i12.length; ++var5) {
-                    b10.i12[var5] = 127;
+                for(int var5 = 0; var5 < btManager.sendBuffer.length; ++var5) {
+                    btManager.sendBuffer[var5] = 127;
                 }
 
-                if (b10.h12[0] == 127) {
+                if (btManager.receiveBuffer[0] == 127) {
                     this.er = true;
-                    ai = b10.h12.length;
+                    ai = btManager.receiveBuffer.length;
 
-                    for(int var6 = 0; var6 < b10.h12.length; ++var6) {
-                        if (b10.h12[var6] != 127) {
+                    for(int var6 = 0; var6 < btManager.receiveBuffer.length; ++var6) {
+                        if (btManager.receiveBuffer[var6] != 127) {
                             ai = var6;
                             break;
                         }
                     }
                 }
 
-                if (n.g12 && b10.h12[0] == 125 && n.b12) {
+                if (BluetoothManager.isConnected && btManager.receiveBuffer[0] == 125 && BluetoothManager.isServer) {
                     this.d();
                     break;
                 }
 
-                n.r = false;
+                BluetoothManager.isAwaitingData = false;
             }
 
             this.ah();
@@ -10529,10 +10526,10 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             this.aa();
         }
 
-        b10.h12[0] = 0;
+        btManager.receiveBuffer[0] = 0;
 
-        for(var2 = 0; var2 < b10.h12.length; ++var2) {
-            b10.h12[var2] = 0;
+        for(var2 = 0; var2 < btManager.receiveBuffer.length; ++var2) {
+            btManager.receiveBuffer[var2] = 0;
         }
 
         ac[0] = 0;
@@ -10541,9 +10538,9 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             ac[var3] = 0;
         }
 
-        if (n.g12 && ai < dz && !this.aC) {
+        if (BluetoothManager.isConnected && ai < dz && !this.aC) {
             this.f(20, 0, 0, 0);
-            if (!n.b12) {
+            if (!BluetoothManager.isServer) {
                 this.f(21, 0, 0, 0);
                 this.bn = true;
             }
@@ -10551,8 +10548,8 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             this.bK = 1;
         }
 
-        if (n.g12 && !this.aC) {
-            while(this.m10 > 0 && n.g12) {
+        if (BluetoothManager.isConnected && !this.aC) {
+            while(this.m10 > 0 && BluetoothManager.isConnected) {
                 this.bK = 1;
                 this.al();
 
@@ -10564,7 +10561,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
             this.f(19, this.ej, 0, 0);
 
-            while(this.m10 > 0 && n.g12) {
+            while(this.m10 > 0 && BluetoothManager.isConnected) {
                 this.bK = 1;
                 this.al();
 
@@ -10575,15 +10572,15 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             }
         }
 
-        if (n.g12 && !this.aC && this.cx) {
+        if (BluetoothManager.isConnected && !this.aC && this.cx) {
             this.aW();
         }
 
-        if (n.g12 && !this.aC && !this.cx && !n.b12) {
+        if (BluetoothManager.isConnected && !this.aC && !this.cx && !BluetoothManager.isServer) {
             this.az();
         }
 
-        if (n.g12 && !this.aC && n.b12) {
+        if (BluetoothManager.isConnected && !this.aC && BluetoothManager.isServer) {
             byte var11 = 0;
             if (ax) {
                 var11 = 1;
@@ -10736,10 +10733,10 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
     final void u() {
         if (cy) {
-            if (!n.s) {
+            if (!BluetoothManager.isRunning) {
                 this.c(0);
-                n.b12 = true;
-                b10.b();
+                BluetoothManager.isServer = true;
+                btManager.launchInSeparateThread();
             } else {
                 this.c(5);
             }
@@ -11133,14 +11130,14 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
         this.aw();
         this.f(23, 0, 0, 0);
 
-        for(int var2 = 0; var2 < N.length && n.g12; var2 += 32) {
+        for(int var2 = 0; var2 < N.length && BluetoothManager.isConnected; var2 += 32) {
             int var3 = 32;
             if (var2 + 32 > N.length) {
                 var3 = N.length - var2;
             }
 
             if (!this.f(22, 0, var2, var3)) {
-                while(this.m10 > 0 && n.g12) {
+                while(this.m10 > 0 && BluetoothManager.isConnected) {
                     this.bK = 1;
                     this.al();
 
@@ -11154,7 +11151,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             }
         }
 
-        while(this.m10 > 0 && n.g12) {
+        while(this.m10 > 0 && BluetoothManager.isConnected) {
             this.bK = 1;
             this.al();
 
@@ -11166,7 +11163,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
         this.f(23, 1, 0, 0);
 
-        while(this.m10 > 0 && n.g12) {
+        while(this.m10 > 0 && BluetoothManager.isConnected) {
             this.bK = 1;
             this.al();
 
@@ -11564,7 +11561,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     }
 
     final boolean w() {
-        if (cy && b10 == null) {
+        if (cy && btManager == null) {
             return false;
         } else {
             return !cy || this.A();
@@ -11694,7 +11691,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     }
 
     private boolean M(int var1) {
-        if (cy && b10 == null) {
+        if (cy && btManager == null) {
             return false;
         } else {
             return cy && !this.A() && var1 == 1;

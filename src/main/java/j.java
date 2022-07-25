@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
@@ -435,20 +430,19 @@ public final class j {
     }
 
     private final void i() {
-        if (k.cy && !n.g12) {
+        if (k.cy && !BluetoothManager.isConnected) {
             this.N = 0;
             this.T = true;
             this.U = false;
             this.bp = true;
 
-            while(this.c9 && !n.g12) {
-                if (!n.s) {
+            while(this.c9 && !BluetoothManager.isConnected) {
+                if (!BluetoothManager.isRunning) {
                     i9.d();
                     i9.u();
                 }
 
                 if (this.N == -7 || this.N == 35) {
-                    /// NOTE: might be coupled with class i instead of k (little chance)
                     i9.d();
                     i9.c(-1);
                     break;
@@ -463,7 +457,7 @@ public final class j {
             }
 
             this.bp = false;
-            if (!n.g12) {
+            if (!BluetoothManager.isConnected) {
                 this.N = 0;
                 this.T = true;
                 this.U = false;
@@ -476,7 +470,7 @@ public final class j {
             }
         }
 
-        if (k.cy && n.g12) {
+        if (k.cy && BluetoothManager.isConnected) {
             i9.c(7);
         }
 
@@ -819,7 +813,7 @@ public final class j {
         if (this.ak) {
             this.p();
         } else if (this.menuTextItems != null) {
-            if ((this.s || this.t) && k.b10 != null) {
+            if ((this.s || this.t) && k.btManager != null) {
                 if (this.N == -7 || this.N == 35) {
                     i9.d();
                     i9.c(-1);
@@ -906,7 +900,7 @@ public final class j {
                                 }
 
                                 if (this.as == 1 && aO) {
-                                    n.c12 = null;
+                                    BluetoothManager.connectionURL = null;
                                     this.c(15);
                                     return;
                                 }
@@ -1158,7 +1152,7 @@ public final class j {
                                 if (this.as == 1) {
                                     i9.cx = false;
                                     this.c9 = false;
-                                    if (n.c12 == null) {
+                                    if (BluetoothManager.connectionURL == null) {
                                         this.t = true;
                                         return;
                                     }
@@ -1610,10 +1604,10 @@ public final class j {
                 int var8;
                 if (var1 == 0) {
                     if (this.B()) {
-                        if (k.b10 == null) {
-                            e.a(3);
+                        if (k.btManager == null) {
+                            BTLoggerDBG.initialize(3);
                             i9.f();
-                            k.b10 = new n(k.dz);
+                            k.btManager = new BluetoothManager(k.dz);
                         }
                     } else {
                         aO = false;
@@ -3315,7 +3309,7 @@ public final class j {
     private final void x() {
         this.q();
         i9.z();
-        if (this.t && k.b10 != null) {
+        if (this.t && k.btManager != null) {
             if (i9.h()) {
                 i9.c(1);
                 this.bb = System.currentTimeMillis();
@@ -3327,8 +3321,8 @@ public final class j {
             }
         }
 
-        if (this.s && k.b10 != null && !n.s && System.currentTimeMillis() - this.bb > 177L) {
-            if (n.c12 != null && this.an >= 2) {
+        if (this.s && k.btManager != null && !BluetoothManager.isRunning && System.currentTimeMillis() - this.bb > 177L) {
+            if (BluetoothManager.connectionURL != null && this.an >= 2) {
                 if (i9.e()) {
                     this.A();
                     this.s = false;
@@ -3340,7 +3334,7 @@ public final class j {
                 this.s = false;
             }
 
-            if (n.c12 != null) {
+            if (BluetoothManager.connectionURL != null) {
                 ++this.an;
             } else {
                 i9.c(4);
