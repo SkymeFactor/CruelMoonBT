@@ -8,7 +8,22 @@ public class LocalDevice {
     }
 
     public ServiceRecord getRecord(Connection notifier) {
-        return null;
+        return new ServiceRecord() {
+            @Override
+            public RemoteDevice getHostDevice() {
+                return new RemoteDevice();
+            }
+
+            @Override
+            public String getConnectionURL(int requiredSecurity, boolean mustBeMaster) {
+                return new String("btl2cap://000000000000:0000;ReceiveMTU=512;TransmitMTU=512");
+            }
+
+            @Override
+            public boolean setAttributeValue(int attrID, DataElement attrValue) {
+                return true;
+            }
+        };
     }
 
     public String getFriendlyName() {
