@@ -17,3 +17,12 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+jar {
+    manifest {
+        attributes(
+                'Manifest-Version': "1.0",
+                'Main-Class': "Main"
+        )
+    }
+}
