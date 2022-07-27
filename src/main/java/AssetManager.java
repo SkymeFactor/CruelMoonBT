@@ -416,8 +416,10 @@ public final class AssetManager {
             return null;
         } else {
             try {
-                // In case of Nokia platform, we will use a safer function
-                Class.forName(decodeBinaryString(binaryStringComNokiaUIFullCanvas));
+                /* In case of Nokia platform, we will use a safer function
+                 * ( In fact, we must always use safer function to preserve resources integrity )
+                 */
+                //Class.forName(decodeBinaryString(binaryStringComNokiaUIFullCanvas));
                 return this.readDataChunkFromFileSafe(filename, dataLength);
             } catch (Exception e) {
                 byte[] data = new byte[dataLength];
