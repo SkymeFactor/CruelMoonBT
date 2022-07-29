@@ -367,7 +367,7 @@ public final class AssetManager {
 
     private String[][] b(String var1, int var2) {
         String[] levelsTitles = null;   // TODO: fix wrong name
-        String[][] var4 = new String[(levelsTitles = a(this.f(var1), (d)null, 0, false, false)).length][];
+        String[][] var4 = new String[(levelsTitles = a(this.f(var1), (TextRenderer)null, 0, false, false)).length][];
 
         for(int i = 0; i < var4.length; ++i) {
             if (levelsTitles[i] != null) {
@@ -936,7 +936,7 @@ public final class AssetManager {
         }
     }
 
-    private static String[] a(String var0, d var1, int var2, boolean var3, boolean var4) {
+    private static String[] a(String var0, TextRenderer var1, int var2, boolean var3, boolean var4) {
         if (var0 == null) {
             return null;
         } else if (var0.length() <= 0) {
@@ -966,7 +966,7 @@ public final class AssetManager {
 
                 int var22;
                 if (var3) {
-                    var22 = var1.a(var10);
+                    var22 = var1.getCharWidth(var10);
                 } else {
                     var22 = 5;
                 }
@@ -1018,7 +1018,7 @@ public final class AssetManager {
                         var15 = var14 + var12;
                         var8 = 0;
                         if (var19 < var5 && var19 + 1 > var15) {
-                            var8 = var1.a(var0.substring(var15, var19 + 1));
+                            var8 = var1.getStringWidth(var0.substring(var15, var19 + 1));
                         }
                     }
 
@@ -1054,7 +1054,7 @@ public final class AssetManager {
         }
     }
 
-    final String[] a(String var1, d var2, int var3, boolean var4) {
+    final String[] a(String var1, TextRenderer var2, int var3, boolean var4) {
         return a(var1, var2, var3, var4, true);
     }
 

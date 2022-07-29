@@ -27,10 +27,10 @@ public final class j {
     static boolean u;
     boolean v;
     static boolean w;
-    static d x;
+    static TextRenderer x;
     static Font defaultFont;
     static int backgroundColor = GameColors.COLOR_BLACK;
-    static d A;
+    static TextRenderer A;
     static boolean B;
     boolean C;
     int D;
@@ -115,7 +115,7 @@ public final class j {
     int aV = 0;
     int aW = 0;
     String[] aX;
-    d aY;
+    TextRenderer aY;
     Image aZ;           // Unknown file nl.png
     static boolean ba = true;
     long bb;
@@ -644,7 +644,7 @@ public final class j {
     }
 
     public static final void init() {
-        x = d.getInstance();
+        x = TextRenderer.getInstance();
         defaultFont = Font.getFont(0, 0, 8);
         A = x;
     }
@@ -1575,7 +1575,7 @@ public final class j {
                                 this.aY = A;
                             }
 
-                            this.aX = AssetManager.instanceHandler.a(var4, this.aY, e9 - this.aY.a(" "), true);
+                            this.aX = AssetManager.instanceHandler.a(var4, this.aY, e9 - this.aY.getStringWidth(" "), true);
                             break;
                         }
 
@@ -1908,9 +1908,9 @@ public final class j {
                 }
             }
 
-            int var22 = e9 - x.a(var1) >> 1;
+            int var22 = e9 - x.getStringWidth(var1) >> 1;
             if (useLoadingPicture || var24 < 1) {
-                x.a(graphics, var1, var22, var23, 20);
+                x.drawString(graphics, var1, var22, var23, 20);
             }
         }
 
@@ -1933,15 +1933,15 @@ public final class j {
         a(var0, k.screenText[1][0], true);
     }
 
-    public static final void a(Graphics var0, d var1, int var2) {
+    public static final void a(Graphics var0, TextRenderer var1, int var2) {
         try {
             if (AssetManager.e1 > 0) {
                 if (k.levelTitles != null) {
-                    var1.a(var0, k.levelTitles[AssetManager.e1][0], f9, var2, 17);
+                    var1.drawString(var0, k.levelTitles[AssetManager.e1][0], f9, var2, 17);
                     return;
                 }
 
-                var1.a(var0, k.screenText[1][1] + AssetManager.e1, f9, var2, 3);
+                var1.drawString(var0, k.screenText[1][1] + AssetManager.e1, f9, var2, 3);
             }
 
         } catch (Exception var4) {
@@ -2105,7 +2105,7 @@ public final class j {
                     if (this.ak) {
                         this.d(var1);
                     } else {
-                        d var2 = x;
+                        TextRenderer var2 = x;
                         if (this.aJ == 5) {
                             var2 = A;
                         }
@@ -2199,7 +2199,7 @@ public final class j {
 
                                     for(int var17 = 0; var17 < this.aX.length; ++var17) {
                                         if (var1 != null) {
-                                            this.aY.a(var1, this.aX[var17], f9, var40, 17);
+                                            this.aY.drawString(var1, this.aX[var17], f9, var40, 17);
                                         }
 
                                         var40 += this.aY.b();
@@ -2292,9 +2292,9 @@ public final class j {
                                             var20 = var20 + AssetManager.e1;
                                         }
 
-                                        var16 = var2.a(var20) + 2 * var4;
+                                        var16 = var2.getStringWidth(var20) + 2 * var4;
                                         if (this.aJ == 2) {
-                                            var16 += var2.a("Ы");
+                                            var16 += var2.getStringWidth("Ы");
                                         }
 
                                         if (var41 < var16) {
@@ -2375,7 +2375,7 @@ public final class j {
                                             }
 
                                             if (var1 != null) {
-                                                var2.a(var1, var20, var15 + (this.aF.getWidth() >> 1), var37 + var3, 17);
+                                                var2.drawString(var1, var20, var15 + (this.aF.getWidth() >> 1), var37 + var3, 17);
                                             }
                                         } else {
                                             if (var1 != null) {
@@ -2412,13 +2412,13 @@ public final class j {
                                             }
 
                                             if (var1 != null && var28 == this.as) {
-                                                var1.setColor(16777215);
+                                                var1.setColor(GameColors.COLOR_WHITE);
                                                 var1.fillRect(0, var37 - 1, e9, var5 + 2);
-                                                var1.setColor(0);
+                                                var1.setColor(GameColors.COLOR_BLACK);
                                                 var1.fillRect(0, var37, e9, var5);
                                             }
 
-                                            var15 = e9 - var2.a(var20) >> 1;
+                                            var15 = e9 - var2.getStringWidth(var20) >> 1;
                                             if (this.aJ == 5) {
                                                 var15 = e9 - this.aE >> 1;
                                             }
@@ -2429,7 +2429,7 @@ public final class j {
 
                                             if (var1 != null) {
                                                 var1.setColor(backgroundColor);
-                                                var2.a(var1, var20, var15, var37 + var3, 20);
+                                                var2.drawString(var1, var20, var15, var37 + var3, 20);
                                             }
                                         }
 
@@ -2503,14 +2503,14 @@ public final class j {
 
                                 if (this.S == null) {
                                     boolean var33 = false;
-                                    var1.fillRect(0, a9 - var30 - 0, var2.a(k.screenText[11][0]) + 4, var30 + 0);
-                                    int var34 = var2.a(var45) + 3;
+                                    var1.fillRect(0, a9 - var30 - 0, var2.getStringWidth(k.screenText[11][0]) + 4, var30 + 0);
+                                    int var34 = var2.getStringWidth(var45) + 3;
                                     if (var44) {
                                         var1.fillRect(e9 - var34, a9 - var30 - 0, var34, var30 + 0);
                                     }
 
                                     var1.setColor(100, 100, 100);
-                                    int var35 = var2.a(k.screenText[11][0]) + 4;
+                                    int var35 = var2.getStringWidth(k.screenText[11][0]) + 4;
                                     var1.drawRect(0, a9 - var30 - 0, var35 - 1, var30 - 1 + 0);
                                     if (var44) {
                                         var1.drawRect(e9 - var34, a9 - var30 - 0, var34 - 1, var30 - 1 + 0);
@@ -2527,9 +2527,9 @@ public final class j {
                                 }
 
                                 var1.setColor(backgroundColor);
-                                var2.a(var1, k.screenText[11][0], 2, var43, 20);
+                                var2.drawString(var1, k.screenText[11][0], 2, var43, 20);
                                 if (var44) {
-                                    var2.a(var1, var45, e9 - 1, var43, 24);
+                                    var2.drawString(var1, var45, e9 - 1, var43, 24);
                                 }
 
                                 if (this.aZ != null) {
@@ -2667,7 +2667,7 @@ public final class j {
 
         var1.setClip(0, 0, e9, a9);
         var1.translate(-var1.getTranslateX(), this.bq - var1.getTranslateY());
-        d var2 = A;
+        TextRenderer var2 = A;
         boolean var3 = false;
         int var4 = 0;
         int var5 = 0;
@@ -2820,7 +2820,7 @@ public final class j {
                     var1.setColor(backgroundColor);
                     var20 = var11 - (var2.b() - var2.f3) >> 1;
                     this.b(var1, var2, this.az[0], 1, var20);
-                    var2.a(var1, this.az[0], 1, var20, 20);
+                    var2.drawString(var1, this.az[0], 1, var20, 20);
                     var21 = 3;
                     if (this.aU == 2) {
                         ++var21;
@@ -2828,9 +2828,9 @@ public final class j {
 
                     var20 += var6 - var11;
                     this.b(var1, var2, k.screenText[11][2], 1, var20);
-                    var2.a(var1, k.screenText[11][2], 1, var20, 20);
+                    var2.drawString(var1, k.screenText[11][2], 1, var20, 20);
                     this.b(var1, var2, k.screenText[11][var21], e9 - 1, var20);
-                    var2.a(var1, k.screenText[11][var21], e9 - 1, var20, 24);
+                    var2.drawString(var1, k.screenText[11][var21], e9 - 1, var20, 24);
                 }
             }
 
@@ -2877,10 +2877,10 @@ public final class j {
                         if (this.aU == 8) {
                             this.a(var1, var2, this.az[var35], var34, var12);
                         } else {
-                            var2.a(var1, this.az[var35], var34, var12, 20);
+                            var2.drawString(var1, this.az[var35], var34, var12, 20);
                         }
                     } else {
-                        var2.a(var1, this.az[var35], 1, this.az[var35].length() - 1, var34, var12, var36 | 16);
+                        var2.drawSubstring(var1, this.az[var35], 1, this.az[var35].length() - 1, var34, var12, var36 | 16);
                     }
                 }
 
@@ -2985,22 +2985,22 @@ public final class j {
             int var5 = var3;
 
             for(int var6 = 0; var6 < this.aT.length; ++var6) {
-                x.a(var1, this.aT[var6], e9 >> 1, var5, 17);
+                x.drawString(var1, this.aT[var6], e9 >> 1, var5, 17);
                 var5 += var2;
             }
 
             if (this.aR != null) {
-                x.a(var1, this.aR, e9 >> 1, var5, 17);
+                x.drawString(var1, this.aR, e9 >> 1, var5, 17);
             }
 
             if (this.aS != null && this.aS.length > 0) {
                 var5 = a9 - var2;
                 if (this.aS[0] != null && this.aS[0].length() > 1 && this.aR != null && this.aR.length() >= this.aQ) {
-                    x.a(var1, this.aS[0], 2, var5, 20);
+                    x.drawString(var1, this.aS[0], 2, var5, 20);
                 }
 
                 if (this.aS.length > 1 && this.aS[1] != null && this.aS[1].length() > 1) {
-                    x.a(var1, this.aS[1], e9 - 2, var5, 24);
+                    x.drawString(var1, this.aS[1], e9 - 2, var5, 24);
                 }
             }
 
@@ -3010,7 +3010,7 @@ public final class j {
 
     private final void f(Graphics var1) {
         if (this.bF > 0) {
-            d var2;
+            TextRenderer var2;
             int var3;
             int var4 = (var3 = (var2 = x).b() - var2.f3 + 5) - (var2.b() - var2.f3) >> 1;
             String var5 = "";
@@ -3030,35 +3030,35 @@ public final class j {
                 var5 = k.screenText[1][2] + k.screenText[1][5];
                 k.fillRectTransparent(var1, 0, a9 - var3, e9, var3, 0, 190);
                 var6 = a9 - var3;
-                var2.a(var1, k.screenText[1][3], 2, var6 + var4, 20);
-                var2.a(var1, k.screenText[1][4], e9 - 1 - 2, var6 + var4, 24);
+                var2.drawString(var1, k.screenText[1][3], 2, var6 + var4, 20);
+                var2.drawString(var1, k.screenText[1][4], e9 - 1 - 2, var6 + var4, 24);
             }
 
             var6 = a9 - var3 >> 1;
             k.fillRectTransparent(var1, 0, var6, e9, var3, 0, 190);
-            var2.a(var1, var5, f9, var6 + var4, 17);
+            var2.drawString(var1, var5, f9, var6 + var4, 17);
         }
 
     }
 
-    private final void a(Graphics var1, d var2, String var3, int var4, int var5) {
+    private final void a(Graphics var1, TextRenderer var2, String var3, int var4, int var5) {
         int var6 = var4;
         int var7 = var5 + var2.b() - var2.f3;
         int var10 = var3.length();
         int var11 = 0;
         boolean[] var12 = new boolean[]{true};
-        int[] var13 = new int[]{var2.a("28. "), e9 >> 1};
+        int[] var13 = new int[]{var2.getStringWidth("28. "), e9 >> 1};
         char[] var14 = new char[]{' ', '*'};
         int var15 = 0;
 
         for(char var16 = '0'; var16 <= '9'; ++var16) {
-            if (var15 < var2.a(var16)) {
-                var15 = var2.a(var16);
+            if (var15 < var2.getCharWidth(var16)) {
+                var15 = var2.getCharWidth(var16);
             }
         }
 
-        if (var15 < var2.a('-')) {
-            var15 = var2.a('-');
+        if (var15 < var2.getCharWidth('-')) {
+            var15 = var2.getCharWidth('-');
         }
 
         int var17 = e9 - this.bu - this.bG - this.bK - 1 - var15 * 5 - 2;
@@ -3075,7 +3075,7 @@ public final class j {
             }
 
             if (var18) {
-                var2.a(var1, var3.charAt(var19), var6 + (var15 - var2.a(var3.charAt(var19)) >> 1), var7);
+                var2.a(var1, var3.charAt(var19), var6 + (var15 - var2.getCharWidth(var3.charAt(var19)) >> 1), var7);
                 var6 += var15;
             } else {
                 var6 += var2.a(var1, var3.charAt(var19), var6, var7);
@@ -3768,7 +3768,7 @@ public final class j {
         AssetManager.e1 = var5;
     }
 
-    private final void b(Graphics var1, d var2, String var3, int var4, int var5) {
+    private final void b(Graphics var1, TextRenderer var2, String var3, int var4, int var5) {
         if (var1 != null && var3 != null && var3.length() > 1 && this.S != null) {
             boolean var6 = false;
             int var7 = 0;
@@ -3778,9 +3778,9 @@ public final class j {
 
             int var8;
             if (var4 >= f9) {
-                var8 = e9 - var2.a(var3 + " ");
+                var8 = e9 - var2.getStringWidth(var3 + " ");
             } else {
-                var8 = -(this.S.getWidth() - var2.a(var3 + " "));
+                var8 = -(this.S.getWidth() - var2.getStringWidth(var3 + " "));
             }
 
             var1.drawImage(this.S, var8, var7, 20);
