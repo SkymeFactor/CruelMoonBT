@@ -9018,23 +9018,24 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             int clipX;
             int clipY;
             if (drawShadows && this.sprUnitShadows[unitSpriteIndex] != null) {
-                y += sprHeight;
+                int shadowY = y;
+                shadowY += sprHeight;
                 if (var7) {
-                    y -= (sprHeight >> 1) + (sprHeight >> 2);    // 3/4 of the tile size
+                    shadowY -= (sprHeight >> 1) + (sprHeight >> 2);    // 3/4 of the tile size
                 }
 
-                y -= var9;
+                shadowY -= var9;
                 clipWidth = this.am[2][unitIndex];
                 clipHeight = this.am[3][unitIndex];
                 clipX = x;
-                clipY = y;
+                clipY = shadowY;
                 if (x < defaultClipX) {
                     clipWidth -= defaultClipX - x;
                     clipX = defaultClipX;
                 }
 
-                if (y < defaultClipY) {
-                    clipHeight -= defaultClipY - y;
+                if (shadowY < defaultClipY) {
+                    clipHeight -= defaultClipY - shadowY;
                     clipY = defaultClipY;
                 }
 
@@ -9048,7 +9049,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
                 if (clipWidth > 0 && clipHeight > 0) {
                     graphics.setClip(clipX, clipY, clipWidth, clipHeight);
-                    graphics.drawImage(this.sprUnitShadows[unitSpriteIndex], x - this.am[0][unitIndex], y - this.am[1][unitIndex], 20);
+                    graphics.drawImage(this.sprUnitShadows[unitSpriteIndex], x - this.am[0][unitIndex], shadowY - this.am[1][unitIndex], 20);
                 }
 
                 unitHasShadow = true;
