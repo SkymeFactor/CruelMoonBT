@@ -1,15 +1,7 @@
 package javax.bluetooth;
 
-public class ServiceRecord {
-    public RemoteDevice getHostDevice() {
-        return new RemoteDevice();
-    }
-
-    public String getConnectionURL(int requiredSecurity, boolean mustBeMaster) {
-        return new String();
-    }
-
-    public boolean setAttributeValue(int attrID, DataElement attrValue) {
-        return true;
-    }
+public interface ServiceRecord {
+    RemoteDevice getHostDevice();
+    String getConnectionURL(int requiredSecurity, boolean mustBeMaster);
+    boolean setAttributeValue(int attrID, DataElement attrValue);
 }

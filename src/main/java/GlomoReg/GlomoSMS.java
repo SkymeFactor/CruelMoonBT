@@ -8,6 +8,7 @@ package GlomoReg;
 import javax.microedition.io.Connector;
 import javax.wireless.messaging.MessageConnection;
 import javax.wireless.messaging.TextMessage;
+import java.io.IOException;
 
 public final class GlomoSMS {
     private static MessageConnection connection = null;
@@ -16,7 +17,7 @@ public final class GlomoSMS {
     public GlomoSMS() {
     }
 
-    public static boolean send(String phoneNumber, String messageText) {
+    public static boolean send(String phoneNumber, String messageText) throws IOException {
         sendingSuccess = false;
         if (phoneNumber.length() > 0) {
             try {

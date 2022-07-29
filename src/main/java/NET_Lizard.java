@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import javax.microedition.midlet.MIDlet;
 
 public final class NET_Lizard extends MIDlet {
@@ -46,7 +41,7 @@ public final class NET_Lizard extends MIDlet {
             }
 
             try {
-                if (k.b10 != null && n.g12) {
+                if (k.btManager != null && BluetoothManager.isConnected) {
                     game.d();
                 }
             } catch (Exception ignore) {

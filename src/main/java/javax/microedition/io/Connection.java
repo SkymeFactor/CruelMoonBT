@@ -1,6 +1,7 @@
 package javax.microedition.io;
 
-public class Connection {
-    public void close() {
-    }
+import java.io.IOException;
+
+public interface Connection {
+    void close() throws IOException;
 }

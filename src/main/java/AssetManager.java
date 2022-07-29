@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import java.io.DataInputStream;
 import java.io.InputStream;
 import javax.microedition.lcdui.Display;
@@ -337,7 +332,11 @@ public final class AssetManager {
     }
 
     private static String decodeBinaryString(int[] encodedString) {
-        String decodedString = new String();
+        String str = new String();
+        long byte1 = 255L;
+        long byte2 = 65280L;
+        long byte3 = 16711680L;
+        long byte4 = 4278190080L;
 
         for(int i = 0; i < encodedString.length; ++i) {
             long currentValue;
@@ -345,30 +344,30 @@ public final class AssetManager {
                 currentValue += 4294967296L;
             }
 
-            decodedString = decodedString + (char)((int)((currentValue & 4278190080L) >> 24));
+            str = str + (char)((int)((currentValue & byte4) >> 24));
             byte decodedSymbol;
-            if ((decodedSymbol = (byte)((int)((currentValue & 16711680L) >> 16))) == 0) {
+            if ((decodedSymbol = (byte)((int)((currentValue & byte3) >> 16))) == 0) {
                 break;
             }
 
-            decodedString = decodedString + (char)decodedSymbol;
-            if ((decodedSymbol = (byte)((int)((currentValue & 65280L) >> 8))) == 0) {
+            str = str + (char)decodedSymbol;
+            if ((decodedSymbol = (byte)((int)((currentValue & byte2) >> 8))) == 0) {
                 break;
             }
 
-            decodedString = decodedString + (char)decodedSymbol;
-            if ((decodedSymbol = (byte)((int)(currentValue & 255L))) == 0) {
+            str = str + (char)decodedSymbol;
+            if ((decodedSymbol = (byte)((int)(currentValue & byte1))) == 0) {
                 break;
             }
 
-            decodedString = decodedString + (char)decodedSymbol;
+            str = str + (char)decodedSymbol;
         }
-        return decodedString;
+        return str;
     }
 
     private String[][] b(String var1, int var2) {
         String[] levelsTitles = null;   // TODO: fix wrong name
-        String[][] var4 = new String[(levelsTitles = a(this.f(var1), (d)null, 0, false, false)).length][];
+        String[][] var4 = new String[(levelsTitles = a(this.f(var1), (TextRenderer)null, 0, false, false)).length][];
 
         for(int i = 0; i < var4.length; ++i) {
             if (levelsTitles[i] != null) {
@@ -417,8 +416,10 @@ public final class AssetManager {
             return null;
         } else {
             try {
-                // In case of Nokia platform, we will use a safer function
-                Class.forName(decodeBinaryString(binaryStringComNokiaUIFullCanvas));
+                /* In case of Nokia platform, we will use a safer function
+                 * ( In fact, we must always use safer function to preserve resources integrity )
+                 */
+                //Class.forName(decodeBinaryString(binaryStringComNokiaUIFullCanvas));
                 return this.readDataChunkFromFileSafe(filename, dataLength);
             } catch (Exception e) {
                 byte[] data = new byte[dataLength];
@@ -935,7 +936,7 @@ public final class AssetManager {
         }
     }
 
-    private static String[] a(String var0, d var1, int var2, boolean var3, boolean var4) {
+    private static String[] a(String var0, TextRenderer var1, int var2, boolean var3, boolean var4) {
         if (var0 == null) {
             return null;
         } else if (var0.length() <= 0) {
@@ -965,7 +966,7 @@ public final class AssetManager {
 
                 int var22;
                 if (var3) {
-                    var22 = var1.a(var10);
+                    var22 = var1.getCharWidth(var10);
                 } else {
                     var22 = 5;
                 }
@@ -1017,7 +1018,7 @@ public final class AssetManager {
                         var15 = var14 + var12;
                         var8 = 0;
                         if (var19 < var5 && var19 + 1 > var15) {
-                            var8 = var1.a(var0.substring(var15, var19 + 1));
+                            var8 = var1.getStringWidth(var0.substring(var15, var19 + 1));
                         }
                     }
 
@@ -1053,7 +1054,7 @@ public final class AssetManager {
         }
     }
 
-    final String[] a(String var1, d var2, int var3, boolean var4) {
+    final String[] a(String var1, TextRenderer var2, int var3, boolean var4) {
         return a(var1, var2, var3, var4, true);
     }
 

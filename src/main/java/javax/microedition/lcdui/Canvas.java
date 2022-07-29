@@ -152,7 +152,7 @@ public abstract class Canvas extends JPanel implements Displayable{
             case KeyEvent.VK_SPACE:
                 return javax.microedition.lcdui.Canvas.KEY_STAR;
             default:
-                System.out.println("Unknown keyEvent: " + keyEvent);
+                System.out.println("[ WARNING ] Unknown keyEvent: " + keyEvent);
                 return 0;
         }
     }

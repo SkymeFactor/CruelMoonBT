@@ -59,7 +59,12 @@ public class Graphics {
         graphics.setClip(x, y, width, height);
     }
 
-    public void drawRGB(int[] rgbData, int offset, int scanLength, int x, int y, int width, int height, boolean processAlpha) {
+    public void drawRGB(int[] rgbData, int offset, int scanLength, int x, int y, int width, int height, boolean processAlpha)
+            throws NullPointerException, ArrayIndexOutOfBoundsException
+    {
+        if (rgbData == null)
+            throw new NullPointerException();
+
         BufferedImage img = new BufferedImage(
                 width, height,
                 processAlpha ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_INT_RGB
@@ -83,7 +88,11 @@ public class Graphics {
         graphics.fillRect(x, y, width, height);
     }
 
-    public void setColor(int red, int green, int blue) {
+    public void setColor(int red, int green, int blue)
+            throws IllegalArgumentException
+    {
+        if (red > 255 || red < 0 || green > 255 || green < 0 || blue > 255 || blue < 0)
+            throw new IllegalArgumentException();
         graphics.setColor(new Color(red, green, blue));
     }
 
@@ -91,9 +100,18 @@ public class Graphics {
         graphics.drawRect(x, y, width, height);
     }
 
-    public void drawImage(Image img, int x, int y, int anchor) {
-        x = getAnchorX(x, img.getWidth(), anchor);
-        y = getAnchorY(y, img.getHeight(), anchor);
+    public void drawImage(Image img, int x, int y, int anchor)
+            throws NullPointerException, IllegalArgumentException
+    {
+        if (img == null)
+            throw new NullPointerException();
+
+        try {
+            x = getAnchorX(x, img.getWidth(), anchor);
+            y = getAnchorY(y, img.getHeight(), anchor);
+        } catch (Exception e) {
+            throw new IllegalArgumentException();
+        }
 
         graphics.drawImage(img.awtImage, x, y, null);
     }
@@ -106,10 +124,17 @@ public class Graphics {
         graphics.drawLine(x1, y1, x2, y2);
     }
 
-    public void drawChar(char character, int x, int y, int anchor) {
+    public void drawChar(char character, int x, int y, int anchor)
+            throws IllegalArgumentException
+    {
         Rectangle2D bounds = graphics.getFont().getStringBounds(String.valueOf(character), frc);
-        x = getAnchorX(x, (int) bounds.getWidth(), anchor);
-        y = getAnchorY(y, (int) bounds.getHeight(), anchor) + (int) (bounds.getHeight());
+
+        try {
+            x = getAnchorX(x, (int) bounds.getWidth(), anchor);
+            y = getAnchorY(y, (int) bounds.getHeight(), anchor) + (int) (bounds.getHeight());
+        } catch (Exception e) {
+            throw new IllegalArgumentException();
+        }
 
         graphics.drawString(String.valueOf(character), x, y);
     }

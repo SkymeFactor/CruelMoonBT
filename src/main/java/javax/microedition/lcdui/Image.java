@@ -6,7 +6,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 
 public class Image {
 
@@ -21,12 +20,31 @@ public class Image {
 
 
     public final BufferedImage awtImage;
+    private final boolean imageIsMutable;
 
-    public Image(BufferedImage image) {
+    private Image(BufferedImage image, boolean isMutable) {
         this.awtImage = image;
+        imageIsMutable = isMutable;
     }
 
-    public static Image createImage(Image image, int x, int y, int width, int height, int transform) {
+    public static Image createImage(Image image, int x, int y, int width, int height, int transform)
+            throws NullPointerException, IllegalArgumentException
+    {
+        // Error checks
+        if (image == null)
+            throw new NullPointerException();
+        if (width <= 0 || height <= 0)
+            throw new IllegalArgumentException();
+        if (x < 0
+                || y < 0
+                || x + width > image.awtImage.getWidth(null)
+                || y + height > image.awtImage.getHeight(null)
+        )
+            throw new IllegalArgumentException();
+        if (transform > 7 || transform < 0)
+            throw new IllegalArgumentException();
+
+        // Method's body
         BufferedImage src = image.awtImage.getSubimage(x, y, width, height);
 
         double theta = 0;
@@ -43,7 +61,7 @@ public class Image {
             case TRANS_ROT90: theta = Math.PI * 0.5; swapWH = true; break;
             case TRANS_ROT180: theta = Math.PI; break;
             case TRANS_ROT270: theta = Math.PI * 1.5; swapWH = true; break;
-            case TRANS_NONE: return new Image(src);
+            case TRANS_NONE: return new Image(src, false);
             default: break;
         }
 
@@ -68,7 +86,7 @@ public class Image {
         g2d.setTransform(affineTransform);
         g2d.drawImage(src, 0, 0, null);
 
-        return new Image(dst);
+        return new Image(dst, false);
     }
 
     public static Image createImage(int width, int height)
@@ -76,7 +94,7 @@ public class Image {
     {
         if (width <= 0 || height <= 0)
             throw new IllegalArgumentException();
-        return new Image(new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB));
+        return new Image(new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB), true);
     }
 
     public static Image createImage(byte[] imageData, int imageOffset, int imageLength)
@@ -103,7 +121,7 @@ public class Image {
         if (img == null)
             throw new IllegalArgumentException();
 
-        return new Image(img);
+        return new Image(img, false);
     }
 
     public static Image createRGBImage(int[] rgb, int width, int height, boolean processAlpha)
@@ -125,7 +143,7 @@ public class Image {
         WritableRaster raster = img.getRaster();
         raster.setDataElements(0, 0, width, height, rgb);
 
-        return new Image(img);
+        return new Image(img, false);
     }
 
     public int getWidth() {
@@ -136,15 +154,29 @@ public class Image {
         return awtImage.getHeight(null);
     }
 
-    public javax.microedition.lcdui.Graphics getGraphics() {
+    public javax.microedition.lcdui.Graphics getGraphics() throws IllegalStateException {
+        if (!imageIsMutable)
+            throw new IllegalStateException();
+
         return new javax.microedition.lcdui.Graphics(this.awtImage.getGraphics());
     }
 
-    public void getRGB(int[] rgbData, int offset, int scanLength, int x, int y, int width, int height) {
+    public void getRGB(int[] rgbData, int offset, int scanLength, int x, int y, int width, int height)
+            throws ArrayIndexOutOfBoundsException, IllegalArgumentException, NullPointerException
+    {
+        // Error checks
+        if (rgbData == null)
+            throw new NullPointerException();
+        if (Math.abs(scanLength) < width)
+            throw new IllegalArgumentException();
+        if (x < 0 || y < 0 || x + width > awtImage.getWidth(null) || y + height > awtImage.getHeight(null))
+            throw new IllegalArgumentException();
+
+        // Method's body
         awtImage.getRGB(x, y, width, height, rgbData, offset, scanLength);
     }
 
     public boolean isMutable() {
-        return true;
+        return imageIsMutable;
     }
 }

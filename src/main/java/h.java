@@ -54,8 +54,8 @@ public final class h {
     static boolean J;
     static boolean K;
     boolean L = false;
-    static TextRenderer M;
-    static TextRenderer N;
+    static SystemTextRenderer M;
+    static SystemTextRenderer N;
     static String[] O;
     static k P;
     static int Q;
@@ -64,7 +64,7 @@ public final class h {
     int T;
     int U;
     int V;
-    TextRenderer W;
+    SystemTextRenderer W;
     int X;
     int Y;
     String Z;
@@ -212,7 +212,7 @@ public final class h {
         Q = screenHeight;
         aI = this.u();
         if (M == null) {
-            M = TextRenderer.getInstance();
+            M = SystemTextRenderer.getInstance();
         }
 
         M.shadowColor = 0;
@@ -242,7 +242,7 @@ public final class h {
         }
     }
 
-    public static h getInstance(k var0, d var1) {
+    public static h getInstance(k var0, TextRenderer var1) {
         if (instanceHandler != null && P != null) {
             return instanceHandler;
         } else {
@@ -1566,7 +1566,7 @@ public final class h {
         return (var0 = GlomoRegStarter.getMoreGamesLink()) != null && var0.length() > 0 ? var0 : null;
     }
 
-    private static String[] a(String var0, TextRenderer var1, int var2, boolean var3, boolean var4) {
+    private static String[] a(String var0, SystemTextRenderer var1, int var2, boolean var3, boolean var4) {
         int var5;
         String[] var6 = new String[var5 = var0.length()];
         boolean var7 = false;
@@ -1668,7 +1668,7 @@ public final class h {
         return var20;
     }
 
-    private String[] a(String var1, TextRenderer var2, int var3, boolean var4) {
+    private String[] a(String var1, SystemTextRenderer var2, int var3, boolean var4) {
         return a(var1, var2, var3, var4, true);
     }
 
@@ -2213,7 +2213,7 @@ public final class h {
         }
     }
 
-    private static void a(Graphics var0, TextRenderer var1, String var2, int var3, int var4, int var5, int var6, boolean var7, int var8, int var9, int var10) {
+    private static void a(Graphics var0, SystemTextRenderer var1, String var2, int var3, int var4, int var5, int var6, boolean var7, int var8, int var9, int var10) {
         int var11 = var0.getClipX();
         int var12 = var0.getClipY();
         int var13 = var0.getClipWidth();

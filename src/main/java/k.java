@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import java.util.Random;
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Display;
@@ -11,7 +6,7 @@ import javax.microedition.lcdui.Image;
 
 // Game logic + rendering
 public final class k extends NokiaCanvasWrapper implements Runnable {
-    static n b10;
+    static BluetoothManager btManager;
     int screenHeight;
     int screenWidth;
     int customSoftKeyCode;
@@ -635,7 +630,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     }
 
     private boolean A() {
-        return n.b12 ^ this.bn;
+        return BluetoothManager.isServer ^ this.bn;
     }
 
     final void a() {
@@ -1196,13 +1191,13 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
         }
     }
 
-    private void a(Graphics var1, d var2) {
+    private void a(Graphics var1, TextRenderer var2) {
         boolean var3 = false;
         var1.translate(-var1.getTranslateX(), -var1.getTranslateY());
         var1.setClip(0, 0, this.screenWidth, this.screenHeight);
         int var4;
         int var5;
-        if (this.G != null && this.G.length > 0 && (this.bL != 5 && this.bL != 6 || b10 == null || n.s)) {
+        if (this.G != null && this.G.length > 0 && (this.bL != 5 && this.bL != 6 || btManager == null || BluetoothManager.isRunning)) {
             var3 = true;
             var4 = var2.b();
             var5 = this.G.length * var4 + 2;
@@ -1211,7 +1206,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
             for(int var7 = 0; var7 < this.G.length; ++var7) {
                 if (this.G[var7] != null) {
-                    var2.a(var1, this.G[var7], 1, var6, 20);
+                    var2.drawString(var1, this.G[var7], 1, var6, 20);
                 }
 
                 var6 += var2.b();
@@ -1220,10 +1215,10 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
         if (this.sprBluetoothIcons != null && this.sprBluetoothIcons[0] != null && this.sprBluetoothIcons[1] != null && var3) {
             var4 = 0;
-            if (b10 != null) {
-                if (n.g12) {
+            if (btManager != null) {
+                if (BluetoothManager.isConnected) {
                     var4 = 1;
-                } else if ((this.bL == 1 || this.bL == 0) && n.s) {
+                } else if ((this.bL == 1 || this.bL == 0) && BluetoothManager.isRunning) {
                     ++this.J;
                     if (this.J > 3) {
                         this.J = 0;
@@ -1390,13 +1385,13 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     final void d() {
         if (cy) {
             boolean var1 = false;
-            if (b10 != null && n.g12 && !n.b12) {
+            if (btManager != null && BluetoothManager.isConnected && !BluetoothManager.isServer) {
                 long var2 = System.currentTimeMillis();
 
-                while(n.g12) {
-                    if (n.r && n.g12) {
-                        b10.i12[0] = 125;
-                        n.r = false;
+                while(BluetoothManager.isConnected) {
+                    if (BluetoothManager.isAwaitingData && BluetoothManager.isConnected) {
+                        btManager.sendBuffer[0] = 125;
+                        BluetoothManager.isAwaitingData = false;
                         var1 = true;
                     }
 
@@ -1411,9 +1406,9 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 }
             }
 
-            if (b10 != null) {
-                b10.h12[0] = 0;
-                b10.i12[0] = 0;
+            if (btManager != null) {
+                btManager.receiveBuffer[0] = 0;
+                btManager.sendBuffer[0] = 0;
             }
 
             this.F();
@@ -1425,13 +1420,13 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     }
 
     private void F() {
-        if (n.g12) {
+        if (BluetoothManager.isConnected) {
             this.c(3);
         }
 
-        b10.a();
-        b10.w = null;
-        n.c12 = null;
+        btManager.abortConnection();
+        btManager.remoteServerName = null;
+        BluetoothManager.connectionURL = null;
     }
 
     private final void G() {
@@ -1453,7 +1448,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
         int var5 = graphics.getTranslateY();
         graphics.translate(-var4, -var5);
         graphics.setClip(0, 0, var2, var3);
-        d var6 = j.A;
+        TextRenderer var6 = j.A;
         String var11 = screenText[5][0];
         boolean var12 = false;
         int var13 = screenText[2].length;
@@ -1463,12 +1458,12 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             var12 = true;
 
             for(var7 = 0; var7 < var13; ++var7) {
-                if ((var8 = var6.a(screenText[2][var7])) > this.as) {
+                if ((var8 = var6.getStringWidth(screenText[2][var7])) > this.as) {
                     this.as = var8;
                 }
             }
 
-            if ((var8 = var6.a(var11)) > this.as) {
+            if ((var8 = var6.getStringWidth(var11)) > this.as) {
                 this.as = var8;
             }
         }
@@ -1479,11 +1474,11 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
         int var15;
         if (var12) {
-            if ((var8 = var6.a(screenText[11][0] + screenText[11][1] + "  ")) > this.as) {
+            if ((var8 = var6.getStringWidth(screenText[11][0] + screenText[11][1] + "  ")) > this.as) {
                 this.as = var8;
             }
 
-            var15 = var6.a("   ");
+            var15 = var6.getStringWidth("   ");
             if (this.as + var15 < var2 - (var15 >> 1)) {
                 this.as += var15;
             }
@@ -1706,7 +1701,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                     for(int var10 = -1; var10 <= 1; ++var10) {
                         for(int var9 = -1; var9 <= 1; ++var9) {
                             if ((var9 != 0 || var10 != 0) && (!this.P || var9 == 0 || var10 == 0)) {
-                                var6.a(graphics, var43, this.screenWidthHalf - (var6.a(var43) >> 1) + var9, var29 + var10, 20);
+                                var6.drawString(graphics, var43, this.screenWidthHalf - (var6.getStringWidth(var43) >> 1) + var9, var29 + var10, 20);
                             }
                         }
                     }
@@ -1742,7 +1737,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 }
 
                 graphics.setColor(j.backgroundColor);
-                var6.a(graphics, var43, this.screenWidthHalf - (var6.a(var43) >> 1), var29, 20);
+                var6.drawString(graphics, var43, this.screenWidthHalf - (var6.getStringWidth(var43) >> 1), var29, 20);
                 var29 += var15;
                 this.af = var15;
             }
@@ -1756,7 +1751,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
         var42 = var45 - (var6.b() - var6.f3) >> 1;
         if (!cy) {
-            var6.a(graphics, var43, this.screenWidthHalf - (var6.a(var43) >> 1), var42, 20);
+            var6.drawString(graphics, var43, this.screenWidthHalf - (var6.getStringWidth(var43) >> 1), var42, 20);
         }
 
         graphics.setColor(defaultColor);
@@ -1768,11 +1763,11 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
         if (!cy) {
             return false;
         } else {
-            if (!n.s && n.c12 != null) {
-                n.b12 = false;
-                b10.m12 = 0;
-                b10.b();
-                if (!n.b12) {
+            if (!BluetoothManager.isRunning && BluetoothManager.connectionURL != null) {
+                BluetoothManager.isServer = false;
+                btManager.connectionState = 0;
+                btManager.launchInSeparateThread();
+                if (!BluetoothManager.isServer) {
                     if (cq && this.cr != null) {
                         this.cr.N = 0;
                         this.cr.T = true;
@@ -1787,7 +1782,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                         } catch (Exception var2) {
                         }
 
-                        if (b10.m12 == 1) {
+                        if (btManager.connectionState == 1) {
                             if (cq && this.cr != null) {
                                 this.cr.N = 0;
                                 this.cr.T = true;
@@ -1809,14 +1804,14 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                             return false;
                         }
 
-                        if (b10.m12 == -1) {
+                        if (btManager.connectionState == -1) {
                             return false;
                         }
                     }
                 }
             }
 
-            return n.g12;
+            return BluetoothManager.isConnected;
         }
     }
 
@@ -1951,7 +1946,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
     private final void J() {
         if (cy) {
-            if (!n.b12) {
+            if (!BluetoothManager.isServer) {
                 for(int var1 = 0; var1 < this.cU; ++var1) {
                     if (this.ch[0][var1] > 0) {
                         if (this.ch[8][var1] == 1) {
@@ -2244,42 +2239,44 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
         }
     }
 
-    private static void a(String var0) {
-        if (b10 != null && var0 != null && var0.length() > 0) {
-            char[] var1 = new char[var0.length()];
+    private static void changeBtServiceUUID(String uuid) {
+        if (btManager != null && uuid != null && uuid.length() > 0) {
+            char[] hexUUID = new char[uuid.length()];
 
-            for(int var2 = 0; var2 < var1.length; ++var2) {
-                int var3;
-                if ((var3 = var0.charAt(var2)) < 48) {
-                    var3 = 48;
+            // Convert uuid to hexadecimal numeric
+            for(int i = 0; i < hexUUID.length; ++i) {
+                int ch;
+                // Less than 0 ascii
+                if ((ch = uuid.charAt(i)) < 48) {
+                    ch = 48;
+                }
+                // Uppercase letters A-F
+                if (ch >= 65 && ch <= 70) {
+                    ch = ch - 65 + 97;
+                }
+                // Greater than f ascii
+                if (ch > 102) {
+                    ch = 102;
+                }
+                // Other uppercase letters F-a
+                if (ch > 57 && ch < 97) {
+                    ch = 97;
                 }
 
-                if (var3 >= 65 && var3 <= 70) {
-                    var3 = var3 - 65 + 97;
-                }
-
-                if (var3 > 102) {
-                    var3 = 102;
-                }
-
-                if (var3 > 57 && var3 < 97) {
-                    var3 = 97;
-                }
-
-                var1[var2] = (char)var3;
+                hexUUID[i] = (char)ch;
             }
 
-            String var4;
-            if ((var4 = new String(var1)).length() > 32) {
-                var4 = var4.substring(0, 32);
+            String partialUUID;
+            if ((partialUUID = new String(hexUUID)).length() > 32) {
+                partialUUID = partialUUID.substring(0, 32);
             }
 
-            b10.a12 = b10.a12.substring(0, b10.a12.length() - var4.length()) + var4;
+            btManager.serviceUUID = btManager.serviceUUID.substring(0, btManager.serviceUUID.length() - partialUUID.length()) + partialUUID;
         }
     }
 
     final void f() {
-        a("99");
+        changeBtServiceUUID("99");
     }
 
     private final void N() {
@@ -3266,7 +3263,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 graphics.setColor(GameColors.COLOR_ENEMY);
             }
 
-            d var8;
+            TextRenderer var8;
             int var9 = (var8 = j.x).b() - var8.f3 + 4;
             if (this.cr != null && this.cr.checkIfAlphaBlendingIsSupported() && this.bT > 0) {
                 if (this.bT > 0 && this.bT <= 255) {
@@ -3339,12 +3336,12 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             }
 
             String endBattleMessage = screenText[3][endBattleMessageId];
-            int var14 = 4 + var8.a(endBattleMessage);
+            int var14 = 4 + var8.getStringWidth(endBattleMessage);
             var7 -= var14 >> 1;
             graphics.setColor(GameColors.COLOR_BLACK);
             graphics.setFont(j.defaultFont);
             if (this.aF > var8.b() - var8.f3) {
-                var8.a(graphics, endBattleMessage, var7 + 2, var10 + (this.aF - (var8.b() - var8.f3) >> 1), 20);
+                var8.drawString(graphics, endBattleMessage, var7 + 2, var10 + (this.aF - (var8.b() - var8.f3) >> 1), 20);
             }
 
             if (c(0, 0, this.screenWidth, this.getHeight())) {
@@ -3474,13 +3471,13 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     final boolean h() {
         if (!cy) {
             return false;
-        } else if (!n.s) {
+        } else if (!BluetoothManager.isRunning) {
             this.c(1);
-            n.b12 = false;
-            b10.w = null;
-            n.c12 = null;
-            b10.l12 = true;
-            b10.b();
+            BluetoothManager.isServer = false;
+            btManager.remoteServerName = null;
+            BluetoothManager.connectionURL = null;
+            btManager.isInDiscoveryMode = true;
+            btManager.launchInSeparateThread();
             return true;
         } else {
             this.c(5);
@@ -3557,7 +3554,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 } catch (Exception var9) {
                 }
 
-                if ((var5 = j.x.a(var2) / 3) < this.screenWidthHalf) {
+                if ((var5 = j.x.getStringWidth(var2) / 3) < this.screenWidthHalf) {
                     var5 = this.screenWidthHalf;
                 }
 
@@ -3570,7 +3567,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 int var7 = 0;
 
                 for(int var8 = 0; var8 < this.cs.length; ++var8) {
-                    int var11 = j.x.a(this.cs[var8]);
+                    int var11 = j.x.getStringWidth(this.cs[var8]);
                     if (var7 < var11) {
                         var7 = var11;
                     }
@@ -5579,14 +5576,14 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
     private void al() {
         if (cy) {
-            if (this.aO && this.dB && !n.g12) {
+            if (this.aO && this.dB && !BluetoothManager.isConnected) {
                 this.aD();
                 this.ao();
                 this.c(3);
             }
 
-            if (n.r && n.g12) {
-                if (b10.h12[0] == 125 && n.b12) {
+            if (BluetoothManager.isAwaitingData && BluetoothManager.isConnected) {
+                if (btManager.receiveBuffer[0] == 125 && BluetoothManager.isServer) {
                     this.d();
                     return;
                 }
@@ -5597,7 +5594,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 int var6;
                 try {
                     int var2;
-                    if ((var2 = (var1 = b10.h12).length) > ai) {
+                    if ((var2 = (var1 = btManager.receiveBuffer).length) > ai) {
                         var2 = ai;
                     }
 
@@ -5899,7 +5896,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 }
 
                 try {
-                    var1 = b10.i12;
+                    var1 = btManager.sendBuffer;
                     byte[] var27 = ac;
                     var3 = 0;
                     int var28;
@@ -5976,7 +5973,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 } catch (Exception var24) {
                 }
 
-                n.r = false;
+                BluetoothManager.isAwaitingData = false;
             }
 
         }
@@ -6240,7 +6237,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 this.dE = false;
             }
 
-            if (!cy || n.g12 && this.er) {
+            if (!cy || BluetoothManager.isConnected && this.er) {
                 this.c(-1);
                 this.br = 0;
                 this.aa();
@@ -6298,7 +6295,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
         this.au = null;
         NokiaCanvasWrapper.transparentRegionData = null;
         this.sprSelectionBounds = null;
-        if (b10 != null && n.g12) {
+        if (btManager != null && BluetoothManager.isConnected) {
             this.d();
         }
 
@@ -6321,7 +6318,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             long var1;
             if ((var1 = System.currentTimeMillis()) - this.cw >= 2048L) {
                 if (this.aO) {
-                    if (!cy || b10 == null || this.A()) {
+                    if (!cy || btManager == null || this.A()) {
                         this.cw = var1;
                         byte var3 = 8;
                         if (cy) {
@@ -7635,7 +7632,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 this.k(graphics);
                 graphics.setClip(0, 0, this.screenWidth, this.screenHeight);
                 if (aR) {
-                    j.x.a(graphics, "" + this.dk, 1, this.bx - 1 - j.x.b(), 20);
+                    j.x.drawString(graphics, "" + this.dk, 1, this.bx - 1 - j.x.b(), 20);
                 }
             } catch (Exception var8) {
             }
@@ -7975,7 +7972,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     }
 
     static int f(int var0) {
-        if (cy && !n.b12) {
+        if (cy && !BluetoothManager.isServer) {
             if (var0 == 1) {
                 var0 = 2;
             } else if (var0 == 2) {
@@ -8233,10 +8230,10 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     }
 
     private final void az() {
-        for(int var1 = 0; var1 < 3 && !this.dD && n.g12; ++var1) {
+        for(int var1 = 0; var1 < 3 && !this.dD && BluetoothManager.isConnected; ++var1) {
             this.f(33, 0, 0, 0);
 
-            while(this.m10 > 0 && n.g12) {
+            while(this.m10 > 0 && BluetoothManager.isConnected) {
                 this.bK = 1;
                 this.al();
 
@@ -8247,14 +8244,14 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             }
         }
 
-        if (this.dD && n.g12) {
+        if (this.dD && BluetoothManager.isConnected) {
             this.aw();
         }
 
-        while(this.dD && n.g12) {
+        while(this.dD && BluetoothManager.isConnected) {
             this.f(33, 0, 0, 0);
 
-            while(this.m10 > 0 && n.g12) {
+            while(this.m10 > 0 && BluetoothManager.isConnected) {
                 this.bK = 1;
                 this.al();
 
@@ -8419,9 +8416,9 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
                         this.dA = false;
                         this.aM();
-                        b10.a();
-                        b10.w = null;
-                        n.c12 = null;
+                        btManager.abortConnection();
+                        btManager.remoteServerName = null;
+                        BluetoothManager.connectionURL = null;
                     } else {
                         if (this.victory) {
                             this.F(AssetManager.e1);
@@ -8815,7 +8812,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             if (this.bm != null) {
                 var1.drawImage(this.bm, this.screenWidthHalf, var13 + this.bk.getHeight() + this.bm.getHeight(), 17);
             } else {
-                j.A.a(var1, screenText[1][0], this.screenWidthHalf, var13 + this.bk.getHeight() + j.A.b(), 17);
+                j.A.drawString(var1, screenText[1][0], this.screenWidthHalf, var13 + this.bk.getHeight() + j.A.b(), 17);
             }
         } else {
             int var7 = (var13 = (var6 = var2 - j.A.b() * 2) - var3 * 2) - var3;
@@ -8983,112 +8980,113 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     }
 
     // TODO: responsible for drawing units
-    private final boolean a(Graphics graphics, int var2, int var3, int var4, int var5, boolean drawShadows, boolean var7, int var8, int var9) {
-        boolean var10 = false;
+    private final boolean a(Graphics graphics, int unitIndex, int x, int y, int var5, boolean drawShadows, boolean var7, int var8, int var9) {
+        boolean unitHasShadow = false;
         int defaultClipX = graphics.getClipX();
         int defaultClipY = graphics.getClipY();
         int defaultClipWidth = graphics.getClipWidth();
         int defaultClipHeight = graphics.getClipHeight();
 
         try {
-            int var15 = 0;
-            int var16 = var2;
+            int unitSpriteIndex = 0;
+            int var16 = unitIndex;
             if (this.am.length > 6) {
-                var15 = this.am[6][var2];
+                unitSpriteIndex = this.am[6][unitIndex];
             } else {
                 while(var16 >= this.bs) {
                     var16 -= this.bs;
-                    ++var15;
+                    ++unitSpriteIndex;
                 }
             }
 
             if (var5 == 3) {
-                var3 -= this.am[2][var2] >> 1;
-                var4 -= this.am[3][var2] >> 1;
+                x -= this.am[2][unitIndex] >> 1;
+                y -= this.am[3][unitIndex] >> 1;
             }
 
             if (var5 == 33) {
-                var3 -= this.am[2][var2] >> 1;
-                var4 -= this.am[3][var2];
+                x -= this.am[2][unitIndex] >> 1;
+                y -= this.am[3][unitIndex];
             }
 
             boolean var17 = false;
-            short var18 = this.am[3][var2];
+            short sprHeight = this.am[3][unitIndex];
             boolean var20 = false;
             boolean var21 = false;
-            int var23;
-            int var24;
-            int var25;
-            int var26;
-            if (drawShadows && this.sprUnitShadows[var15] != null) {
-                var4 += var18;
+            int clipWidth;
+            int clipHeight;
+            int clipX;
+            int clipY;
+            if (drawShadows && this.sprUnitShadows[unitSpriteIndex] != null) {
+                int shadowY = y;
+                shadowY += sprHeight;
                 if (var7) {
-                    var4 -= (var18 >> 1) + (var18 >> 2);
+                    shadowY -= (sprHeight >> 1) + (sprHeight >> 2);    // 3/4 of the tile size
                 }
 
-                var4 -= var9;
-                var23 = this.am[2][var2];
-                var24 = this.am[3][var2];
-                var25 = var3;
-                var26 = var4;
-                if (var3 < defaultClipX) {
-                    var23 -= defaultClipX - var3;
-                    var25 = defaultClipX;
+                shadowY -= var9;
+                clipWidth = this.am[2][unitIndex];
+                clipHeight = this.am[3][unitIndex];
+                clipX = x;
+                clipY = shadowY;
+                if (x < defaultClipX) {
+                    clipWidth -= defaultClipX - x;
+                    clipX = defaultClipX;
                 }
 
-                if (var4 < defaultClipY) {
-                    var24 -= defaultClipY - var4;
-                    var26 = defaultClipY;
+                if (shadowY < defaultClipY) {
+                    clipHeight -= defaultClipY - shadowY;
+                    clipY = defaultClipY;
                 }
 
-                if (var25 + var23 > defaultClipX + defaultClipWidth) {
-                    var23 = defaultClipX + defaultClipWidth - var25;
+                if (clipX + clipWidth > defaultClipX + defaultClipWidth) {
+                    clipWidth = defaultClipX + defaultClipWidth - clipX;
                 }
 
-                if (var26 + var24 > defaultClipY + defaultClipHeight) {
-                    var24 = defaultClipY + defaultClipHeight - var26;
+                if (clipY + clipHeight > defaultClipY + defaultClipHeight) {
+                    clipHeight = defaultClipY + defaultClipHeight - clipY;
                 }
 
-                if (var23 > 0 && var24 > 0) {
-                    graphics.setClip(var25, var26, var23, var24);
-                    graphics.drawImage(this.sprUnitShadows[var15], var3 - this.am[0][var2], var4 - this.am[1][var2], 20);
+                if (clipWidth > 0 && clipHeight > 0) {
+                    graphics.setClip(clipX, clipY, clipWidth, clipHeight);
+                    graphics.drawImage(this.sprUnitShadows[unitSpriteIndex], x - this.am[0][unitIndex], shadowY - this.am[1][unitIndex], 20);
                 }
 
-                var10 = true;
+                unitHasShadow = true;
             }
 
-            var4 += var8;
-            var23 = this.am[2][var2];
-            var24 = this.am[3][var2];
-            var25 = var3;
-            var26 = var4;
-            if (var3 < defaultClipX) {
-                var23 -= defaultClipX - var3;
-                var25 = defaultClipX;
+            y += var8;
+            clipWidth = this.am[2][unitIndex];
+            clipHeight = this.am[3][unitIndex];
+            clipX = x;
+            clipY = y;
+            if (x < defaultClipX) {
+                clipWidth -= defaultClipX - x;
+                clipX = defaultClipX;
             }
 
-            if (var4 < defaultClipY) {
-                var24 -= defaultClipY - var4;
-                var26 = defaultClipY;
+            if (y < defaultClipY) {
+                clipHeight -= defaultClipY - y;
+                clipY = defaultClipY;
             }
 
-            if (var25 + var23 > defaultClipX + defaultClipWidth) {
-                var23 = defaultClipX + defaultClipWidth - var25;
+            if (clipX + clipWidth > defaultClipX + defaultClipWidth) {
+                clipWidth = defaultClipX + defaultClipWidth - clipX;
             }
 
-            if (var26 + var24 > defaultClipY + defaultClipHeight) {
-                var24 = defaultClipY + defaultClipHeight - var26;
+            if (clipY + clipHeight > defaultClipY + defaultClipHeight) {
+                clipHeight = defaultClipY + defaultClipHeight - clipY;
             }
 
-            if (var23 > 0 && var24 > 0) {
-                graphics.setClip(var25, var26, var23, var24);
-                graphics.drawImage(this.sprUnits[var15], var3 - this.am[0][var2], var4 - this.am[1][var2], Graphics.TOP | Graphics.LEFT);
+            if (clipWidth > 0 && clipHeight > 0) {
+                graphics.setClip(clipX, clipY, clipWidth, clipHeight);
+                graphics.drawImage(this.sprUnits[unitSpriteIndex], x - this.am[0][unitIndex], y - this.am[1][unitIndex], Graphics.TOP | Graphics.LEFT);
             }
         } catch (Exception ignore) {
         }
 
         graphics.setClip(defaultClipX, defaultClipY, defaultClipWidth, defaultClipHeight);
-        return var10;
+        return unitHasShadow;
     }
 
     private final boolean e(Graphics var1, int var2, int var3, int var4, int var5) {
@@ -9225,9 +9223,9 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             var1.fillRect(0, 0, this.screenWidth, var5);
             var1.setColor(j.backgroundColor);
             String var10 = String.valueOf(this.cv[1]);
-            int var11 = j.x.a(var10);
+            int var11 = j.x.getStringWidth(var10);
             int var12 = this.screenWidth - 2 - var11;
-            j.x.a(var1, var10, var12, var9, 20);
+            j.x.drawString(var1, var10, var12, var9, 20);
             var12 -= 3;
             this.d(var1, 130, var12 - this.R[2][130], var5 - 0 - this.R[3][130] >> 1, 20);
             if (this.eB == null || this.eL != this.eM || this.eF != this.eG) {
@@ -9251,7 +9249,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
             this.d(var1, 131, 2, var5 - 2 - this.R[3][131] >> 1, 20);
             var12 = 2 + this.R[2][131] + 2;
-            j.x.a(var1, this.eB, var12, var9, 20);
+            j.x.drawString(var1, this.eB, var12, var9, 20);
             var1.setColor(GameColors.COLOR_MAGENTA);
             var1.fillRect(0, var5 - 1, this.screenWidth, 1);
             var1.setColor(GameColors.COLOR_PURPLE);
@@ -9560,7 +9558,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 } catch (Exception var22) {
                 }
 
-                if (b10 != null && n.g12) {
+                if (btManager != null && BluetoothManager.isConnected) {
                     this.d();
                 }
 
@@ -9785,7 +9783,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
     private void aD() {
         byte[] var1 = N;
-        if (!n.b12) {
+        if (!BluetoothManager.isServer) {
             var1 = null;
         }
 
@@ -10457,14 +10455,14 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
         int var2;
         int var3;
-        while(!n.g12 || !this.er) {
+        while(!BluetoothManager.isConnected || !this.er) {
             var2 = this.br;
             if (cq && this.cr != null) {
                 var2 = this.cr.N;
             }
 
-            if (var2 == 35 || var2 == -7 || !n.s) {
-                if (!n.s) {
+            if (var2 == 35 || var2 == -7 || !BluetoothManager.isRunning) {
+                if (!BluetoothManager.isRunning) {
                     this.c(3);
                 } else {
                     this.c(-1);
@@ -10472,43 +10470,43 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                 break;
             }
 
-            if (this.aC && !n.g12) {
+            if (this.aC && !BluetoothManager.isConnected) {
                 break;
             }
 
-            if (n.g12 && n.r && n.g12) {
+            if (BluetoothManager.isConnected && BluetoothManager.isAwaitingData && BluetoothManager.isConnected) {
                 for(var3 = 0; var3 < ac.length; ++var3) {
                     ac[var3] = 0;
                 }
 
-                for(int var4 = 0; var4 < b10.i12.length; ++var4) {
-                    b10.i12[var4] = 0;
+                for(int var4 = 0; var4 < btManager.sendBuffer.length; ++var4) {
+                    btManager.sendBuffer[var4] = 0;
                 }
 
-                b10.i12[0] = 127;
+                btManager.sendBuffer[0] = 127;
 
-                for(int var5 = 0; var5 < b10.i12.length; ++var5) {
-                    b10.i12[var5] = 127;
+                for(int var5 = 0; var5 < btManager.sendBuffer.length; ++var5) {
+                    btManager.sendBuffer[var5] = 127;
                 }
 
-                if (b10.h12[0] == 127) {
+                if (btManager.receiveBuffer[0] == 127) {
                     this.er = true;
-                    ai = b10.h12.length;
+                    ai = btManager.receiveBuffer.length;
 
-                    for(int var6 = 0; var6 < b10.h12.length; ++var6) {
-                        if (b10.h12[var6] != 127) {
+                    for(int var6 = 0; var6 < btManager.receiveBuffer.length; ++var6) {
+                        if (btManager.receiveBuffer[var6] != 127) {
                             ai = var6;
                             break;
                         }
                     }
                 }
 
-                if (n.g12 && b10.h12[0] == 125 && n.b12) {
+                if (BluetoothManager.isConnected && btManager.receiveBuffer[0] == 125 && BluetoothManager.isServer) {
                     this.d();
                     break;
                 }
 
-                n.r = false;
+                BluetoothManager.isAwaitingData = false;
             }
 
             this.ah();
@@ -10529,10 +10527,10 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             this.aa();
         }
 
-        b10.h12[0] = 0;
+        btManager.receiveBuffer[0] = 0;
 
-        for(var2 = 0; var2 < b10.h12.length; ++var2) {
-            b10.h12[var2] = 0;
+        for(var2 = 0; var2 < btManager.receiveBuffer.length; ++var2) {
+            btManager.receiveBuffer[var2] = 0;
         }
 
         ac[0] = 0;
@@ -10541,9 +10539,9 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             ac[var3] = 0;
         }
 
-        if (n.g12 && ai < dz && !this.aC) {
+        if (BluetoothManager.isConnected && ai < dz && !this.aC) {
             this.f(20, 0, 0, 0);
-            if (!n.b12) {
+            if (!BluetoothManager.isServer) {
                 this.f(21, 0, 0, 0);
                 this.bn = true;
             }
@@ -10551,8 +10549,8 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             this.bK = 1;
         }
 
-        if (n.g12 && !this.aC) {
-            while(this.m10 > 0 && n.g12) {
+        if (BluetoothManager.isConnected && !this.aC) {
+            while(this.m10 > 0 && BluetoothManager.isConnected) {
                 this.bK = 1;
                 this.al();
 
@@ -10564,7 +10562,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
             this.f(19, this.ej, 0, 0);
 
-            while(this.m10 > 0 && n.g12) {
+            while(this.m10 > 0 && BluetoothManager.isConnected) {
                 this.bK = 1;
                 this.al();
 
@@ -10575,15 +10573,15 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             }
         }
 
-        if (n.g12 && !this.aC && this.cx) {
+        if (BluetoothManager.isConnected && !this.aC && this.cx) {
             this.aW();
         }
 
-        if (n.g12 && !this.aC && !this.cx && !n.b12) {
+        if (BluetoothManager.isConnected && !this.aC && !this.cx && !BluetoothManager.isServer) {
             this.az();
         }
 
-        if (n.g12 && !this.aC && n.b12) {
+        if (BluetoothManager.isConnected && !this.aC && BluetoothManager.isServer) {
             byte var11 = 0;
             if (ax) {
                 var11 = 1;
@@ -10736,10 +10734,10 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
     final void u() {
         if (cy) {
-            if (!n.s) {
+            if (!BluetoothManager.isRunning) {
                 this.c(0);
-                n.b12 = true;
-                b10.b();
+                BluetoothManager.isServer = true;
+                btManager.launchInSeparateThread();
             } else {
                 this.c(5);
             }
@@ -11133,14 +11131,14 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
         this.aw();
         this.f(23, 0, 0, 0);
 
-        for(int var2 = 0; var2 < N.length && n.g12; var2 += 32) {
+        for(int var2 = 0; var2 < N.length && BluetoothManager.isConnected; var2 += 32) {
             int var3 = 32;
             if (var2 + 32 > N.length) {
                 var3 = N.length - var2;
             }
 
             if (!this.f(22, 0, var2, var3)) {
-                while(this.m10 > 0 && n.g12) {
+                while(this.m10 > 0 && BluetoothManager.isConnected) {
                     this.bK = 1;
                     this.al();
 
@@ -11154,7 +11152,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             }
         }
 
-        while(this.m10 > 0 && n.g12) {
+        while(this.m10 > 0 && BluetoothManager.isConnected) {
             this.bK = 1;
             this.al();
 
@@ -11166,7 +11164,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
 
         this.f(23, 1, 0, 0);
 
-        while(this.m10 > 0 && n.g12) {
+        while(this.m10 > 0 && BluetoothManager.isConnected) {
             this.bK = 1;
             this.al();
 
@@ -11214,7 +11212,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             if (this.ff == 121) {
                 try {
                     String var7 = "" + this.bZ[9][this.A];
-                    int var8 = this.screenWidth - 2 - j.x.a(var7);
+                    int var8 = this.screenWidth - 2 - j.x.getStringWidth(var7);
                     if (this.w != null) {
                         int var9;
                         if (this.w[0] != null) {
@@ -11233,13 +11231,13 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
                         }
                     }
 
-                    j.x.a(var1, var7, var8, var4 + var11, 20);
+                    j.x.drawString(var1, var7, var8, var4 + var11, 20);
                 } catch (Exception var10) {
                 }
             }
 
-            int var12 = j.x.a(var2);
-            j.x.a(var1, var2, (var6 - this.dY - var12 >> 1) + this.dY, var4 + var11, 20);
+            int var12 = j.x.getStringWidth(var2);
+            j.x.drawString(var1, var2, (var6 - this.dY - var12 >> 1) + this.dY, var4 + var11, 20);
             this.fY -= j.x.b() + 5;
         }
     }
@@ -11564,7 +11562,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     }
 
     final boolean w() {
-        if (cy && b10 == null) {
+        if (cy && btManager == null) {
             return false;
         } else {
             return !cy || this.A();
@@ -11694,7 +11692,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
     }
 
     private boolean M(int var1) {
-        if (cy && b10 == null) {
+        if (cy && btManager == null) {
             return false;
         } else {
             return cy && !this.A() && var1 == 1;
@@ -11832,7 +11830,7 @@ public final class k extends NokiaCanvasWrapper implements Runnable {
             var1.drawRect(var11, var12, var9, var10);
 
             for(int var15 = this.en; var15 < this.cs.length && var5 < var6; ++var15) {
-                j.x.a(var1, this.cs[var15], var18, var17, 20);
+                j.x.drawString(var1, this.cs[var15], var18, var17, 20);
                 var17 += var2;
                 ++var5;
             }
